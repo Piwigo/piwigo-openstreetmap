@@ -22,7 +22,7 @@ $lang['NOWORLDWARP_DESC'] = "Normally the world will continue to the left and th
 $lang['ATTRLEAFLET'] = "Show 'Powered by Leaflet'";
 $lang['ATTRLEAFLET_DESC'] = "Shows a attribution of the used JavaScript library for interactive maps 'Leaflet'.";
 $lang['ATTRIMAGERY'] = "Show map style";
-$lang['ATTRIMAGERY_DESC'] = "Shows the used map style. You are free to copy, distribute, transmit and adapt our data, as long as you credit OpenStreetMap and its contributors.";
+$lang['ATTRIMAGERY_DESC'] = "Shows the used map style.";
 $lang['ATTRMODULE'] = "Show Author note";
 $lang['ATTRMODULE_DESC'] = "I created this plugin. :)";
 

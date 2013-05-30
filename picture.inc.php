@@ -91,10 +91,10 @@ function osm_render_element_content()
     $baselayer = isset($conf['osm_baselayer']) ? $conf['osm_baselayer'] : 'mapnik';
     $custombaselayer = isset($conf['$custombaselayer']) ? $conf['$custombaselayer'] : '';
     $custombaselayerurl = isset($conf['$custombaselayerurl']) ? $conf['$custombaselayerurl'] : '';
-    $noworldwarp = isset($conf['osm_noworldwarp']) ? osm_strbool($conf['osm_noworldwarp']) : 'false';
-    $attrleaflet = isset($conf['osm_attrleaflet']) ? osm_strbool($conf['osm_attrleaflet']) : 'false';
-    $attrimagery = isset($conf['osm_attrimagery']) ? osm_strbool($conf['osm_attrimagery']) : 'false';
-    $attrmodule = isset($conf['osm_attrmodule']) ? osm_strbool($conf['osm_attrmodule']) : 'false';
+    $noworldwarp = isset($conf['osm_noworldwarp']) ? $conf['osm_noworldwarp'] : 'false';
+    $attrleaflet = isset($conf['osm_attrleaflet']) ? $conf['osm_attrleaflet'] : 'false';
+    $attrimagery = isset($conf['osm_attrimagery']) ? $conf['osm_attrimagery'] : 'false';
+    $attrmodule = isset($conf['osm_attrmodule']) ? $conf['osm_attrmodule'] : 'false';
 
     $IMAGERY="Imagery by";
     $PLG_BY="Plugin by";

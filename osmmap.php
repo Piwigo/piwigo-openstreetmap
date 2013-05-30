@@ -81,14 +81,14 @@ foreach($php_data as $array)
 }
 //echo json_encode($js_data);
 
-// Load Paramter
+// Load parameter, fallback to default if unset
 $baselayer = isset($conf['osm_baselayer']) ? $conf['osm_baselayer'] : 'mapnik';
 $custombaselayer = isset($conf['$custombaselayer']) ? $conf['$custombaselayer'] : '';
 $custombaselayerurl = isset($conf['$custombaselayerurl']) ? $conf['$custombaselayerurl'] : '';
-$noworldwarp = isset($conf['osm_noworldwarp']) ? osm_strbool($conf['osm_noworldwarp']) : 'false';
-$attrleaflet = isset($conf['osm_attrleaflet']) ? osm_strbool($conf['osm_attrleaflet']) : 'false';
-$attrimagery = isset($conf['osm_attrimagery']) ? osm_strbool($conf['osm_attrimagery']) : 'false';
-$attrmodule = isset($conf['osm_attrmodule']) ? osm_strbool($conf['osm_attrmodule']) : 'false';
+$noworldwarp = isset($conf['osm_noworldwarp']) ? $conf['osm_noworldwarp'] : 'false';
+$attrleaflet = isset($conf['osm_attrleaflet']) ? $conf['osm_attrleaflet'] : 'false';
+$attrimagery = isset($conf['osm_attrimagery']) ? $conf['osm_attrimagery'] : 'false';
+$attrmodule = isset($conf['osm_attrmodule']) ? $conf['osm_attrmodule'] : 'false';
 
 $IMAGERY="Imagery by";
 $PLG_BY="Plugin by";
@@ -116,14 +116,15 @@ else
 	$worldcopyjump = "worldCopyJump: true";
 }
 
-//$js = "\nvar addressPoints = ". json_encode($js_data, JSON_UNESCAPED_SLASHES) .";\n";
+$js = "\nvar addressPoints = ". json_encode($js_data, JSON_UNESCAPED_SLASHES) .";\n";
 
 // Create the map and get a new map instance attached and element with id="tile-map"
-$js = "\nvar cloudmadeUrl = '".$baselayerurl."',
-	cloudmadeAttribution = '".$OSMCOPYRIGHT."',
-	cloudmade = new L.TileLayer(cloudmadeUrl, {maxZoom: 18, attribution: cloudmadeAttribution}),
+$js .= "\nvar Url = '".$baselayerurl."',
+	Attribution = '".$OSMCOPYRIGHT."',
+	TileLayer = new L.TileLayer(Url, {maxZoom: 18, attribution: Attribution}),
 	latlng = new L.LatLng(0, 0);\n";
-$js .= "var map = new L.Map('map', {center: latlng, zoom: 2, layers: [cloudmade]});\n";
+$js .= "var map = new L.Map('map', {center: latlng, zoom: 2, layers: [TileLayer]});\n";
+$js .= "map.attributionControl.setPrefix('');\n";
 $js .= "var markers = new L.MarkerClusterGroup();\n";
 $js .= "for (var i = 0; i < addressPoints.length; i++) {
 	var a = addressPoints[i];
@@ -140,8 +141,6 @@ $js .= "map.addLayer(markers);\n";
 if($attrleaflet){ $js .= "map.attributionControl.addAttribution('Powered by Leaflet');\n"; }
 if($attrimagery){ $js .= "map.attributionControl.addAttribution('".$IMAGERY." ". imagery($baselayer, $custombaselayer)."');\n"; }
 if($attrmodule){ $js .= "map.attributionControl.addAttribution('".$PLG_BY." <a href=\"https://github.com/xbgmsharp/piwigo-openstreetmap\" target=\"_blank\">xbgmsharp</a>');\n"; }
-
-//print $attrleaflet.$attrimagery.$attrmodule;
 
 $template->set_filename('map', dirname(__FILE__).'/template/osm-map.tpl' );
 
