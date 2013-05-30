@@ -91,6 +91,7 @@ function osm_strbool($value)
 function imagery($bl, $style){
 	$return = "";
 	if     ($bl == 'mapnik')	$return = "OSM.org (CC BY-SA)";
+	else if($bl == 'mapnikfr')	$return = "Openstreetmap.fr (CC BY-SA)";
 	else if($bl == 'mapnikde')	$return = "Openstreetmap.de (CC BY-SA)";
 	else if($bl == 'cloudmade')	$return = "Cloudmade (CC BY-SA)";
 	else if($bl == 'mapquest')	$return = "Mapquest (CC BY-SA)";

@@ -26,8 +26,8 @@ $lang['ATTRIMAGERY_DESC'] = "Shows the used map style.";
 $lang['ATTRMODULE'] = "Show Author note";
 $lang['ATTRMODULE_DESC'] = "I created this plugin. :)";
 
-$lang['PLUGINCONF'] = "Plugin configuration";
-$lang['AUTOSYNC'] = "Automatically sync EXIF (metadata) if exist";
+$lang['PLUGINCONF'] = "Synchronize option";
+$lang['AUTOSYNC'] = "Automatically sync EXIF if exist";
 $lang['AUTOSYNC_DESC'] = "When metadata is synchronized, coordinates might be overriden.";
 
 $lang['WORLDMAP']='World map';

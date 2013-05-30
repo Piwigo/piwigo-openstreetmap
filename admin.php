@@ -51,6 +51,7 @@ $auto_sync = $conf['osm_auto_sync'] ? 'true' : 'false';
 // Available baselayer
 $available_baselayer = array(
 	'mapnik' => 'OpenStreetMap (Mapnik)',
+	'mapnikfr' => 'OpenStreetMap FR',
 	'mapnikde' => 'OpenStreetMap DE',
 	'mapquest' => 'MapQuest',
 	'cloudmade' => 'Cloudmade',
