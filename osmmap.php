@@ -69,6 +69,7 @@ if (isset($page['category']))
 	check_restrictions($page['category']['id']);
 
 // Fetch data lat and lon
+/*
 $forbidden = get_sql_condition_FandF(
 	array
 	(
@@ -76,9 +77,11 @@ $forbidden = get_sql_condition_FandF(
 		'visible_categories' => 'category_id',
 		'visible_images' => 'id'
 	),
-	"\n"
+	"\n AND"
 );
-$query="SELECT `lat`, `lon`, `file`, `path` FROM ".IMAGES_TABLE." AS i INNER JOIN ".IMAGE_CATEGORY_TABLE." AS ic ON id = ic.image_id WHERE `lat` IS NOT NULL AND `lon` IS NOT NULL AND ". $forbidden .";";
+$query="SELECT `lat`, `lon`, `file`, `path` FROM ".IMAGES_TABLE." INNER JOIN ".IMAGE_CATEGORY_TABLE." AS ic ON id = ic.image_id WHERE ". $forbidden ." `lat` IS NOT NULL AND `lon` IS NOT NULL;";
+*/
+$query="SELECT `lat`, `lon`, `file`, `path` FROM ".IMAGES_TABLE." WHERE `lat` IS NOT NULL AND `lon` IS NOT NULL;";
 $php_data = array_from_query($query);
 //print_r($php_data);
 $js_data = array();
