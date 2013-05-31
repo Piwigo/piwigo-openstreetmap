@@ -57,11 +57,10 @@ function osm_admin_menu($menu)
 
 function osm_format_exif_data($exif, $file, $map)
 {
-/*
 	if (isset($map['lat']))
 	{
 		include_once( dirname(__FILE__) .'/include/functions_metadata.php');
-		$ll = exif_to_lat_lon($exif);
+		$ll = osm_exif_to_lat_lon($exif);
 		if (is_array($ll))
 		{
 			$exif[$map['lat']] = $ll[0];
@@ -69,7 +68,6 @@ function osm_format_exif_data($exif, $file, $map)
 		}
 	}
 	return $exif;
-*/
 }
 
 function osm_blockmanager_apply($mb_arr)
