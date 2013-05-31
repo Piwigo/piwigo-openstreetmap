@@ -1,6 +1,6 @@
 <?php
 
-$lang['DISPLAY'] = "Display configuration";
+$lang['DISPLAY'] = "Configuration d'affichage";
 $lang['SHOWLOCATION'] = "Display location map";
 $lang['SHOWLOCATION_DESC'] = "Show a map on right panel on picture page";
 $lang['SHOWWORLDMAPLEFT'] = "Add a world map menu on the left";
@@ -25,7 +25,7 @@ $lang['CUSTOMBASELAYERURL_DESC'] = "Seulement si vous avez sélectionné un styl
 $lang['NOWORLDWARP'] = "No Worldwarp";
 $lang['NOWORLDWARP_DESC'] = "Normalement, le monde continuera vers la gauche et la droite. Cette option limite la vue d'un 'monde unique'.";
 $lang['ATTRLEAFLET'] = "Affiche 'Powered by Leaflet'";
-$lang['ATTRLEAFLET_DESC'] = "Affiche l'attribution de la librairie JavaScript pour les cartes interactives'Leaflet'.";
+$lang['ATTRLEAFLET_DESC'] = "Affiche l'attribution de la librairie JavaScript pour les cartes interactives 'Leaflet'.";
 $lang['ATTRIMAGERY'] = "Affiche le style de carte";
 $lang['ATTRIMAGERY_DESC'] = "Affiche le style de carte (par défaut Mapnik).";
 $lang['ATTRPLUGIN'] = "Affiche le nom de l'auteur";
