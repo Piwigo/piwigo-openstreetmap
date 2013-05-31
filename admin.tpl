@@ -91,56 +91,56 @@ You have {$NB_GEOTAGGED} geotagged images.
 				<br/><small>{'ATTRPLUGIN_DESC'|@translate}</small>
 			</li>
 		</ul>
-<!--		<fieldset>
+<!--           <fieldset>
 		  <legend>{'H_PIN'|@translate}</legend>
 		  <ul>
 			<li>
 				<label>{'PIN'|@translate} : </label>
-				<select name="osm_baselayer">
+				<select name="osm_pin">
 					{html_options options=$AVAILABLE_PIN selected=$SELECTED_PIN}
 				</select>
 				<br/><small>{'PIN_DESC'|@translate}</small>
 			</li>
 			<li>
 				<label>{'PINPATH'|@translate} : </label>
-				<input type="text" value="{$PINPATH}" name="osm_custombaselayer" size="40"/>
+				<input type="text" value="{$PINPATH}" name="osm_pinpath" size="40"/>
 				<br/><small>{'PINPATH_DESC'|@translate}</small>
 			</li>
 			<li>
 				<label>{'PINSIZE'|@translate} : </label>
-				<input type="text" value="{$CUSTOMBASELAYERURL}" name="osm_custombaselayerurl" size="40"/>
+				<input type="text" value="{$CUSTOMBASELAYERURL}" name="osm_pinsize" size="6/>
 				<br/><small>{'PINSIZE_DESC'|@translate}</small>
 			</li>
 			<li>
 				<label>{'PINSHADOWPATH'|@translate} : </label>
-				<input type="text" value="{$PINSHADOWPATH}" name="osm_custombaselayer" size="40"/>
+				<input type="text" value="{$PINSHADOWPATH}" name="osm_pinshadowpath" size="40"/>
 				<br/><small>{'PINSHADOWPATH_DESC'|@translate}</small>
 			</li>
 			<li>
 				<label>{'PINSHADOWSIZE'|@translate} : </label>
-				<input type="text" value="{$PINSHADOWSIZE}" name="osm_custombaselayerurl" size="40"/>
+				<input type="text" value="{$PINSHADOWSIZE}" name="osm_pinshadowsize" size="4"/>
 				<br/><small>{'PINSHADOWSIZE_DESC'|@translate}</small>
 			</li>
 			<li>
 				<label>{'PINOFFSET'|@translate} : </label>
-				<input type="text" value="{$PINOFFSET}" name="osm_custombaselayer" size="40"/>
-				<br/><small>{'PPINOFFSET_DESC'|@translate}</small>
+				<input type="text" value="{$PINOFFSET}" name="osm_pinoffset" size="4"/>
+				<br/><small>{'PINOFFSET_DESC'|@translate}</small>
 			</li>
 			<li>
 				<label>{'PINPOPUPOFFSET'|@translate} : </label>
-				<input type="text" value="{$PINPOPUPOFFSET}" name="osm_custombaselayerurl" size="40"/>
+				<input type="text" value="{$PINPOPUPOFFSET}" name="osm_pinpopupoffset" size="4"/>
 				<br/><small>{'PINPOPUPOFFSET_DESC'|@translate}</small>
 			</li>
 			<li>
 				<label>{'POPUP'|@translate} : </label>
-				<select name="osm_baselayer">
+				<select name="osm_popup">
 					{html_options options=$AVAILABLE_POPUP selected=$SELECTED_POPUP}
 				</select>
 				<br/><small>{'POPUP_DESC'|@translate}</small>
 			</li>
 		  </ul>
 		</fieldset>
--->
+		-->
 	</fieldset>
 	<fieldset>
 		<legend>{'PLUGINCONF'|@translate}</legend>

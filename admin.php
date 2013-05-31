@@ -67,6 +67,7 @@ $available_zoom = array(
 	'18' => '18',
 );
 
+// Available options
 $available_add_before = array(
 	'Author' => l10n('Author'),
 	'datecreate' => l10n('Created on'),
@@ -80,6 +81,20 @@ $available_add_before = array(
 	'Average' => l10n('Rating score'),
 	'rating' => l10n('Rate this photo'),
 	'Privacy' => l10n('Who can see this photo?'),
+);
+
+// Available pin
+$available_pin = array(
+	'0' => l10n('NOPIN'),
+	'1' => l10n('DEFAULTPIN'),
+	'2' => l10n('OWNPIN'),
+);
+
+// Available popup
+$available_popup = array(
+	'0' => l10n('CLICK'),
+	'1' => l10n('ALWAYS'),
+	'2' => l10n('NEVER'),
 );
 
 $query = 'SELECT COUNT(*) FROM '.IMAGES_TABLE.' WHERE `lat` IS NOT NULL and `lon` IS NOT NULL ';
@@ -126,6 +141,8 @@ $template->assign(
 		'AVAILABLE_ADD_BEFORE'	=> $available_add_before,
 		'AVAILABLE_ZOOM'	=> $available_zoom,
 		'AVAILABLE_BASELAYER'	=> $available_baselayer,
+		'AVAILABLE_PIN'		=> $available_pin,
+		'AVAILABLE_POPUP'	=> $available_popup,
 		'NB_GEOTAGGED' 		=> $nb_geotagged,
 	)
 );
