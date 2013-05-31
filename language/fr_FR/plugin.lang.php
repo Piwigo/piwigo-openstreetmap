@@ -7,8 +7,8 @@ $lang['SHOWWORLDMAPLEFT'] = "Add a world map menu on the left";
 $lang['SHOWWORLDMAPLEFT_DESC'] = "Show a world map menu on the left menu, will display all the image of the gallery";
 
 $lang['R_MAP'] = "Right Panel configuration";
-$lang['ADD_BEFORE'] = "Add location after";
-$lang['ADD_BEFORE_DESC'] = "Where to display the location information";
+$lang['ADD_BEFORE'] = "Ajouter l'information avant";
+$lang['ADD_BEFORE_DESC'] = "Ou afficher l'information de localisation";
 $lang['HEIGHT'] = "Hauteur de la carte";
 $lang['HEIGHT_DESC'] = "en pixel";
 $lang['ZOOM'] = "Niveau de Zoom";
@@ -29,13 +29,13 @@ $lang['ATTRLEAFLET_DESC'] = "Affiche l'attribution de la librairie JavaScript po
 $lang['ATTRIMAGERY'] = "Affiche le style de carte";
 $lang['ATTRIMAGERY_DESC'] = "Affiche le style de carte (par défaut Mapnik).";
 $lang['ATTRPLUGIN'] = "Affiche le nom de l'auteur";
-$lang['ATTRMPLUGIN_DESC'] = "J'ai créé cette extension. :)";
+$lang['ATTRPLUGIN_DESC'] = "J'ai créé cette extension. :)";
 
-$lang['PLUGINCONF'] = "Synchronize option";
-$lang['AUTOSYNC'] = "Automatically sync EXIF if exist";
-$lang['AUTOSYNC_DESC'] = "When metadata is synchronized, coordinates might be overriden.";
+$lang['PLUGINCONF'] = "Option de synchronization";
+$lang['AUTOSYNC'] = "Synchronizer automatiquement les données EXIF si présente";
+$lang['AUTOSYNC_DESC'] = "Lors de la synchronisation, les données precedente peuvent etre ecrasées.";
 
-$lang['WORLDMAP']='World map';
+$lang['WORLDMAP']='Carte du monde';
 
 $lang['IMAGERYBY'] = "Images par";
 $lang['PLUGINBY'] = "Plugin créé par";
