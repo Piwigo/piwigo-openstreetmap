@@ -75,6 +75,7 @@ function osm_insert_map($content, &$smarty)
 function osm_render_element_content()
 {
     global $template, $picture, $page, $conf;
+    load_language('plugin.lang', OSM_PATH);
 
     if (empty($page['image_id']))
     {
@@ -100,9 +101,6 @@ function osm_render_element_content()
     $attrimagery = isset($conf['osm_conf']['map']['attrimagery']) ? $conf['osm_conf']['map']['attrimagery'] : 'false';
     $attrmodule = isset($conf['osm_conf']['map']['attrplugin']) ? $conf['osm_conf']['map']['attrplugin'] : 'false';
 
-    $POWERBY="Power by";
-    $IMAGERY="Imagery by";
-    $PLG_BY="Plugin by";
     $OSMCOPYRIGHT='Map data © <a href="http://www.openstreetmap.org" target="_blank">OpenStreetMap</a> (<a href="http://www.openstreetmap.org/copyright" target="_blank">ODbL</a>)';
 
     // Load baselayerURL
@@ -137,9 +135,9 @@ function osm_render_element_content()
     $js .= "map.addLayer(marker);\n";
 
     // Attribution Credit and Copyright
-    if($attrleaflet){ $js .= "map.attributionControl.addAttribution('".$POWERBY." Leaflet');\n"; }
-    if($attrimagery){ $js .= "map.attributionControl.addAttribution('".$IMAGERY." ". imagery($baselayer, $custombaselayer)."');\n"; }
-    if($attrmodule){ $js .= "map.attributionControl.addAttribution('".$PLG_BY." <a href=\"https://github.com/xbgmsharp/piwigo-openstreetmap\" target=\"_blank\">xbgmsharp</a>');\n"; }
+    if($attrleaflet){ $js .= "map.attributionControl.addAttribution('".l10n('POWERBY')." Leaflet');\n"; }
+    if($attrimagery){ $js .= "map.attributionControl.addAttribution('".l10n('IMAGERYBY')." ". imagery($baselayer, $custombaselayer)."');\n"; }
+    if($attrmodule){ $js .= "map.attributionControl.addAttribution('".l10n('PLUGINBY')." <a href=\"https://github.com/xbgmsharp/piwigo-openstreetmap\" target=\"_blank\">xbgmsharp</a>');\n"; }
 
     // set map view
     $js .= "map.setView(coord, ".$zoom.").addLayer(baselayer);\n";
