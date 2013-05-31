@@ -117,7 +117,7 @@ if (isset($_POST['submit']) && !empty($_POST['osm_height']))
 	array_push($page['infos'], l10n('Your configuration settings are saved'));
 }
 
-print_r($conf['osm_conf']);
+//print_r($conf['osm_conf']);
 
 // send value to template
 $template->assign($conf['osm_conf']);
