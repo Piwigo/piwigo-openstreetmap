@@ -92,7 +92,6 @@ foreach($php_data as $array)
 	$thumb = substr($array['path'], 0, $extension_pos) . '-sq' . substr($array['path'], $extension_pos);
 	$js_data[] = array((double)$array['lat'], (double)$array['lon'], $array['file'], $thumb);
 }
-//echo json_encode($js_data);
 
 // Load parameter, fallback to default if unset
 $baselayer = isset($conf['osm_conf']['map']['baselayer']) ? $conf['osm_conf']['map']['baselayer'] : 'mapnik';
@@ -128,7 +127,8 @@ else
 	$worldcopyjump = "worldCopyJump: true";
 }
 
-$js = "\nvar addressPoints = ". json_encode($js_data, JSON_UNESCAPED_SLASHES) .";\n";
+//$js = "\nvar addressPoints = ". json_encode($js_data, JSON_UNESCAPED_SLASHES) .";\n";
+$js = "\nvar addressPoints = ". str_replace("\/","/",json_encode($js_data)) .";\n";
 
 // Create the map and get a new map instance attached and element with id="tile-map"
 $js .= "\nvar Url = '".$baselayerurl."',
