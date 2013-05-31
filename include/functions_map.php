@@ -33,11 +33,11 @@ function osm_parse_map_data_url($tokens, &$next_token)
   
     $page = array_merge( $page, parse_well_known_params_url( $tokens, $next_token) );
     $page['start']=0;
-    $page['box'] = rvm_bounds_from_url( @$_GET['box'] );
+    $page['box'] = osm_bounds_from_url( @$_GET['box'] );
     return $page;
 }
 
-function rvm_bounds_from_url($str)
+function osm_bounds_from_url($str)
 {
   if ( !isset($str) or strlen($str)==0 )
     return null;
