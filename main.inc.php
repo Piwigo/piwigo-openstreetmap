@@ -16,25 +16,33 @@ define('OSM_PATH', PHPWG_PLUGINS_PATH . basename(dirname(__FILE__)).'/');
 
 global $conf;
 
+// Prepare configuration
+$conf['osm_conf'] = unserialize($conf['osm_conf']);
+
 // Plugin on picture page
 if (script_basename() == 'picture')  
 {  
 	include_once(dirname(__FILE__).'/picture.inc.php');
 }
 
-// Hook to a admin config page
-add_event_handler('get_admin_plugin_menu_links', 'osm_admin_menu' );
+// Do we have to show a link on the left menu
+if ($conf['osm_conf']['show_left_menu'])
+{
+	// Hook to add link on the left menu
+	add_event_handler('blockmanager_apply', 'osm_blockmanager_apply');
+}
 
-// Hook to add link on the left menu
-add_event_handler('blockmanager_apply', 'osm_blockmanager_apply');
-
-// Hook to sync geotag infor on updload
-if (@$conf['osm_auto_sync'])
+// Hook to sync geotag metadata on updload
+if ($conf['osm_conf']['auto_sync'])
 {
 	$conf['use_exif_mapping']['lat'] = 'lat';
 	$conf['use_exif_mapping']['lon'] = 'lon';
 	add_event_handler('format_exif_data', 'osm_format_exif_data', EVENT_HANDLER_PRIORITY_NEUTRAL, 3);
 }
+
+
+// Hook to a admin config page
+add_event_handler('get_admin_plugin_menu_links', 'osm_admin_menu');
 
 function osm_admin_menu($menu)
 {

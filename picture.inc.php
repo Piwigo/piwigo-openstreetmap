@@ -1,6 +1,6 @@
 <?php
 /***********************************************
-* File      :   maintain.inc.php
+* File      :   picture.inc.php
 * Project   :   piwigo-openstreetmap
 * Descr     :   Display map on right panel
 *
@@ -23,11 +23,15 @@
 *
 ************************************************/
 
-// Hook to add the div in the right menu, No idea about the number after!!
-add_event_handler('loc_begin_picture', 'osm_loc_begin_picture', 56);
+// Do we have to show the right panel
+if ($conf['osm_conf']['right_panel']['enabled'])
+{
+    // Hook to add the div in the right menu, No idea about the number!!
+    add_event_handler('loc_begin_picture', 'osm_loc_begin_picture', 56);
 
-// Hook to populate the div in the right menu, No idea about the number after!!
-add_event_handler('loc_begin_picture', 'osm_render_element_content', EVENT_HANDLER_PRIORITY_NEUTRAL+1 /*in order to have picture content*/, 2);
+    // Hook to populate the div in the right menu, No idea about the number after!!
+    add_event_handler('loc_begin_picture', 'osm_render_element_content', EVENT_HANDLER_PRIORITY_NEUTRAL+1 /*in order to have picture content*/, 2);
+}
 
 function osm_loc_begin_picture()
 {
@@ -52,7 +56,7 @@ function osm_insert_map($content, &$smarty)
 <dl id="Metadata" class="imageInfoTable">';
 */
 
-    $search = '#<div id="'.$conf['osm_add_before'].'" class="imageInfo">#';
+    $search = '#<div id="'. $conf['osm_conf']['right_panel']['add_before'] .'" class="imageInfo">#';
     $replacement = '
 {if $OSMJS}
 <div id="map-info" class="imageInfo">
@@ -63,7 +67,7 @@ function osm_insert_map($content, &$smarty)
     </dd>
 </div>
 {/if}
-<div id="'.$conf['osm_add_before'].'" class="imageInfo">';
+<div id="'. $conf['osm_conf']['right_panel']['add_before'] .'" class="imageInfo">';
 
     return preg_replace($search, $replacement, $content);
 }
@@ -86,15 +90,15 @@ function osm_render_element_content()
     $lon = $row['lon'];
 
     // Load parameter, fallback to default if unset
-    $height = isset($conf['osm_height']) ? $conf['osm_height'] : '200';
-    $zoom = isset($conf['osm_zoom']) ? $conf['osm_zoom'] : '12';
-    $baselayer = isset($conf['osm_baselayer']) ? $conf['osm_baselayer'] : 'mapnik';
-    $custombaselayer = isset($conf['$custombaselayer']) ? $conf['$custombaselayer'] : '';
-    $custombaselayerurl = isset($conf['$custombaselayerurl']) ? $conf['$custombaselayerurl'] : '';
-    $noworldwarp = isset($conf['osm_noworldwarp']) ? $conf['osm_noworldwarp'] : 'false';
-    $attrleaflet = isset($conf['osm_attrleaflet']) ? $conf['osm_attrleaflet'] : 'false';
-    $attrimagery = isset($conf['osm_attrimagery']) ? $conf['osm_attrimagery'] : 'false';
-    $attrmodule = isset($conf['osm_attrmodule']) ? $conf['osm_attrmodule'] : 'false';
+    $height = isset($conf['osm_conf']['right_panel']['height']) ? $conf['osm_conf']['right_panel']['height'] : '200';
+    $zoom = isset($conf['osm_conf']['right_panel']['zoom']) ? $conf['osm_conf']['right_panel']['zoom'] : '12';
+    $baselayer = isset($conf['osm_conf']['map']['baselayer']) ? $conf['osm_conf']['map']['baselayer'] : 'mapnik';
+    $custombaselayer = isset($conf['osm_conf']['map']['custombaselayer']) ? $conf['osm_conf']['map']['custombaselayer'] : '';
+    $custombaselayerurl = isset($conf['osm_conf']['map']['custombaselayerurl']) ? $conf['osm_conf']['map']['custombaselayerurl'] : '';
+    $noworldwarp = isset($conf['osm_conf']['map']['noworldwarp']) ? $conf['osm_conf']['map']['noworldwarp'] : 'false';
+    $attrleaflet = isset($conf['osm_conf']['map']['attrleaflet']) ? $conf['osm_conf']['map']['attrleaflet'] : 'false';
+    $attrimagery = isset($conf['osm_conf']['map']['attrimagery']) ? $conf['osm_conf']['map']['attrimagery'] : 'false';
+    $attrmodule = isset($conf['osm_conf']['map']['attrplugin']) ? $conf['osm_conf']['map']['attrplugin'] : 'false';
 
     $IMAGERY="Imagery by";
     $PLG_BY="Plugin by";

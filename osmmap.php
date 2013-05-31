@@ -1,6 +1,6 @@
 <?php
 /***********************************************
-* File      :   maintain.inc.php
+* File      :   osmmap.php
 * Project   :   piwigo-openstreetmap
 * Descr     :   Display a world map
 *
@@ -82,13 +82,13 @@ foreach($php_data as $array)
 //echo json_encode($js_data);
 
 // Load parameter, fallback to default if unset
-$baselayer = isset($conf['osm_baselayer']) ? $conf['osm_baselayer'] : 'mapnik';
-$custombaselayer = isset($conf['$custombaselayer']) ? $conf['$custombaselayer'] : '';
-$custombaselayerurl = isset($conf['$custombaselayerurl']) ? $conf['$custombaselayerurl'] : '';
-$noworldwarp = isset($conf['osm_noworldwarp']) ? $conf['osm_noworldwarp'] : 'false';
-$attrleaflet = isset($conf['osm_attrleaflet']) ? $conf['osm_attrleaflet'] : 'false';
-$attrimagery = isset($conf['osm_attrimagery']) ? $conf['osm_attrimagery'] : 'false';
-$attrmodule = isset($conf['osm_attrmodule']) ? $conf['osm_attrmodule'] : 'false';
+$baselayer = isset($conf['osm_conf']['map']['baselayer']) ? $conf['osm_conf']['map']['baselayer'] : 'mapnik';
+$custombaselayer = isset($conf['osm_conf']['map']['custombaselayer']) ? $conf['osm_conf']['map']['custombaselayer'] : '';
+$custombaselayerurl = isset($conf['osm_conf']['map']['custombaselayerurl']) ? $conf['osm_conf']['map']['custombaselayerurl'] : '';
+$noworldwarp = isset($conf['osm_conf']['map']['noworldwarp']) ? $conf['osm_conf']['map']['noworldwarp'] : 'false';
+$attrleaflet = isset($conf['osm_conf']['map']['attrleaflet']) ? $conf['osm_conf']['map']['attrleaflet'] : 'false';
+$attrimagery = isset($conf['osm_conf']['map']['attrimagery']) ? $conf['osm_conf']['map']['attrimagery'] : 'false';
+$attrmodule = isset($conf['osm_conf']['map']['attrplugin']) ? $conf['osm_conf']['map']['attrplugin'] : 'false';
 
 $IMAGERY="Imagery by";
 $PLG_BY="Plugin by";

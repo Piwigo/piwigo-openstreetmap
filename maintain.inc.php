@@ -36,40 +36,28 @@ function plugin_install()
 	$q = 'ALTER TABLE '.IMAGES_TABLE.' ADD COLUMN `lon` DOUBLE(11,8) COMMENT "longitude used by the piwigo-openstreetmap plugin"';
 	pwg_query($q);
 
+	$default_config = array(
+		'right_panel' => array(
+			'enabled' 	=> true,
+			'add_before' 	=> 'Average',
+			'height' 	=> '200',
+			'zoom' 		=> '12',
+			),
+		'show_left_menu' 	=> true,
+		'map' => array(
+			'baselayer' 		=> 'mapnik',
+			'custombaselayer' 	=> null,
+			'custombaselayerurl'	=> null,
+			'noworldwarp' 		=> false,
+			'attrleaflet' 		=> true,
+			'attrimagery' 		=> true,
+			'attrplugin' 		=> true,
+			),
+		'auto_sync' 		=> false,
+	);
 	/* Add configuration to the config table */
-	$q = 'INSERT INTO '.CONFIG_TABLE.' (param,value,comment)
-		VALUES ("osm_add_before", "Average", "Where to display the map used by the piwigo-openstreetmap plugin");';
-	pwg_query( $q );
-	$q = 'INSERT INTO '.CONFIG_TABLE.' (param,value,comment)
-		VALUES ("osm_height", "200", "Map height in px used by the piwigo-openstreetmap plugin");';
-	pwg_query( $q );
-	$q = 'INSERT INTO '.CONFIG_TABLE.' (param,value,comment)
-		VALUES ("osm_zoom", "12", "Zoomlevel used by the piwigo-openstreetmap plugin");';
-	pwg_query( $q );
-	$q = 'INSERT INTO '.CONFIG_TABLE.' (param,value,comment)
-		VALUES ("osm_baselayer", "mapnik", "Map style used by the piwigo-openstreetmap plugin");';
-	pwg_query( $q );
-	$q = 'INSERT INTO '.CONFIG_TABLE.' (param,value,comment)
-		VALUES ("osm_custombaselayer", "", "Custom map style used by the piwigo-openstreetmap plugin");';
-	pwg_query( $q );
-	$q = 'INSERT INTO '.CONFIG_TABLE.' (param,value,comment)
-		VALUES ("osm_custombaselayerurl", "", "Tile server URL used by the piwigo-openstreetmap plugin");';
-	pwg_query( $q );
-	$q = 'INSERT INTO '.CONFIG_TABLE.' (param,value,comment)
-		VALUES ("osm_noworldwarp", "0", "No Worldwarp used by the piwigo-openstreetmap plugin");';
-	pwg_query( $q );
-	$q = 'INSERT INTO '.CONFIG_TABLE.' (param,value,comment)
-		VALUES ("osm_attrleaflet", "1", "Show \'Powered by Leaflet\' used by the piwigo-openstreetmap plugin");';
-	pwg_query( $q );
-	$q = 'INSERT INTO '.CONFIG_TABLE.' (param,value,comment)
-		VALUES ("osm_attrimagery", "1", "Show map style used by the piwigo-openstreetmap plugin");';
-	pwg_query( $q );
-	$q = 'INSERT INTO '.CONFIG_TABLE.' (param,value,comment)
-		VALUES ("osm_attrmodule", "1", "Show Author note used by the piwigo-openstreetmap plugin");';
-	pwg_query( $q );
-	$q = 'INSERT INTO '.CONFIG_TABLE.' (param,value,comment)
-		VALUES ("osm_auto_sync", "1", "Auto sync geotag on upload used by the piwigo-openstreetmap plugin");';
-	pwg_query( $q );
+	$conf['osm_conf'] = serialize($default_config);
+	conf_update_param('osm_conf', $conf['osm_conf']);
 
 	// Create world map link
 	$dir_name = basename( dirname(__FILE__) );
@@ -96,28 +84,25 @@ function plugin_uninstall()
 	@unlink(PHPWG_ROOT_PATH.'osmmap.php');
 
 	/* Remove configuration from the config table */
-	$q = 'DELETE FROM '.CONFIG_TABLE.' WHERE param LIKE "%osm_%" LIMIT 10;';
+	$q = 'DELETE FROM '.CONFIG_TABLE.' WHERE param LIKE "osm_conf" LIMIT 1;';
 	pwg_query( $q );
 
 	/* Remove geotag from images table */
+/*
 	$q = 'ALTER TABLE '.IMAGES_TABLE.' DROP COLUMN `lat`';
 	pwg_query( $q );
 	$q = 'ALTER TABLE '.IMAGES_TABLE.' DROP COLUMN `lon`';
 	pwg_query( $q );
 	$q = 'ALTER TABLE '.IMAGES_TABLE.' DROP INDEX `images_lat`';
 	pwg_query( $q );
+*/
 }
 
 function plugin_activate()
 {
 	global $conf;
 
-	if ( (!isset($conf['osm_height'])) or (!isset($conf['osm_zoom']))
-	or (!isset($conf['osm_baselayer'])) or (!isset($conf['osm_custombaselayer']))
-	or (!isset($conf['osm_custombaselayerurl'])) or (!isset($conf['osm_noworldwarp']))
-	or (!isset($conf['osm_attrleaflet'])) or (!isset($conf['osm_attrimagery']))
-	or (!isset($conf['osm_attrmodule']))  or (!isset($conf['osm_auto_sync']))
-	or (!isset($conf['osm_add_before'])) )
+	if ( (!isset($conf['osm_conf'])) )
 	{
 		plugin_install();
 	}

@@ -1,5 +1,11 @@
 <?php
 
+$lang['DISPLAY'] = "Display configuration";
+$lang['SHOWLOCATION'] = "Display location map";
+$lang['SHOWLOCATION_DESC'] = "Show a map on right panel on picture page";
+$lang['SHOWWORLDMAPLEFT'] = "Add a world map menu on the left";
+$lang['SHOWWORLDMAPLEFT_DESC'] = "Show a world map menu on the left menu, will display all the image of the gallery";
+
 $lang['R_MAP'] = "Right Panel configuration";
 $lang['ADD_BEFORE'] = "Add location after";
 $lang['ADD_BEFORE_DESC'] = "Where to display the location information";
@@ -7,7 +13,6 @@ $lang['HEIGHT'] = "Map height";
 $lang['HEIGHT_DESC'] = "in px";
 $lang['ZOOM'] = "Zoomlevel";
 $lang['ZOOM_DESC'] = "1: far away, 18: very close";
-
 $lang['LOCATION'] = "Location";
 
 $lang['G_MAP'] = "Map configuration";
@@ -23,8 +28,8 @@ $lang['ATTRLEAFLET'] = "Show 'Powered by Leaflet'";
 $lang['ATTRLEAFLET_DESC'] = "Shows a attribution of the used JavaScript library for interactive maps 'Leaflet'.";
 $lang['ATTRIMAGERY'] = "Show map style";
 $lang['ATTRIMAGERY_DESC'] = "Shows the used map style.";
-$lang['ATTRMODULE'] = "Show Author note";
-$lang['ATTRMODULE_DESC'] = "I created this plugin. :)";
+$lang['ATTRPLUGIN'] = "Show Author note";
+$lang['ATTRPLUGIN_DESC'] = "I created this plugin. :)";
 
 $lang['PLUGINCONF'] = "Synchronize option";
 $lang['AUTOSYNC'] = "Automatically sync EXIF if exist";
@@ -32,4 +37,6 @@ $lang['AUTOSYNC_DESC'] = "When metadata is synchronized, coordinates might be ov
 
 $lang['WORLDMAP']='World map';
 
+$lang['IMAGERYBY'] = "Imagery by";
+$lang['PLUGINBY'] = "Plugin by";
 ?>

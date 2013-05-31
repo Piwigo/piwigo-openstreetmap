@@ -1,6 +1,6 @@
 <?php
 /***********************************************
-* File      :   maintain.inc.php
+* File      :   admin.php
 * Project   :   piwigo-openstreetmap
 * Descr     :   Install / Uninstall method
 *
@@ -34,19 +34,6 @@ load_language('plugin.lang', OSM_PATH);
 
 // Fetch the template.
 global $template, $conf, $lang;
-
-// Load parameter
-$add_before = $conf['osm_add_before'];
-$height = $conf['osm_height'];
-$zoom = $conf['osm_zoom'];
-$baselayer = $conf['osm_baselayer'];
-$custombaselayer = $conf['osm_custombaselayer'];
-$custombaselayerurl = $conf['osm_custombaselayerurl'];
-$noworldwarp = $conf['osm_noworldwarp'] ? 'true' : 'false';
-$attrleaflet = $conf['osm_attrleaflet'] ? 'true' : 'false';
-$attrimagery = $conf['osm_attrimagery'] ? 'true' : 'false';
-$attrmodule = $conf['osm_attrmodule'] ? 'true' : 'false';
-$auto_sync = $conf['osm_auto_sync'] ? 'true' : 'false';
 
 // Available baselayer
 $available_baselayer = array(
@@ -101,63 +88,44 @@ list($nb_geotagged) = pwg_db_fetch_array( pwg_query($query) );
 // Update conf if submitted in admin site
 if (isset($_POST['submit']) && !empty($_POST['osm_height']))
 {
-	$query = "UPDATE ". CONFIG_TABLE ." SET value='". $_POST['osm_add_before'] ."' WHERE param='osm_add_before'";
-	pwg_query($query);
-	$query = "UPDATE ". CONFIG_TABLE ." SET value='". $_POST['osm_height'] ."' WHERE param='osm_height'";
-	pwg_query($query);
-	$query = "UPDATE ". CONFIG_TABLE ." SET value='". $_POST['osm_zoom'] ."' WHERE param='osm_zoom'";
-	pwg_query($query);
-	$query = "UPDATE ". CONFIG_TABLE ." SET value='". $_POST['osm_baselayer'] ."' WHERE param='osm_baselayer'";
-	pwg_query($query);
-	$query = "UPDATE ". CONFIG_TABLE ." SET value='". $_POST['osm_custombaselayer'] ."' WHERE param='osm_custombaselayer'";
-	pwg_query($query);
-	$query = "UPDATE ". CONFIG_TABLE ." SET value='". $_POST['osm_custombaselayerurl'] ."' WHERE param='osm_custombaselayerurl'";
-	pwg_query($query);
-	$query = "UPDATE ". CONFIG_TABLE ." SET value='". $_POST['osm_noworldwarp'] ."' WHERE param='osm_noworldwarp'";
-	pwg_query($query);
-	$query = "UPDATE ". CONFIG_TABLE ." SET value='". $_POST['osm_attrleaflet'] ."' WHERE param='osm_attrleaflet'";
-	pwg_query($query);
-	$query = "UPDATE ". CONFIG_TABLE ." SET value='". $_POST['osm_attrimagery'] ."' WHERE param='osm_attrimagery'";
-	pwg_query($query);
-	$query = "UPDATE ". CONFIG_TABLE ." SET value='". $_POST['osm_attrmodule'] ."' WHERE param='osm_attrmodule'";
-	pwg_query($query);
-	$query = "UPDATE ". CONFIG_TABLE ." SET value='". $_POST['osm_auto_sync'] ."' WHERE param='osm_auto_sync'";
-	pwg_query($query);
+	// On post admin form
+	$conf['osm_conf'] = array(
+		'right_panel' => array(
+			'enabled' 	=> get_boolean($_POST['osm_right_panel']),
+			'add_before' 	=> $_POST['osm_add_before'],
+			'height' 	=> $_POST['osm_height'],
+			'zoom' 		=> $_POST['osm_zoom'],
+			),
+		'show_left_menu' 	=> get_boolean($_POST['osm_left_menu']),
+		'map' => array(
+			'baselayer' 		=> $_POST['osm_baselayer'],
+			'custombaselayer' 	=> $_POST['osm_custombaselayer'],
+			'custombaselayerurl'	=> $_POST['osm_custombaselayerurl'],
+			'noworldwarp' 		=> get_boolean($_POST['osm_noworldwarp']),
+			'attrleaflet' 		=> get_boolean($_POST['osm_attrleaflet']),
+			'attrimagery' 		=> get_boolean($_POST['osm_attrimagery']),
+			'attrplugin' 		=> get_boolean($_POST['osm_attrplugin']),
+			),
+		'auto_sync' 		=> get_boolean($_POST['osm_auto_sync']),
+	);
 
-	// keep the value in the admin form
-	$add_before = $_POST['osm_add_before'];
-	$heigh = $_POST['osm_height'];
-	$zoom = $_POST['osm_zoom'];
-	$baselayer = $_POST['osm_baselayer'];
-	$custombaselayer = $_POST['osm_custombaselayer'];
-	$custombaselayerurl = $_POST['osm_custombaselayerurl'];
-	$noworldwarp = $_POST['osm_noworldwarp'];
-	$attrleaflet = $_POST['osm_attrleaflet'];
-	$attrimagery = $_POST['osm_attrimagery'];
-	$attrmodule = $_POST['osm_attrmodule'];
-	$auto_sync = $_POST['osm_auto_sync'];
-	
+	// Update config to DB
+	conf_update_param('osm_conf', serialize($conf['osm_conf']));
+
+	// the prefilter changes, we must delete compiled templatess
 	$template->delete_compiled_templates();
 	array_push($page['infos'], l10n('Your configuration settings are saved'));
 }
 
+print_r($conf['osm_conf']);
+
 // send value to template
+$template->assign($conf['osm_conf']);
 $template->assign(
 	array(
-		'HEIGHT'		=> $height,
-		'SELECTED_ADD_BEFORE'	=> $add_before,
 		'AVAILABLE_ADD_BEFORE'	=> $available_add_before,
-		'SELECTED_ZOOM'		=> $zoom,
 		'AVAILABLE_ZOOM'	=> $available_zoom,
-		'SELECTED_BASELAYER'	=> $baselayer,
 		'AVAILABLE_BASELAYER'	=> $available_baselayer,
-		'CUSTOMBASELAYER'	=> $custombaselayer,
-		'CUSTOMBASELAYERURL'	=> $custombaselayerurl,
-		'NOWORLDWARP'		=> $noworldwarp,
-		'ATTRLEAFLET'		=> $attrleaflet,
-		'ATTRIMAGERY'		=> $attrimagery,
-		'ATTRMODULE'		=> $attrmodule,
-		'AUTO_SYNC'		=> $auto_sync,
 		'NB_GEOTAGGED' 		=> $nb_geotagged,
 	)
 );
