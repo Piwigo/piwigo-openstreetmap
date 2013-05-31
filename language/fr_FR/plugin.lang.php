@@ -62,6 +62,7 @@ $lang['AUTOSYNC_DESC'] = "Lors de la synchronisation, les données precedente pe
 
 $lang['WORLDMAP']='Carte du monde';
 
+$lang['POWERBY'] = "Propulsé par";
 $lang['IMAGERYBY'] = "Images par";
 $lang['PLUGINBY'] = "Plugin créé par";
 ?>

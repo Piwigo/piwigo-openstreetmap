@@ -62,6 +62,7 @@ $lang['AUTOSYNC_DESC'] = "When metadata is synchronized, coordinates might be ov
 
 $lang['WORLDMAP']='World map';
 
+$lang['POWERBY'] = "Power by";
 $lang['IMAGERYBY'] = "Imagery by";
 $lang['PLUGINBY'] = "Plugin by";
 ?>
