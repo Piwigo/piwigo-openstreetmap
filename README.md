@@ -25,6 +25,8 @@ Usage
 
 Syncronize the GeoTag to see the geo possition appear on the photo page.
 
+Please refer to the [wiki](https://github.com/xbgmsharp/piwigo-openstreetmap/wiki)
+
 Credit
 ------
 
