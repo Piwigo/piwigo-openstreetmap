@@ -7,7 +7,7 @@ $lang['SHOWWORLDMAPLEFT'] = "Add a world map menu on the left";
 $lang['SHOWWORLDMAPLEFT_DESC'] = "Show a world map menu on the left menu, will display all the image of the gallery";
 
 $lang['R_MAP'] = "Right Panel configuration";
-$lang['ADD_BEFORE'] = "Add location after";
+$lang['ADD_BEFORE'] = "Add location before";
 $lang['ADD_BEFORE_DESC'] = "Where to display the location information";
 $lang['HEIGHT'] = "Map height";
 $lang['HEIGHT_DESC'] = "in px";

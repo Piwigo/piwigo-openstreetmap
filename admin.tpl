@@ -3,6 +3,8 @@
 </div>
 
 You have {$NB_GEOTAGGED} geotagged images.
+<br/><br/>
+Please read the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" target="_blanck">plugin documentation</a> for additional information.
 
 <form method="post" action="" class="properties">
 	<fieldset>
