@@ -90,6 +90,7 @@ foreach($php_data as $array)
 {
 	$extension_pos = strrpos($array['path'], '.');
 	$thumb = substr($array['path'], 0, $extension_pos) . '-sq' . substr($array['path'], $extension_pos);
+	$thumb = ltrim($thumb, '.');
 	$js_data[] = array((double)$array['lat'], (double)$array['lon'], $array['file'], $thumb);
 }
 
