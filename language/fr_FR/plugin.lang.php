@@ -17,6 +17,11 @@ $lang['SHOWWORLDMAPLEFT'] = "Add a world map menu on the left";
 $lang['SHOWWORLDMAPLEFT_DESC'] = "Show a world map menu on the left menu, will display all the image of the gallery";
 $lang['LEFTLINK'] = "World map menu name";
 $lang['LEFTLINK_DESC'] = "Type the name of the link to show on the left menu";
+$lang['LEFTPOPUP'] = "Select the popup description";
+$lang['LEFTPOPUP_DESC'] = "Choose what to display in the popup";
+$lang['NAME'] = "Name";
+$lang['NAMETHUMB'] = "Name + thumbnail";
+$lang['NAMETHUMBLINK'] = "Name + thumbnail + image link";
 
 $lang['G_MAP'] = "Configuration de la Carte";
 $lang['BASELAYER'] = "Style de Carte";
