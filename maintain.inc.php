@@ -28,13 +28,18 @@ define('OSM_PATH' , PHPWG_PLUGINS_PATH . basename(dirname(__FILE__)) . '/');
 
 function plugin_install()
 {
-	/* Modify images table */
-	$q = 'ALTER TABLE '.IMAGES_TABLE.' ADD COLUMN `lat` DOUBLE(10,8) COMMENT "latitude used by the piwigo-openstreetmap plugin"';
-	pwg_query($q);
-	$q = 'ALTER TABLE '.IMAGES_TABLE.' ADD INDEX images_lat(`lat`)';
-	pwg_query($q);
-	$q = 'ALTER TABLE '.IMAGES_TABLE.' ADD COLUMN `lon` DOUBLE(11,8) COMMENT "longitude used by the piwigo-openstreetmap plugin"';
-	pwg_query($q);
+	/* Modify images table if require */
+	$q = 'SELECT COUNT(*) as nb FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = "'.IMAGES_TABLE.'" AND COLUMN_NAME = "lat" OR COLUMN_NAME = "lon"';
+	$result = pwg_db_fetch_array( pwg_query($q) );
+	if($result['nb'] != 2)
+	{
+		$q = 'ALTER TABLE '.IMAGES_TABLE.' ADD COLUMN `lat` DOUBLE(10,8) COMMENT "latitude used by the piwigo-openstreetmap plugin"';
+		pwg_query($q);
+		$q = 'ALTER TABLE '.IMAGES_TABLE.' ADD INDEX images_lat(`lat`)';
+		pwg_query($q);
+		$q = 'ALTER TABLE '.IMAGES_TABLE.' ADD COLUMN `lon` DOUBLE(11,8) COMMENT "longitude used by the piwigo-openstreetmap plugin"';
+		pwg_query($q);
+	}
 
 	$default_config = array(
 		'right_panel' => array(
@@ -42,8 +47,12 @@ function plugin_install()
 			'add_before' 	=> 'Average',
 			'height' 	=> '200',
 			'zoom' 		=> '12',
+			'link'		=> 'Location',
 			),
-		'show_left_menu' 	=> true,
+		'left_menu' => array(
+			'enabled'	=> true,
+			'link'		=> 'OS World Map',
+			),
 		'map' => array(
 			'baselayer' 		=> 'mapnik',
 			'custombaselayer' 	=> null,
@@ -58,6 +67,9 @@ function plugin_install()
 	/* Add configuration to the config table */
 	$conf['osm_conf'] = serialize($default_config);
 	conf_update_param('osm_conf', $conf['osm_conf']);
+
+	$q = 'UPDATE '.CONFIG_TABLE.' SET `comment` = "Configuration settings for piwigo-openstreetmap plugin" WHERE `param` = "osm_conf";';
+	pwg_query( $q );
 
 	// Create world map link
 	$dir_name = basename( dirname(__FILE__) );

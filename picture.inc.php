@@ -60,7 +60,7 @@ function osm_insert_map($content, &$smarty)
     $replacement = '
 {if $OSMJS}
 <div id="map-info" class="imageInfo">
-    <dt>{\'LOCATION\'|@translate}</dt>
+    <dt>{$LINKNAME}</dt>
     <dd>
             <div id="map"></div>
             <script type="text/javascript">{$OSMJS}</script>
@@ -93,6 +93,7 @@ function osm_render_element_content()
     // Load parameter, fallback to default if unset
     $height = isset($conf['osm_conf']['right_panel']['height']) ? $conf['osm_conf']['right_panel']['height'] : '200';
     $zoom = isset($conf['osm_conf']['right_panel']['zoom']) ? $conf['osm_conf']['right_panel']['zoom'] : '12';
+    $linkname = isset($conf['osm_conf']['right_panel']['link']) ? $conf['osm_conf']['right_panel']['link'] : 'Location';
     $baselayer = isset($conf['osm_conf']['map']['baselayer']) ? $conf['osm_conf']['map']['baselayer'] : 'mapnik';
     $custombaselayer = isset($conf['osm_conf']['map']['custombaselayer']) ? $conf['osm_conf']['map']['custombaselayer'] : '';
     $custombaselayerurl = isset($conf['osm_conf']['map']['custombaselayerurl']) ? $conf['osm_conf']['map']['custombaselayerurl'] : '';
@@ -153,6 +154,7 @@ function osm_render_element_content()
 	    'HEIGHT'	=> $height,
 	    'OSMJS' 	=> $js,
 	    'OSM_PATH'	=> OSM_PATH,
+	    'LINKNAME'	=> $linkname,
 	)
     );
 

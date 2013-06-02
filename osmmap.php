@@ -94,6 +94,7 @@ foreach($php_data as $array)
 }
 
 // Load parameter, fallback to default if unset
+$linkname = isset($conf['osm_conf']['left_menu']['link']) ? $conf['osm_conf']['left_menu']['link'] : 'OS World Map';
 $baselayer = isset($conf['osm_conf']['map']['baselayer']) ? $conf['osm_conf']['map']['baselayer'] : 'mapnik';
 $custombaselayer = isset($conf['osm_conf']['map']['custombaselayer']) ? $conf['osm_conf']['map']['custombaselayer'] : '';
 $custombaselayerurl = isset($conf['osm_conf']['map']['custombaselayerurl']) ? $conf['osm_conf']['map']['custombaselayerurl'] : '';
@@ -156,16 +157,19 @@ if($attrmodule){ $js .= "map.attributionControl.addAttribution('".l10n('PLUGINBY
 
 $template->set_filename('map', dirname(__FILE__).'/template/osm-map.tpl' );
 
+$template->assign($conf['osm_conf']);
 $template->assign(
 	array(
-		'CONTENT_ENCODING' => get_pwg_charset(),
-		'OSM_PATH' => OSM_PATH,
-		'PLUGIN_ROOT_URL' => get_absolute_root_url().'plugins/'.$osm_dir,
-		'PLUGIN_LOCATION' => 'plugins/'.$osm_dir,
-		'GALLERY_TITLE' => $conf['gallery_title'],
-		'U_HOME' => make_index_url(),
-		'U_HOME_MAP' => osm_make_map_index_url(),
-		'OSMJS'	=> $js,
+		'CONTENT_ENCODING'	=> get_pwg_charset(),
+		'OSM_PATH'		=> OSM_PATH,
+		'PLUGIN_ROOT_URL'	=> get_absolute_root_url().'plugins/'.$osm_dir,
+		'PLUGIN_LOCATION'	=> 'plugins/'.$osm_dir,
+		'GALLERY_TITLE'		=> $linkname .' - '. $conf['gallery_title'],
+		'HOME'			=> make_index_url(),
+		'HOME_PREV'		=> $_SERVER['HTTP_REFERER'],
+		'HOME_NAME'		=> l10n("Home"),
+		'HOME_PREV_NAME'	=> l10n("Previous"),
+		'OSMJS'			=> $js,
 	)
 );
 

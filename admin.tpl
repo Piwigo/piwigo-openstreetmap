@@ -8,7 +8,7 @@ Please read the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki"
 
 <form method="post" action="" class="properties">
 	<fieldset>
-		<legend>{'DISPLAY'|@translate}</legend>
+		<legend>{'R_MAP'|@translate}</legend>
 		<ul>
 			<li>
 				<label>{'SHOWLOCATION'|@translate} : </label>
@@ -16,17 +16,6 @@ Please read the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki"
 				<label><input type="radio" name="osm_right_panel" value="false" {if not $right_panel.enabled}checked="checked"{/if}/> {'No'|@translate}</label>
 				<br/><small>{'SHOWLOCATION_DESC'|@translate}</small>
 			</li>
-			<li>
-				<label>{'SHOWWORLDMAPLEFT'|@translate} : </label>
-				<label><input type="radio" name="osm_left_menu" value="true" {if $show_left_menu}checked="checked"{/if}/> {'Yes'|@translate}</label>
-				<label><input type="radio" name="osm_left_menu" value="false" {if not $show_left_menu}checked="checked"{/if}/> {'No'|@translate}</label>
-				<br/><small>{'SHOWWORLDMAPLEFT_DESC'|@translate}</small>
-			</li>
-		</ul>
-	</fieldset>
-	<fieldset>
-		<legend>{'R_MAP'|@translate}</legend>
-		<ul>
 			<li>
 				<label>{'ADD_BEFORE'|@translate} : </label>
 				<select name="osm_add_before">
@@ -45,6 +34,27 @@ Please read the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki"
 					{html_options options=$AVAILABLE_ZOOM selected=$right_panel.zoom}
 				</select>
 				<br/><small>{'ZOOM_DESC'|@translate}</small>
+			</li>
+			<li>
+				<label>{'RIGHTLINK'|@translate} : </label>
+				<input type="text" value="{$right_panel.link}" name="osm_right_link" size="10"/>
+				<br/><small>{'RIGHTLINK_DESC'|@translate}</small>
+			</li>
+		</ul>
+	</fieldset>
+	<fieldset>
+		<legend>{'L_MAP'|@translate}</legend>
+		<ul>
+			<li>
+				<label>{'SHOWWORLDMAPLEFT'|@translate} : </label>
+				<label><input type="radio" name="osm_left_menu" value="true" {if $left_menu.enabled}checked="checked"{/if}/> {'Yes'|@translate}</label>
+				<label><input type="radio" name="osm_left_menu" value="false" {if not $left_menu.enabled}checked="checked"{/if}/> {'No'|@translate}</label>
+				<br/><small>{'SHOWWORLDMAPLEFT_DESC'|@translate}</small>
+			</li>
+			<li>
+				<label>{'LEFTLINK'|@translate} : </label>
+				<input type="text" value="{$left_menu.link}" name="osm_left_link" size="10"/>
+				<br/><small>{'LEFTLINK_DESC'|@translate}</small>
 			</li>
 		</ul>
 	</fieldset>

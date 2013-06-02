@@ -20,13 +20,13 @@ global $conf;
 $conf['osm_conf'] = unserialize($conf['osm_conf']);
 
 // Plugin on picture page
-if (script_basename() == 'picture')  
-{  
+if (script_basename() == 'picture')
+{
 	include_once(dirname(__FILE__).'/picture.inc.php');
 }
 
 // Do we have to show a link on the left menu
-if ($conf['osm_conf']['show_left_menu'])
+if ($conf['osm_conf']['left_menu']['enabled'])
 {
 	// Hook to add link on the left menu
 	add_event_handler('blockmanager_apply', 'osm_blockmanager_apply');
@@ -79,11 +79,12 @@ function osm_blockmanager_apply($mb_arr)
 		include_once( dirname(__FILE__) .'/include/functions.php');
 		load_language('plugin.lang', OSM_PATH);
 		global $conf;
+		$linkname = isset($conf['osm_conf']['left_menu']['link']) ? $conf['osm_conf']['left_menu']['link'] : 'OS World Map';
 		$link_title = sprintf( l10n('displays %s on a map'), strip_tags($conf['gallery_title']) );
 		$block->data['osm'] = array(
 			'URL' => osm_make_map_index_url( array('section'=>'categories') ),
 			'TITLE' => $link_title,
-			'NAME' => l10n('WORLDMAP'),
+			'NAME' => $linkname,
 			'REL'=> 'rel=nofollow'
 		);
 	}

@@ -110,8 +110,12 @@ if (isset($_POST['submit']) && !empty($_POST['osm_height']))
 			'add_before' 	=> $_POST['osm_add_before'],
 			'height' 	=> $_POST['osm_height'],
 			'zoom' 		=> $_POST['osm_zoom'],
+			'link'          => $_POST['osm_right_link'],
 			),
-		'show_left_menu' 	=> get_boolean($_POST['osm_left_menu']),
+		'left_menu' => array(
+			'enabled'       => get_boolean($_POST['osm_left_menu']),
+			'link'          => $_POST['osm_left_link'],
+			),
 		'map' => array(
 			'baselayer' 		=> $_POST['osm_baselayer'],
 			'custombaselayer' 	=> $_POST['osm_custombaselayer'],
