@@ -1,7 +1,7 @@
 <?php
 
-$lang['R_MAP'] = "Right panel configuration";
-$lang['SHOWLOCATION'] = "Display location map";
+$lang['R_MAP'] = "Configuration panneau de droite";
+$lang['SHOWLOCATION'] = "Affiche une carte";
 $lang['SHOWLOCATION_DESC'] = "Show a map on right panel on picture page";
 $lang['ADD_BEFORE'] = "Ajouter l'information avant";
 $lang['ADD_BEFORE_DESC'] = "Ou afficher l'information de localisation";
@@ -9,19 +9,24 @@ $lang['HEIGHT'] = "Hauteur de la carte";
 $lang['HEIGHT_DESC'] = "en pixel";
 $lang['ZOOM'] = "Niveau de Zoom";
 $lang['ZOOM_DESC'] = "1: pays, 18: quartier";
-$lang['RIGHTLINK'] = "Name of the location header";
-$lang['RIGHTLINK_DESC'] = "Type the name of the link to display on top of the map";
+$lang['RIGHTLINK'] = "Nom du titre";
+$lang['RIGHTLINK_DESC'] = "Le nom a afficher au dessus de la carte";
 
-$lang['L_MAP'] = "Left menu configuration";
+$lang['L_MAP'] = "Configuration menu de gauche";
 $lang['SHOWWORLDMAPLEFT'] = "Add a world map menu on the left";
 $lang['SHOWWORLDMAPLEFT_DESC'] = "Show a world map menu on the left menu, will display all the image of the gallery";
 $lang['LEFTLINK'] = "World map menu name";
 $lang['LEFTLINK_DESC'] = "Type the name of the link to show on the left menu";
-$lang['LEFTPOPUP'] = "Select the popup description";
-$lang['LEFTPOPUP_DESC'] = "Choose what to display in the popup";
-$lang['NAME'] = "Name";
-$lang['NAMETHUMB'] = "Name + thumbnail";
-$lang['NAMETHUMBLINK'] = "Name + thumbnail + image link";
+$lang['LEFTPOPUP'] = "Affiche le popup";
+$lang['LEFTPOPUP_DESC'] = "Affiche le popup descriptif si vous cliquer sur l'épingle.";
+$lang['CLICK'] = "affiche sur clic";
+$lang['ALWAYS'] = "affichage permanent";
+$lang['NEVER'] = "pas de popup";
+$lang['LEFTPOPUPINFO'] = "Selectioner la desciption du popup";
+$lang['LEFTPOPUPINFO_DESC'] = "Choisissez ce que vous desirez afficher dans le popup";
+$lang['NAME'] = "Nom";
+$lang['NAMETHUMB'] = "Nom + miniature";
+$lang['NAMETHUMBLINK'] = "Nom + miniature + lien vers l'image";
 
 $lang['G_MAP'] = "Configuration de la Carte";
 $lang['BASELAYER'] = "Style de Carte";
@@ -57,12 +62,6 @@ $lang['PINOFFSET'] = "Offset de l'épingle";
 $lang['PINOFFSET_DESC'] = "L'offset de position du point d'ancrage de l'image de  l'épingle, par rapport au coin haut-gauche. 0x0 est le coin haut-gauche. Exemple d'utilisation : croix (réticule) = centrer sur l'image 16x16 (cf. illustration b)";
 $lang['PINPOPUPOFFSET'] = "Offset du Popup";
 $lang['PINPOPUPOFFSET_DESC'] = "La position du popup où il est lié au épingle. 0x0 coorespond au épingle.";
-$lang['HPOPUP'] = "Popup";
-$lang['POPUP'] = "Affiche le popup";
-$lang['CLICK'] = "affiche sur clic";
-$lang['ALWAYS'] = "affichage permanent";
-$lang['NEVER'] = "pas de popup";
-$lang['POPUP_DESC'] = "affiche le popup descriptif si vous cliquer sur l' épingle.";
 
 $lang['PLUGINCONF'] = "Option de synchronization";
 $lang['AUTOSYNC'] = "Synchronizer automatiquement les données EXIF si présente";
