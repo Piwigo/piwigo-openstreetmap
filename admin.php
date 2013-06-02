@@ -93,12 +93,12 @@ $available_pin = array(
 // Available popup
 $available_popup = array(
 	'0' => l10n('CLICK'),
-	'1' => l10n('ALWAYS'),
+//	'1' => l10n('ALWAYS'),
 	'2' => l10n('NEVER'),
 );
 
 // Available left popup
-$available_leftpopup = array(
+$available_popupinfo = array(
 	'0' => l10n('NAME'),
 	'1' => l10n('NAMETHUMB'),
 	'2' => l10n('NAMETHUMBLINK'),
@@ -123,6 +123,7 @@ if (isset($_POST['submit']) && !empty($_POST['osm_height']))
 			'enabled'       => get_boolean($_POST['osm_left_menu']),
 			'link'          => $_POST['osm_left_link'],
 			'popup'         => $_POST['osm_left_popup'],
+			'popupinfo'     => $_POST['osm_left_popup_info'],
 			),
 		'map' => array(
 			'baselayer' 		=> $_POST['osm_baselayer'],
@@ -155,7 +156,7 @@ $template->assign(
 		'AVAILABLE_BASELAYER'	=> $available_baselayer,
 		'AVAILABLE_PIN'		=> $available_pin,
 		'AVAILABLE_POPUP'	=> $available_popup,
-		'AVAILABLE_LEFTPOPUP'	=> $available_leftpopup,
+		'AVAILABLE_POPUPINFO'	=> $available_popupinfo,
 		'NB_GEOTAGGED' 		=> $nb_geotagged,
 	)
 );

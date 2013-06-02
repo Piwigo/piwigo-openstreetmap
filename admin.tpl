@@ -59,9 +59,16 @@ Please read the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki"
 			<li>
 				<label>{'LEFTPOPUP'|@translate} : </label>
 				<select name="osm_left_popup">
-					{html_options options=$AVAILABLE_LEFTPOPUP selected=$left_menu.popup}
+					{html_options options=$AVAILABLE_POPUP selected=$left_menu.popup}
 				</select>
 				<br/><small>{'LEFTPOPUP_DESC'|@translate}</small>
+			</li>
+			<li>
+				<label>{'LEFTPOPUPINFO'|@translate} : </label>
+				<select name="osm_left_popup_info">
+					{html_options options=$AVAILABLE_POPUPINFO selected=$left_menu.popupinfo}
+				</select>
+				<br/><small>{'LEFTPOPUPINFO_DESC'|@translate}</small>
 			</li>
 		</ul>
 	</fieldset>
@@ -149,13 +156,6 @@ Please read the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki"
 				<label>{'PINPOPUPOFFSET'|@translate} : </label>
 				<input type="text" value="{$PINPOPUPOFFSET}" name="osm_pinpopupoffset" size="4"/>
 				<br/><small>{'PINPOPUPOFFSET_DESC'|@translate}</small>
-			</li>
-			<li>
-				<label>{'POPUP'|@translate} : </label>
-				<select name="osm_popup">
-					{html_options options=$AVAILABLE_POPUP selected=$SELECTED_POPUP}
-				</select>
-				<br/><small>{'POPUP_DESC'|@translate}</small>
 			</li>
 		  </ul>
 		</fieldset>

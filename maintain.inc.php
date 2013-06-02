@@ -52,7 +52,8 @@ function plugin_install()
 		'left_menu' => array(
 			'enabled'	=> true,
 			'link'		=> 'OS World Map',
-			'popup'         => 2,
+			'popup'		=> 0,
+			'popupinfo'	=> 2,
 			),
 		'map' => array(
 			'baselayer' 		=> 'mapnik',

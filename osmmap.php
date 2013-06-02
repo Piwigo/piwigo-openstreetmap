@@ -98,7 +98,8 @@ foreach($php_data as $array)
 
 // Load parameter, fallback to default if unset
 $linkname = isset($conf['osm_conf']['left_menu']['link']) ? $conf['osm_conf']['left_menu']['link'] : 'OS World Map';
-$leftpopup = isset($conf['osm_conf']['left_menu']['popup']) ? $conf['osm_conf']['left_menu']['popup'] : 2;
+$popup = isset($conf['osm_conf']['left_menu']['popup']) ? $conf['osm_conf']['left_menu']['popup'] : 0;
+$popupinfo = isset($conf['osm_conf']['left_menu']['popupinfo']) ? $conf['osm_conf']['left_menu']['popupinfo'] : 2;
 $baselayer = isset($conf['osm_conf']['map']['baselayer']) ? $conf['osm_conf']['map']['baselayer'] : 'mapnik';
 $custombaselayer = isset($conf['osm_conf']['map']['custombaselayer']) ? $conf['osm_conf']['map']['custombaselayer'] : '';
 $custombaselayerurl = isset($conf['osm_conf']['map']['custombaselayerurl']) ? $conf['osm_conf']['map']['custombaselayerurl'] : '';
@@ -150,22 +151,28 @@ $js .= "for (var i = 0; i < addressPoints.length; i++) {
 	var pathurl = '". get_absolute_root_url() ."i.php?'+a[3];
 	var imgurl = '". get_absolute_root_url() ."picture.php?/'+a[4];
 	var latlng = new L.LatLng(a[0], a[1]);
-	var marker = new L.Marker(latlng, { title: title });";
+	var marker = new L.Marker(latlng, { title: title });\n
+	";
 
-if($leftpopup == 0)
+// create Popup
+if ($popup < 2)
 {
-	$js .= "	marker.bindPopup('<p>'+title+'</p>').openPopup();";
-} else if ($leftpopup == 1)
-{
-	$js .= "	marker.bindPopup('<p>'+title+'<br /><img src=\"'+pathurl+'\"></p>').openPopup();";
-} else if ($leftpopup == 2)
-{
-	$js .= "	marker.bindPopup('<p>'+title+'<br /><a href=\"'+imgurl+'\"><img src=\"'+pathurl+'\"></a></p>').openPopup();";
+	$openpopup = ".openPopup()";
+	if($popupinfo == 0)
+	{
+		$js .= "marker.bindPopup('<p>'+title+'</p>')".$openpopup.";";
+	} else if ($popupinfo == 1)
+	{
+		$js .= "marker.bindPopup('<p>'+title+'<br /><img src=\"'+pathurl+'\"></p>')".$openpopup.";";
+	} else if ($popupinfo == 2)
+	{
+		$js .= "marker.bindPopup('<p>'+title+'<br /><a href=\"'+imgurl+'\"><img src=\"'+pathurl+'\"></a></p>')".$openpopup.";";
+	}
 }
 
-$js .= "	markers.addLayer(marker);
+$js .= "\n	markers.addLayer(marker);
 }";
-$js .= "map.addLayer(markers);\n";
+$js .= "\nmap.addLayer(markers);\n";
 
 // Attribution Credit and Copyright
 if($attrleaflet){ $js .= "map.attributionControl.addAttribution('".l10n('POWERBY')." Leaflet');\n"; }
