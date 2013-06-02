@@ -33,9 +33,9 @@ function osm_parse_fract( $f )
 function osm_parse_lat_lon( $arr )
 {
 	$v=0;
-	$v += parse_fract( $arr[0] );
-	$v += parse_fract( $arr[1] )/60;
-	$v += parse_fract( $arr[2] )/3600;
+	$v += osm_parse_fract( $arr[0] );
+	$v += osm_parse_fract( $arr[1] )/60;
+	$v += osm_parse_fract( $arr[2] )/3600;
 	return $v;
 }
 
