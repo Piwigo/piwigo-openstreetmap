@@ -82,16 +82,18 @@ $forbidden = get_sql_condition_FandF(
 );
 $query="SELECT `lat`, `lon`, `file`, `path` FROM ".IMAGES_TABLE." INNER JOIN ".IMAGE_CATEGORY_TABLE." AS ic ON id = ic.image_id WHERE ". $forbidden ." `lat` IS NOT NULL AND `lon` IS NOT NULL;";
 */
-$query="SELECT `lat`, `lon`, `file`, `path` FROM ".IMAGES_TABLE." WHERE `lat` IS NOT NULL AND `lon` IS NOT NULL;";
+//$query="SELECT `lat`, `lon`, `name`, `path` FROM ".IMAGES_TABLE." WHERE `lat` IS NOT NULL AND `lon` IS NOT NULL;";
+$query="SELECT `lat` , `lon` , `name` , CONCAT(SUBSTRING_INDEX(TRIM(LEADING '.' FROM `path`), '.', 1 ), '-sq.', SUBSTRING_INDEX(TRIM(LEADING '.' FROM `path`), '.', -1 )) as pathurl, CONCAT(`id`, '/category/', `storage_category_id`) as imgurl FROM ".IMAGES_TABLE." WHERE `lat` IS NOT NULL AND `lon` IS NOT NULL;";
 $php_data = array_from_query($query);
 //print_r($php_data);
 $js_data = array();
 foreach($php_data as $array)
 {
-	$extension_pos = strrpos($array['path'], '.');
-	$thumb = substr($array['path'], 0, $extension_pos) . '-sq' . substr($array['path'], $extension_pos);
-	$thumb = ltrim($thumb, '.');
-	$js_data[] = array((double)$array['lat'], (double)$array['lon'], $array['file'], $thumb);
+	// MySQL do the job
+	//$extension_pos = strrpos($array['pathurl'], '.');
+	//$thumb = substr($array['pathurl'], 0, $extension_pos) . '-sq' . substr($array['pathurl'], $extension_pos);
+	//$thumb = ltrim($thumb, '.');
+	$js_data[] = array((double)$array['lat'], (double)$array['lon'], $array['name'], $array['pathurl'], $array['imgurl']);
 }
 
 // Load parameter, fallback to default if unset
@@ -143,10 +145,11 @@ $js .= "var markers = new L.MarkerClusterGroup();\n";
 $js .= "for (var i = 0; i < addressPoints.length; i++) {
 	var a = addressPoints[i];
 	var title = a[2];
-	var imgurl = '". get_absolute_root_url() ."i.php?'+a[3];
+	var pathurl = '". get_absolute_root_url() ."i.php?'+a[3];
+	var imgurl = '". get_absolute_root_url() ."picture.php?/'+a[4];
 	var latlng = new L.LatLng(a[0], a[1]);
 	var marker = new L.Marker(latlng, { title: title });
-	marker.bindPopup('<p>'+title+'<br /><img src=\"'+imgurl+'\"></p>').openPopup();
+	marker.bindPopup('<p>'+title+'<br /><a href=\"'+imgurl+'\"><img src=\"'+pathurl+'\"></a></p>').openPopup();
 	markers.addLayer(marker);
 }";
 $js .= "map.addLayer(markers);\n";
