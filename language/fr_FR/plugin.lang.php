@@ -1,19 +1,22 @@
 <?php
 
-$lang['DISPLAY'] = "Configuration d'affichage";
+$lang['R_MAP'] = "Right panel configuration";
 $lang['SHOWLOCATION'] = "Display location map";
 $lang['SHOWLOCATION_DESC'] = "Show a map on right panel on picture page";
-$lang['SHOWWORLDMAPLEFT'] = "Add a world map menu on the left";
-$lang['SHOWWORLDMAPLEFT_DESC'] = "Show a world map menu on the left menu, will display all the image of the gallery";
-
-$lang['R_MAP'] = "Right Panel configuration";
 $lang['ADD_BEFORE'] = "Ajouter l'information avant";
 $lang['ADD_BEFORE_DESC'] = "Ou afficher l'information de localisation";
 $lang['HEIGHT'] = "Hauteur de la carte";
 $lang['HEIGHT_DESC'] = "en pixel";
 $lang['ZOOM'] = "Niveau de Zoom";
 $lang['ZOOM_DESC'] = "1: pays, 18: quartier";
-$lang['LOCATION'] = "Location";
+$lang['RIGHTLINK'] = "Name of the location header";
+$lang['RIGHTLINK_DESC'] = "Type the name of the link to display on top of the map";
+
+$lang['L_MAP'] = "Left menu configuration";
+$lang['SHOWWORLDMAPLEFT'] = "Add a world map menu on the left";
+$lang['SHOWWORLDMAPLEFT_DESC'] = "Show a world map menu on the left menu, will display all the image of the gallery";
+$lang['LEFTLINK'] = "World map menu name";
+$lang['LEFTLINK_DESC'] = "Type the name of the link to show on the left menu";
 
 $lang['G_MAP'] = "Configuration de la Carte";
 $lang['BASELAYER'] = "Style de Carte";
@@ -59,8 +62,6 @@ $lang['POPUP_DESC'] = "affiche le popup descriptif si vous cliquer sur l' éping
 $lang['PLUGINCONF'] = "Option de synchronization";
 $lang['AUTOSYNC'] = "Synchronizer automatiquement les données EXIF si présente";
 $lang['AUTOSYNC_DESC'] = "Lors de la synchronisation, les données precedente peuvent etre ecrasées.";
-
-$lang['WORLDMAP']='Carte du monde';
 
 $lang['POWERBY'] = "Propulsé par";
 $lang['IMAGERYBY'] = "Images par";

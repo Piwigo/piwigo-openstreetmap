@@ -1,19 +1,23 @@
 <?php
 
+$lang['R_MAP'] = "Right panel configuration";
 $lang['DISPLAY'] = "Display configuration";
 $lang['SHOWLOCATION'] = "Display location map";
 $lang['SHOWLOCATION_DESC'] = "Show a map on right panel on picture page";
-$lang['SHOWWORLDMAPLEFT'] = "Add a world map menu on the left";
-$lang['SHOWWORLDMAPLEFT_DESC'] = "Show a world map menu on the left menu, will display all the image of the gallery";
-
-$lang['R_MAP'] = "Right Panel configuration";
 $lang['ADD_BEFORE'] = "Add location before";
 $lang['ADD_BEFORE_DESC'] = "Where to display the location information";
 $lang['HEIGHT'] = "Map height";
 $lang['HEIGHT_DESC'] = "in px";
 $lang['ZOOM'] = "Zoomlevel";
 $lang['ZOOM_DESC'] = "1: far away, 18: very close";
-$lang['LOCATION'] = "Location";
+$lang['RIGHTLINK'] = "Name of the location header";
+$lang['RIGHTLINK_DESC'] = "Type the name of the link to display on top of the map";
+
+$lang['L_MAP'] = "Left menu configuration";
+$lang['SHOWWORLDMAPLEFT'] = "Add a world map menu on the left";
+$lang['SHOWWORLDMAPLEFT_DESC'] = "Show a world map menu on the left menu, will display all the image of the gallery";
+$lang['LEFTLINK'] = "World map menu name";
+$lang['LEFTLINK_DESC'] = "Type the name of the link to show on the left menu";
 
 $lang['G_MAP'] = "Map configuration";
 $lang['BASELAYER'] = "Map style";
@@ -59,8 +63,6 @@ $lang['POPUP_DESC'] = "Show a popup window if you klick to the pin.";
 $lang['PLUGINCONF'] = "Synchronize option";
 $lang['AUTOSYNC'] = "Automatically sync EXIF if exist";
 $lang['AUTOSYNC_DESC'] = "When metadata is synchronized, coordinates might be overriden.";
-
-$lang['WORLDMAP']='World map';
 
 $lang['POWERBY'] = "Power by";
 $lang['IMAGERYBY'] = "Imagery by";
