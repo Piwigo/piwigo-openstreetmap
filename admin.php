@@ -97,6 +97,13 @@ $available_popup = array(
 	'2' => l10n('NEVER'),
 );
 
+// Available left popup
+$available_leftpopup = array(
+	'0' => l10n('NAME'),
+	'1' => l10n('NAMETHUMB'),
+	'2' => l10n('NAMETHUMBLINK'),
+);
+
 $query = 'SELECT COUNT(*) FROM '.IMAGES_TABLE.' WHERE `lat` IS NOT NULL and `lon` IS NOT NULL ';
 list($nb_geotagged) = pwg_db_fetch_array( pwg_query($query) );
 
@@ -115,6 +122,7 @@ if (isset($_POST['submit']) && !empty($_POST['osm_height']))
 		'left_menu' => array(
 			'enabled'       => get_boolean($_POST['osm_left_menu']),
 			'link'          => $_POST['osm_left_link'],
+			'popup'         => $_POST['osm_left_popup'],
 			),
 		'map' => array(
 			'baselayer' 		=> $_POST['osm_baselayer'],
@@ -147,6 +155,7 @@ $template->assign(
 		'AVAILABLE_BASELAYER'	=> $available_baselayer,
 		'AVAILABLE_PIN'		=> $available_pin,
 		'AVAILABLE_POPUP'	=> $available_popup,
+		'AVAILABLE_LEFTPOPUP'	=> $available_leftpopup,
 		'NB_GEOTAGGED' 		=> $nb_geotagged,
 	)
 );

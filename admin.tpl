@@ -56,6 +56,13 @@ Please read the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki"
 				<input type="text" value="{$left_menu.link}" name="osm_left_link" size="10"/>
 				<br/><small>{'LEFTLINK_DESC'|@translate}</small>
 			</li>
+			<li>
+				<label>{'LEFTPOPUP'|@translate} : </label>
+				<select name="osm_left_popup">
+					{html_options options=$AVAILABLE_LEFTPOPUP selected=$left_menu.popup}
+				</select>
+				<br/><small>{'LEFTPOPUP_DESC'|@translate}</small>
+			</li>
 		</ul>
 	</fieldset>
 	<fieldset>

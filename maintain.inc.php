@@ -46,12 +46,13 @@ function plugin_install()
 			'enabled' 	=> true,
 			'add_before' 	=> 'Average',
 			'height' 	=> '200',
-			'zoom' 		=> '12',
+			'zoom' 		=> 12,
 			'link'		=> 'Location',
 			),
 		'left_menu' => array(
 			'enabled'	=> true,
 			'link'		=> 'OS World Map',
+			'popup'         => 2,
 			),
 		'map' => array(
 			'baselayer' 		=> 'mapnik',

@@ -98,6 +98,7 @@ foreach($php_data as $array)
 
 // Load parameter, fallback to default if unset
 $linkname = isset($conf['osm_conf']['left_menu']['link']) ? $conf['osm_conf']['left_menu']['link'] : 'OS World Map';
+$leftpopup = isset($conf['osm_conf']['left_menu']['popup']) ? $conf['osm_conf']['left_menu']['popup'] : 2;
 $baselayer = isset($conf['osm_conf']['map']['baselayer']) ? $conf['osm_conf']['map']['baselayer'] : 'mapnik';
 $custombaselayer = isset($conf['osm_conf']['map']['custombaselayer']) ? $conf['osm_conf']['map']['custombaselayer'] : '';
 $custombaselayerurl = isset($conf['osm_conf']['map']['custombaselayerurl']) ? $conf['osm_conf']['map']['custombaselayerurl'] : '';
@@ -134,6 +135,7 @@ else
 //$js = "\nvar addressPoints = ". json_encode($js_data, JSON_UNESCAPED_SLASHES) .";\n";
 $js = "\nvar addressPoints = ". str_replace("\/","/",json_encode($js_data)) .";\n";
 
+
 // Create the map and get a new map instance attached and element with id="tile-map"
 $js .= "\nvar Url = '".$baselayerurl."',
 	Attribution = '".$OSMCOPYRIGHT."',
@@ -148,9 +150,20 @@ $js .= "for (var i = 0; i < addressPoints.length; i++) {
 	var pathurl = '". get_absolute_root_url() ."i.php?'+a[3];
 	var imgurl = '". get_absolute_root_url() ."picture.php?/'+a[4];
 	var latlng = new L.LatLng(a[0], a[1]);
-	var marker = new L.Marker(latlng, { title: title });
-	marker.bindPopup('<p>'+title+'<br /><a href=\"'+imgurl+'\"><img src=\"'+pathurl+'\"></a></p>').openPopup();
-	markers.addLayer(marker);
+	var marker = new L.Marker(latlng, { title: title });";
+
+if($leftpopup == 0)
+{
+	$js .= "	marker.bindPopup('<p>'+title+'</p>').openPopup();";
+} else if ($leftpopup == 1)
+{
+	$js .= "	marker.bindPopup('<p>'+title+'<br /><img src=\"'+pathurl+'\"></p>').openPopup();";
+} else if ($leftpopup == 2)
+{
+	$js .= "	marker.bindPopup('<p>'+title+'<br /><a href=\"'+imgurl+'\"><img src=\"'+pathurl+'\"></a></p>').openPopup();";
+}
+
+$js .= "	markers.addLayer(marker);
 }";
 $js .= "map.addLayer(markers);\n";
 
