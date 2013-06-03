@@ -24,7 +24,6 @@
 ************************************************/
 
 if (!defined('PHPWG_ROOT_PATH')) die('Hacking attempt!');
-define('OSM_PATH' , PHPWG_PLUGINS_PATH . basename(dirname(__FILE__)) . '/');
 
 function plugin_install()
 {
@@ -89,9 +88,9 @@ EOF;
 function plugin_uninstall()
 {
 	// Delete all files
-	if (is_dir(PHPWG_ROOT_PATH.PWG_LOCAL_DIR.'piwigo-openstreetmap'))
+	if (is_dir(OSM_PATH))
 	{
-		deltree(PHPWG_ROOT_PATH.PWG_LOCAL_DIR.'piwigo-openstreetmap');
+		deltree(OSM_PATH);
 	}
 
 	// Remove world map link
