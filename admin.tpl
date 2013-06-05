@@ -64,11 +64,15 @@ Please read the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki"
 				<br/><small>{'LEFTPOPUP_DESC'|@translate}</small>
 			</li>
 			<li>
-				<label>{'LEFTPOPUPINFO'|@translate} : </label>
-				<select name="osm_left_popup_info">
-					{html_options options=$AVAILABLE_POPUPINFO selected=$left_menu.popupinfo}
-				</select>
-				<br/><small>{'LEFTPOPUPINFO_DESC'|@translate}</small>
+				<label>{'LEFTPOPUPINFO'|@translate} : </label><br/>
+				<div style="padding-left: 25px">
+				  <input type="checkbox" name="osm_left_popupinfo_name" value="true" {if $left_menu.popupinfo_name}checked="checked"{/if}/> {'POPUPNAME'|@translate}<br />
+				  <input type="checkbox" name="osm_left_popupinfo_img" value="true" {if $left_menu.popupinfo_img}checked="checked"{/if}/> {'POPUPTHUMB'|@translate}<br /> 
+				  <input type="checkbox" name="osm_left_popupinfo_link" value="true" {if $left_menu.popupinfo_link}checked="checked"{/if}/> {'POPUPLINK'|@translate}<br /> 
+				  <input type="checkbox" name="osm_left_popupinfo_comment" value="true" {if $left_menu.popupinfo_comment}checked="checked"{/if}/> {'POPUPCOMMENT'|@translate}<br /> 
+				  <input type="checkbox" name="osm_left_popupinfo_author" value="true" {if $left_menu.popupinfo_author}checked="checked"{/if}/> {'POPUPAUTHOR'|@translate}
+				</div>
+				<small>{'LEFTPOPUPINFO_DESC'|@translate}</small>
 			</li>
 		</ul>
 	</fieldset>

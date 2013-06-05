@@ -69,7 +69,7 @@ $page = array_merge( $page, $result );
 if (isset($page['category']))
 	check_restrictions($page['category']['id']);
 
-// Fetch data lat and lon
+// Fetch data with lat and lon
 /*
 $forbidden = get_sql_condition_FandF(
 	array
@@ -83,23 +83,55 @@ $forbidden = get_sql_condition_FandF(
 $query="SELECT `lat`, `lon`, `file`, `path` FROM ".IMAGES_TABLE." INNER JOIN ".IMAGE_CATEGORY_TABLE." AS ic ON id = ic.image_id WHERE ". $forbidden ." `lat` IS NOT NULL AND `lon` IS NOT NULL;";
 */
 //$query="SELECT `lat`, `lon`, `name`, `path` FROM ".IMAGES_TABLE." WHERE `lat` IS NOT NULL AND `lon` IS NOT NULL;";
-$query="SELECT `lat` , `lon` , `name` , CONCAT(SUBSTRING_INDEX(TRIM(LEADING '.' FROM `path`), '.', 1 ), '-sq.', SUBSTRING_INDEX(TRIM(LEADING '.' FROM `path`), '.', -1 )) as pathurl, CONCAT(`id`, '/category/', `storage_category_id`) as imgurl FROM ".IMAGES_TABLE." WHERE `lat` IS NOT NULL AND `lon` IS NOT NULL;";
+
+// SUBSTRING_INDEX(TRIM(LEADING '.' FROM `path`), '.', 1) full path without filename extension
+// SUBSTRING_INDEX(TRIM(LEADING '.' FROM `path`), '.', -1) full path with only filename extension
+
+$query="SELECT `lat`, `lon`, `name`, 
+IF(`representative_ext` IS NULL, 
+	CONCAT(SUBSTRING_INDEX(TRIM(LEADING '.' FROM `path`), '.', 1 ), '-sq.', SUBSTRING_INDEX(TRIM(LEADING '.' FROM `path`), '.', -1 )), 
+	TRIM(LEADING '.' FROM
+		REPLACE(`path`, `file`,
+				CONCAT('pwg_representative/',
+					CONCAT(
+						TRIM(TRAILING '.' FROM SUBSTRING_INDEX(`file`, '.', 1 )),
+						CONCAT('-sq.', `representative_ext`)
+					)
+				)
+			)
+		)
+) AS pathurl,  
+CONCAT(`id`, '/category/', `storage_category_id`) as imgurl, 
+IFNULL(`comment`, '') AS `comment`,
+IFNULL(`author`, '') AS `author`,
+`width` 
+FROM ".IMAGES_TABLE." WHERE `lat` IS NOT NULL AND `lon` IS NOT NULL;";
 $php_data = array_from_query($query);
 //print_r($php_data);
 $js_data = array();
 foreach($php_data as $array)
 {
-	// MySQL do the job
-	//$extension_pos = strrpos($array['pathurl'], '.');
-	//$thumb = substr($array['pathurl'], 0, $extension_pos) . '-sq' . substr($array['pathurl'], $extension_pos);
-	//$thumb = ltrim($thumb, '.');
-	$js_data[] = array((double)$array['lat'], (double)$array['lon'], $array['name'], $array['pathurl'], $array['imgurl']);
+	// MySQL did all the job
+	//print_r($array);
+	$js_data[] = array((double)$array['lat'],
+			   (double)$array['lon'],
+			   $array['name'],
+			   $array['pathurl'],
+			   $array['imgurl'],
+			   $array['comment'],
+			   $array['author'],
+			   (int)$array['width']
+			   );
 }
 
 // Load parameter, fallback to default if unset
 $linkname = isset($conf['osm_conf']['left_menu']['link']) ? $conf['osm_conf']['left_menu']['link'] : 'OS World Map';
 $popup = isset($conf['osm_conf']['left_menu']['popup']) ? $conf['osm_conf']['left_menu']['popup'] : 0;
-$popupinfo = isset($conf['osm_conf']['left_menu']['popupinfo']) ? $conf['osm_conf']['left_menu']['popupinfo'] : 2;
+$popupinfo_name = isset($conf['osm_conf']['left_menu']['popupinfo_name']) ? $conf['osm_conf']['left_menu']['popupinfo_name'] : 0;
+$popupinfo_img = isset($conf['osm_conf']['left_menu']['popupinfo_img']) ? $conf['osm_conf']['left_menu']['popupinfo_img'] : 0;
+$popupinfo_link = isset($conf['osm_conf']['left_menu']['popupinfo_link']) ? $conf['osm_conf']['left_menu']['popupinfo_link'] : 0;
+$popupinfo_comment = isset($conf['osm_conf']['left_menu']['popupinfo_comment']) ? $conf['osm_conf']['left_menu']['popupinfo_comment'] : 0;
+$popupinfo_author  = isset($conf['osm_conf']['left_menu']['popupinfo_author']) ? $conf['osm_conf']['left_menu']['popupinfo_author'] : 0;
 $baselayer = isset($conf['osm_conf']['map']['baselayer']) ? $conf['osm_conf']['map']['baselayer'] : 'mapnik';
 $custombaselayer = isset($conf['osm_conf']['map']['custombaselayer']) ? $conf['osm_conf']['map']['custombaselayer'] : '';
 $custombaselayerurl = isset($conf['osm_conf']['map']['custombaselayerurl']) ? $conf['osm_conf']['map']['custombaselayerurl'] : '';
@@ -150,24 +182,40 @@ $js .= "for (var i = 0; i < addressPoints.length; i++) {
 	var title = a[2];
 	var pathurl = '". get_absolute_root_url() ."i.php?'+a[3];
 	var imgurl = '". get_absolute_root_url() ."picture.php?/'+a[4];
+	var comment = a[5];
+	var author = a[6];
+	var width = a[7];
 	var latlng = new L.LatLng(a[0], a[1]);
-	var marker = new L.Marker(latlng, { title: title });\n
+	var marker = new L.Marker(latlng, { title: title });
 	";
 
 // create Popup
 if ($popup < 2)
 {
 	$openpopup = ".openPopup()";
-	if($popupinfo == 0)
+	$myinfo = "'<p>";
+	if($popupinfo_name)
 	{
-		$js .= "marker.bindPopup('<p>'+title+'</p>')".$openpopup.";";
-	} else if ($popupinfo == 1)
-	{
-		$js .= "marker.bindPopup('<p>'+title+'<br /><img src=\"'+pathurl+'\"></p>')".$openpopup.";";
-	} else if ($popupinfo == 2)
-	{
-		$js .= "marker.bindPopup('<p>'+title+'<br /><a href=\"'+imgurl+'\"><img src=\"'+pathurl+'\"></a></p>')".$openpopup.";";
+		$myinfo .= "'+title+'";
 	}
+	if($popupinfo_img and !$popupinfo_link)
+	{
+		$myinfo .= "<br /><img src=\"'+pathurl+'\">";
+	}
+	else if($popupinfo_img and $popupinfo_link)
+	{
+		$myinfo .= "<br /><a href=\"'+imgurl+'\"><img src=\"'+pathurl+'\"></a>";
+	}
+	if($popupinfo_comment)
+	{
+		$myinfo .= "<br />'+comment+'";
+	}
+	if($popupinfo_author)
+	{
+		$myinfo .= "<br />'+author+'";
+	}
+	$myinfo .= "</p>'";
+	$js .= "marker.bindPopup(".$myinfo.", {minWidth: '+width+'}).openPopup();";
 }
 
 $js .= "\n	markers.addLayer(marker);

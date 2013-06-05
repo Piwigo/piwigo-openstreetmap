@@ -49,10 +49,14 @@ function plugin_install()
 			'link'		=> 'Location',
 			),
 		'left_menu' => array(
-			'enabled'	=> true,
-			'link'		=> 'OS World Map',
-			'popup'		=> 0,
-			'popupinfo'	=> 2,
+			'enabled'		=> true,
+			'link'			=> 'OS World Map',
+			'popup'			=> 0,
+			'popupinfo_name'	=> true,
+			'popupinfo_img'		=> true,
+			'popupinfo_link'	=> true,
+			'popupinfo_comment'	=> true,
+			'popupinfo_author'	=> true,
 			),
 		'map' => array(
 			'baselayer' 		=> 'mapnik',
@@ -97,7 +101,7 @@ function plugin_uninstall()
 	@unlink(PHPWG_ROOT_PATH.'osmmap.php');
 
 	/* Remove configuration from the config table */
-	$q = 'DELETE FROM '.CONFIG_TABLE.' WHERE param LIKE "osm_conf" LIMIT 1;';
+	$q = 'DELETE FROM '.CONFIG_TABLE.' WHERE param = "osm_conf" LIMIT 1;';
 	pwg_query( $q );
 
 	/* Remove geotag from images table */
