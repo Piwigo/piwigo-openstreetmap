@@ -2,31 +2,35 @@
 
 $lang['R_MAP'] = "Configuration panneau de droite";
 $lang['SHOWLOCATION'] = "Affiche une carte";
-$lang['SHOWLOCATION_DESC'] = "Show a map on right panel on picture page";
+$lang['SHOWLOCATION_DESC'] = "Affiche une carte a droite sur la page de l'image.";
 $lang['ADD_BEFORE'] = "Ajouter l'information avant";
-$lang['ADD_BEFORE_DESC'] = "Ou afficher l'information de localisation";
+$lang['ADD_BEFORE_DESC'] = "Ou afficher l'information de localisation.";
 $lang['HEIGHT'] = "Hauteur de la carte";
 $lang['HEIGHT_DESC'] = "en pixel";
 $lang['ZOOM'] = "Niveau de Zoom";
 $lang['ZOOM_DESC'] = "1: pays, 18: quartier";
 $lang['RIGHTLINK'] = "Nom du titre";
-$lang['RIGHTLINK_DESC'] = "Le nom a afficher au dessus de la carte";
+$lang['RIGHTLINK_DESC'] = "Le nom a afficher au dessus de la carte.";
+$lang['SHOWOSM'] = "Display 'View on OpenStreetMap'";
+$lang['SHOWOSM_DESC'] = "Add a link after the map to view it on OpenStreetMap.";
 
 $lang['L_MAP'] = "Configuration menu de gauche";
 $lang['SHOWWORLDMAPLEFT'] = "Add a world map menu on the left";
-$lang['SHOWWORLDMAPLEFT_DESC'] = "Show a world map menu on the left menu, will display all the image of the gallery";
+$lang['SHOWWORLDMAPLEFT_DESC'] = "Show a world map menu on the left menu, will display all the image of the gallery.";
 $lang['LEFTLINK'] = "World map menu name";
-$lang['LEFTLINK_DESC'] = "Type the name of the link to show on the left menu";
+$lang['LEFTLINK_DESC'] = "Type the name of the link to show on the left menu.";
 $lang['LEFTPOPUP'] = "Affiche le popup";
 $lang['LEFTPOPUP_DESC'] = "Affiche le popup descriptif si vous cliquer sur l'épingle.";
 $lang['CLICK'] = "affiche sur clic";
 $lang['ALWAYS'] = "affichage permanent";
 $lang['NEVER'] = "pas de popup";
 $lang['LEFTPOPUPINFO'] = "Selectioner la desciption du popup";
-$lang['LEFTPOPUPINFO_DESC'] = "Choisissez ce que vous desirez afficher dans le popup";
-$lang['NAME'] = "Nom";
-$lang['NAMETHUMB'] = "Nom + miniature";
-$lang['NAMETHUMBLINK'] = "Nom + miniature + lien vers l'image";
+$lang['LEFTPOPUPINFO_DESC'] = "Choisissez ce que vous desirez afficher dans le popup.";
+$lang['POPUPNAME'] = "Nom de l'image";
+$lang['POPUPTHUMB'] = "Miniature de l'image";
+$lang['POPUPLINK'] = "Ajout un lien vers l'image";
+$lang['POPUPCOMMENT'] = "Commentaire de l'image";
+$lang['POPUPAUTHOR'] = "Auteur de l'image";
 
 $lang['G_MAP'] = "Configuration de la Carte";
 $lang['BASELAYER'] = "Style de Carte";
