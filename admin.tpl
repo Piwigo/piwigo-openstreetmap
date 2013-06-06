@@ -1,10 +1,30 @@
+{html_head}
+<style>
+  {literal}
+    .osm_layout {
+      text-align: left;
+      border: 2px solid rgb(221, 221, 221);
+      padding: 1em;
+      margin: 1em;
+    }
+  {/literal}
+</style>
+{/html_head}
+
 <div class="titrePage">
   <h2>OpenStreetMap plugin</h2>
 </div>
 
-You have {$NB_GEOTAGGED} geotagged images.
+This plugin extends Piwigo with geographical location for each items.
 <br/><br/>
 Please read the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" target="_blanck">plugin documentation</a> for additional information.
+
+<div class="osm_layout">
+  <legend>{'Statistics'|@translate}</legend>
+  <ul>
+    <li class="update_summary_new">{$NB_GEOTAGGED} geotagged items in your gallery</li>
+  </ul>
+</div>
 
 <form method="post" action="" class="properties">
 	<fieldset>
@@ -25,7 +45,7 @@ Please read the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki"
 			</li>
 			<li>
 				<label>{'HEIGHT'|@translate} : </label>
-				<input type="text" value="{$right_panel.height}" name="osm_height" size="4"/>
+				<input type="text" value="{$right_panel.height}" name="osm_height" size="4" required/>
 				<br/><small>{'HEIGHT_DESC'|@translate}</small>
 			</li>
 			<li>
@@ -39,6 +59,12 @@ Please read the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki"
 				<label>{'RIGHTLINK'|@translate} : </label>
 				<input type="text" value="{$right_panel.link}" name="osm_right_link" size="10"/>
 				<br/><small>{'RIGHTLINK_DESC'|@translate}</small>
+			</li>
+			<li>
+				<label>{'SHOWOSM'|@translate} : </label>
+				<label><input type="radio" name="osm_showosm" value="true" {if $right_panel.showosm}checked="checked"{/if}/> {'Yes'|@translate}</label>
+				<label><input type="radio" name="osm_showosm" value="false" {if not $right_panel.showosm}checked="checked"{/if}/> {'No'|@translate}</label>
+				<br/><small>{'SHOWOSM_DESC'|@translate}</small>
 			</li>
 		</ul>
 	</fieldset>

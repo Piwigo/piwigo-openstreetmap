@@ -62,8 +62,11 @@ function osm_insert_map($content, &$smarty)
 <div id="map-info" class="imageInfo">
     <dt>{$LINKNAME}</dt>
     <dd>
-            <div id="map"></div>
-            <script type="text/javascript">{$OSMJS}</script>
+	<div id="map"></div>
+	<script type="text/javascript">{$OSMJS}</script>
+	{if $SHOWOSM}
+        View on <a href="{$OSMLINK}" target="_blank">OpenStreetMap</a>
+	{/if}
     </dd>
 </div>
 {/if}
@@ -94,6 +97,7 @@ function osm_render_element_content()
     $height = isset($conf['osm_conf']['right_panel']['height']) ? $conf['osm_conf']['right_panel']['height'] : '200';
     $zoom = isset($conf['osm_conf']['right_panel']['zoom']) ? $conf['osm_conf']['right_panel']['zoom'] : '12';
     $linkname = isset($conf['osm_conf']['right_panel']['link']) ? $conf['osm_conf']['right_panel']['link'] : 'Location';
+    $showosm = isset($conf['osm_conf']['right_panel']['showosm']) ? $conf['osm_conf']['right_panel']['showosm'] : 'true';
     $baselayer = isset($conf['osm_conf']['map']['baselayer']) ? $conf['osm_conf']['map']['baselayer'] : 'mapnik';
     $custombaselayer = isset($conf['osm_conf']['map']['custombaselayer']) ? $conf['osm_conf']['map']['custombaselayer'] : '';
     $custombaselayerurl = isset($conf['osm_conf']['map']['custombaselayerurl']) ? $conf['osm_conf']['map']['custombaselayerurl'] : '';
@@ -103,6 +107,8 @@ function osm_render_element_content()
     $attrmodule = isset($conf['osm_conf']['map']['attrplugin']) ? $conf['osm_conf']['map']['attrplugin'] : 'false';
 
     $OSMCOPYRIGHT='Map data © <a href="http://www.openstreetmap.org" target="_blank">OpenStreetMap</a> (<a href="http://www.openstreetmap.org/copyright" target="_blank">ODbL</a>)';
+
+    $osmlink="http://openstreetmap.org/?mlat=".$lat."&amp;mlon=".$lon;
 
     // Load baselayerURL
     // Key1 BC9A493B41014CAABB98F0471D759707
@@ -155,6 +161,8 @@ function osm_render_element_content()
 	    'OSMJS' 	=> $js,
 	    'OSM_PATH'	=> OSM_PATH,
 	    'LINKNAME'	=> $linkname,
+	    'SHOWOSM'	=> $showosm,
+	    'OSMLINK'	=> $osmlink,
 	)
     );
 

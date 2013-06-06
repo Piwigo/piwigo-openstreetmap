@@ -118,6 +118,7 @@ if (isset($_POST['submit']) && !empty($_POST['osm_height']))
 			'height' 	=> $_POST['osm_height'],
 			'zoom' 		=> $_POST['osm_zoom'],
 			'link'          => $_POST['osm_right_link'],
+			'showosm' 	=> get_boolean($_POST['osm_showosm']),
 			),
 		'left_menu' => array(
 			'enabled'       	=> get_boolean($_POST['osm_left_menu']),
