@@ -271,7 +271,7 @@ $template->assign(
 		'PLUGIN_LOCATION'	=> 'plugins/'.$osm_dir,
 		'GALLERY_TITLE'		=> $linkname .' - '. $conf['gallery_title'],
 		'HOME'			=> make_index_url(),
-		'HOME_PREV'		=> $_SERVER['HTTP_REFERER'],
+		'HOME_PREV'		=> isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : get_absolute_root_url(),
 		'HOME_NAME'		=> l10n("Home"),
 		'HOME_PREV_NAME'	=> l10n("Previous"),
 		'TOTAL'			=> sprintf( l10n('%d photos'), count($php_data) ),
