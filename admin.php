@@ -87,7 +87,12 @@ $available_add_before = array(
 $available_pin = array(
 	'0' => l10n('NOPIN'),
 	'1' => l10n('DEFAULTPIN'),
-	'2' => l10n('OWNPIN'),
+	'2' => l10n('LEAFPINGREEN'),
+	'3' => l10n('LEAFPINORANGE'),
+	'4' => l10n('LEAFPINRED'),
+	'5' => l10n('MAPICONSBLEU'),
+	'6' => l10n('MAPICONSGREEN'),
+	'7' => l10n('OWNPIN'),
 );
 
 // Available popup
@@ -95,13 +100,6 @@ $available_popup = array(
 	'0' => l10n('CLICK'),
 //	'1' => l10n('ALWAYS'),
 	'2' => l10n('NEVER'),
-);
-
-// Available left popup
-$available_popupinfo = array(
-	'0' => l10n('NAME'),
-	'1' => l10n('NAMETHUMB'),
-	'2' => l10n('NAMETHUMBLINK'),
 );
 
 $query = 'SELECT COUNT(*) FROM '.IMAGES_TABLE.' WHERE `lat` IS NOT NULL and `lon` IS NOT NULL ';
@@ -161,7 +159,6 @@ $template->assign(
 		'AVAILABLE_BASELAYER'	=> $available_baselayer,
 		'AVAILABLE_PIN'		=> $available_pin,
 		'AVAILABLE_POPUP'	=> $available_popup,
-		'AVAILABLE_POPUPINFO'	=> $available_popupinfo,
 		'NB_GEOTAGGED' 		=> $nb_geotagged,
 	)
 );
