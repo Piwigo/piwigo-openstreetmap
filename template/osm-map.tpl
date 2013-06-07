@@ -30,7 +30,7 @@ html, body {
 {/literal}
 {/html_style}
 
-<span> <a href="{$HOME}">{$HOME_NAME}</a> <a href="{$HOME_PREV}">{$HOME_PREV_NAME}</a> - Mouse over a cluster to see the bounds of its children and click a cluster to zoom to those bounds</span>
+<span> <a href="{$HOME}">{$HOME_NAME}</a> <a href="{$HOME_PREV}">{$HOME_PREV_NAME}</a> - {$TOTAL} - Mouse over a cluster to see the bounds of its children and click a cluster to zoom to those bounds</span>
 <div id="map"></div>
 <script type="text/javascript">{$OSMJS}</script>
 

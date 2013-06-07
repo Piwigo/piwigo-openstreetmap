@@ -70,7 +70,7 @@ if (isset($page['category']))
 	check_restrictions($page['category']['id']);
 
 // Fetch data with lat and lon
-/*
+
 $forbidden = get_sql_condition_FandF(
 	array
 	(
@@ -80,10 +80,8 @@ $forbidden = get_sql_condition_FandF(
 	),
 	"\n AND"
 );
-$query="SELECT `lat`, `lon`, `file`, `path` FROM ".IMAGES_TABLE." INNER JOIN ".IMAGE_CATEGORY_TABLE." AS ic ON id = ic.image_id WHERE ". $forbidden ." `lat` IS NOT NULL AND `lon` IS NOT NULL;";
-*/
-//$query="SELECT `lat`, `lon`, `name`, `path` FROM ".IMAGES_TABLE." WHERE `lat` IS NOT NULL AND `lon` IS NOT NULL;";
 
+//$query="SELECT `lat`, `lon`, `name`, `path` FROM ".IMAGES_TABLE." WHERE `lat` IS NOT NULL AND `lon` IS NOT NULL;";
 // SUBSTRING_INDEX(TRIM(LEADING '.' FROM `path`), '.', 1) full path without filename extension
 // SUBSTRING_INDEX(TRIM(LEADING '.' FROM `path`), '.', -1) full path with only filename extension
 
@@ -104,8 +102,10 @@ IF(`representative_ext` IS NULL,
 CONCAT(`id`, '/category/', `storage_category_id`) as imgurl, 
 IFNULL(`comment`, '') AS `comment`,
 IFNULL(`author`, '') AS `author`,
-`width` 
-FROM ".IMAGES_TABLE." WHERE `lat` IS NOT NULL AND `lon` IS NOT NULL;";
+`width`
+	FROM ".IMAGES_TABLE." AS i
+	    INNER JOIN ".IMAGE_CATEGORY_TABLE." AS ic ON id = ic.image_id
+	    WHERE `lat` IS NOT NULL AND `lon` IS NOT NULL ".$forbidden.";";
 $php_data = array_from_query($query);
 //print_r($php_data);
 $js_data = array();
@@ -140,7 +140,7 @@ $attrleaflet = isset($conf['osm_conf']['map']['attrleaflet']) ? $conf['osm_conf'
 $attrimagery = isset($conf['osm_conf']['map']['attrimagery']) ? $conf['osm_conf']['map']['attrimagery'] : 'false';
 $attrmodule = isset($conf['osm_conf']['map']['attrplugin']) ? $conf['osm_conf']['map']['attrplugin'] : 'false';
 
-$OSMCOPYRIGHT='Map data © <a href="http://www.openstreetmap.org" target="_blank">OpenStreetMap</a> (<a href="http://www.openstreetmap.org/copyright" target="_blank">ODbL</a>)';
+$OSMCOPYRIGHT='Map data &copy; <a href="http://www.openstreetmap.org" target="_blank">OpenStreetMap</a> (<a href="http://www.openstreetmap.org/copyright" target="_blank">ODbL</a>)';
 
 // Load baselayerURL
 // Key1 BC9A493B41014CAABB98F0471D759707
@@ -168,6 +168,39 @@ else
 //$js = "\nvar addressPoints = ". json_encode($js_data, JSON_UNESCAPED_SLASHES) .";\n";
 $js = "\nvar addressPoints = ". str_replace("\/","/",json_encode($js_data)) .";\n";
 
+/*
+// Icons
+$js .= "
+var LeafIcon = L.Icon.extend({
+	options: {
+		shadowUrl: 'plugins/piwigo-openstreetmap/leaflet/images/leaf-shadow.png',
+		iconSize:     [38, 95],
+		shadowSize:   [50, 64],
+		iconAnchor:   [22, 94],
+		shadowAnchor: [4, 62],
+		popupAnchor:  [-3, -76]
+	}
+});
+
+var mapIcon = L.Icon.extend({
+	options: {
+		shadowUrl: 'plugins/piwigo-openstreetmap/leaflet/images/mapicons-shadow.png',
+		iconSize:     [32, 37],
+		shadowSize:   [51, 37],
+		iconAnchor:   [19, 38],
+		shadowAnchor: [-20, 33],
+		popupAnchor:  [-2, -10]
+	}
+});
+
+var greenIcon = new LeafIcon({iconUrl: 'plugins/piwigo-openstreetmap/leaflet/images/leaf-green.png'}),
+	redIcon = new LeafIcon({iconUrl: 'plugins/piwigo-openstreetmap/leaflet/images/leaf-red.png'}),
+	orangeIcon = new LeafIcon({iconUrl: 'plugins/piwigo-openstreetmap/leaflet/images/leaf-orange.png'});
+
+var bluemapicons = new mapIcon({iconUrl: 'plugins/piwigo-openstreetmap/leaflet/images/mapicons-blue.png'}),
+	greenmapicons = new mapIcon({iconUrl: 'plugins/piwigo-openstreetmap/leaflet/images/mapicons-green.png'});
+";
+*/
 
 // Create the map and get a new map instance attached and element with id="tile-map"
 $js .= "\nvar Url = '".$baselayerurl."',
@@ -223,7 +256,7 @@ $js .= "\n	markers.addLayer(marker);
 $js .= "\nmap.addLayer(markers);\n";
 
 // Attribution Credit and Copyright
-if($attrleaflet){ $js .= "map.attributionControl.addAttribution('".l10n('POWERBY')." Leaflet');\n"; }
+if($attrleaflet){ $js .= "map.attributionControl.addAttribution('".l10n('POWERBY')." <a href=\"http://leafletjs.com/\" target=\"_blank\">Leaflet</a>');\n"; }
 if($attrimagery){ $js .= "map.attributionControl.addAttribution('".l10n('IMAGERYBY')." ". imagery($baselayer, $custombaselayer)."');\n"; }
 if($attrmodule){ $js .= "map.attributionControl.addAttribution('".l10n('PLUGINBY')." <a href=\"https://github.com/xbgmsharp/piwigo-openstreetmap\" target=\"_blank\">xbgmsharp</a>');\n"; }
 
@@ -241,6 +274,7 @@ $template->assign(
 		'HOME_PREV'		=> $_SERVER['HTTP_REFERER'],
 		'HOME_NAME'		=> l10n("Home"),
 		'HOME_PREV_NAME'	=> l10n("Previous"),
+		'TOTAL'			=> sprintf( l10n('%d photos'), count($php_data) ),
 		'OSMJS'			=> $js,
 	)
 );
