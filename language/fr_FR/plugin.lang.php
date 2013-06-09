@@ -69,7 +69,7 @@ $lang['PINPOPUPOFFSET_DESC'] = "La position du popup où il est lié au épingle
 
 $lang['PLUGINCONF'] = "Option de synchronization";
 $lang['AUTOSYNC'] = "Synchronizer automatiquement les données EXIF si présente";
-$lang['AUTOSYNC_DESC'] = "Lors de la synchronisation, les données precedente peuvent etre ecrasées.";
+$lang['AUTOSYNC_DESC'] = "Lors de la synchronisation, les données precedente peuvent etre ecrasées. Desactiver, si vous avez 'RV Maps & Earth' installé.";
 
 $lang['POWERBY'] = "Propulsé par";
 $lang['IMAGERYBY'] = "Images par";

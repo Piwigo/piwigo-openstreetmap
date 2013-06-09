@@ -70,7 +70,7 @@ $lang['PINPOPUPOFFSET_DESC'] = "The position on the pin image, where the popup h
 
 $lang['PLUGINCONF'] = "Synchronize option";
 $lang['AUTOSYNC'] = "Automatically sync EXIF if exist";
-$lang['AUTOSYNC_DESC'] = "When metadata is synchronized, coordinates might be overriden.";
+$lang['AUTOSYNC_DESC'] = "When metadata is synchronized, coordinates might be overriden. Disable it if you have 'RV Maps & Earth' installed.";
 
 $lang['POWERBY'] = "Power by";
 $lang['IMAGERYBY'] = "Imagery by";
