@@ -40,19 +40,9 @@ if ($conf['osm_conf']['auto_sync'])
 	add_event_handler('format_exif_data', 'osm_format_exif_data', EVENT_HANDLER_PRIORITY_NEUTRAL, 3);
 }
 
-
-// Hook to a admin config page
-add_event_handler('get_admin_plugin_menu_links', 'osm_admin_menu');
-
-function osm_admin_menu($menu)
-{
-	array_push($menu,
-		array(
-			'NAME' => 'OpenStreetMap',
-			'URL'  => get_admin_plugin_menu_link(dirname(__FILE__).'/admin.php')
-		)
-	);
-	return $menu;
+// If admin do the init
+if (defined('IN_ADMIN')) {
+	include_once(OSM_PATH.'/admin_boot.php');
 }
 
 function osm_format_exif_data($exif, $file, $map)
