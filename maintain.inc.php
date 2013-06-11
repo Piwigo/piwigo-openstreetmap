@@ -92,12 +92,13 @@ EOF;
 
 function plugin_uninstall()
 {
-	// Delete all files
+	/* Delete all files */
+/* Don't remove myself on restore settings
 	if (is_dir(OSM_PATH))
 	{
 		deltree(OSM_PATH);
 	}
-
+*/
 	// Remove world map link
 	@unlink(PHPWG_ROOT_PATH.'osmmap.php');
 
