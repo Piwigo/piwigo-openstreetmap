@@ -200,8 +200,15 @@ Please read the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki"
 				<label><input type="radio" name="osm_auto_sync" value="false" {if not $auto_sync}checked="checked"{/if}/> {'No'|@translate}</label>
 				<br/><small>{'AUTOSYNC_DESC'|@translate}</small>
 			</li>
+			<li>
+				<label>{'BATCHMANAGER'|@translate} : </label>
+				<label><input type="radio" name="osm_batch_manager" value="true" {if $batch_manager}checked="checked"{/if}/> {'Yes'|@translate}</label>
+				<label><input type="radio" name="osm_batch_manager" value="false" {if not $batch_manager}checked="checked"{/if}/> {'No'|@translate}</label>
+				<br/><small>{'BATCHMANAGER_DESC'|@translate}</small>
+			</li>
 		</ul>
 	</fieldset>
+
 	<p>
 		<input class="submit" type="submit" value="{'Save Settings'|@translate}" name="submit"/>
 	</p>

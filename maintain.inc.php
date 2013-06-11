@@ -69,6 +69,7 @@ function plugin_install()
 			'attrplugin' 		=> true,
 			),
 		'auto_sync' 		=> false,
+		'batch_manager' 	=> false,
 	);
 	/* Add configuration to the config table */
 	$conf['osm_conf'] = serialize($default_config);

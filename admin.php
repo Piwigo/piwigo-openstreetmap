@@ -138,6 +138,7 @@ if (isset($_POST['submit']) && !empty($_POST['osm_height']))
 			'attrplugin' 		=> get_boolean($_POST['osm_attrplugin']),
 			),
 		'auto_sync' 		=> get_boolean($_POST['osm_auto_sync']),
+		'batch_manager' 	=> get_boolean($_POST['osm_batch_manager']),
 	);
 
 	// Update config to DB
