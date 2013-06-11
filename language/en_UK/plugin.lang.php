@@ -68,9 +68,11 @@ $lang['PINOFFSET_DESC'] = "The position on the pin image, where the pin hits the
 $lang['PINPOPUPOFFSET'] = "Popup offset";
 $lang['PINPOPUPOFFSET_DESC'] = "The position on the pin image, where the popup hits the pin. 0x0 ist the pin point.";
 
-$lang['PLUGINCONF'] = "Synchronize option";
+$lang['PLUGINCONF'] = "Plugin options";
 $lang['AUTOSYNC'] = "Automatically sync EXIF if exist";
 $lang['AUTOSYNC_DESC'] = "When metadata is synchronized, coordinates might be overriden. Disable it if you have 'RV Maps & Earth' installed.";
+$lang['BATCHMANAGER'] = "Enable Batch Manager integration";
+$lang['BATCHMANAGER_DESC'] = "Allow to modify latitude, longitude manually. Disable it if you have 'RV Maps & Earth' installed.";
 
 $lang['POWERBY'] = "Power by";
 $lang['IMAGERYBY'] = "Imagery by";

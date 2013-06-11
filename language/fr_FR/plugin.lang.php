@@ -67,9 +67,11 @@ $lang['PINOFFSET_DESC'] = "L'offset de position du point d'ancrage de l'image de
 $lang['PINPOPUPOFFSET'] = "Offset du Popup";
 $lang['PINPOPUPOFFSET_DESC'] = "La position du popup où il est lié au épingle. 0x0 coorespond au épingle.";
 
-$lang['PLUGINCONF'] = "Option de synchronization";
+$lang['PLUGINCONF'] = "Options du plugin";
 $lang['AUTOSYNC'] = "Synchronizer automatiquement les données EXIF si présente";
 $lang['AUTOSYNC_DESC'] = "Lors de la synchronisation, les données precedente peuvent etre ecrasées. Desactiver, si vous avez 'RV Maps & Earth' installé.";
+$lang['BATCHMANAGER'] = "Activer l'integration avec gestion par lot";
+$lang['BATCHMANAGER_DESC'] = "Allow to modify latitude and longitude manually. esactiver, si vous avez 'RV Maps & Earth' installé.";
 
 $lang['POWERBY'] = "Propulsé par";
 $lang['IMAGERYBY'] = "Images par";
