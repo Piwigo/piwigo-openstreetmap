@@ -11,6 +11,8 @@ $lang['ZOOM'] = "Niveau de Zoom";
 $lang['ZOOM_DESC'] = "1: pays, 18: quartier";
 $lang['RIGHTLINK'] = "Nom du titre";
 $lang['RIGHTLINK_DESC'] = "Le nom a afficher au dessus de la carte.";
+$lang['RIGHTLINKCSS'] = "CustomCSS";
+$lang['RIGHTLINKCSS_DESC'] = "Custom CSS style to apply on the location header.";
 $lang['SHOWOSM'] = "Display 'View on OpenStreetMap'";
 $lang['SHOWOSM_DESC'] = "Add a link after the map to view it on OpenStreetMap.";
 

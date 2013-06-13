@@ -12,6 +12,8 @@ $lang['ZOOM'] = "Zoomlevel";
 $lang['ZOOM_DESC'] = "1: far away, 18: very close";
 $lang['RIGHTLINK'] = "Name of the location header";
 $lang['RIGHTLINK_DESC'] = "Type the name to display on top of the map.";
+$lang['RIGHTLINKCSS'] = "CustomCSS";
+$lang['RIGHTLINKCSS_DESC'] = "Custom CSS style to apply on the location header.";
 $lang['SHOWOSM'] = "Display 'View on OpenStreetMap'";
 $lang['SHOWOSM_DESC'] = "Add a link after the map to view it on OpenStreetMap.";
 
