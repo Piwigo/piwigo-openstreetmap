@@ -60,7 +60,7 @@ function osm_insert_map($content, &$smarty)
     $replacement = '
 {if $OSMJS}
 <div id="map-info" class="imageInfo">
-    <dt>{$LINKNAME}</dt>
+    <dt {$OSMNAMECSS}>{$OSMNAME}</dt>
     <dd>
 	<div id="map"></div>
 	<script type="text/javascript">{$OSMJS}</script>
@@ -96,7 +96,8 @@ function osm_render_element_content()
     // Load parameter, fallback to default if unset
     $height = isset($conf['osm_conf']['right_panel']['height']) ? $conf['osm_conf']['right_panel']['height'] : '200';
     $zoom = isset($conf['osm_conf']['right_panel']['zoom']) ? $conf['osm_conf']['right_panel']['zoom'] : '12';
-    $linkname = isset($conf['osm_conf']['right_panel']['link']) ? $conf['osm_conf']['right_panel']['link'] : 'Location';
+    $osmname = isset($conf['osm_conf']['right_panel']['link']) ? $conf['osm_conf']['right_panel']['link'] : 'Location';
+    $osmnamecss = isset($conf['osm_conf']['right_panel']['linkcss']) ? $conf['osm_conf']['right_panel']['linkcss'] : '';
     $showosm = isset($conf['osm_conf']['right_panel']['showosm']) ? $conf['osm_conf']['right_panel']['showosm'] : 'true';
     $baselayer = isset($conf['osm_conf']['map']['baselayer']) ? $conf['osm_conf']['map']['baselayer'] : 'mapnik';
     $custombaselayer = isset($conf['osm_conf']['map']['custombaselayer']) ? $conf['osm_conf']['map']['custombaselayer'] : '';
@@ -106,9 +107,14 @@ function osm_render_element_content()
     $attrimagery = isset($conf['osm_conf']['map']['attrimagery']) ? $conf['osm_conf']['map']['attrimagery'] : 'false';
     $attrmodule = isset($conf['osm_conf']['map']['attrplugin']) ? $conf['osm_conf']['map']['attrplugin'] : 'false';
 
+    if (strlen($osmnamecss) != 0)
+    {
+	$osmnamecss = "style='".$osmnamecss."'";
+    }
+
     $OSMCOPYRIGHT='Map data © <a href="http://www.openstreetmap.org" target="_blank">OpenStreetMap</a> (<a href="http://www.openstreetmap.org/copyright" target="_blank">ODbL</a>)';
 
-    $osmlink="http://openstreetmap.org/?mlat=".$lat."&amp;mlon=".$lon;
+    $osmlink="http://openstreetmap.org/?mlat=".$lat."&amp;mlon=".$lon."&zoom=12&layers=M";
 
     // Load baselayerURL
     // Key1 BC9A493B41014CAABB98F0471D759707
@@ -133,16 +139,50 @@ function osm_render_element_content()
 	$worldcopyjump = "worldCopyJump: true";
     }
 
+/*
+    // Icons
+    $js = "\n
+var LeafIcon = L.Icon.extend({
+    options: {
+	shadowUrl: 'plugins/piwigo-openstreetmap/leaflet/images/leaf-shadow.png',
+	iconSize:     [38, 95],
+	shadowSize:   [50, 64],
+	iconAnchor:   [22, 94],
+	shadowAnchor: [4, 62],
+	popupAnchor:  [-3, -76]
+    }
+});
+
+var mapIcon = L.Icon.extend({
+    options: {
+	shadowUrl: 'plugins/piwigo-openstreetmap/leaflet/images/mapicons-shadow.png',
+	iconSize:     [32, 37],
+	shadowSize:   [51, 37],
+	iconAnchor:   [19, 38],
+	shadowAnchor: [-20, 33],
+	popupAnchor:  [-2, -10]
+    }
+});
+
+var greenIcon = new LeafIcon({iconUrl: 'plugins/piwigo-openstreetmap/leaflet/images/leaf-green.png'}),
+	redIcon = new LeafIcon({iconUrl: 'plugins/piwigo-openstreetmap/leaflet/images/leaf-red.png'}),
+	orangeIcon = new LeafIcon({iconUrl: 'plugins/piwigo-openstreetmap/leaflet/images/leaf-orange.png'});
+
+var bluemapicons = new mapIcon({iconUrl: 'plugins/piwigo-openstreetmap/leaflet/images/mapicons-blue.png'}),
+	greenmapicons = new mapIcon({iconUrl: 'plugins/piwigo-openstreetmap/leaflet/images/mapicons-green.png'});
+";
+*/
     // Create the map and get a new map instance attached and element with id="tile-map"
-    $js  = "\nvar map = new L.Map('map', {".$worldcopyjump."});\n";
+    $js = "\nvar map = new L.Map('map', {".$worldcopyjump."});\n";
     $js .= "map.attributionControl.setPrefix('');\n";
     $js .= "var baselayer = new L.TileLayer('".$baselayerurl."', {maxZoom: 18, ".$nowarp."attribution: '".$OSMCOPYRIGHT."'});\n";
     $js .= "var coord = new L.LatLng(".$lat.", ".$lon.");\n";
     $js .= "var marker = new L.Marker(coord);\n";
+    //$js .= "var marker = new L.Marker(coord, {icon: bluemapicons});\n";
     $js .= "map.addLayer(marker);\n";
 
     // Attribution Credit and Copyright
-    if($attrleaflet){ $js .= "map.attributionControl.addAttribution('".l10n('POWERBY')." Leaflet');\n"; }
+    if($attrleaflet){ $js .= "map.attributionControl.addAttribution('".l10n('POWERBY')." <a href=\"http://leafletjs.com/\" target=\"_blank\">Leaflet</a>');\n"; }
     if($attrimagery){ $js .= "map.attributionControl.addAttribution('".l10n('IMAGERYBY')." ". imagery($baselayer, $custombaselayer)."');\n"; }
     if($attrmodule){ $js .= "map.attributionControl.addAttribution('".l10n('PLUGINBY')." <a href=\"https://github.com/xbgmsharp/piwigo-openstreetmap\" target=\"_blank\">xbgmsharp</a>');\n"; }
 
@@ -157,12 +197,13 @@ function osm_render_element_content()
     // Assign the template variables
     $template->assign(
 	array(
-	    'HEIGHT'	=> $height,
-	    'OSMJS' 	=> $js,
-	    'OSM_PATH'	=> OSM_PATH,
-	    'LINKNAME'	=> $linkname,
-	    'SHOWOSM'	=> $showosm,
-	    'OSMLINK'	=> $osmlink,
+	    'HEIGHT'		=> $height,
+	    'OSMJS' 		=> $js,
+	    'OSM_PATH'		=> OSM_PATH,
+	    'OSMNAME'		=> $osmname,
+	    'OSMNAMECSS'	=> $osmnamecss,
+	    'SHOWOSM'		=> $showosm,
+	    'OSMLINK'		=> $osmlink,
 	)
     );
 

@@ -47,6 +47,7 @@ function plugin_install()
 			'height' 	=> '200',
 			'zoom' 		=> 12,
 			'link'		=> 'Location',
+			'linkcss'	=> null,
 			'showosm' 	=> true,
 			),
 		'left_menu' => array(

@@ -115,7 +115,8 @@ if (isset($_POST['submit']) && !empty($_POST['osm_height']))
 			'add_before' 	=> $_POST['osm_add_before'],
 			'height' 	=> $_POST['osm_height'],
 			'zoom' 		=> $_POST['osm_zoom'],
-			'link'          => $_POST['osm_right_link'],
+			'link'		=> $_POST['osm_right_link'],
+			'linkcss'	=> $_POST['osm_right_linkcss'],
 			'showosm' 	=> get_boolean($_POST['osm_showosm']),
 			),
 		'left_menu' => array(

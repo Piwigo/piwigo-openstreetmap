@@ -61,6 +61,11 @@ Please read the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki"
 				<br/><small>{'RIGHTLINK_DESC'|@translate}</small>
 			</li>
 			<li>
+				<label>{'RIGHTLINKCSS'|@translate} : </label>
+				<input type="text" value="{$right_panel.linkcss}" name="osm_right_linkcss" size="60" placeholder="vertical-align: top; color: red;"/>
+				<br/><small>{'RIGHTLINKCSS_DESC'|@translate}</small>
+			</li>
+			<li>
 				<label>{'SHOWOSM'|@translate} : </label>
 				<label><input type="radio" name="osm_showosm" value="true" {if $right_panel.showosm}checked="checked"{/if}/> {'Yes'|@translate}</label>
 				<label><input type="radio" name="osm_showosm" value="false" {if not $right_panel.showosm}checked="checked"{/if}/> {'No'|@translate}</label>
