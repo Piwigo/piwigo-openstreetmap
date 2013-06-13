@@ -105,7 +105,7 @@ IFNULL(`author`, '') AS `author`,
 `width`
 	FROM ".IMAGES_TABLE." AS i
 	    INNER JOIN ".IMAGE_CATEGORY_TABLE." AS ic ON id = ic.image_id
-	    WHERE `lat` IS NOT NULL AND `lon` IS NOT NULL ".$forbidden.";";
+	    WHERE `lat` IS NOT NULL AND `lon` IS NOT NULL ".$forbidden." group by `name`;";
 $php_data = array_from_query($query);
 //print_r($php_data);
 $js_data = array();
