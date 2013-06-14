@@ -3,16 +3,18 @@ piwigo-openstreetmap
 
 [OpenStreetMap](http://OpenStreetMap.org/) port for piwigo. Add a OpenSource Map on your web gallery!
 
-Piwigo-openstreetmap is a plugin for the [Piwigo](http://piwigo.org/) web gallery that allows you to render the geotag within your piwigo install.
+Piwigo-openstreetmap is a [plugin](http://piwigo.org/ext/extension_view.php?eid=701) for the [Piwigo](http://piwigo.org/) web gallery that allows you to render the geotag within your piwigo install.
 
 Installation
 ------------
 
 Upload this in ``your-gallery/plugins/`` dir.
 
-* download the archive from github (https://github.com/xbgmsharp/piwigo-openstreetmap/downloads) 
+* download the archive from github
 
-        wget -O piwigo-openstreetmap.tar.gz https://github.com/xbgmsharp/piwigo-openstreetmap/tarball/master
+        wget -O piwigo-openstreetmap.zip https://github.com/xbgmsharp/piwigo-openstreetmap/archive/master.zip
+
+        unzip piwigo-openstreetmap.zip
 
 * or clone the project 
 
@@ -25,7 +27,7 @@ Usage
 
 Syncronize the GeoTag to see the geo possition appear on the photo page.
 
-Please refer to the [wiki](https://github.com/xbgmsharp/piwigo-openstreetmap/wiki)
+Please refer to the [wiki](https://github.com/xbgmsharp/piwigo-openstreetmap/wiki) for additional information.
 
 Support
 -----
