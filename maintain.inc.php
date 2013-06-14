@@ -123,7 +123,8 @@ function plugin_activate()
 {
 	global $conf;
 
-	if ( (!isset($conf['osm_conf'])) )
+	if ( (!isset($conf['osm_conf']))
+	    or (count($conf['osm_conf'], COUNT_RECURSIVE) != 27))
 	{
 		plugin_install();
 	}
