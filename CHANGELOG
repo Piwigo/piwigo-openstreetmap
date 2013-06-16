@@ -1,4 +1,9 @@
-Changes from v0.3 to v0.3
+Changes from v0.3 to v0.4
+- Add new options
+- Add support for batch manager
+- Improve World map
+
+Changes from v0.2 to v0.3
 - Add new options
 - Improve World map
 - Improve documentation
