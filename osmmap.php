@@ -98,14 +98,15 @@ IF(`representative_ext` IS NULL,
 				)
 			)
 		)
-) AS pathurl,  
-CONCAT(`id`, '/category/', `storage_category_id`) as imgurl, 
+) AS pathurl, 
+TRIM(TRAILING '/' FROM CONCAT( `id`, '/category/', IFNULL(`storage_category_id`, '') ) ) as imgurl, 
 IFNULL(`comment`, '') AS `comment`,
 IFNULL(`author`, '') AS `author`,
 `width`
 	FROM ".IMAGES_TABLE." AS i
 	    INNER JOIN ".IMAGE_CATEGORY_TABLE." AS ic ON id = ic.image_id
 	    WHERE `lat` IS NOT NULL AND `lon` IS NOT NULL ".$forbidden." group by `name`;";
+//echo $query;
 $php_data = array_from_query($query);
 //print_r($php_data);
 $js_data = array();
