@@ -11,11 +11,7 @@
 </style>
 {/html_head}
 
-<div class="titrePage">
-  <h2>OpenStreetMap plugin</h2>
-</div>
-
-This plugin extends Piwigo with geographical location for each items.
+This plugin display geographical location in your gallery using <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a>.
 <br/><br/>
 Please read the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" target="_blanck">plugin documentation</a> for additional information.
 

@@ -11,9 +11,9 @@
 </style>
 {/html_head}
 
-Synchronization of EXIF gps metadata information with the database.
+Synchronization of EXIF GPS metadata information with the database.
 <br/><br/>
-Please read the <a href="https://github.com/xbgmsharp/piwigo-videojs/wiki" target="_blanck">plugin documentation</a> for additional information.
+Please read the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" target="_blanck">plugin documentation</a> for additional information.
 
 <div class="osm_layout">
   <legend>{'Statistics'|@translate}</legend>

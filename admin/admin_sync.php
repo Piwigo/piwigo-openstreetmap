@@ -1,7 +1,7 @@
 <?php
 /***********************************************
 * File      :   admin_sync.php
-* Project   :   piwigo-videojs
+* Project   :   piwigo-openstreetmap
 * Descr     :   Generate the admin panel
 * Base on   :   RV Maps & Earth plugin
 *
@@ -115,6 +115,9 @@ if ( isset($_POST['submit']) )
 	);
 }
 
+$query = 'SELECT COUNT(*) FROM '.IMAGES_TABLE.' WHERE `lat` IS NOT NULL and `lon` IS NOT NULL ';
+list($nb_geotagged) = pwg_db_fetch_array( pwg_query($query) );
+
 $query = '
 SELECT id,
   CONCAT(name, IF(dir IS NULL, " (V)", "") ) AS name,
@@ -127,7 +130,8 @@ display_select_cat_wrapper($query,
 
 $template->assign(
 		array(
-			'SUBCATS_INCLUDED_CHECKED' => $sync_options['subcats_included'] ? 'checked="checked"' : '',
+			'SUBCATS_INCLUDED_CHECKED' 	=> $sync_options['subcats_included'] ? 'checked="checked"' : '',
+			'NB_GEOTAGGED' 			=> $nb_geotagged,
 		)
 	);
 

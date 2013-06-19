@@ -1,13 +1,13 @@
 <?php
 /***********************************************
-* File      :   admin_boot.php
+* File      :   admin_batchmanager.php
 * Project   :   piwigo-openstreetmap
-* Descr     :   Generate the admin panel
+* Descr     :   handle batch manager
 * Base on   :   RV Maps & Earth plugin
 *
-* Created   :   11.06.2013
+* Created   :   4.06.2013
 *
-* Copyright 2013 <xbgmsharp@gmail.com>
+* Copyright 2012-2013 <xbgmsharp@gmail.com>
 *
 *
 * This program is free software: you can redistribute it and/or modify
@@ -25,22 +25,8 @@
 *
 ************************************************/
 
-// Hook to a admin config page
-add_event_handler('get_admin_plugin_menu_links', 'osm_admin_menu');
-function osm_admin_menu($menu)
-{
-	array_push($menu,
-		array(
-			'NAME' => 'OpenStreetMap',
-			'URL'  => get_admin_plugin_menu_link(dirname(__FILE__).'/admin.php')
-		)
-	);
-	return $menu;
-}
-
-// Exit if we don't want to
-if ($conf['osm_conf']['batch_manager'])
-{
+// Check whether we are indeed included by Piwigo.
+if (!defined('PHPWG_ROOT_PATH')) die('Hacking attempt!');
 
 // Hook to add a new filter in the batch mode
 add_event_handler('get_batch_manager_prefilters', 'osm_get_batch_manager_prefilters');
@@ -215,7 +201,3 @@ function osm_prefilter_batch_manager_unit($content)
 	}
 	return $content;
 }
-
-}
-
-?>

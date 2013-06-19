@@ -1,6 +1,6 @@
 <?php
 /***********************************************
-* File      :   admin.php
+* File      :   admin_config.php
 * Project   :   piwigo-openstreetmap
 * Descr     :   Install / Uninstall method
 *
@@ -150,8 +150,6 @@ if (isset($_POST['submit']) && !empty($_POST['osm_height']))
 	array_push($page['infos'], l10n('Your configuration settings are saved'));
 }
 
-//print_r($conf['osm_conf']);
-
 // send value to template
 $template->assign($conf['osm_conf']);
 $template->assign(
@@ -165,13 +163,4 @@ $template->assign(
 	)
 );
 
-// Add our template to the global template
-$template->set_filenames(
-	array(
-		'plugin_admin_content' => dirname(__FILE__).'/admin.tpl'
-	)
-);
-
-// Assign the template contents to ADMIN_CONTENT
-$template->assign_var_from_handle('ADMIN_CONTENT', 'plugin_admin_content');
 ?>
