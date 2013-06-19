@@ -27,6 +27,13 @@ if (!defined('PHPWG_ROOT_PATH')) die('Hacking attempt!');
 
 function plugin_install()
 {
+	// Remove unused files from 0.4 to 0.5
+	$toremove = array("admin.tpl", "admin.php", "admin_boot.php");
+	foreach ($toremove as $file)
+	{
+		@unlink(OSM_PATH.$file);
+	}
+
 	/* Modify images table if require */
 	$q = 'SELECT COUNT(*) as nb FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = "'.IMAGES_TABLE.'" AND COLUMN_NAME = "lat" OR COLUMN_NAME = "lon"';
 	$result = pwg_db_fetch_array( pwg_query($q) );
