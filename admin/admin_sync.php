@@ -123,21 +123,18 @@ if ( isset($_POST['submit']) )
 $query = 'SELECT COUNT(*) FROM '.IMAGES_TABLE.' WHERE `lat` IS NOT NULL and `lon` IS NOT NULL ';
 list($nb_geotagged) = pwg_db_fetch_array( pwg_query($query) );
 
-$query = '
-SELECT id,
-  CONCAT(name, IF(dir IS NULL, " (V)", "") ) AS name,
-  uppercats, global_rank
-  FROM '.CATEGORIES_TABLE;
+$query = 'SELECT id, CONCAT(name, IF(dir IS NULL, " (V)", "") ) AS name, uppercats, global_rank  FROM '.CATEGORIES_TABLE;
 display_select_cat_wrapper($query,
                            array( $sync_options['cat_id'] ),
                            'categories',
                            false);
 
+// Send value to templates
 $template->assign(
-		array(
-			'SUBCATS_INCLUDED_CHECKED' 	=> $sync_options['subcats_included'] ? 'checked="checked"' : '',
-			'NB_GEOTAGGED' 			=> $nb_geotagged,
-		)
-	);
+	array(
+		'SUBCATS_INCLUDED_CHECKED' 	=> $sync_options['subcats_included'] ? 'checked="checked"' : '',
+		'NB_GEOTAGGED' 			=> $nb_geotagged,
+	)
+);
 
 ?>
