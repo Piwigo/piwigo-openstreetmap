@@ -30,9 +30,9 @@ if (!defined('PHPWG_ROOT_PATH')) die('Hacking attempt!');
 
 // Geneate default value
 $sync_options = array(
-	'simulate' => true,
-	'cat_id' => 0,
-	'subcats_included' => true,
+	'simulate'		=> true,
+	'cat_id'		=> 0,
+	'subcats_included'	=> true,
 );
 
 if ( isset($_POST['submit']) )
@@ -76,7 +76,7 @@ if ( isset($_POST['submit']) )
 		if ( empty($exif) )
 			continue;
 
-		$ll = exif_to_lat_lon($exif);
+		$ll = osm_exif_to_lat_lon($exif);
 		if (!is_array($ll))
 		{
 			if (!empty($ll))
@@ -84,33 +84,38 @@ if ( isset($_POST['submit']) )
 			continue;
 		}
 		
+		$infos[] = $filename. " has exif_data";
 		$datas[] = array (
-			'id' => $image['id'],
-			'lat' => $ll[0],
-			'lon' => $ll[1],
+			'id'	=> $image['id'],
+			'lat'	=> $ll[0],
+			'lon'	=> $ll[1],
 		);
 	}
 
-	$template->assign( 'sync_errors', $errors );
-	
 	if ( count($datas)>0 and !$sync_options['simulate'] )
 	{
 		mass_updates(
-		IMAGES_TABLE,
-			array(
-				'primary' => array('id'),
-				'update'  => array('lat', 'lon')
-			),
-			$datas
+			IMAGES_TABLE,
+				array(
+					'primary'	=> array('id'),
+					'update'	=> array('lat', 'lon')
+				),
+				$datas
 		);
 	}
-	
+
+
+	// Send sync result to template
+	$template->assign('sync_errors', $errors );
+	$template->assign('sync_infos', $infos );
+
+	// Send result to templates
 	$template->assign(
 		'metadata_result',
 		array(
-			'NB_ELEMENTS_DONE' => count($datas),
-			'NB_ELEMENTS_CANDIDATES' => count($images),
-			'NB_ERRORS' => count($errors),
+			'NB_ELEMENTS_DONE'		=> count($datas),
+			'NB_ELEMENTS_CANDIDATES'	=> count($images),
+			'NB_ERRORS'			=> count($errors),
 		)
 	);
 }

@@ -42,7 +42,7 @@ if ($conf['osm_conf']['auto_sync'])
 
 // If admin do the init
 if (defined('IN_ADMIN')) {
-	include_once(OSM_PATH.'/admin_boot.php');
+	include_once(OSM_PATH.'/admin/admin_boot.php');
 }
 
 function osm_format_exif_data($exif, $file, $map)
