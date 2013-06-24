@@ -64,7 +64,7 @@ function osm_loc_end_element_set_global()
   <label>'.l10n('Latitude').' (-90=S to 90=N)
     <input type="text" size="8" name="osmlat">
   </label>
-  <label>'.l10n('Longitude').' (-180=E to 180=W)
+  <label>'.l10n('Longitude').' (-180=W to 180=E)
     <input type="text" size="9" name="osmlon">
   </label> (Empty values will erase coordinates)
 '));
