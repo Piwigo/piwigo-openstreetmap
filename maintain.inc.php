@@ -31,7 +31,10 @@ function plugin_install()
 	$toremove = array("admin.tpl", "admin.php", "admin_boot.php");
 	foreach ($toremove as $file)
 	{
-		@unlink(OSM_PATH.$file);
+		if (is_file(VIDEOJS_PATH.$file))
+		{
+			@unlink(VIDEOJS_PATH.$file);
+		}
 	}
 
 	/* Modify images table if require */
