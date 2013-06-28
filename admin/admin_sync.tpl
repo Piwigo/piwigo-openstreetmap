@@ -13,7 +13,7 @@
 
 Synchronization of EXIF GPS metadata information with the database.
 <br/><br/>
-Please read the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" target="_blanck">plugin documentation</a> for additional information.
+Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" target="_blanck">plugin documentation</a> for additional information. Create an <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/issues" target="_blanck">issue</a> for any concern.
 
 <div class="osm_layout">
   <legend>{'Statistics'|@translate}</legend>
