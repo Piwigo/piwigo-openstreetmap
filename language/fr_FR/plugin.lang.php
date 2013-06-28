@@ -12,9 +12,9 @@ $lang['ZOOM_DESC'] = "1: pays, 18: quartier";
 $lang['RIGHTLINK'] = "Nom du titre";
 $lang['RIGHTLINK_DESC'] = "Le nom a afficher au dessus de la carte.";
 $lang['RIGHTLINKCSS'] = "CustomCSS";
-$lang['RIGHTLINKCSS_DESC'] = "Custom CSS style to apply on the location header.";
-$lang['SHOWOSM'] = "Display 'View on OpenStreetMap'";
-$lang['SHOWOSM_DESC'] = "Add a link after the map to view it on OpenStreetMap.";
+$lang['RIGHTLINKCSS_DESC'] = "CSS style a appliquer au titre.";
+$lang['SHOWOSM'] = "Affiche 'View on OpenStreetMap'";
+$lang['SHOWOSM_DESC'] = "Ajoute un lien apres la cate pour etre visualiser sur le site web OpenStreetMap.";
 
 $lang['L_MAP'] = "Configuration menu de gauche";
 $lang['SHOWWORLDMAPLEFT'] = "Add a world map menu on the left";
@@ -67,13 +67,13 @@ $lang['PINSHADOWSIZE_DESC'] = "Dimensions de l'image en px. Le séparateur est '
 $lang['PINOFFSET'] = "Offset de l'épingle";
 $lang['PINOFFSET_DESC'] = "L'offset de position du point d'ancrage de l'image de  l'épingle, par rapport au coin haut-gauche. 0x0 est le coin haut-gauche. Exemple d'utilisation : croix (réticule) = centrer sur l'image 16x16 (cf. illustration b)";
 $lang['PINPOPUPOFFSET'] = "Offset du Popup";
-$lang['PINPOPUPOFFSET_DESC'] = "La position du popup où il est lié au épingle. 0x0 coorespond au épingle.";
+$lang['PINPOPUPOFFSET_DESC'] = "La position du popup où il est lié au épingle. 0x0 correspond au épingle.";
 
 $lang['PLUGINCONF'] = "Options du plugin";
 $lang['AUTOSYNC'] = "Synchronizer automatiquement les données EXIF si présente";
 $lang['AUTOSYNC_DESC'] = "Lors de la synchronisation, les données precedente peuvent etre ecrasées. Desactiver, si vous avez 'RV Maps & Earth' installé.";
 $lang['BATCHMANAGER'] = "Activer l'integration avec gestion par lot";
-$lang['BATCHMANAGER_DESC'] = "Allow to modify latitude and longitude manually. esactiver, si vous avez 'RV Maps & Earth' installé.";
+$lang['BATCHMANAGER_DESC'] = "Permet de modifier la latitude et la longitude manuellement. Desactiver, si vous avez 'RV Maps & Earth' installé.";
 
 $lang['POWERBY'] = "Propulsé par";
 $lang['IMAGERYBY'] = "Images par";
