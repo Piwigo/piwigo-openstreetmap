@@ -15,7 +15,7 @@
 <link rel="stylesheet" href="{$OSM_PATH}leaflet/MarkerCluster.css" />
 <link rel="stylesheet" href="{$OSM_PATH}leaflet/MarkerCluster.Default.css" />
 <!--[if lte IE 8]><link rel="stylesheet" href="{$OSM_PATH}leaflet/MarkerCluster.Default.ie.css" /><![endif]-->
-<script src="{$OSM_PATH}leaflet/leaflet.markercluster-src.js"></script>
+<script src="{$OSM_PATH}leaflet/leaflet.markercluster.js"></script>
 {/html_head}
 {html_style}
 {literal}
