@@ -27,13 +27,16 @@ if (!defined('PHPWG_ROOT_PATH')) die('Hacking attempt!');
 
 function plugin_install()
 {
+	if (!defined('OSM_PATH'))
+		define('OSM_PATH', PHPWG_PLUGINS_PATH . basename(dirname(__FILE__)).'/');
+
 	// Remove unused files from 0.4 to 0.5
 	$toremove = array("admin.tpl", "admin.php", "admin_boot.php");
 	foreach ($toremove as $file)
 	{
-		if (is_file(VIDEOJS_PATH.$file))
+		if (is_file(OSM_PATH.$file))
 		{
-			@unlink(VIDEOJS_PATH.$file);
+			@unlink(OSM_PATH.$file);
 		}
 	}
 
