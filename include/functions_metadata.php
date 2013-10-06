@@ -27,7 +27,7 @@
 function osm_parse_fract( $f )
 {
 	$nd = explode( '/', $f );
-	return $nd[0] ? ($nd[0]/$nd[1]) : 0;
+	return $nd[1] ? ($nd[0]/$nd[1]) : 0;
 }
 
 function osm_parse_lat_lon( $arr )
