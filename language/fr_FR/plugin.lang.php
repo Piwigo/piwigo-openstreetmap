@@ -78,4 +78,5 @@ $lang['BATCHMANAGER_DESC'] = "Permet de modifier la latitude et la longitude man
 $lang['POWERBY'] = "Propulsé par";
 $lang['IMAGERYBY'] = "Images par";
 $lang['PLUGINBY'] = "Plugin créé par";
+$lang['DISPLAY'] = 'Afficher la configuration';
 ?>
