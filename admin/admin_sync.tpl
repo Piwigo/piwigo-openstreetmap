@@ -59,7 +59,7 @@ Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" ta
 <form action="" method="post" id="update">
 
   <fieldset id="syncOptions">
-    <legend>synchronization options</legend>
+    <legend>{'Simulation'|@translate}</legend>
     <ul>
       <li><label><input type="checkbox" name="simulate" value="1" checked="checked" /> {'only perform a simulation (no change in database will be made)'|@translate}</label></li>
     </ul>

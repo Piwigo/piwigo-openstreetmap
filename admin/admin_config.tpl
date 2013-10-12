@@ -53,7 +53,7 @@ Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" ta
 			</li>
 			<li>
 				<label>{'RIGHTLINK'|@translate} : </label>
-				<input type="text" value="{$right_panel.link}" name="osm_right_link" size="10"/>
+				<input type="text" value="{$right_panel.link}" name="osm_right_link" size="20"/>
 				<br/><small>{'RIGHTLINK_DESC'|@translate}</small>
 			</li>
 			<li>
@@ -80,7 +80,7 @@ Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" ta
 			</li>
 			<li>
 				<label>{'LEFTLINK'|@translate} : </label>
-				<input type="text" value="{$left_menu.link}" name="osm_left_link" size="10"/>
+				<input type="text" value="{$left_menu.link}" name="osm_left_link" size="20"/>
 				<br/><small>{'LEFTLINK_DESC'|@translate}</small>
 			</li>
 			<li>
