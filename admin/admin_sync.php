@@ -47,6 +47,8 @@ if ( isset($_POST['submit']) )
 	include_once(PHPWG_ROOT_PATH.'include/functions_picture.inc.php');
 	include_once( dirname(__FILE__).'/../include/functions_metadata.php' );
 	$where_clauses = array();
+	// Define files which support EXIF headers from JPEG or TIFF
+	define('SQL_EXIF', "(LOWER(`path`) LIKE '%.jpeg' OR LOWER(`path`) LIKE '%.jpg' OR LOWER(`path`) LIKE '%.tiff')");
 	if ( $sync_options['cat_id']!=0 )
 	{
 		$query=' SELECT id FROM '.CATEGORIES_TABLE.' WHERE ';
@@ -56,19 +58,20 @@ if ( isset($_POST['submit']) )
 		else
 			$query .= 'id='.$sync_options['cat_id'];
 			$cat_ids = array_from_query($query, 'id');
-	
+
 		$query='SELECT `id`, `path` ,`lat` ,`lon` FROM '.IMAGES_TABLE.' INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON id=image_id
-			WHERE category_id IN ('.implode(',', $cat_ids).')
+			WHERE '. SQL_EXIF .' AND category_id IN ('.implode(',', $cat_ids).')
 			GROUP BY id';
 	}
 	else
 	{
-		$query='SELECT `id`, `path` ,`lat` ,`lon` FROM '.IMAGES_TABLE;
+		$query='SELECT `id`, `path` ,`lat` ,`lon` FROM '.IMAGES_TABLE.' WHERE '. SQL_EXIF;
 	}
 
 	$images = hash_from_query( $query, 'id');
 	$datas = array();
 	$errors = array();
+	$infos = array();
 	foreach ($images as $image)
 	{
 		$filename = $image['path'];
@@ -79,11 +82,12 @@ if ( isset($_POST['submit']) )
 		$ll = osm_exif_to_lat_lon($exif);
 		if (!is_array($ll))
 		{
+			$infos[] = $filename. " has no exif_data";
 			if (!empty($ll))
 				$errors[] = $filename. ': '.$ll;
 			continue;
 		}
-		
+
 		$infos[] = $filename. " has exif_data";
 		$datas[] = array (
 			'id'	=> $image['id'],
