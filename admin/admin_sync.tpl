@@ -28,11 +28,12 @@ Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" ta
   <ul>
 	<li>{$metadata_result.NB_ELEMENTS_DONE} {'photos updated in the database'|@translate}</li>
 	<li>{$metadata_result.NB_ELEMENTS_CANDIDATES} {'photos candidates for metadata synchronization'|@translate}</li>
+	<li>{$metadata_result.NB_WARNINGS} {'warnings during synchronization'|@translate}</li>
 	<li>{$metadata_result.NB_ERRORS} {'errors during synchronization'|@translate}</li>
   </ul>
 
 {if not empty($sync_errors)}
-  <h3>{'Error list'|@translate}</h3>
+  <h3>{'SYNC_ERRORS'|@translate}</h3>
   <div class="errors">
     <ul>
       {foreach from=$sync_errors item=error}
@@ -42,8 +43,19 @@ Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" ta
   </div>
 {/if}
 
+{if not empty($sync_warnings)}
+  <h3>{'SYNC_WARNINGS'|@translate}</h3>
+  <div class="warnings">
+    <ul>
+      {foreach from=$sync_warnings item=warning}
+      <li>{$warning}</li>
+      {/foreach}
+    </ul>
+  </div>
+{/if}
+
 {if not empty($sync_infos)}
-  <h3>{'Detailed informations'|@translate}</h3>
+  <h3>{'SYNC_INFOS'|@translate}</h3>
   <div class="infos">
     <ul>
       {foreach from=$sync_infos item=info}
@@ -58,7 +70,15 @@ Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" ta
 
 <form action="" method="post" id="update">
 
-  <fieldset id="syncOptions">
+  <fieldset id="syncOverwrite">
+    <legend>{'OVERWRITE_LGD'|@translate}</legend>
+    <ul>
+      <label><input type="checkbox" name="overwrite" value="1" checked="checked"> {'OVERWRITE'|@translate}</label>
+	<br/><small>{'OVERWRITE_DESC'|@translate}</small>
+    </ul>
+  </fieldset>
+
+  <fieldset id="syncSimulation">
     <legend>{'Simulation'|@translate}</legend>
     <ul>
       <li><label><input type="checkbox" name="simulate" value="1" checked="checked" /> {'only perform a simulation (no change in database will be made)'|@translate}</label></li>

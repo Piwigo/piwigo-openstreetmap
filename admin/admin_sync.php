@@ -8,7 +8,7 @@
 * Created   :   12.06.2013
 *
 * Copyright 2013 <xbgmsharp@gmail.com>
-*
+* Contribution Marjolein 2013
 *
 * This program is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -28,8 +28,9 @@
 // Check whether we are indeed included by Piwigo.
 if (!defined('PHPWG_ROOT_PATH')) die('Hacking attempt!');
 
-// Geneate default value
+// Generate default value
 $sync_options = array(
+	'overwrite'		=> true,
 	'simulate'		=> true,
 	'cat_id'		=> 0,
 	'subcats_included'	=> true,
@@ -39,16 +40,15 @@ if ( isset($_POST['submit']) )
 {
 	// Override default value from the form
 	$sync_options = array(
+		'overwrite' => isset($_POST['overwrite']),
 		'simulate' => isset($_POST['simulate']),
 		'cat_id' => isset($_POST['cat_id']) ? (int)$_POST['cat_id'] : 0,
 		'subcats_included' => isset($_POST['subcats_included']),
 	);
 
-	include_once(PHPWG_ROOT_PATH.'include/functions_picture.inc.php');
 	include_once( dirname(__FILE__).'/../include/functions_metadata.php' );
-	$where_clauses = array();
-	// Define files which support EXIF headers from JPEG or TIFF
-	define('SQL_EXIF', "(LOWER(`path`) LIKE '%.jpeg' OR LOWER(`path`) LIKE '%.jpg' OR LOWER(`path`) LIKE '%.tiff')");
+	// Define files which support EXIF headers from JPEG or JPG or TIFF or TIF
+	define('SQL_EXIF', "(LOWER(`path`) LIKE '%.jpeg' OR LOWER(`path`) LIKE '%.jpg' OR LOWER(`path`) LIKE '%.tiff' OR LOWER(`path`) LIKE '%.tif')");
 	if ( $sync_options['cat_id']!=0 )
 	{
 		$query=' SELECT id FROM '.CATEGORIES_TABLE.' WHERE ';
@@ -71,24 +71,41 @@ if ( isset($_POST['submit']) )
 	$images = hash_from_query( $query, 'id');
 	$datas = array();
 	$errors = array();
+	$warnings = array();
 	$infos = array();
 	foreach ($images as $image)
 	{
 		$filename = $image['path'];
-		$exif = @read_exif_data( $filename );
-		if ( empty($exif) )
+		# Properly detect if EXIF information does not exist: http://php.net/exif_read_data
+		$exif = exif_read_data($filename, 'ANY_TAG');
+		if ( $exif === false)
+		{
+			$warnings[] = $filename.': no EXIF data found';
 			continue;
+		}
 
+		# At this point there _is_ EXIF data in the file but it may not contain geo tags
 		$ll = osm_exif_to_lat_lon($exif);
 		if (!is_array($ll))
 		{
-			$infos[] = $filename. " has no exif_data";
+			$infos[] = $filename.': no lat-lon data in EXIF';
 			if (!empty($ll))
 				$errors[] = $filename. ': '.$ll;
 			continue;
 		}
 
-		$infos[] = $filename. " has exif_data";
+		# At this point there is valid geo data in the EXIF
+		$infos[] = $filename.': lat-lon data found in EXIF';
+		if ($sync_options['overwrite'])
+		{
+			if (!empty($image['lat']) || !empty($image['lon']))
+			{
+				$warnings[] = $filename.': skipped because DB already has geo data: lat '.$image['lat'].' lon '.$image['lon'];
+				continue;
+			}
+		}
+
+		# At this point the database either has no lat-lon data or it may be overwritten
 		$datas[] = array (
 			'id'	=> $image['id'],
 			'lat'	=> $ll[0],
@@ -111,15 +128,17 @@ if ( isset($_POST['submit']) )
 
 	// Send sync result to template
 	$template->assign('sync_errors', $errors );
+	$template->assign('sync_warnings', $warnings );
 	$template->assign('sync_infos', $infos );
 
 	// Send result to templates
 	$template->assign(
 		'metadata_result',
 		array(
-			'NB_ELEMENTS_DONE'		=> count($datas),
+			'NB_ELEMENTS_DONE'			=> count($datas),
 			'NB_ELEMENTS_CANDIDATES'	=> count($images),
-			'NB_ERRORS'			=> count($errors),
+			'NB_ERRORS'					=> count($errors),
+			'NB_WARNINGS'				=> count($warnings),
 		)
 	);
 }
