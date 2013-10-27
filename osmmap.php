@@ -66,10 +66,16 @@ $next_token = 0;
 $result = osm_parse_map_data_url($tokens, $next_token);
 $page = array_merge( $page, $result );
 
+//print_r($page);
+
 if (isset($page['category']))
 	check_restrictions($page['category']['id']);
 
-// Fetch data with lat and lon
+$LIMIT_SEARCH="";
+if (isset($page['section']) and $page['section']='categories' and isset($page['category']) and isset($page['category']['id']) )
+{
+	$LIMIT_SEARCH = "`storage_category_id` = ".$page['category']['id']." AND ";
+}
 
 $forbidden = get_sql_condition_FandF(
 	array
@@ -81,6 +87,8 @@ $forbidden = get_sql_condition_FandF(
 	"\n AND"
 );
 
+
+// Fetch data with lat and lon
 //$query="SELECT `lat`, `lon`, `name`, `path` FROM ".IMAGES_TABLE." WHERE `lat` IS NOT NULL AND `lon` IS NOT NULL;";
 // SUBSTRING_INDEX(TRIM(LEADING '.' FROM `path`), '.', 1) full path without filename extension
 // SUBSTRING_INDEX(TRIM(LEADING '.' FROM `path`), '.', -1) full path with only filename extension
@@ -105,7 +113,7 @@ IFNULL(`author`, '') AS `author`,
 `width`
 	FROM ".IMAGES_TABLE." AS i
 	    INNER JOIN ".IMAGE_CATEGORY_TABLE." AS ic ON id = ic.image_id
-	    WHERE `lat` IS NOT NULL AND `lon` IS NOT NULL ".$forbidden." group by `name`;";
+	    WHERE ".$LIMIT_SEARCH." `lat` IS NOT NULL AND `lon` IS NOT NULL ".$forbidden." group by `name`;";
 //echo $query;
 $php_data = array_from_query($query);
 //print_r($php_data);
