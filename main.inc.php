@@ -32,12 +32,63 @@ if ($conf['osm_conf']['left_menu']['enabled'])
 	add_event_handler('blockmanager_apply', 'osm_blockmanager_apply');
 }
 
-// Hook to sync geotag metadata on updload
+// Hook to sync geotag metadata on upload
 if ($conf['osm_conf']['auto_sync'])
 {
 	$conf['use_exif_mapping']['lat'] = 'lat';
 	$conf['use_exif_mapping']['lon'] = 'lon';
 	add_event_handler('format_exif_data', 'osm_format_exif_data', EVENT_HANDLER_PRIORITY_NEUTRAL, 3);
+}
+
+// Hook to add link on the album/category thumbnails
+add_event_handler('loc_begin_index_category_thumbnails', 'osm_index_cat_thumbs_displayed');
+
+// Hook to add link on the index thumbnails page
+add_event_handler('loc_end_index', 'osm_end_index' );
+
+function osm_index_cat_thumbs_displayed()
+{
+	global $page;
+	$page['osm_cat_thumbs_displayed'] = true;
+}
+
+define('OSM_ACTION_MODEL', '<a href="%s" title="%s" rel="nofollow" class="pwg-state-default pwg-button"%s><span class="pwg-icon pwg-icon-%s">&nbsp;</span><span class="pwg-button-text">%s</span></a>');
+function osm_end_index()
+{
+	global $page, $filter, $template;
+
+	if ( isset($page['chronology_field']) || $filter['enabled'] )
+		return;
+
+	if ( 'categories' == @$page['section'])
+	{ // flat or no flat ; has subcats or not;  ?
+		if ( ! @$page['osm_cat_thumbs_displayed'] and empty($page['items']) )
+			return;
+	}
+	else
+	{
+		if (
+			!in_array( @$page['section'], array('tags','search','recent_pics','list') )
+			)
+			return;
+		if ( empty($page['items']) )
+			return;
+	}
+
+	include_once( dirname(__FILE__) .'/include/functions.php');
+
+	if ( !empty($page['items']) )
+	{
+		if (!@$page['osm_items_have_latlon'] and ! osm_items_have_latlon( $page['items'] ) )
+			return;
+	}
+	osm_load_language();
+
+	$map_url = osm_duplicate_map_index_url( array(), array('start') );
+	$link_title = sprintf( l10n('displays %s on a map'), strip_tags($page['title']) );
+	$template->concat( 'PLUGIN_INDEX_ACTIONS' , "\n<li>".sprintf(OSM_ACTION_MODEL,
+		$map_url, $link_title, '', 'map', l10n('Map')
+		).'</li>');
 }
 
 // If admin do the init
