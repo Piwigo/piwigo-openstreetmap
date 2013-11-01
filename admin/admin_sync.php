@@ -76,7 +76,7 @@ if ( isset($_POST['submit']) )
 	foreach ($images as $image)
 	{
 		$filename = $image['path'];
-		# Properly detect if EXIF information does not exist: http://php.net/exif_read_data
+		// Properly detect if EXIF information does not exist: http://php.net/exif_read_data
 		$exif = exif_read_data($filename, 'ANY_TAG');
 		if ( $exif === false)
 		{
@@ -84,7 +84,7 @@ if ( isset($_POST['submit']) )
 			continue;
 		}
 
-		# At this point there _is_ EXIF data in the file but it may not contain geo tags
+		// At this point there _is_ EXIF data in the file but it may not contain geo tags
 		$ll = osm_exif_to_lat_lon($exif);
 		if (!is_array($ll))
 		{
@@ -94,7 +94,7 @@ if ( isset($_POST['submit']) )
 			continue;
 		}
 
-		# At this point there is valid geo data in the EXIF
+		// At this point there is valid geo data in the EXIF
 		$infos[] = $filename.': lat-lon data found in EXIF';
 		if ($sync_options['overwrite'])
 		{
