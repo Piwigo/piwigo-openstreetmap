@@ -1,3 +1,9 @@
+Changes from v0.6 to v0.7
+- Add new translation, thanks to the contributors
+- Improve admin sync logic, thanks to marjoleink
+- Availability of showing a map with all pictures in one album/category
+- Fix issues
+
 Changes from v0.5 to v0.6
 - Improve install method
 - Update language
