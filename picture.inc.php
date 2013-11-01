@@ -136,7 +136,7 @@ function osm_render_element_content()
     else
     {
 	$nowarp = "noWrap: false, ";
-	$worldcopyjump = "worldCopyJump: true";
+	$worldcopyjump = "worldCopyJump: true"; //false to fix https://github.com/Leaflet/Leaflet/issues/1449
     }
 
 /*
