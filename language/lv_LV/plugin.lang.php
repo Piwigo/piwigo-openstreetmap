@@ -94,4 +94,10 @@ $lang['PINSHADOWSIZE_DESC'] = 'Attēla izmēri pikseļos (px). Norobežotājs ir
 $lang['PINPOPUPOFFSET_DESC'] = 'Pozīcija, kur parādās uzlecošais logs uz Pin attēla. oxo ir pin punkts.';
 $lang['PINPATH_DESC'] = 'Saite uz jūsu pin (tikai, ja ir izvēlēts \'own\').';
 $lang['BASELAYER_DESC'] = 'Mapnik ir OpenStreetMap noklusētais stils. ';
+$lang['OVERWRITE_DESC'] = 'Pārrakstīt esošos lat-lon datus ar jauniem. Ja nav atķeksēts tas ';
+$lang['OVERWRITE'] = 'Pārrakstīt esošos geo datus';
+$lang['SYNC_INFOS'] = 'Detalizēta informācija';
+$lang['SYNC_WARNINGS'] = 'Brīdinājumi';
+$lang['SYNC_ERRORS'] = 'Kļūdas';
+$lang['OVERWRITE_LGD'] = 'Pārrakstīt';
 ?>

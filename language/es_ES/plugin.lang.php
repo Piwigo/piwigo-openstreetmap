@@ -95,4 +95,10 @@ $lang['CUSTOMBASELAYER'] = 'Estilo de mapa personalizado';
 $lang['CUSTOMBASELAYERURL'] = 'URL del servidor Tile';
 $lang['CUSTOMBASELAYERURL_DESC'] = 'Sólo si elegido "personalizado" como estilo de mapa. Ejemplo: http://tile.openstreetmap.org/{z}/{x}/{y}png.';
 $lang['CUSTOMBASELAYER_DESC'] = 'Sólo si ha elegido "personalizado" como estilo de mapa. ¿Quién ofrece el estilo del mapa (tiles)?';
+$lang['OVERWRITE'] = 'Sobrescribir datos geográficos existentes';
+$lang['OVERWRITE_DESC'] = 'Sobrescribir datos lat-lon existentes por otros nuevos. Si desmarca sólo deberá añadir nueva entrada (sin actualización).';
+$lang['OVERWRITE_LGD'] = 'Sobrescribir';
+$lang['SYNC_ERRORS'] = 'Errores';
+$lang['SYNC_INFOS'] = 'Detalles de la información ';
+$lang['SYNC_WARNINGS'] = 'Avisos';
 ?>

@@ -94,4 +94,10 @@ $lang['RIGHTLINK_DESC'] = 'Escreva o nome a mostrar no topo do mapa';
 $lang['SHOWLOCATION'] = 'Mostrar a localização do mapa';
 $lang['SHOWWORLDMAPLEFT'] = 'Adicionar à esquerda um menú do mapa mundial';
 $lang['ZOOM_DESC'] = '1: longe, 18: muito pertp';
+$lang['OVERWRITE'] = 'Substituir os dados geo existentes';
+$lang['OVERWRITE_DESC'] = 'Substituir dados latitude-longitude existentes com os novos. Se desmarcar só adicionará nova entrada (sem atualização). ';
+$lang['OVERWRITE_LGD'] = 'Sobrescrever';
+$lang['SYNC_ERRORS'] = 'Erros';
+$lang['SYNC_INFOS'] = 'Informação detalhada';
+$lang['SYNC_WARNINGS'] = 'Avisos';
 ?>

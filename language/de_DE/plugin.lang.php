@@ -94,4 +94,10 @@ $lang['ATTRIMAGERY'] = 'Kartenstil anzeigen';
 $lang['ALWAYS'] = 'sofort anzeigen';
 $lang['ADD_BEFORE_DESC'] = 'Wo die Ortsinformation angezeigt werden soll.';
 $lang['ADD_BEFORE'] = 'Ort vor hinzufügen';
+$lang['OVERWRITE'] = 'Bestehende Geodaten überschreiben';
+$lang['OVERWRITE_DESC'] = 'Bestehende Daten zu Längen- und Breitengraden überschreiben. Wenn diese Option nicht ausgewählt wird, werden nur neue Daten hinzugefügt.';
+$lang['OVERWRITE_LGD'] = 'Überschreiben';
+$lang['SYNC_ERRORS'] = 'Fehler';
+$lang['SYNC_INFOS'] = 'Detailinformationen';
+$lang['SYNC_WARNINGS'] = 'Warnungen';
 ?>

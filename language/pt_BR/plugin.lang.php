@@ -94,4 +94,10 @@ $lang['ATTRLEAFLET'] = 'Mostra \'Powered by Leaflet\'';
 $lang['ATTRIMAGERY'] = 'Mostra estilo do mapa';
 $lang['ALWAYS'] = 'mostra imediatamente';
 $lang['ADD_BEFORE'] = 'Adiciona local antes';
+$lang['OVERWRITE'] = 'Sobrescrever geo dados existentes';
+$lang['OVERWRITE_DESC'] = 'Sobrescrever dados de lat-lon com os novos. Se não selecionado só poderá ser feita novas entradas (nenhuma atualização)';
+$lang['OVERWRITE_LGD'] = 'Sobrescraver';
+$lang['SYNC_ERRORS'] = 'Erros';
+$lang['SYNC_INFOS'] = 'Informações detalhadas';
+$lang['SYNC_WARNINGS'] = 'Advertências';
 ?>

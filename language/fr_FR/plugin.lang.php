@@ -79,4 +79,10 @@ $lang['POWERBY'] = "Propulsé par";
 $lang['IMAGERYBY'] = "Images par";
 $lang['PLUGINBY'] = "Plugin créé par";
 $lang['DISPLAY'] = 'Afficher la configuration';
+$lang['OVERWRITE_DESC'] = 'Ecraser les lat-lon existantes avec les nouvelles. Pas de mise à jour mais ajout d\'une nouvelle entrée si décoché';
+$lang['OVERWRITE'] = 'Ecraser les données géographiques existantes';
+$lang['OVERWRITE_LGD'] = 'Ecraser';
+$lang['SYNC_ERRORS'] = 'Erreurs';
+$lang['SYNC_INFOS'] = 'Informations détaillées';
+$lang['SYNC_WARNINGS'] = 'Alertes';
 ?>

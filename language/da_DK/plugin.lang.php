@@ -94,4 +94,10 @@ $lang['CUSTOMBASELAYER'] = 'Skryddersyet kortudseende';
 $lang['CUSTOMBASELAYERURL'] = 'URL til tileserver';
 $lang['CUSTOMBASELAYERURL_DESC'] = 'Kun hvis \'skræddersyet\' er valgt som kortudseende. Eksempelvis: http://tile.openstreetmap.org/{z}/{x}/{y}.png';
 $lang['CUSTOMBASELAYER_DESC'] = 'Kun hvis \'skræddersyet\' er valgt som kortudseende. Hvem skal levere kortudseendet (tiles)?';
+$lang['OVERWRITE'] = 'Overskriv eksisterende geodata';
+$lang['OVERWRITE_DESC'] = 'Overskriv eksisterende bredde-/længdedata med nye. Hvis ikke afkrydset tilføjes kun en ny post (ingen opdatering).';
+$lang['OVERWRITE_LGD'] = 'Overskriv';
+$lang['SYNC_ERRORS'] = 'Fejl';
+$lang['SYNC_INFOS'] = 'Flere oplysninger';
+$lang['SYNC_WARNINGS'] = 'Advarsler';
 ?>
