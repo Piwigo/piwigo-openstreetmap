@@ -87,4 +87,9 @@ $lang['OVERWRITE_LGD'] = 'Overwrite';
 $lang['OVERWRITE'] = 'Overwrite existing geo data';
 $lang['OVERWRITE_DESC'] = 'Overwrite existing lat-lon data with new ones. If uncheck it should only add new entry (no update).';
 
+$lang['LATITUDE'] = 'Latitude';
+$lang['LONGITUDE'] = 'Longitude';
+$lang['EDIT_MAP'] = 'Map';
+$lang['EDIT_UPDATE_LOCATION_DESC'] = 'Click inside the map to update location.';
+
 ?>
