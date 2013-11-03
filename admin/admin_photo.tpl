@@ -50,9 +50,8 @@
 		{'EDIT_UPDATE_LOCATION_DESC'|@translate}
 		<div id="map"></div>
 		<div id="info">
-			<b>Search values:</b> 
-			OpenStreetMap Data offer by MapQuest Open Platform 
-			<small><a href="http://open.mapquestapi.com/nominatim/">open.mapquestapi.com</a></small>
+			<small>Search values: OpenStreetMap Data offer by MapQuest Open Platform 
+			<a href="http://open.mapquestapi.com/nominatim/">open.mapquestapi.com</a></small>
 		</div>
 	</fieldset>
 
