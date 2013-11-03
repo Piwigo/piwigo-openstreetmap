@@ -70,10 +70,26 @@ $page = array_merge( $page, $result );
 if (isset($page['category']))
 	check_restrictions($page['category']['id']);
 
+// Limit search by category, by tag, by smartalbum
 $LIMIT_SEARCH="";
-if (isset($page['section']) and $page['section']='categories' and isset($page['category']) and isset($page['category']['id']) )
+if (isset($page['section']))
 {
-	$LIMIT_SEARCH = "`storage_category_id` = ".$page['category']['id']." AND ";
+	if ($page['section']='categories' and isset($page['category']) and isset($page['category']['id']) )
+	{
+		$LIMIT_SEARCH = "`storage_category_id` = ".$page['category']['id']." AND ";
+	}
+	if ($page['section']='tags' and isset($page['tags']) and isset($page['tags'][0]['id']) )
+	{
+		$items = get_image_ids_for_tags( array($page['tags'][0]['id']) );
+		if ( !empty($items) )
+		{
+			$LIMIT_SEARCH = "image_id IN (".implode(',', $items).") AND ";
+		}
+	}
+	if ($page['section']='tags' and isset($page['category']) and isset($page['category']['id']) )
+	{
+		$LIMIT_SEARCH = "category_id=".$page['category']['id']." AND ";
+	}
 }
 
 $forbidden = get_sql_condition_FandF(
