@@ -1,7 +1,9 @@
 {html_head}
 <link href="{$OSM_PATH}leaflet/leaflet.css" rel="stylesheet">
+<link href="{$OSM_PATH}leaflet/leaflet-search.css" rel="stylesheet">
 <!--[if lte IE 8]><link rel="stylesheet" href="{$OSM_PATH}leaflet/leaflet.ie.css" /><![endif]-->
 <script src="{$OSM_PATH}leaflet/leaflet.js"></script>
+<script src="{$OSM_PATH}leaflet/leaflet-search.js"></script>
 {/html_head}
 
 {html_style}
@@ -47,6 +49,11 @@
 		<legend>{'EDIT_MAP'|@translate}</legend>
 		{'EDIT_UPDATE_LOCATION_DESC'|@translate}
 		<div id="map"></div>
+		<div id="info">
+			<b>Search values:</b> 
+			OpenStreetMap Data offer by MapQuest Open Platform 
+			<small><a href="http://open.mapquestapi.com/nominatim/">open.mapquestapi.com</a></small>
+		</div>
 	</fieldset>
 
 	<p>
@@ -74,6 +81,39 @@
 	}
 
 	map.on('click', onMapClick);
+
+	var jsonpurl = 'http://open.mapquestapi.com/nominatim/v1/search.php?q={s}'+
+				   '&format=json&osm_type=N&limit=100&addressdetails=0',
+		jsonpName = 'json_callback';
+	//third party jsonp service
+
+	function filterJSONCall(rawjson) {	//callback that remap fields name
+		var json = {},
+			key, loc, disp = [];
+
+		for(var i in rawjson)
+		{
+			disp = rawjson[i].display_name.split(',');
+			key = disp[0] +', '+ disp[1];
+			loc = L.latLng( rawjson[i].lat, rawjson[i].lon );
+			json[ key ]= loc;	//key,value format
+		}
+
+		return json;
+	}
+
+	var searchOpts = {
+			url: jsonpurl,
+			jsonpParam: jsonpName,
+			filterJSON: filterJSONCall,
+			animateLocation: false,
+			markerLocation: true,
+			zoom: 10,
+			minLength: 2,
+			autoType: false
+		};
+
+	map.addControl( new L.Control.Search(searchOpts) );
 
 </script>
 {/literal}
