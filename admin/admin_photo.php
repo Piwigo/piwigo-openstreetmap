@@ -2,7 +2,7 @@
 /***********************************************
 * File      :   admin_photo.php
 * Project   :   piwigo-openstreetmap
-* Descr     :   Video edit in photo panel
+* Descr     :   Location edit in photo panel
 *
 * Created   :   2.11.2013
 *
@@ -27,10 +27,18 @@
 // Check whether we are indeed included by Piwigo.
 if (!defined('PHPWG_ROOT_PATH')) die('Hacking attempt!');
 
+// Check access and exit when user status is not ok
+check_status(ACCESS_ADMINISTRATOR);
+
+if (!isset($_GET['image_id']) or !isset($_GET['section']))
+{
+	die('Invalid data!');
+}
+
 check_input_parameter('image_id', $_GET, false, PATTERN_ID);
 
 $admin_photo_base_url = get_root_url().'admin.php?page=photo-'.$_GET['image_id'];
-$self_url = get_root_url().'admin.php?page=plugin-openstreetmap&amp;image_id='.$_GET['image_id'];
+$self_url = get_root_url().'admin.php?page=plugin&amp;section=piwigo-openstreetmap/admin/admin_photo.php&amp;image_id='.$_GET['image_id'];
 
 load_language('plugin.lang', PHPWG_PLUGINS_PATH.basename(dirname(__FILE__)).'/');
 

@@ -47,4 +47,19 @@ if ($conf['osm_conf']['batch_manager'])
 	include_once(dirname(__FILE__).'/admin_batchmanager.php');
 }
 
+// Hook to add an photo edit tab in photo edit
+add_event_handler('tabsheet_before_select','osm_photo_add_tab', 50, 2);
+function osm_photo_add_tab($sheets, $id)
+{
+	if ($id == 'photo')
+	{
+		$sheets['openstreetmap'] = array(
+			'caption' => 'OpenStreetMap',
+			'url' => get_root_url().'admin.php?page=plugin&amp;section=piwigo-openstreetmap/admin/admin_photo.php&amp;image_id='.$_GET['image_id'],
+			);
+	}
+
+	return $sheets;
+}
+
 ?>
