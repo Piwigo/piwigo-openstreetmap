@@ -66,7 +66,6 @@ $next_token = 0;
 $result = osm_parse_map_data_url($tokens, $next_token);
 $page = array_merge( $page, $result );
 
-//print_r($page);
 
 if (isset($page['category']))
 	check_restrictions($page['category']['id']);
@@ -271,13 +270,11 @@ if($attrmodule){ $js .= "map.attributionControl.addAttribution('".l10n('PLUGINBY
 
 $template->set_filename('map', dirname(__FILE__).'/template/osm-map.tpl' );
 
-$template->assign($conf['osm_conf']);
+//$template->assign($conf['osm_conf']);
 $template->assign(
 	array(
 		'CONTENT_ENCODING'	=> get_pwg_charset(),
-		'OSM_PATH'		=> OSM_PATH,
-		'PLUGIN_ROOT_URL'	=> get_absolute_root_url().'plugins/'.$osm_dir,
-		'PLUGIN_LOCATION'	=> 'plugins/'.$osm_dir,
+		'OSM_PATH'		=> embellish_url(get_absolute_root_url().OSM_PATH),
 		'GALLERY_TITLE'		=> $linkname .' - '. $conf['gallery_title'],
 		'HOME'			=> make_index_url(),
 		'HOME_PREV'		=> isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : get_absolute_root_url(),

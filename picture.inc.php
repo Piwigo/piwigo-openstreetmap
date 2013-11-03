@@ -199,7 +199,7 @@ var bluemapicons = new mapIcon({iconUrl: 'plugins/piwigo-openstreetmap/leaflet/i
 	array(
 	    'HEIGHT'		=> $height,
 	    'OSMJS' 		=> $js,
-	    'OSM_PATH'		=> OSM_PATH,
+	    'OSM_PATH'		=> embellish_url(get_absolute_root_url().OSM_PATH),
 	    'OSMNAME'		=> $osmname,
 	    'OSMNAMECSS'	=> $osmnamecss,
 	    'SHOWOSM'		=> $showosm,
