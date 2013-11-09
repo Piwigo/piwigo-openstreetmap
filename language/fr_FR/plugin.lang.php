@@ -85,4 +85,8 @@ $lang['OVERWRITE_LGD'] = 'Ecraser';
 $lang['SYNC_ERRORS'] = 'Erreurs';
 $lang['SYNC_INFOS'] = 'Informations détaillées';
 $lang['SYNC_WARNINGS'] = 'Alertes';
+$lang['EDIT_UPDATE_LOCATION_DESC'] = 'Cliquez sur la carte pour mettre à jour l\'emplacement. ';
+$lang['LATITUDE'] = 'Latitude';
+$lang['LONGITUDE'] = 'Longitude';
+$lang['EDIT_MAP'] = 'Carte';
 ?>

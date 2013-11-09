@@ -94,4 +94,13 @@ $lang['CUSTOMBASELAYERURL'] = 'URL serwera tile';
 $lang['CUSTOMBASELAYERURL_DESC'] = 'Tylko jeśli jest wybrany \'osobisty\' styl mapy. Np: http://tile.openstreetmap.org/{z}/{x}/{y}.png';
 $lang['CUSTOMBASELAYER_DESC'] = 'Tylko jeśli jest wybrany \'osobisty\' styl mapy. Kto dostarczył styl mapy?';
 $lang['SHOWOSM_DESC'] = 'Dodaj pod mapą odnośnik do wyświetlenia w OpenStreetMap.';
+$lang['EDIT_MAP'] = 'Mapa';
+$lang['EDIT_UPDATE_LOCATION_DESC'] = 'Kliknij na mapie, aby zaktualizować położenie';
+$lang['LATITUDE'] = 'Szerokość geograficzna';
+$lang['LONGITUDE'] = 'Długość geograficzna';
+$lang['OVERWRITE'] = 'Nadpisz istniejące dane geolokalizacyjne';
+$lang['OVERWRITE_LGD'] = 'Nadpisz';
+$lang['SYNC_ERRORS'] = 'Błędy';
+$lang['SYNC_INFOS'] = 'Informacje szczegółowe';
+$lang['SYNC_WARNINGS'] = 'Ostrzeżenia';
 ?>

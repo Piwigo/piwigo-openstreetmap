@@ -100,4 +100,8 @@ $lang['SYNC_WARNINGS'] = 'Avvertenze';
 $lang['SYNC_ERRORS'] = 'Errori';
 $lang['OVERWRITE_LGD'] = 'Sovrascrivi';
 $lang['OVERWRITE'] = 'Sovrascrivi dati geografici esistenti';
+$lang['EDIT_UPDATE_LOCATION_DESC'] = 'Clicca all\'interno della mappa per aggiornare posizione.';
+$lang['LATITUDE'] = 'Latitudine';
+$lang['LONGITUDE'] = 'Longitudine';
+$lang['EDIT_MAP'] = 'Mappa';
 ?>

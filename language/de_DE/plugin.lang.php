@@ -100,4 +100,8 @@ $lang['OVERWRITE_LGD'] = 'Überschreiben';
 $lang['SYNC_ERRORS'] = 'Fehler';
 $lang['SYNC_INFOS'] = 'Detailinformationen';
 $lang['SYNC_WARNINGS'] = 'Warnungen';
+$lang['EDIT_MAP'] = 'Karte';
+$lang['EDIT_UPDATE_LOCATION_DESC'] = 'Klicke in die Karte um den Standort zu ändern';
+$lang['LATITUDE'] = 'Breite';
+$lang['LONGITUDE'] = 'Länge';
 ?>

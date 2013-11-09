@@ -100,4 +100,8 @@ $lang['SYNC_INFOS'] = 'Detalizēta informācija';
 $lang['SYNC_WARNINGS'] = 'Brīdinājumi';
 $lang['SYNC_ERRORS'] = 'Kļūdas';
 $lang['OVERWRITE_LGD'] = 'Pārrakstīt';
+$lang['LATITUDE'] = 'Platums';
+$lang['LONGITUDE'] = 'Garums';
+$lang['EDIT_UPDATE_LOCATION_DESC'] = 'Ieklikšķināt kartē lai atjaunotu atrašanās vietu';
+$lang['EDIT_MAP'] = 'Karte';
 ?>

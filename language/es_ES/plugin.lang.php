@@ -101,4 +101,8 @@ $lang['OVERWRITE_LGD'] = 'Sobrescribir';
 $lang['SYNC_ERRORS'] = 'Errores';
 $lang['SYNC_INFOS'] = 'Detalles de la información ';
 $lang['SYNC_WARNINGS'] = 'Avisos';
+$lang['EDIT_MAP'] = 'Mapa';
+$lang['EDIT_UPDATE_LOCATION_DESC'] = 'Haz click en el mapa para actualizar la localización.';
+$lang['LATITUDE'] = 'Latitud';
+$lang['LONGITUDE'] = 'Longitud';
 ?>
