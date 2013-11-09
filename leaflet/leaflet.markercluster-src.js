@@ -110,6 +110,15 @@ L.MarkerClusterGroup = L.FeatureGroup.extend({
 
 	removeLayer: function (layer) {
 
+		if (layer instanceof L.LayerGroup)
+		{
+			var array = [];
+			for (var i in layer._layers) {
+				array.push(layer._layers[i]);
+			}
+			return this.removeLayers(array);
+		}
+
 		//Non point layers
 		if (!layer.getLatLng) {
 			this._nonPointGroup.removeLayer(layer);
@@ -283,11 +292,7 @@ L.MarkerClusterGroup = L.FeatureGroup.extend({
 			}
 		}
 
-		//TODO: Can remove this isValid test when leaflet 0.6 is released
-		var nonPointBounds = this._nonPointGroup.getBounds();
-		if (nonPointBounds.isValid()) {
-			bounds.extend(nonPointBounds);
-		}
+		bounds.extend(this._nonPointGroup.getBounds());
 
 		return bounds;
 	},
@@ -306,6 +311,15 @@ L.MarkerClusterGroup = L.FeatureGroup.extend({
 		}
 
 		this._nonPointGroup.eachLayer(method, context);
+	},
+
+	//Overrides LayerGroup.getLayers
+	getLayers: function () {
+		var layers = [];
+		this.eachLayer(function (l) {
+			layers.push(l);
+		});
+		return layers;
 	},
 
 	//Returns true if the given layer is in this MarkerClusterGroup
@@ -375,6 +389,10 @@ L.MarkerClusterGroup = L.FeatureGroup.extend({
 		this._map = map;
 		var i, l, layer;
 
+		if (!isFinite(this._map.getMaxZoom())) {
+			throw "Map has no maxZoom specified";
+		}
+
 		this._featureGroup.onAdd(map);
 		this._nonPointGroup.onAdd(map);
 
@@ -384,7 +402,7 @@ L.MarkerClusterGroup = L.FeatureGroup.extend({
 
 		for (i = 0, l = this._needsRemoving.length; i < l; i++) {
 			layer = this._needsRemoving[i];
-			this._removeLayer(layer);
+			this._removeLayer(layer, true);
 		}
 		this._needsRemoving = [];
 
@@ -440,19 +458,24 @@ L.MarkerClusterGroup = L.FeatureGroup.extend({
 			this._spiderfierOnRemove();
 		}
 
+
+
 		//Clean up all the layers we added to the map
+		this._hideCoverage();
 		this._featureGroup.onRemove(map);
 		this._nonPointGroup.onRemove(map);
+
+		this._featureGroup.clearLayers();
 
 		this._map = null;
 	},
 
 	getVisibleParent: function (marker) {
 		var vMarker = marker;
-		while (vMarker !== null && !vMarker._icon) {
+		while (vMarker && !vMarker._icon) {
 			vMarker = vMarker.__parent;
 		}
-		return vMarker;
+		return vMarker || null;
 	},
 
 	//Remove the given object from the given array
@@ -569,7 +592,6 @@ L.MarkerClusterGroup = L.FeatureGroup.extend({
 			this.on('clustermouseover', this._showCoverage, this);
 			this.on('clustermouseout', this._hideCoverage, this);
 			map.on('zoomend', this._hideCoverage, this);
-			map.on('layerremove', this._hideCoverageOnRemove, this);
 		}
 	},
 
@@ -605,12 +627,6 @@ L.MarkerClusterGroup = L.FeatureGroup.extend({
 		}
 	},
 
-	_hideCoverageOnRemove: function (e) {
-		if (e.layer === this) {
-			this._hideCoverage();
-		}
-	},
-
 	_unbindEvents: function () {
 		var spiderfyOnMaxZoom = this.options.spiderfyOnMaxZoom,
 			showCoverageOnHover = this.options.showCoverageOnHover,
@@ -624,7 +640,6 @@ L.MarkerClusterGroup = L.FeatureGroup.extend({
 			this.off('clustermouseover', this._showCoverage, this);
 			this.off('clustermouseout', this._hideCoverage, this);
 			map.off('zoomend', this._hideCoverage, this);
-			map.off('layerremove', this._hideCoverageOnRemove, this);
 		}
 	},
 
@@ -746,7 +761,7 @@ L.MarkerClusterGroup = L.FeatureGroup.extend({
 
 	//Merge and split any existing clusters that are too big or small
 	_mergeSplitClusters: function () {
-		if (this._zoom < this._map._zoom) { //Zoom in, split
+		if (this._zoom < this._map._zoom && this._currentShownBounds.contains(this._getExpandedVisibleBounds())) { //Zoom in, split
 			this._animationStart();
 			//Remove clusters now off screen
 			this._topClusterLevel._recursivelyRemoveChildrenFromMap(this._currentShownBounds, this._zoom, this._getExpandedVisibleBounds());
@@ -838,6 +853,10 @@ L.MarkerClusterGroup.include(!L.DomUtil.TRANSITION ? {
 			var startPos = c._latlng,
 				markers = c._markers,
 				m;
+
+			if (!bounds.contains(startPos)) {
+				startPos = null;
+			}
 
 			if (c._isSingleParent() && previousZoomLevel + 1 === newZoomLevel) { //Immediately add the new child and remove us
 				fg.removeLayer(c);
@@ -1466,13 +1485,26 @@ Retrieved from: http://en.literateprograms.org/Quickhull_(Javascript)?oldid=1843
 
 (function () {
 	L.QuickHull = {
+
+		/*
+		 * @param {Object} cpt a point to be measured from the baseline
+		 * @param {Array} bl the baseline, as represented by a two-element
+		 *   array of latlng objects.
+		 * @returns {Number} an approximate distance measure
+		 */
 		getDistant: function (cpt, bl) {
 			var vY = bl[1].lat - bl[0].lat,
 				vX = bl[0].lng - bl[1].lng;
 			return (vX * (cpt.lat - bl[0].lat) + vY * (cpt.lng - bl[0].lng));
 		},
 
-
+		/*
+		 * @param {Array} baseLine a two-element array of latlng objects
+		 *   representing the baseline to project from
+		 * @param {Array} latLngs an array of latlng objects
+		 * @returns {Object} the maximum point and all new points to stay
+		 *   in consideration for the hull.
+		 */
 		findMostDistantPointFromBaseLine: function (baseLine, latLngs) {
 			var maxD = 0,
 				maxPt = null,
@@ -1493,11 +1525,19 @@ Retrieved from: http://en.literateprograms.org/Quickhull_(Javascript)?oldid=1843
 					maxD = d;
 					maxPt = pt;
 				}
-
 			}
-			return { 'maxPoint': maxPt, 'newPoints': newPoints };
+
+			return { maxPoint: maxPt, newPoints: newPoints };
 		},
 
+
+		/*
+		 * Given a baseline, compute the convex hull of latLngs as an array
+		 * of latLngs.
+		 *
+		 * @param {Array} latLngs
+		 * @returns {Array}
+		 */
 		buildConvexHull: function (baseLine, latLngs) {
 			var convexHullBaseLines = [],
 				t = this.findMostDistantPointFromBaseLine(baseLine, latLngs);
@@ -1513,12 +1553,19 @@ Retrieved from: http://en.literateprograms.org/Quickhull_(Javascript)?oldid=1843
 					);
 				return convexHullBaseLines;
 			} else {  // if there is no more point "outside" the base line, the current base line is part of the convex hull
-				return [baseLine];
+				return [baseLine[0]];
 			}
 		},
 
+		/*
+		 * Given an array of latlngs, compute a convex hull as an array
+		 * of latlngs
+		 *
+		 * @param {Array} latLngs
+		 * @returns {Array}
+		 */
 		getConvexHull: function (latLngs) {
-			//find first baseline
+			// find first baseline
 			var maxLat = false, minLat = false,
 				maxPt = null, minPt = null,
 				i;
@@ -1545,23 +1592,17 @@ L.MarkerCluster.include({
 	getConvexHull: function () {
 		var childMarkers = this.getAllChildMarkers(),
 			points = [],
-			hullLatLng = [],
-			hull, p, i;
+			p, i;
 
 		for (i = childMarkers.length - 1; i >= 0; i--) {
 			p = childMarkers[i].getLatLng();
 			points.push(p);
 		}
 
-		hull = L.QuickHull.getConvexHull(points);
-
-		for (i = hull.length - 1; i >= 0; i--) {
-			hullLatLng.push(hull[i][0]);
-		}
-
-		return hullLatLng;
+		return L.QuickHull.getConvexHull(points);
 	}
 });
+
 
 //This code is 100% based on https://github.com/jawj/OverlappingMarkerSpiderfier-Leaflet
 //Huge thanks to jawj for implementing it first to make my job easy :-)
@@ -1667,7 +1708,9 @@ L.MarkerCluster.include({
 				m.setLatLng(m._preSpiderfyLatlng);
 				delete m._preSpiderfyLatlng;
 			}
-			m.setZIndexOffset(0);
+			if (m.setZIndexOffset) {
+				m.setZIndexOffset(0);
+			}
 
 			if (m._spiderLeg) {
 				map.removeLayer(m._spiderLeg);
@@ -1691,7 +1734,9 @@ L.MarkerCluster.include(!L.DomUtil.TRANSITION ? {
 
 			m._preSpiderfyLatlng = m._latlng;
 			m.setLatLng(newPos);
-			m.setZIndexOffset(1000000); //Make these appear on top of EVERYTHING
+			if (m.setZIndexOffset) {
+				m.setZIndexOffset(1000000); //Make these appear on top of EVERYTHING
+			}
 
 			fg.addLayer(m);
 
@@ -1725,12 +1770,18 @@ L.MarkerCluster.include(!L.DomUtil.TRANSITION ? {
 		for (i = childMarkers.length - 1; i >= 0; i--) {
 			m = childMarkers[i];
 
-			m.setZIndexOffset(1000000); //Make these appear on top of EVERYTHING
-			m.setOpacity(0);
+			//If it is a marker, add it now and we'll animate it out
+			if (m.setOpacity) {
+				m.setZIndexOffset(1000000); //Make these appear on top of EVERYTHING
+				m.setOpacity(0);
+			
+				fg.addLayer(m);
 
-			fg.addLayer(m);
-
-			m._setPos(thisLayerPos);
+				m._setPos(thisLayerPos);
+			} else {
+				//Vectors just get immediately added
+				fg.addLayer(m);
+			}
 		}
 
 		group._forceLayout();
@@ -1747,7 +1798,10 @@ L.MarkerCluster.include(!L.DomUtil.TRANSITION ? {
 			//Move marker to new position
 			m._preSpiderfyLatlng = m._latlng;
 			m.setLatLng(newPos);
-			m.setOpacity(1);
+			
+			if (m.setOpacity) {
+				m.setOpacity(1);
+			}
 
 
 			//Add Legs.
@@ -1835,9 +1889,12 @@ L.MarkerCluster.include(!L.DomUtil.TRANSITION ? {
 			m.setLatLng(m._preSpiderfyLatlng);
 			delete m._preSpiderfyLatlng;
 			//Hack override the location to be our center
-			m._setPos(thisLayerPos);
-
-			m.setOpacity(0);
+			if (m.setOpacity) {
+				m._setPos(thisLayerPos);
+				m.setOpacity(0);
+			} else {
+				fg.removeLayer(m);
+			}
 
 			//Animate the spider legs back in
 			if (svg) {
@@ -1875,8 +1932,10 @@ L.MarkerCluster.include(!L.DomUtil.TRANSITION ? {
 				}
 
 
-				m.setOpacity(1);
-				m.setZIndexOffset(0);
+				if (m.setOpacity) {
+					m.setOpacity(1);
+					m.setZIndexOffset(0);
+				}
 
 				if (stillThereChildCount > 1) {
 					fg.removeLayer(m);
