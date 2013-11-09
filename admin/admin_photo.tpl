@@ -1,6 +1,6 @@
 {html_head}
-<link href="{$OSM_PATH}leaflet/leaflet.css" rel="stylesheet">
-<link href="{$OSM_PATH}leaflet/leaflet-search.css" rel="stylesheet">
+<link rel="stylesheet" href="{$OSM_PATH}leaflet/leaflet.css" />
+<link rel="stylesheet" href="{$OSM_PATH}leaflet/leaflet-search.css" />
 <!--[if lte IE 8]><link rel="stylesheet" href="{$OSM_PATH}leaflet/leaflet.ie.css" /><![endif]-->
 <script src="{$OSM_PATH}leaflet/leaflet.js"></script>
 <script src="{$OSM_PATH}leaflet/leaflet-search.js"></script>
@@ -31,7 +31,7 @@
 	<fieldset>
 		<legend>{'Properties'|@translate}</legend>
 		<div style="float: left;">
-			<img src="{$TN_SRC}" alt="{'Thumbnail'|@translate}" class="Thumbnail">
+			<img src="{$TN_SRC}" alt="{'Thumbnail'|@translate}" style="border: 2px solid rgb(221, 221, 221);">
 		</div>
 		<div style="float: left; margin: auto;">
 			<ul>
@@ -108,7 +108,7 @@
 			animateLocation: false,
 			markerLocation: true,
 			zoom: 10,
-			minLength: 2,
+			minLength: 3,
 			autoType: false
 		};
 
