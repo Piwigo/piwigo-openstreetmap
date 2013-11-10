@@ -1,7 +1,12 @@
+Changes from v0.7 to v0.8
+- Add 'Point and click' feature for photo edit page
+- Add filter search for Tags/SmartAlbums
+- Fix broken resources with question_mark_in_urls set to false
+
 Changes from v0.6 to v0.7
 - Add new translation, thanks to the contributors
+- Add filter search for Album/Category
 - Improve admin sync logic, thanks to marjoleink
-- Availability of showing a map with all pictures in one album/category
 - Fix issues
 
 Changes from v0.5 to v0.6
