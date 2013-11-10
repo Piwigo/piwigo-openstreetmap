@@ -111,7 +111,7 @@ function plugin_uninstall()
 /* Don't remove myself on restore settings
 	if (is_dir(OSM_PATH))
 	{
-		deltree(OSM_PATH);
+		osm_deltree(OSM_PATH);
 	}
 */
 	// Remove world map link
@@ -143,7 +143,7 @@ function plugin_activate()
 	}
 }
 
-function deltree($path)
+function osm_deltree($path)
 {
 	if (is_dir($path))
 	{
@@ -155,7 +155,7 @@ function deltree($path)
 				$pathfile = $path . '/' . $file;
 				if (is_dir($pathfile))
 				{
-					deltree($pathfile);
+					osm_deltree($pathfile);
 				}
 				else
 				{
