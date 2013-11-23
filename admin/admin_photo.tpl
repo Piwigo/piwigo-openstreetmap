@@ -1,9 +1,9 @@
 {html_head}
 <link rel="stylesheet" href="{$OSM_PATH}leaflet/leaflet.css" />
 <link rel="stylesheet" href="{$OSM_PATH}leaflet/leaflet-search.css" />
-<!--[if lte IE 8]><link rel="stylesheet" href="{$OSM_PATH}leaflet/leaflet.ie.css" /><![endif]-->
 <script src="{$OSM_PATH}leaflet/leaflet.js"></script>
 <script src="{$OSM_PATH}leaflet/leaflet-search.js"></script>
+<script src="{$OSM_PATH}leaflet/leaflet-providers.js"></script>
 {/html_head}
 
 {html_style}
@@ -81,6 +81,7 @@
 
 	map.on('click', onMapClick);
 
+	/* BEGIN leaflet-search */
 	var jsonpurl = 'http://open.mapquestapi.com/nominatim/v1/search.php?q={s}'+
 				   '&format=json&osm_type=N&limit=100&addressdetails=0',
 		jsonpName = 'json_callback';
@@ -109,10 +110,11 @@
 			markerLocation: true,
 			zoom: 10,
 			minLength: 3,
-			autoType: false
+			autoType: false,
+			position: 'topright'
 		};
 
 	map.addControl( new L.Control.Search(searchOpts) );
-
+	/* END leaflet-search */
 </script>
 {/literal}

@@ -104,36 +104,40 @@ $attrleaflet = isset($conf['osm_conf']['map']['attrleaflet']) ? $conf['osm_conf'
 $attrimagery = isset($conf['osm_conf']['map']['attrimagery']) ? $conf['osm_conf']['map']['attrimagery'] : 'false';
 $attrmodule = isset($conf['osm_conf']['map']['attrplugin']) ? $conf['osm_conf']['map']['attrplugin'] : 'false';
 
-$OSMCOPYRIGHT='Map data © <a href="http://www.openstreetmap.org" target="_blank">OpenStreetMap</a> (<a href="http://www.openstreetmap.org/copyright" target="_blank">ODbL</a>)';
-
 // Load baselayerURL
 // Key1 BC9A493B41014CAABB98F0471D759707
-if     ($baselayer == 'mapnik')	$baselayerurl = 'http://tile.openstreetmap.org/{z}/{x}/{y}.png';
+if     ($baselayer == 'mapnik')		$baselayerurl = 'http://tile.openstreetmap.org/{z}/{x}/{y}.png';
 else if($baselayer == 'mapquest')	$baselayerurl = 'http://otile1.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png';
 else if($baselayer == 'cloudmade')	$baselayerurl = 'http://{s}.tile.cloudmade.com/7807cc60c1354628aab5156cfc1d4b3b/997/256/{z}/{x}/{y}.png';
-else if($baselayer == 'mapnikde')	$baselayerurl = 'http://www.toolserver.org/tiles/germany/{z}/{x}/{y}.png';
+else if($baselayer == 'mapnikde')	$baselayerurl = 'http://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png';
 else if($baselayer == 'mapnikfr')	$baselayerurl = 'http://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png';
+else if($baselayer == 'blackandwhite')	$baselayerurl = 'http://{s}.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png';
+else if($baselayer == 'mapnikhot')	$baselayerurl = 'http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png';
+else if($baselayer == 'mapquestaerial')	$baselayerurl = 'http://oatile1.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.jpg';
 else if($baselayer == 'custom')	$baselayerurl = $custombaselayerurl;
 
-$attribution = "";
-// Attribution Credit and Copyright
-if($attrleaflet){ $attribution .= " ". l10n('POWERBY')." <a href=\"http://leafletjs.com/\" target=\"_blank\">Leaflet</a>"; }
-if($attrimagery){ $attribution .= " ". l10n('IMAGERYBY')." ". imagery($baselayer, $custombaselayer); }
-if($attrmodule){ $attribution .=  " ". l10n('PLUGINBY')." <a href=\"https://github.com/xbgmsharp/piwigo-openstreetmap\" target=\"_blank\">xbgmsharp</a>"; }
+$attribution = osmcopyright($attrleaflet, $attrimagery, $attrmodule, $baselayer, $custombaselayer);
 
 if ($lat == 0 and $lon == 0) { $zoom = 2; }
 
 // Generate Javascript
+// Override configuration due to the use of leaflet-providers.js
 // ----------------------------------------
-$js = "\nvar map = L.map('map').setView([".$lat.", ".$lon."], ".$zoom.");
+$js = "\nvar map = L.map('map', { 'zoomControl': false, }).setView([".$lat.", ".$lon."], ".$zoom.");
 
-L.tileLayer('".$baselayerurl."', {
-	maxZoom: 18,
-	attribution: '".$attribution."'
-}).addTo(map);
+L.tileLayer('".$baselayerurl."', { maxZoom: 18 }).addTo(map);
+
+map.addControl(L.control.zoom({position: 'topright'}));
 
 L.marker([".$lat.", ".$lon."]).addTo(map)
 	.bindPopup('".render_element_name($picture)."').openPopup();
+
+/* BEGIN leaflet-providers */
+var baseLayers = ['OpenStreetMap.Mapnik', 'OpenStreetMap.BlackAndWhite', 'OpenStreetMap.DE', 'OpenStreetMap.HOT', 'MapQuestOpen.OSM', 'MapQuestOpen.Aerial', 'Stamen.Watercolor'],
+    overlays = [''];
+
+L.control.layers.provided(baseLayers, overlays).addTo(map);
+/* END leaflet-providers */
 \n";
 
 $template->assign(array(
