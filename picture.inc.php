@@ -112,31 +112,34 @@ function osm_render_element_content()
 	$osmnamecss = "style='".$osmnamecss."'";
     }
 
-    $OSMCOPYRIGHT='Map data © <a href="http://www.openstreetmap.org" target="_blank">OpenStreetMap</a> (<a href="http://www.openstreetmap.org/copyright" target="_blank">ODbL</a>)';
-
     $osmlink="http://openstreetmap.org/?mlat=".$lat."&amp;mlon=".$lon."&zoom=12&layers=M";
 
     // Load baselayerURL
     // Key1 BC9A493B41014CAABB98F0471D759707
-    if     ($baselayer == 'mapnik')	$baselayerurl = 'http://tile.openstreetmap.org/{z}/{x}/{y}.png';
-    else if($baselayer == 'mapquest')	$baselayerurl = 'http://otile1.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png';
-    else if($baselayer == 'cloudmade')	$baselayerurl = 'http://{s}.tile.cloudmade.com/7807cc60c1354628aab5156cfc1d4b3b/997/256/{z}/{x}/{y}.png';
-    else if($baselayer == 'mapnikde')	$baselayerurl = 'http://www.toolserver.org/tiles/germany/{z}/{x}/{y}.png';
-    else if($baselayer == 'mapnikfr')	$baselayerurl = 'http://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png';
-    else if($baselayer == 'custom')	$baselayerurl = $custombaselayerurl;
+	if     ($baselayer == 'mapnik')		$baselayerurl = 'http://tile.openstreetmap.org/{z}/{x}/{y}.png';
+	else if($baselayer == 'mapquest')	$baselayerurl = 'http://otile1.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png';
+	else if($baselayer == 'cloudmade')	$baselayerurl = 'http://{s}.tile.cloudmade.com/7807cc60c1354628aab5156cfc1d4b3b/997/256/{z}/{x}/{y}.png';
+	else if($baselayer == 'mapnikde')	$baselayerurl = 'http://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png';
+	else if($baselayer == 'mapnikfr')	$baselayerurl = 'http://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png';
+	else if($baselayer == 'blackandwhite')	$baselayerurl = 'http://{s}.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png';
+	else if($baselayer == 'mapnikhot')	$baselayerurl = 'http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png';
+	else if($baselayer == 'mapquestaerial')	$baselayerurl = 'http://oatile1.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.jpg';
+	else if($baselayer == 'custom')	$baselayerurl = $custombaselayerurl;
+
+	$attribution = osmcopyright($attrleaflet, $attrimagery, $attrmodule, $baselayer, $custombaselayer);
 
     // Generate Javascript
     // ----------------------------------------
     // no worldWarp (no world copies, restrict the view to one world)
     if($noworldwarp)
     {
-	$nowarp = "noWrap: true, ";
+	$nowarp = " true ";
 	$worldcopyjump = "worldCopyJump: false, maxBounds: [ [82, -180], [-82, 180] ]";
     }
     else
     {
-	$nowarp = "noWrap: false, ";
-	$worldcopyjump = "worldCopyJump: true"; //false to fix https://github.com/Leaflet/Leaflet/issues/1449
+	$nowarp = " false ";
+	$worldcopyjump = "worldCopyJump: true";
     }
 
 /*
@@ -175,16 +178,11 @@ var bluemapicons = new mapIcon({iconUrl: 'plugins/piwigo-openstreetmap/leaflet/i
     // Create the map and get a new map instance attached and element with id="tile-map"
     $js = "\nvar map = new L.Map('map', {".$worldcopyjump."});\n";
     $js .= "map.attributionControl.setPrefix('');\n";
-    $js .= "var baselayer = new L.TileLayer('".$baselayerurl."', {maxZoom: 18, ".$nowarp."attribution: '".$OSMCOPYRIGHT."'});\n";
+    $js .= "var baselayer = new L.TileLayer('".$baselayerurl."', {maxZoom: 18, noWrap: ".$nowarp.", attribution: '".$attribution."'});\n";
     $js .= "var coord = new L.LatLng(".$lat.", ".$lon.");\n";
     $js .= "var marker = new L.Marker(coord);\n";
     //$js .= "var marker = new L.Marker(coord, {icon: bluemapicons});\n";
     $js .= "map.addLayer(marker);\n";
-
-    // Attribution Credit and Copyright
-    if($attrleaflet){ $js .= "map.attributionControl.addAttribution('".l10n('POWERBY')." <a href=\"http://leafletjs.com/\" target=\"_blank\">Leaflet</a>');\n"; }
-    if($attrimagery){ $js .= "map.attributionControl.addAttribution('".l10n('IMAGERYBY')." ". imagery($baselayer, $custombaselayer)."');\n"; }
-    if($attrmodule){ $js .= "map.attributionControl.addAttribution('".l10n('PLUGINBY')." <a href=\"https://github.com/xbgmsharp/piwigo-openstreetmap\" target=\"_blank\">xbgmsharp</a>');\n"; }
 
     // set map view
     $js .= "map.setView(coord, ".$zoom.").addLayer(baselayer);\n";

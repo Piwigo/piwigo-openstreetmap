@@ -164,28 +164,31 @@ $attrleaflet = isset($conf['osm_conf']['map']['attrleaflet']) ? $conf['osm_conf'
 $attrimagery = isset($conf['osm_conf']['map']['attrimagery']) ? $conf['osm_conf']['map']['attrimagery'] : 'false';
 $attrmodule = isset($conf['osm_conf']['map']['attrplugin']) ? $conf['osm_conf']['map']['attrplugin'] : 'false';
 
-$OSMCOPYRIGHT='Map data &copy; <a href="http://www.openstreetmap.org" target="_blank">OpenStreetMap</a> (<a href="http://www.openstreetmap.org/copyright" target="_blank">ODbL</a>)';
-
 // Load baselayerURL
 // Key1 BC9A493B41014CAABB98F0471D759707
 if     ($baselayer == 'mapnik')		$baselayerurl = 'http://tile.openstreetmap.org/{z}/{x}/{y}.png';
 else if($baselayer == 'mapquest')	$baselayerurl = 'http://otile1.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png';
 else if($baselayer == 'cloudmade')	$baselayerurl = 'http://{s}.tile.cloudmade.com/7807cc60c1354628aab5156cfc1d4b3b/997/256/{z}/{x}/{y}.png';
-else if($baselayer == 'mapnikde')	$baselayerurl = 'http://www.toolserver.org/tiles/germany/{z}/{x}/{y}.png';
+else if($baselayer == 'mapnikde')	$baselayerurl = 'http://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png';
 else if($baselayer == 'mapnikfr')	$baselayerurl = 'http://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png';
-else if($baselayer == 'custom')		$baselayerurl = $custombaselayerurl;
+else if($baselayer == 'blackandwhite')	$baselayerurl = 'http://{s}.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png';
+else if($baselayer == 'mapnikhot')	$baselayerurl = 'http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png';
+else if($baselayer == 'mapquestaerial')	$baselayerurl = 'http://oatile1.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.jpg';
+else if($baselayer == 'custom')	$baselayerurl = $custombaselayerurl;
+
+$attribution = osmcopyright($attrleaflet, $attrimagery, $attrmodule, $baselayer, $custombaselayer);
 
 // Generate Javascript
 // ----------------------------------------
 // no worldWarp (no world copies, restrict the view to one world)
 if($noworldwarp)
 {
-	$nowarp = "noWrap: true, ";
+	$nowarp = " true ";
 	$worldcopyjump = "worldCopyJump: false, maxBounds: [ [82, -180], [-82, 180] ]";
 }
 else
 {
-	$nowarp = "noWrap: false, ";
+	$nowarp = " false ";
 	$worldcopyjump = "worldCopyJump: true";
 }
 
@@ -228,8 +231,8 @@ var bluemapicons = new mapIcon({iconUrl: 'plugins/piwigo-openstreetmap/leaflet/i
 
 // Create the map and get a new map instance attached and element with id="tile-map"
 $js .= "\nvar Url = '".$baselayerurl."',
-	Attribution = '".$OSMCOPYRIGHT."',
-	TileLayer = new L.TileLayer(Url, {maxZoom: 18, attribution: Attribution}),
+	Attribution = '".$attribution."',
+	TileLayer = new L.TileLayer(Url, {maxZoom: 18, noWrap: ".$nowarp.", attribution: Attribution}),
 	latlng = new L.LatLng(0, 0);\n";
 $js .= "var map = new L.Map('map', {center: latlng, zoom: 2, layers: [TileLayer]});\n";
 $js .= "map.attributionControl.setPrefix('');\n";
@@ -278,11 +281,6 @@ if ($popup < 2)
 $js .= "\n	markers.addLayer(marker);
 }";
 $js .= "\nmap.addLayer(markers);\n";
-
-// Attribution Credit and Copyright
-if($attrleaflet){ $js .= "map.attributionControl.addAttribution('".l10n('POWERBY')." <a href=\"http://leafletjs.com/\" target=\"_blank\">Leaflet</a>');\n"; }
-if($attrimagery){ $js .= "map.attributionControl.addAttribution('".l10n('IMAGERYBY')." ". imagery($baselayer, $custombaselayer)."');\n"; }
-if($attrmodule){ $js .= "map.attributionControl.addAttribution('".l10n('PLUGINBY')." <a href=\"https://github.com/xbgmsharp/piwigo-openstreetmap\" target=\"_blank\">xbgmsharp</a>');\n"; }
 
 $template->set_filename('map', dirname(__FILE__).'/template/osm-map.tpl' );
 
