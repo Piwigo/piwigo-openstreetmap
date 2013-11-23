@@ -41,9 +41,8 @@ function plugin_install()
 	}
 
 	/* Modify images table if require */
-	$q = 'SELECT COUNT(*) as nb FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = "'.IMAGES_TABLE.'" AND COLUMN_NAME = "lat" OR COLUMN_NAME = "lon"';
-	$result = pwg_db_fetch_array( pwg_query($q) );
-	if($result['nb'] != 2)
+	$result = pwg_query('SHOW COLUMNS FROM '.IMAGES_TABLE.' LIKE "lat";');
+	if (!pwg_db_num_rows($result))
 	{
 		$q = 'ALTER TABLE '.IMAGES_TABLE.' ADD COLUMN `lat` DOUBLE(10,8) COMMENT "latitude used by the piwigo-openstreetmap plugin"';
 		pwg_query($q);
