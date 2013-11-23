@@ -37,12 +37,15 @@ global $template, $conf, $lang;
 
 // Available baselayer
 $available_baselayer = array(
-	'mapnik' => 'OpenStreetMap (Mapnik)',
-	'mapnikfr' => 'OpenStreetMap FR',
-	'mapnikde' => 'OpenStreetMap DE',
-	'mapquest' => 'MapQuest',
-	'cloudmade' => 'Cloudmade',
-	'custom' => 'custom',
+	'mapnik' 		=> 'OpenStreetMap Mapnik',
+	'blackandwhite' => 'OpenStreetMap BlackAndWhite',
+	'mapnikfr' 		=> 'OpenStreetMap FR',
+	'mapnikde' 		=> 'OpenStreetMap DE',
+	'mapnikhot' 	=> 'OpenStreetMap HOT',
+	'mapquest' 		=> 'MapQuestOpen',
+	'mapquestaerial' => 'MapQuestOpen Aerial',
+	'cloudmade' 	=> 'Cloudmade',
+	'custom' 		=> 'custom',
 );
 
 // Available zoom value
