@@ -44,11 +44,11 @@ $lang['CUSTOMBASELAYERURL'] = "Tile server URL";
 $lang['CUSTOMBASELAYERURL_DESC'] = 'Only if \'custom\' is selected as map style. Example: http://tile.openstreetmap.org/{z}/{x}/{y}.png';
 $lang['NOWORLDWARP'] = "No Worldwarp";
 $lang['NOWORLDWARP_DESC'] = "Normally the world will continue to the left and the right. This option restricts the view to 'one world'.";
-$lang['ATTRLEAFLET'] = "Show 'Powered by Leaflet'";
+$lang['ATTRLEAFLET'] = "Show library note";
 $lang['ATTRLEAFLET_DESC'] = 'Shows attribution of the used JavaScript library for interactive \'Leaflet\' maps.';
 $lang['ATTRIMAGERY'] = "Show map style";
 $lang['ATTRIMAGERY_DESC'] = "Shows the used map style.";
-$lang['ATTRPLUGIN'] = "Show Author note";
+$lang['ATTRPLUGIN'] = "Show author note";
 $lang['ATTRPLUGIN_DESC'] = "I created this plugin. :)";
 
 $lang['H_PIN'] = "Pin configuration";
