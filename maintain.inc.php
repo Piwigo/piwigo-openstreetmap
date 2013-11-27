@@ -31,7 +31,7 @@ function plugin_install()
 		define('OSM_PATH', PHPWG_PLUGINS_PATH . basename(dirname(__FILE__)).'/');
 
 	// Remove unused files from 0.4 to 0.5
-	$toremove = array("admin.tpl", "admin.php", "admin_boot.php");
+	$toremove = array("admin.tpl", "admin.php", "admin_boot.php", "leaflet/leaflet.ie.css");
 	foreach ($toremove as $file)
 	{
 		if (is_file(OSM_PATH.$file))
