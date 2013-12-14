@@ -13,7 +13,6 @@
 <script src="{$OSM_PATH}leaflet/leaflet.js"></script>
 <link rel="stylesheet" href="{$OSM_PATH}leaflet/MarkerCluster.css" />
 <link rel="stylesheet" href="{$OSM_PATH}leaflet/MarkerCluster.Default.css" />
-<!--[if lte IE 8]><link rel="stylesheet" href="{$OSM_PATH}leaflet/MarkerCluster.Default.ie.css" /><![endif]-->
 <script src="{$OSM_PATH}leaflet/leaflet.markercluster.js"></script>
 {/html_head}
 
@@ -30,7 +29,7 @@ html, body {
 {/literal}
 {/html_style}
 
-<span> <a href="{$HOME}">{$HOME_NAME}</a> <a href="{$HOME_PREV}">{$HOME_PREV_NAME}</a> - <b id="nb_showall">{$TOTAL}</b> <a id="showall" href="">Show items of this screen</a> - Mouse over a cluster to see the bounds of its children and click a cluster to zoom to those bounds</span>
+<span> <a href="{$HOME}">{$HOME_NAME}</a> <a href="{$HOME_PREV}">{$HOME_PREV_NAME}</a> - <b id="nb_showall">{$TOTAL}</b> - <a id="showall" target="_blank" href="">Show items of this screen</a> - Mouse over a cluster to see the bounds of its children and click a cluster to zoom to those bounds</span>
 <div id="map"></div>
 <script type="text/javascript">{$OSMJS}</script>
 
@@ -43,8 +42,8 @@ html, body {
 	}
 
 	function getMarkers(){
-		var center = map.getCenter();
-		var zoom = map.getZoom();
+		//var center = map.getCenter();
+		//var zoom = map.getZoom();
 		var bounds = map.getBounds();
 		console.log(bounds);
 		
