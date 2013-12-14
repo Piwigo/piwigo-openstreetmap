@@ -15,6 +15,7 @@
 <link rel="stylesheet" href="{$OSM_PATH}leaflet/MarkerCluster.Default.css" />
 <script src="{$OSM_PATH}leaflet/leaflet.markercluster.js"></script>
 {/html_head}
+
 {html_style}
 {literal}
 html, body {
@@ -28,9 +29,46 @@ html, body {
 {/literal}
 {/html_style}
 
-<span> <a href="{$HOME}">{$HOME_NAME}</a> <a href="{$HOME_PREV}">{$HOME_PREV_NAME}</a> - {$TOTAL} - Mouse over a cluster to see the bounds of its children and click a cluster to zoom to those bounds</span>
+<span> <a href="{$HOME}">{$HOME_NAME}</a> <a href="{$HOME_PREV}">{$HOME_PREV_NAME}</a> - <b id="nb_showall">{$TOTAL}</b> - <a id="showall" target="_blank" href="">Show items of this screen</a> - Mouse over a cluster to see the bounds of its children and click a cluster to zoom to those bounds</span>
 <div id="map"></div>
 <script type="text/javascript">{$OSMJS}</script>
+
+<script type="text/javascript">
+{literal}
+	map.on('moveend', onMapMove);
+
+	function onMapMove(e){
+		getMarkers();
+	}
+
+	function getMarkers(){
+		//var center = map.getCenter();
+		//var zoom = map.getZoom();
+		var bounds = map.getBounds();
+		//console.log(bounds);
+		
+		var min = bounds.getSouthWest().wrap();
+		var max = bounds.getNorthEast().wrap();
+
+		var myurl = "{/literal}{$HOME}{literal}osmmap.php?min_lat="+min.lat+"&min_lng="+min.lng+"&max_lat="+max.lat+"&max_lng="+max.lng;
+		//console.log(myurl);
+		document.getElementById("showall").setAttribute('href',myurl);
+
+		var nb_items = 0;
+		for (var i = 0; i < addressPoints.length; i++) {
+			var a = addressPoints[i];
+
+			//console.log(a[0] +" > "+ min.lat +" && "+ a[1] +" > "+ min.lng +" && "+ a[0] +" < "+ max.lat +" && "+ a[1] +" < "+ max.lng);
+			if (a[0] > min.lat && a[1] > min.lng && a[0] < max.lat && a[1] < max.lng)
+			{
+				//console.log("Inside bounds");
+				nb_items++;
+			}
+		}
+		document.getElementById("nb_showall").innerHTML = nb_items +' items';
+	}
+{/literal}
+</script>
 
 {get_combined_scripts load='footer'}
 </body>
