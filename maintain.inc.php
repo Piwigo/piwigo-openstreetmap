@@ -30,26 +30,14 @@ function plugin_install()
 	if (!defined('OSM_PATH'))
 		define('OSM_PATH', PHPWG_PLUGINS_PATH . basename(dirname(__FILE__)).'/');
 
-	// Remove unused files from 0.4 to 0.5
-	$toremove = array("admin.tpl", "admin.php", "admin_boot.php", "leaflet/leaflet.ie.css");
+	// Remove unused files from update
+	$toremove = array("admin.tpl", "admin.php", "admin_boot.php", "leaflet/leaflet.ie.css", "leaflet/MarkerCluster.Default.ie.css");
 	foreach ($toremove as $file)
 	{
 		if (is_file(OSM_PATH.$file))
 		{
 			@unlink(OSM_PATH.$file);
 		}
-	}
-
-	/* Modify images table if require */
-	$result = pwg_query('SHOW COLUMNS FROM '.IMAGES_TABLE.' LIKE "lat";');
-	if (!pwg_db_num_rows($result))
-	{
-		$q = 'ALTER TABLE '.IMAGES_TABLE.' ADD COLUMN `lat` DOUBLE(10,8) COMMENT "latitude used by the piwigo-openstreetmap plugin"';
-		pwg_query($q);
-		$q = 'ALTER TABLE '.IMAGES_TABLE.' ADD INDEX images_lat(`lat`)';
-		pwg_query($q);
-		$q = 'ALTER TABLE '.IMAGES_TABLE.' ADD COLUMN `lon` DOUBLE(11,8) COMMENT "longitude used by the piwigo-openstreetmap plugin"';
-		pwg_query($q);
 	}
 
 	$default_config = array(
@@ -119,16 +107,6 @@ function plugin_uninstall()
 	/* Remove configuration from the config table */
 	$q = 'DELETE FROM '.CONFIG_TABLE.' WHERE param = "osm_conf" LIMIT 1;';
 	pwg_query( $q );
-
-	/* Remove geotag from images table */
-/*
-	$q = 'ALTER TABLE '.IMAGES_TABLE.' DROP COLUMN `lat`';
-	pwg_query( $q );
-	$q = 'ALTER TABLE '.IMAGES_TABLE.' DROP COLUMN `lon`';
-	pwg_query( $q );
-	$q = 'ALTER TABLE '.IMAGES_TABLE.' DROP INDEX `images_lat`';
-	pwg_query( $q );
-*/
 }
 
 function plugin_activate()

@@ -86,12 +86,12 @@ function osm_render_element_content()
     }
 
     // Load coordinates from picture
-    $query = 'SELECT lat,lon FROM '.IMAGES_TABLE.' WHERE id = \''.$page['image_id'].'\' ;';
+    $query = 'SELECT latitude,longitude FROM '.IMAGES_TABLE.' WHERE id = \''.$page['image_id'].'\' ;';
     $result = pwg_query($query);
     $row = pwg_db_fetch_assoc($result);
-    if (!$row or !$row['lat'] or empty($row['lat'])) { return; }
-    $lat = $row['lat'];
-    $lon = $row['lon'];
+    if (!$row or !$row['latitude'] or empty($row['latitude'])) { return; }
+    $lat = $row['latitude'];
+    $lon = $row['longitude'];
 
     // Load parameter, fallback to default if unset
     $height = isset($conf['osm_conf']['right_panel']['height']) ? $conf['osm_conf']['right_panel']['height'] : '200';

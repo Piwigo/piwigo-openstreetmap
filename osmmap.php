@@ -117,11 +117,11 @@ if (isset($_GET['min_lat']) and isset($_GET['max_lat']) and isset($_GET['min_lng
 	$osm_sub_album = create_virtual_category("OSM".$_GET['min_lat']."", $osm_album['id'], $options);
 
 	/* Get all items inside the lat and lng */
-	$query="SELECT  `id`, `lat`, `lon`, `name` 
+	$query="SELECT  `id`, `latitude`, `longitude`, `name` 
 FROM ".IMAGES_TABLE." 
-WHERE `lat` IS NOT NULL AND `lon` IS NOT NULL 
-AND `lat` > ".$_GET['min_lat']." AND `lat` < ".$_GET['max_lat']."
-AND `lon` > ".$_GET['min_lng']." AND `lon` < ".$_GET['max_lng']."
+WHERE `latitude` IS NOT NULL AND `longitude` IS NOT NULL 
+AND `latitude` > ".$_GET['min_lat']." AND `latitude` < ".$_GET['max_lat']."
+AND `longitude` > ".$_GET['min_lng']." AND `longitude` < ".$_GET['max_lng']."
 group by `name`;";
 
 	$items = hash_from_query( $query, 'id');
@@ -150,12 +150,12 @@ $forbidden = get_sql_condition_FandF(
 );
 
 
-// Fetch data with lat and lon
-//$query="SELECT `lat`, `lon`, `name`, `path` FROM ".IMAGES_TABLE." WHERE `lat` IS NOT NULL AND `lon` IS NOT NULL;";
+// Fetch data with latitude and longitude
+//$query="SELECT `latitude`, `longitude`, `name`, `path` FROM ".IMAGES_TABLE." WHERE `latitude` IS NOT NULL AND `longitude` IS NOT NULL;";
 // SUBSTRING_INDEX(TRIM(LEADING '.' FROM `path`), '.', 1) full path without filename extension
 // SUBSTRING_INDEX(TRIM(LEADING '.' FROM `path`), '.', -1) full path with only filename extension
 
-$query="SELECT `lat`, `lon`, `name`, 
+$query="SELECT `latitude`, `longitude`, `name`, 
 IF(`representative_ext` IS NULL, 
 	CONCAT(SUBSTRING_INDEX(TRIM(LEADING '.' FROM `path`), '.', 1 ), '-sq.', SUBSTRING_INDEX(TRIM(LEADING '.' FROM `path`), '.', -1 )), 
 	TRIM(LEADING '.' FROM
@@ -168,14 +168,14 @@ IF(`representative_ext` IS NULL,
 				)
 			)
 		)
-) AS pathurl, 
-TRIM(TRAILING '/' FROM CONCAT( `id`, '/category/', IFNULL(`storage_category_id`, '') ) ) as imgurl, 
+) AS `pathurl`, 
+TRIM(TRAILING '/' FROM CONCAT( `id`, '/category/', IFNULL(`storage_category_id`, '') ) ) as `imgurl`, 
 IFNULL(`comment`, '') AS `comment`,
 IFNULL(`author`, '') AS `author`,
 `width`
 	FROM ".IMAGES_TABLE." AS i
 	    INNER JOIN ".IMAGE_CATEGORY_TABLE." AS ic ON id = ic.image_id
-	    WHERE ".$LIMIT_SEARCH." `lat` IS NOT NULL AND `lon` IS NOT NULL ".$forbidden." group by `name`;";
+	    WHERE ".$LIMIT_SEARCH." `latitude` IS NOT NULL AND `longitude` IS NOT NULL ".$forbidden." group by `name`;";
 //echo $query;
 $php_data = array_from_query($query);
 //print_r($php_data);
@@ -184,8 +184,8 @@ foreach($php_data as $array)
 {
 	// MySQL did all the job
 	//print_r($array);
-	$js_data[] = array((double)$array['lat'],
-			   (double)$array['lon'],
+	$js_data[] = array((double)$array['latitude'],
+			   (double)$array['longitude'],
 			   $array['name'],
 			   $array['pathurl'],
 			   $array['imgurl'],

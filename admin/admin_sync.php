@@ -59,13 +59,13 @@ if ( isset($_POST['submit']) )
 			$query .= 'id='.$sync_options['cat_id'];
 			$cat_ids = array_from_query($query, 'id');
 
-		$query='SELECT `id`, `path` ,`lat` ,`lon` FROM '.IMAGES_TABLE.' INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON id=image_id
+		$query='SELECT `id`, `path` ,`latitude` ,`longitude` FROM '.IMAGES_TABLE.' INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON id=image_id
 			WHERE '. SQL_EXIF .' AND category_id IN ('.implode(',', $cat_ids).')
 			GROUP BY id';
 	}
 	else
 	{
-		$query='SELECT `id`, `path` ,`lat` ,`lon` FROM '.IMAGES_TABLE.' WHERE '. SQL_EXIF;
+		$query='SELECT `id`, `path` ,`latitude` ,`longitude` FROM '.IMAGES_TABLE.' WHERE '. SQL_EXIF;
 	}
 
 	$images = hash_from_query( $query, 'id');
@@ -98,9 +98,9 @@ if ( isset($_POST['submit']) )
 		$infos[] = $filename.': lat-lon data found in EXIF';
 		if ($sync_options['overwrite'])
 		{
-			if (!empty($image['lat']) || !empty($image['lon']))
+			if (!empty($image['latitude']) || !empty($image['longitude']))
 			{
-				$warnings[] = $filename.': skipped because DB already has geo data: lat '.$image['lat'].' lon '.$image['lon'];
+				$warnings[] = $filename.': skipped because DB already has geo data: lat '.$image['latitude'].' lon '.$image['longitude'];
 				continue;
 			}
 		}
@@ -143,7 +143,7 @@ if ( isset($_POST['submit']) )
 	);
 }
 
-$query = 'SELECT COUNT(*) FROM '.IMAGES_TABLE.' WHERE `lat` IS NOT NULL and `lon` IS NOT NULL ';
+$query = 'SELECT COUNT(*) FROM '.IMAGES_TABLE.' WHERE `latitude` IS NOT NULL and `longitude` IS NOT NULL ';
 list($nb_geotagged) = pwg_db_fetch_array( pwg_query($query) );
 
 $query = 'SELECT id, CONCAT(name, IF(dir IS NULL, " (V)", "") ) AS name, uppercats, global_rank  FROM '.CATEGORIES_TABLE;

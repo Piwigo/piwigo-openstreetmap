@@ -42,9 +42,9 @@ add_event_handler('perform_batch_manager_prefilters', 'osm_perform_batch_manager
 function osm_perform_batch_manager_prefilters($filter_sets, $prefilter)
 {
 	if ($prefilter==="osm0")
-		$filter = "`lat` IS NOT NULL and `lon` IS NOT NULL";
+		$filter = "`latitude` IS NOT NULL and `longitude` IS NOT NULL";
 	else if ($prefilter==="osm1")
-		$filter = "`lat` IS NULL OR `lon` IS NULL";
+		$filter = "`latitude` IS NULL OR `longitude` IS NULL";
 
 	if ( isset($filter) )
 	{
@@ -85,12 +85,12 @@ function osm_element_set_global_action($action, $collection)
 	{
 		if ( (double)$lat<=90 and (double)$lat>=-90
 			and (double)$lon<=180 and (double)$lon>=-180 )
-			$update_query = 'lat='.$lat.', lon='.$lon;
+			$update_query = 'latitude='.$lat.', longitude='.$lon;
 		else
 			$page['errors'][] = 'Invalid lat or lon value';
 	}
 	elseif ( strlen($lat)==0 and strlen($lon)==0 )
-		$update_query = 'lat=NULL, lon=NULL';
+		$update_query = 'latitude=NULL, longitude=NULL';
 	else
 		$page['errors'][] = 'Both lat/lon must be empty or not empty';
 
@@ -112,7 +112,7 @@ function osm_loc_begin_element_set_unit()
 	      return;
 
 	$collection = explode(',', $_POST['element_ids']);
-	$query = "SELECT `id`, `lat`, `lon`
+	$query = "SELECT `id`, `latitude`, `longitude`
 			FROM ".IMAGES_TABLE."
 			WHERE id IN (".implode(',',$collection).")";
 

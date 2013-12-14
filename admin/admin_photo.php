@@ -55,14 +55,14 @@ if (isset($_POST['submit']))
 	{
 		if ( (double)$lat<=90 and (double)$lat>=-90
 			and (double)$lon<=180 and (double)$lon>=-180 )
-			$update_query = 'lat='.$lat.', lon='.$lon;
+			$update_query = 'latitude='.$lat.', longitude='.$lon;
 		else
-			$page['errors'][] = 'Invalid lat or lon value';
+			$page['errors'][] = 'Invalid latitude or longitude value';
 	}
 	elseif ( strlen($lat)==0 and strlen($lon)==0 )
-		$update_query = 'lat=NULL, lon=NULL';
+		$update_query = 'latitude=NULL, longitude=NULL';
 	else
-		$page['errors'][] = 'Both lat/lon must be empty or not empty';
+		$page['errors'][] = 'Both latitude/longitude must be empty or not empty';
 
 	if (isset($update_query))
 	{
@@ -91,8 +91,8 @@ $template->set_filenames(
 // Retrieving direct information about picture
 $query = 'SELECT * FROM '.IMAGES_TABLE.' WHERE id = '.$_GET['image_id'].';';
 $picture = pwg_db_fetch_assoc(pwg_query($query));
-$lat = isset($picture['lat']) ? $picture['lat'] : 0;
-$lon = isset($picture['lon']) ? $picture['lon'] : 0;
+$lat = isset($picture['latitude']) ? $picture['latitude'] : 0;
+$lon = isset($picture['longitude']) ? $picture['longitude'] : 0;
 
 // Load parameter, fallback to default if unset
 $zoom = isset($conf['osm_conf']['right_panel']['zoom']) ? $conf['osm_conf']['right_panel']['zoom'] : '18';
