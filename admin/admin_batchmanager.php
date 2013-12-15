@@ -131,17 +131,17 @@ function osm_loc_begin_element_set_unit()
 		$error = false;
 		$data = array(
 			'id' => $row['id'],
-			'lat' => trim($_POST['osmlat-'.$row['id']]),
-			'lon' => trim($_POST['osmlon-'.$row['id']])
+			'latitude' => trim($_POST['osmlat-'.$row['id']]),
+			'longitude' => trim($_POST['osmlon-'.$row['id']])
 		);
 
-		if ( strlen($data['lat'])>0 and strlen($data['lon'])>0 )
+		if ( strlen($data['latitude'])>0 and strlen($data['longitude'])>0 )
 		{
-			if ( (double)$data['lat']>90 or (double)$data['lat']<-90
-			    or (double)$data['lon']>180 or (double)$data['lon']<-180 )
+			if ( (double)$data['latitude']>90 or (double)$data['latitude']<-90
+			    or (double)$data['longitude']>180 or (double)$data['longitude']<-180 )
 				$error = true;
 		}
-		elseif ( strlen($data['lat'])==0 and strlen($data['lon'])==0 )
+		elseif ( strlen($data['latitude'])==0 and strlen($data['longitude'])==0 )
 		{
 			// nothing
 		}
@@ -160,7 +160,7 @@ function osm_loc_begin_element_set_unit()
 		IMAGES_TABLE,
 		array(
 			'primary' => array('id'),
-			'update' => array('lat', 'lon')
+			'update' => array('latitude', 'longitude')
 		),
 		$datas
 	);
@@ -190,10 +190,10 @@ function osm_prefilter_batch_manager_unit($content)
 		$add = '<tr><td><strong>{\'OSM Geotag\'|@translate}</strong></td>
 		  <td>
 		    <label>{\'Latitude\'|@translate}
-		      <input type="text" size="8" name="osmlat-{$element.id}" value="{$element.lat}">
+		      <input type="text" size="8" name="osmlat-{$element.id}" value="{$element.latitude}">
 		    </label>
 		    <label>{\'Longitude\'|@translate}
-		      <input type="text" size="9" name="osmlon-{$element.id}" value="{$element.lon}">
+		      <input type="text" size="9" name="osmlon-{$element.id}" value="{$element.longitude}">
 		    </label>
 		  </td>
 		</tr>';
