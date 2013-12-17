@@ -48,8 +48,8 @@ else
 $my_base_url = get_admin_plugin_menu_link(__FILE__);
 
 $tabsheet = new tabsheet();
-$tabsheet->add( 'config', l10n('Configuration'), add_url_params( $my_base_url, array('tab'=>'config') ) );
-$tabsheet->add( 'sync', l10n('Synchronize'), add_url_params( $my_base_url, array('tab'=>'sync') ) );
+$tabsheet->add( 'config', '<span class="icon-cog"></span>' . l10n('Configuration'), add_url_params( $my_base_url, array('tab'=>'config') ) );
+$tabsheet->add( 'sync', '<span class="icon-exchange"></span>' . l10n('Synchronize'), add_url_params( $my_base_url, array('tab'=>'sync') ) );
 $tabsheet->select($page['tab']);
 
 $tabsheet->assign();

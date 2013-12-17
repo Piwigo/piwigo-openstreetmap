@@ -33,7 +33,7 @@ function osm_admin_menu($menu)
 {
 	array_push($menu,
 		array(
-			'NAME' => 'OpenStreetMap',
+			'NAME' => '<span class="icon-equalizer"></span>OpenStreetMap',
 			'URL'  => get_admin_plugin_menu_link(dirname(__FILE__).'/admin.php')
 		)
 	);
@@ -54,7 +54,7 @@ function osm_photo_add_tab($sheets, $id)
 	if ($id == 'photo')
 	{
 		$sheets['openstreetmap'] = array(
-			'caption' => 'OpenStreetMap',
+			'caption' => '<span class="icon-equalizer"></span>OpenStreetMap',
 			'url' => get_root_url().'admin.php?page=plugin&amp;section=piwigo-openstreetmap/admin/admin_photo.php&amp;image_id='.$_GET['image_id'],
 			);
 	}
