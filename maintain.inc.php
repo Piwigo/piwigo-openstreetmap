@@ -30,8 +30,11 @@ function plugin_install()
 	if (!defined('OSM_PATH'))
 		define('OSM_PATH', PHPWG_PLUGINS_PATH . basename(dirname(__FILE__)).'/');
 
-	// Remove unused files from update
-	$toremove = array("admin.tpl", "admin.php", "admin_boot.php", "leaflet/leaflet.ie.css", "leaflet/MarkerCluster.Default.ie.css");
+	// Remove unused files from previous version
+	$toremove = array("admin.tpl", "admin.php", "admin_boot.php", \
+	"leaflet/leaflet.ie.css", "leaflet/MarkerCluster.Default.ie.css", \
+	"admin/admin_sync.php", "admin/admin_sync.tpl", "admin/admin_batchmanager.php", \
+	"include/functions_metadata.php");
 	foreach ($toremove as $file)
 	{
 		if (is_file(OSM_PATH.$file))
@@ -69,8 +72,6 @@ function plugin_install()
 			'attrimagery' 		=> true,
 			'attrplugin' 		=> true,
 			),
-		'auto_sync' 		=> false,
-		'batch_manager' 	=> false,
 	);
 	/* Add configuration to the config table */
 	$conf['osm_conf'] = serialize($default_config);
@@ -107,6 +108,9 @@ function plugin_uninstall()
 	/* Remove configuration from the config table */
 	$q = 'DELETE FROM '.CONFIG_TABLE.' WHERE param = "osm_conf" LIMIT 1;';
 	pwg_query( $q );
+
+	/* Remove lat/lon col from previous PWG install */
+	rvgm_drop_old_columns();
 }
 
 function plugin_activate()
@@ -114,7 +118,7 @@ function plugin_activate()
 	global $conf;
 
 	if ( (!isset($conf['osm_conf']))
-	    or (count($conf['osm_conf'], COUNT_RECURSIVE) != 27))
+	    or (count($conf['osm_conf'], COUNT_RECURSIVE) != 25))
 	{
 		plugin_install();
 	}
@@ -145,5 +149,14 @@ function osm_deltree($path)
 	}
 }
 
+// Drop lat/lon col from previous PWG install
+function osm_drop_old_columns()
+{
+	$q = 'ALTER TABLE '.IMAGES_TABLE.' DROP COLUMN `lat`';
+	pwg_query( $q );
+
+	$q = 'ALTER TABLE '.IMAGES_TABLE.' DROP COLUMN `lon`';
+	pwg_query( $q );
+}
 
 ?>

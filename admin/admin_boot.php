@@ -33,18 +33,11 @@ function osm_admin_menu($menu)
 {
 	array_push($menu,
 		array(
-			'NAME' => '<span class="icon-equalizer"></span>OpenStreetMap',
+			'NAME' => '<span class="osm-globe"></span>OpenStreetMap',
 			'URL'  => get_admin_plugin_menu_link(dirname(__FILE__).'/admin.php')
 		)
 	);
 	return $menu;
-}
-
-// Exit if we don't want batch_manager support
-if ($conf['osm_conf']['batch_manager'])
-{
-	// Batch_manager support
-	include_once(dirname(__FILE__).'/admin_batchmanager.php');
 }
 
 // Hook to add an photo edit tab in photo edit
@@ -54,7 +47,7 @@ function osm_photo_add_tab($sheets, $id)
 	if ($id == 'photo')
 	{
 		$sheets['openstreetmap'] = array(
-			'caption' => '<span class="icon-equalizer"></span>OpenStreetMap',
+			'caption' => '<span class="osm-globe"></span>OpenStreetMap',
 			'url' => get_root_url().'admin.php?page=plugin&amp;section=piwigo-openstreetmap/admin/admin_photo.php&amp;image_id='.$_GET['image_id'],
 			);
 	}

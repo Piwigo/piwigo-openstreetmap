@@ -32,14 +32,6 @@ if ($conf['osm_conf']['left_menu']['enabled'])
 	add_event_handler('blockmanager_apply', 'osm_blockmanager_apply');
 }
 
-// Hook to sync geotag metadata on upload
-if ($conf['osm_conf']['auto_sync'])
-{
-	$conf['use_exif_mapping']['lat'] = 'lat';
-	$conf['use_exif_mapping']['lon'] = 'lon';
-	add_event_handler('format_exif_data', 'osm_format_exif_data', EVENT_HANDLER_PRIORITY_NEUTRAL, 3);
-}
-
 // Hook to add worldmap link on the album/category thumbnails
 add_event_handler('loc_begin_index_category_thumbnails', 'osm_index_cat_thumbs_displayed');
 
@@ -96,20 +88,6 @@ if (defined('IN_ADMIN')) {
 	include_once(OSM_PATH.'/admin/admin_boot.php');
 }
 
-function osm_format_exif_data($exif, $file, $map)
-{
-	if (isset($map['lat']))
-	{
-		include_once( dirname(__FILE__) .'/include/functions_metadata.php');
-		$ll = osm_exif_to_lat_lon($exif);
-		if (is_array($ll))
-		{
-			$exif[$map['lat']] = $ll[0];
-			$exif[$map['lon']] = $ll[1];
-		}
-	}
-	return $exif;
-}
 
 function osm_blockmanager_apply($mb_arr)
 {

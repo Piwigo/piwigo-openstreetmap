@@ -125,7 +125,7 @@ if (isset($_POST['submit']) && !empty($_POST['osm_height']))
 		'left_menu' => array(
 			'enabled'       	=> get_boolean($_POST['osm_left_menu']),
 			'link'          	=> $_POST['osm_left_link'],
-			'popup'			=> $_POST['osm_left_popup'],
+			'popup'                 => $_POST['osm_left_popup'],
 			'popupinfo_name'	=> isset($_POST['osm_left_popupinfo_name']),
 			'popupinfo_img'		=> isset($_POST['osm_left_popupinfo_img']),
 			'popupinfo_link'	=> isset($_POST['osm_left_popupinfo_link']),
@@ -141,8 +141,6 @@ if (isset($_POST['submit']) && !empty($_POST['osm_height']))
 			'attrimagery' 		=> get_boolean($_POST['osm_attrimagery']),
 			'attrplugin' 		=> get_boolean($_POST['osm_attrplugin']),
 			),
-		'auto_sync' 		=> get_boolean($_POST['osm_auto_sync']),
-		'batch_manager' 	=> get_boolean($_POST['osm_batch_manager']),
 	);
 
 	// Update config to DB
