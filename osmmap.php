@@ -31,11 +31,7 @@ include_once( PHPWG_ROOT_PATH.'admin/include/functions.php' );
 include_once( dirname(__FILE__) .'/include/functions.php');
 include_once( dirname(__FILE__) .'/include/functions_map.php');
 
-$osm_dir = "piwigo-openstreetmap";
-
 check_status(ACCESS_GUEST);
-//if (!isset($osm_dir))
-//  access_denied( 'Plugin not installed' );
 
 osm_load_language();
 load_language('plugin.lang', OSM_PATH);
@@ -331,7 +327,6 @@ $js .= "\nmap.addLayer(markers);\n";
 
 $template->set_filename('map', dirname(__FILE__).'/template/osm-map.tpl' );
 
-//$template->assign($conf['osm_conf']);
 $template->assign(
 	array(
 		'CONTENT_ENCODING'	=> get_pwg_charset(),
