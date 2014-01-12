@@ -70,22 +70,9 @@ $lang['PINOFFSET_DESC'] = 'The position on the pin image, where the pin hits the
 $lang['PINPOPUPOFFSET'] = "Popup offset";
 $lang['PINPOPUPOFFSET_DESC'] = 'The position on the pin image, where the popup hits the pin. 0x0 is the pin point.';
 
-$lang['PLUGINCONF'] = "Plugin options";
-$lang['AUTOSYNC'] = 'Automatically sync EXIF if it exist';
-$lang['AUTOSYNC_DESC'] = 'When metadata is synchronized, coordinates might be overridden. Disable if you have \'RV Maps & Earth\' installed.';
-$lang['BATCHMANAGER'] = "Enable Batch Manager integration";
-$lang['BATCHMANAGER_DESC'] = 'Allow to modify latitude and longitude manually. Disable if you have \'RV Maps & Earth\' installed.';
-
 $lang['POWERBY'] = 'Powered by';
 $lang['IMAGERYBY'] = "Imagery by";
 $lang['PLUGINBY'] = "Plugin by";
-
-$lang['SYNC_ERRORS'] = 'Errors';
-$lang['SYNC_WARNINGS'] = 'Warnings';
-$lang['SYNC_INFOS'] = 'Detailed information';
-$lang['OVERWRITE_LGD'] = 'Overwrite';
-$lang['OVERWRITE'] = 'Overwrite existing geo data';
-$lang['OVERWRITE_DESC'] = 'Overwrite existing lat-lon data with new ones. If uncheck it should only add new entry (no update).';
 
 $lang['LATITUDE'] = 'Latitude';
 $lang['LONGITUDE'] = 'Longitude';
