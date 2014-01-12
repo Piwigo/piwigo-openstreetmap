@@ -1,4 +1,5 @@
 {html_head}
+<link rel="stylesheet" href="{$OSM_PATH}/fontello/css/osm.css" />
 <link rel="stylesheet" href="{$OSM_PATH}leaflet/leaflet.css" />
 <link rel="stylesheet" href="{$OSM_PATH}leaflet/leaflet-search.css" />
 <script src="{$OSM_PATH}leaflet/leaflet.js"></script>

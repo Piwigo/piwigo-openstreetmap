@@ -161,6 +161,7 @@ $template->assign(
 		'AVAILABLE_PIN'		=> $available_pin,
 		'AVAILABLE_POPUP'	=> $available_popup,
 		'NB_GEOTAGGED' 		=> $nb_geotagged,
+		'OSM_PATH'          => OSM_PATH,
 	)
 );
 

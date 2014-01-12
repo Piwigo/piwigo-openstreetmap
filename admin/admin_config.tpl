@@ -1,4 +1,5 @@
 {html_head}
+<link rel="stylesheet" href="{$OSM_PATH}fontello/css/osm.css" />
 <style>
   {literal}
     .osm_layout {
