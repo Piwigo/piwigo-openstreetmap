@@ -1,0 +1,25 @@
+[class^="osm-"], [class*=" osm-"] {
+  font-family: 'osm';
+  font-style: normal;
+  font-weight: normal;
+ 
+  /* fix buttons height */
+  line-height: 1em;
+ 
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+}
+ 
+.osm-home { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe801;&nbsp;'); }
+.osm-globe { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe0804;&nbsp;'); }
+.osm-link-ext { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe0803;&nbsp;'); }
+.osm-pin { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe0801;&nbsp;'); }
+.osm-location { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe0808;&nbsp;'); }
+.osm-direction { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe0807;&nbsp;'); }
+.osm-link { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe0800;&nbsp;'); }
+.osm-cog { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe800;&nbsp;'); }
+.osm-cog-alt { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe0805;&nbsp;'); }
+.osm-zoom-in { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe0802;&nbsp;'); }
+.osm-zoom-out { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe803;&nbsp;'); }
+.osm-left-big { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe802;&nbsp;'); }
+.osm-compass { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe0806;&nbsp;'); }

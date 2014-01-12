@@ -1,0 +1,16 @@
+@charset "UTF-8";
+
+ 
+.osm-home:before { content: '\e801'; } /* '' */
+.osm-globe:before { content: '󠠄'; } /* '\e0804' */
+.osm-link-ext:before { content: '󠠃'; } /* '\e0803' */
+.osm-pin:before { content: '󠠁'; } /* '\e0801' */
+.osm-location:before { content: '󠠈'; } /* '\e0808' */
+.osm-direction:before { content: '󠠇'; } /* '\e0807' */
+.osm-link:before { content: '󠠀'; } /* '\e0800' */
+.osm-cog:before { content: '\e800'; } /* '' */
+.osm-cog-alt:before { content: '󠠅'; } /* '\e0805' */
+.osm-zoom-in:before { content: '󠠂'; } /* '\e0802' */
+.osm-zoom-out:before { content: '\e803'; } /* '' */
+.osm-left-big:before { content: '\e802'; } /* '' */
+.osm-compass:before { content: '󠠆'; } /* '\e0806' */
