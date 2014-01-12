@@ -85,7 +85,7 @@ function plugin_install()
 	$c = <<<EOF
 <?php
 define('PHPWG_ROOT_PATH','./');
-include_once( PHPWG_ROOT_PATH. 'plugins/$dir_name/osmmap.php');
+include_once( PHPWG_ROOT_PATH. 'plugins/$dir_name/osmmap2.php');
 ?>
 EOF;
 	$fp = fopen( PHPWG_ROOT_PATH.'osmmap.php', 'w' );
