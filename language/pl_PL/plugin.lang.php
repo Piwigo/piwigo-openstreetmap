@@ -103,4 +103,5 @@ $lang['OVERWRITE_LGD'] = 'Nadpisz';
 $lang['SYNC_ERRORS'] = 'Błędy';
 $lang['SYNC_INFOS'] = 'Informacje szczegółowe';
 $lang['SYNC_WARNINGS'] = 'Ostrzeżenia';
+$lang['OVERWRITE_DESC'] = 'Nadpisz istniejące dane geolokalizacyjne nowymi. Jeśli zostanie odznaczone powinień zostać dodany tylko nowy wpis (bez aktualizacji).';
 ?>
