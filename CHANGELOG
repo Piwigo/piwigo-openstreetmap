@@ -1,3 +1,13 @@
+Changes from v0.8 to v2.6a
+- Add New WorldMap style
+- Add 'Show All' feature
+- Add new map style (tiles)
+- Improve photo edit page
+- Update language, thanks to the contributors
+- Update Leaflet and plugin to version 0.7.1
+- Support for PWG2.6
+- Use PWG versioning
+
 Changes from v0.7 to v0.8
 - Add 'Point and click' feature for photo edit page
 - Add filter search for Tags/SmartAlbums
