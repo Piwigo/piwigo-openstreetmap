@@ -31,9 +31,9 @@ function plugin_install()
 		define('OSM_PATH', PHPWG_PLUGINS_PATH . basename(dirname(__FILE__)).'/');
 
 	// Remove unused files from previous version
-	$toremove = array("admin.tpl", "admin.php", "admin_boot.php", \
-	"leaflet/leaflet.ie.css", "leaflet/MarkerCluster.Default.ie.css", \
-	"admin/admin_sync.php", "admin/admin_sync.tpl", "admin/admin_batchmanager.php", \
+	$toremove = array("admin.tpl", "admin.php", "admin_boot.php",
+	"leaflet/leaflet.ie.css", "leaflet/MarkerCluster.Default.ie.css",
+	"admin/admin_sync.php", "admin/admin_sync.tpl",	"admin/admin_batchmanager.php",
 	"include/functions_metadata.php");
 	foreach ($toremove as $file)
 	{
@@ -110,7 +110,7 @@ function plugin_uninstall()
 	pwg_query( $q );
 
 	/* Remove lat/lon col from previous PWG install */
-	rvgm_drop_old_columns();
+	//osm_drop_old_columns();
 }
 
 function plugin_activate()
@@ -152,6 +152,7 @@ function osm_deltree($path)
 // Drop lat/lon col from previous PWG install
 function osm_drop_old_columns()
 {
+	/* TODO: delete columns if they exist in case of restore config */
 	$q = 'ALTER TABLE '.IMAGES_TABLE.' DROP COLUMN `lat`';
 	pwg_query( $q );
 
