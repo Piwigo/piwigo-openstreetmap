@@ -1,3 +1,7 @@
+Changes from v2.6a to v2.6.b
+- Fix Install method
+- Fix WorldMap URL
+
 Changes from v0.8 to v2.6a
 - Add New WorldMap style
 - Add 'Show All' feature
