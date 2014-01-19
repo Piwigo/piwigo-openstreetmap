@@ -6,12 +6,12 @@
 <title>{$GALLERY_TITLE}</title>
 <link rel="stylesheet" href="{$OSM_PATH}fontello/css/osm.css" />
 <link rel="stylesheet" href="{$OSM_PATH}leaflet/leaflet.css" />
-<link rel="stylesheet" href="{$OSM_PATH}leaflet/leaflet-search.css" />
+<link rel="stylesheet" href="{$OSM_PATH}leaflet/leaflet-search.min.css" />
 <link rel="stylesheet" href="{$OSM_PATH}leaflet/MarkerCluster.css" />
 <link rel="stylesheet" href="{$OSM_PATH}leaflet/MarkerCluster.Default.css" />
 <link rel="stylesheet" href="{$OSM_PATH}leaflet/leaflet.contextmenu.css" />
 <script src="{$OSM_PATH}leaflet/leaflet.js"></script>
-<script src="{$OSM_PATH}leaflet/leaflet-search.js"></script>
+<script src="{$OSM_PATH}leaflet/leaflet-search.min.js"></script>
 <script src="{$OSM_PATH}leaflet/leaflet.markercluster.js"></script>
 <script src="{$OSM_PATH}leaflet/leaflet.contextmenu.js"></script>
 {html_style}
@@ -329,6 +329,7 @@ function toggle(arrow)
 		/* Remove any previous thumbnails */
 		removeChildren({parentId:'jcarousel-thumb'});
 
+		/* Update ShowAll link */
 		var root_url = '{/literal}{$MYROOT_URL}{literal}';
 		var myurl = root_url+"osmmap.php?min_lat="+min.lat+"&min_lng="+min.lng+"&max_lat="+max.lat+"&max_lng="+max.lng;
 		//console.log("ShowAll:"+myurl);

@@ -123,11 +123,11 @@ if ($lat == 0 and $lon == 0) { $zoom = 2; }
 // Generate Javascript
 // Override configuration due to the use of leaflet-providers.js
 // ----------------------------------------
-$js = "\nvar map = L.map('map', { 'zoomControl': false, }).setView([".$lat.", ".$lon."], ".$zoom.");
+$js = "\nvar map = L.map('map', { 'zoomControl': false, editInOSMControlOptions: { editors: ['id'] }, }).setView([".$lat.", ".$lon."], ".$zoom.");
 
 L.tileLayer('".$baselayerurl."', { maxZoom: 18 }).addTo(map);
 
-map.addControl(L.control.zoom({position: 'topright'}));
+map.addControl(L.control.zoom({position: 'topleft'}));
 
 L.marker([".$lat.", ".$lon."]).addTo(map)
 	.bindPopup('".render_element_name($picture)."').openPopup();
