@@ -44,7 +44,7 @@ function osm_insert_map($content, &$smarty)
     global $conf;
     load_language('plugin.lang', OSM_PATH);
 
-/*	Would be better if you could be like the Metdata but how?
+/*	Would be better if it could be like the Metdata but how?
 	$search = '#<dl id="Metadata" class="imageInfoTable">#';
 	$replacement = '
 <dl id="map-info" class="imageInfoTable">
@@ -64,6 +64,13 @@ function osm_insert_map($content, &$smarty)
     <dd>
 	<div id="map"></div>
 	<script type="text/javascript">{$OSMJS}</script>
+	<div id="osm_attrib" style="visibility: hidden; display: none;">
+		<ul>
+			<li>Plugin by <a href="https://github.com/xbgmsharp/piwigo-openstreetmap" target="_blank">xbgmsharp</a></li>
+			<li><a href="http://leafletjs.com/" target="_blank">Leaflet</a></li>
+			<li>&copy; <a href="http://www.openstreetmap.org" target="_blank">OpenStreetMap</a> contributors, (<a href="http://www.openstreetmap.org/copyright" target="_blank">ODbL</a>)</li>
+		</ul>
+	</div>
 	{if $SHOWOSM}
         View on <a href="{$OSMLINK}" target="_blank">OpenStreetMap</a>
 	{/if}
@@ -126,7 +133,8 @@ function osm_render_element_content()
 	else if($baselayer == 'mapquestaerial')	$baselayerurl = 'http://oatile1.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.jpg';
 	else if($baselayer == 'custom')	$baselayerurl = $custombaselayerurl;
 
-	$attribution = osmcopyright($attrleaflet, $attrimagery, $attrmodule, $baselayer, $custombaselayer);
+	//$attribution = osmcopyright($attrleaflet, $attrimagery, $attrmodule, $baselayer, $custombaselayer);
+	$attribution = '<a id="osm_license_link" style="cursor: pointer;" onclick="ShowOSMLicense();">see map license</a>';
 
     // Generate Javascript
     // ----------------------------------------
@@ -186,6 +194,19 @@ var bluemapicons = new mapIcon({iconUrl: 'plugins/piwigo-openstreetmap/leaflet/i
 
     // set map view
     $js .= "map.setView(coord, ".$zoom.").addLayer(baselayer);\n";
+
+    $js .= "\n<!-- pop up full OSM license when clicked -->
+function ShowOSMLicense()
+{
+	var osm_attrib = document.getElementById('osm_attrib');
+	if (osm_attrib.style['display'] != 'none') {
+		osm_attrib.setAttribute('style','visibility:hidden;');
+		osm_attrib.setAttribute('style','display: none;');
+	} else {
+		osm_attrib.removeAttribute('style');
+	}
+}
+\n\n";
 
     // Select the template
     $template->set_filenames(
