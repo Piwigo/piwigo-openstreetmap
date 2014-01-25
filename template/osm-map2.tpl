@@ -68,10 +68,10 @@ html, body {
 	-moz-box-shadow: 0 0 2px #999;
 	box-shadow: 0 0 2px #999;
 }
-#ribbon-map a:link {text-decoration: none; color: blue;}
-#ribbon-map a:visited {text-decoration: none; color: blue;}
-#ribbon-map a:active {text-decoration: none; color: blue;}
-#ribbon-map a:hover {text-decoration: underline overline; color: red;}
+#ribbon-map a:link {text-decoration: none; color: blue; text-shadow: none; transition: text-shadow 0.5s ease 0s;}
+#ribbon-map a:visited {text-decoration: none; color: blue; text-shadow: none; transition: text-shadow 0.5s ease 0s;}
+#ribbon-map a:active {text-decoration: none; color: blue; text-shadow: none; transition: text-shadow 0.5s ease 0s;}
+#ribbon-map a:hover {text-decoration: none; text-shadow: #0090ff 0px 0px 2px;}
 
 .show, .hide{
     -webkit-transition: .4s ease-out;
@@ -293,6 +293,7 @@ function toggle(arrow)
 
 	function centerMap (e) {
 		map.panTo(e.latlng);
+		getMarkers(); /* Center on Map is not consider as Move so we have to update the data ourself */
 	}
 
 	function zoomIn (e) {
