@@ -181,13 +181,33 @@ foreach($php_data as $array)
 	$js_data[] = array((double)$array['latitude'],
 			   (double)$array['longitude'],
 			   $array['name'],
-			   $array['pathurl'],
-			   $array['imgurl'],
+			   get_absolute_root_url() ."i.php?".$array['pathurl'],
+			   get_absolute_root_url() ."picture.php?/".$array['imgurl'],
 			   $array['comment'],
 			   $array['author'],
 			   (int)$array['width']
 			   );
 }
+/* START Debug generate dummy data
+$js_data = array();
+$str = 'abcdef';
+$minLat = -90.00;
+$maxLat = 90.00;
+$minLon = -180.00;
+$maxLon = 180.00;
+for ($i = 1; $i <= 5000; $i++)
+{
+	$js_data[] = array( (double)$minLat + (double)((float)rand()/(float)getrandmax() * (($maxLat - $minLat) + 1)),
+			   (double)$minLon + (double)((float)rand()/(float)getrandmax() * (($maxLon - $minLon) + 1)),
+			   str_shuffle($str),
+			   "http://placehold.it/120x120",
+			   "http://placehold.it/200x200",
+			   "Comment",
+			   "Author",
+			   (int)120
+			   );
+}
+END Debug generate dummy data */
 
 // Load parameter, fallback to default if unset
 $linkname = isset($conf['osm_conf']['left_menu']['link']) ? $conf['osm_conf']['left_menu']['link'] : 'OS World Map';
@@ -287,8 +307,8 @@ $js .= "var markers = new L.MarkerClusterGroup();\n";
 $js .= "for (var i = 0; i < addressPoints.length; i++) {
 	var a = addressPoints[i];
 	var title = a[2];
-	var pathurl = '". get_absolute_root_url() ."i.php?'+a[3];
-	var imgurl = '". get_absolute_root_url() ."picture.php?/'+a[4];
+	var pathurl = a[3];
+	var imgurl = a[4];
 	var comment = a[5];
 	var author = a[6];
 	var width = a[7];
@@ -311,7 +331,7 @@ if ($popup < 2)
 	}
 	else if($popupinfo_img and $popupinfo_link)
 	{
-		$myinfo .= "<br /><a href=\"'+imgurl+'\"><img src=\"'+pathurl+'\"></a>";
+		$myinfo .= "<br /><a href=\"'+imgurl+'\" target=\"_blank\"><img src=\"'+pathurl+'\"></a>";
 	}
 	if($popupinfo_comment)
 	{
@@ -338,11 +358,11 @@ $template->assign(
 		'CONTENT_ENCODING'	=> get_pwg_charset(),
 		'OSM_PATH'			=> embellish_url(get_absolute_root_url().OSM_PATH),
 		'GALLERY_TITLE'		=> $linkname .' - '. $conf['gallery_title'],
-		'HOME'				=> make_index_url(),
-		'HOME_PREV'			=> isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : get_absolute_root_url(),
-		'HOME_NAME'			=> l10n("Home"),
-		'HOME_PREV_NAME'	=> l10n("Previous"),
-		'TOTAL'				=> sprintf( l10n('%d items'), count($php_data) ),
+		'HOME'                          => make_index_url(),
+		'HOME_PREV'                     => isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : get_absolute_root_url(),
+		'HOME_NAME'                     => l10n("Home"),
+		'HOME_PREV_NAME'        => l10n("Previous"),
+		'TOTAL'                         => sprintf( l10n('%d items'), count($php_data) ),
 		'MYROOT_URL'		=> get_absolute_root_url(),
 		'OSMJS'				=> $js,
 	)

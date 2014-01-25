@@ -338,8 +338,7 @@ function toggle(arrow)
 		var nb_items = 0;
 		for (var i = 0; i < addressPoints.length; i++) {
 			var a = addressPoints[i];
-			var pathurl = root_url+'i.php?'+a[3];
-			//var pathurl = "http://placehold.it/40x40&text=FooBar1";
+			var pathurl = a[3];
 
 			//console.log(a[0] +" > "+ min.lat +" && "+ a[1] +" > "+ min.lng +" && "+ a[0] +" < "+ max.lat +" && "+ a[1] +" < "+ max.lng);
 			if (a[0] > min.lat && a[1] > min.lng && a[0] < max.lat && a[1] < max.lng)
