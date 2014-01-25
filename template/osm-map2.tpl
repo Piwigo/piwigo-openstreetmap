@@ -73,15 +73,6 @@ html, body {
 #ribbon-map a:active {text-decoration: none; color: blue; text-shadow: none; transition: text-shadow 0.5s ease 0s;}
 #ribbon-map a:hover {text-decoration: none; text-shadow: #0090ff 0px 0px 2px;}
 
-.show, .hide{
-    -webkit-transition: .4s ease-out;
-    transition: .4s ease-out;
-}
-
-.hide {
-	left: -800px;
-}
-
 #ribbon-map-padding {
 	display: inline-block;
 	vertical-align: top;
@@ -161,14 +152,14 @@ html, body {
 <div id="map"></div>
 <!-- <div id="content"></div> -->
 
-<div id="ribbon-map" class="show">
+<div id="ribbon-map">
 <!--
 	<div id="ribbon-map-padding" onclick="toggle(this)">
 		<span class="ToolTip">&lsaquo;</span> 
 	</div>
 -->
 
-	<div id="ribbon-map-toggle">
+	<div id="ribbon-map-toggle" class="show">
 		<div id="ribbon-map-nav">
 			<span class="osm-home"></span><a href="{$HOME}">{$HOME_NAME}</a><br/>
 			<span class="osm-left-big"></span><a href="{$HOME_PREV}">{$HOME_PREV_NAME}</a>
@@ -209,14 +200,16 @@ html, body {
 <script type="text/javascript">
 function toggle(arrow)
 {
-	var el = document.getElementById('ribbon-map');
+	var el = document.getElementById("ribbon-map-toggle");
 	var box = el.getAttribute("class");
 	if(box == "hide"){
 		el.setAttribute("class", "show");
 		$(arrow).children(".ToolTip").html("&lsaquo;");
+		el.removeAttribute("style");
 	}
 	else{
 		el.setAttribute("class", "hide");
+		el.setAttribute("style","visibility:hidden;width:0px;");
 		$(arrow).children(".ToolTip").html("&rsaquo;");
 	}
 }
@@ -431,56 +424,27 @@ function toggle(arrow)
 	}
 
 	function findMyLocation (){
-		/* Does not work on Firefox http://leafletjs.com/examples/mobile-example.html */
+		/* http://leafletjs.com/examples/mobile-example.html */
 		/* http://www.bennadel.com/blog/2023-Geocoding-A-User-s-Location-Using-Javascript-s-GeoLocation-API.htm */
-		if (navigator.geolocation) {
-			var locationMarker = null;
-
-			navigator.geolocation.getCurrentPosition(
-				function( position ){
- 
-					if (locationMarker){
-						return;
-					}
-					//console.log( "Initial Position Found, lat:" + position.coords.latitude + " lon: " + position.coords.longitude);
-
-					// Add a marker to the map using the position.
-					map.panTo([position.coords.latitude, position.coords.longitude]);
- 
-				},
-				function( error ){
-					console.log( "Something went wrong: ", error );
-				},
-				{
-					timeout: (5 * 1000),
-					maximumAge: (1000 * 60 * 15),
-					enableHighAccuracy: true
-				}
-			);
-
-			var positionTimer = navigator.geolocation.watchPosition(
-				function( position ){
-
-					// Log that a newer, perhaps more accurate position has been found.
-					//console.log( "Newer Position Found, lat:" + position.coords.latitude + " lon: " + position.coords.longitude);
-
-					// Set the new position of the existing marker.
-					map.panTo([position.coords.latitude, position.coords.longitude]);
-				}
-			);
-
-			// If the position hasn't updated within 2 minutes, stop
-			// monitoring the position for changes.
-			setTimeout(
-				function(){
-					// Clear the position watcher.
-					navigator.geolocation.clearWatch( positionTimer );
-				},
-				(1000 * 60 * 2)
-			);
- 
-		}
+		map.locate({setView: true, maxZoom: 16});
 	}
+
+	/* BEGIN leaflet Location */
+	function onLocationFound(e) {
+		var radius = e.accuracy / 2;
+
+		L.marker(e.latlng).addTo(map)
+			.bindPopup("You are within " + radius + " meters from this point").openPopup();
+
+		L.circle(e.latlng, radius).addTo(map);
+	}
+
+	function onLocationError(e) {
+		alert(e.message);
+	}
+
+	map.on('locationfound', onLocationFound);
+	map.on('locationerror', onLocationError);
 
 {/literal}
 </script>
