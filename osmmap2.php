@@ -313,7 +313,7 @@ $js .= "for (var i = 0; i < addressPoints.length; i++) {
 	var author = a[6];
 	var width = a[7];
 	var latlng = new L.LatLng(a[0], a[1]);
-	var marker = new L.Marker(latlng, { title: title });
+	var marker = new L.Marker(latlng, {title: title, icon: new L.Icon({iconUrl:pathurl, iconSize:[42, 42], iconAnchor:[21,21], popupAnchor:[-60,-21]})});
 	";
 
 // create Popup
