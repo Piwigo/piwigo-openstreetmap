@@ -39,7 +39,7 @@
 
         _Editors = {
             Id: function (config) {
-                var url = 'http://openstreetmap.us/iD/release/#map=',
+                var url = 'https://www.openstreetmap.org/edit?editor=id#map=',
                     displayName = "iD",
                     buildUrl = function (map) {
                         return this.url + [
@@ -152,9 +152,9 @@
 
             // setup widget from string or object
             if (widgetSmallName === "multibutton") {
-                this.options.widget = new _Widgets.MultiButton();
+                this.options.widget = new _Widgets.MultiButton(this.options.widgetOptions);
             } else if (widgetSmallName === "attributionbox") {
-                this.options.widget = new _Widgets.AttributionBox();
+                this.options.widget = new _Widgets.AttributionBox(this.options.widgetOptions);
             }
 
             // setup editors from strings or objects
