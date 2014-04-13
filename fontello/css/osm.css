@@ -2,11 +2,11 @@
 
  @font-face {
   font-family: 'osm';
-  src: url('../font/osm.eot?38459959');
-  src: url('../font/osm.eot?38459959#iefix') format('embedded-opentype'),
-       url('../font/osm.woff?38459959') format('woff'),
-       url('../font/osm.ttf?38459959') format('truetype'),
-       url('../font/osm.svg?38459959#osm') format('svg');
+  src: url('../font/osm.eot?16352570');
+  src: url('../font/osm.eot?16352570#iefix') format('embedded-opentype'),
+       url('../font/osm.woff?16352570') format('woff'),
+       url('../font/osm.ttf?16352570') format('truetype'),
+       url('../font/osm.svg?16352570#osm') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -16,7 +16,7 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'osm';
-    src: url('../font/osm.svg?38459959#osm') format('svg');
+    src: url('../font/osm.svg?16352570#osm') format('svg');
   }
 }
 */
@@ -52,14 +52,14 @@
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
 }
  
-.osm-home:before { content: '󠠁'; } /* '\e0801' */
-.osm-globe:before { content: '󠠐'; } /* '\e0810' */
-.osm-link-ext:before { content: '󠠃'; } /* '\e0803' */
-.osm-pin:before { content: '󠠄'; } /* '\e0804' */
-.osm-location:before { content: '󠠅'; } /* '\e0805' */
-.osm-link:before { content: '󠠂'; } /* '\e0802' */
-.osm-cog:before { content: '󠠇'; } /* '\e0807' */
-.osm-zoom-in:before { content: '󠠈'; } /* '\e0808' */
-.osm-zoom-out:before { content: '󠠉'; } /* '\e0809' */
-.osm-left-big:before { content: '󠠑'; } /* '\e0811' */
-.osm-direction:before { content: '󠠆'; } /* '\e0806' */
+.osm-home:before { content: '🔠'; } /* '\1f520' */
+.osm-globe:before { content: '🔘'; } /* '\1f518' */
+.osm-link-ext:before { content: '🔐'; } /* '\1f510' */
+.osm-pin:before { content: '🔑'; } /* '\1f511' */
+.osm-location:before { content: '🔒'; } /* '\1f512' */
+.osm-link:before { content: '🔙'; } /* '\1f519' */
+.osm-cog:before { content: '🔔'; } /* '\1f514' */
+.osm-zoom-in:before { content: '🔕'; } /* '\1f515' */
+.osm-zoom-out:before { content: '🔖'; } /* '\1f516' */
+.osm-left-big:before { content: '🔗'; } /* '\1f517' */
+.osm-direction:before { content: '🔓'; } /* '\1f513' */
