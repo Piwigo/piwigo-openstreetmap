@@ -113,12 +113,12 @@ if (isset($_GET['min_lat']) and isset($_GET['max_lat']) and isset($_GET['min_lng
 	$osm_sub_album = create_virtual_category("OSM".$_GET['min_lat']."", $osm_album['id'], $options);
 
 	/* Get all items inside the lat and lng */
-	$query="SELECT  `id`, `latitude`, `longitude`, `name` 
+	$query="SELECT  `id`, `latitude`, `longitude`, IFNULL(`name`, '') AS `name` 
 FROM ".IMAGES_TABLE." 
 WHERE `latitude` IS NOT NULL AND `longitude` IS NOT NULL 
 AND `latitude` > ".$_GET['min_lat']." AND `latitude` < ".$_GET['max_lat']."
 AND `longitude` > ".$_GET['min_lng']." AND `longitude` < ".$_GET['max_lng']."
-group by `name`;";
+;";
 
 	$items = hash_from_query( $query, 'id');
 
@@ -149,7 +149,8 @@ $forbidden = get_sql_condition_FandF(
 // SUBSTRING_INDEX(TRIM(LEADING '.' FROM `path`), '.', 1) full path without filename extension
 // SUBSTRING_INDEX(TRIM(LEADING '.' FROM `path`), '.', -1) full path with only filename extension
 
-$query="SELECT `latitude`, `longitude`, `name`, 
+$query="SELECT `latitude`, `longitude`, 
+IFNULL(`name`, '') AS `name`, 
 IF(`representative_ext` IS NULL, 
 	CONCAT(SUBSTRING_INDEX(TRIM(LEADING '.' FROM `path`), '.', 1 ), '-sq.', SUBSTRING_INDEX(TRIM(LEADING '.' FROM `path`), '.', -1 )), 
 	TRIM(LEADING '.' FROM
@@ -169,7 +170,7 @@ IFNULL(`author`, '') AS `author`,
 `width`
 	FROM ".IMAGES_TABLE." AS i
 	    INNER JOIN ".IMAGE_CATEGORY_TABLE." AS ic ON id = ic.image_id
-	    WHERE ".$LIMIT_SEARCH." `latitude` IS NOT NULL AND `longitude` IS NOT NULL ".$forbidden." group by `name`;";
+	    WHERE ".$LIMIT_SEARCH." `latitude` IS NOT NULL AND `longitude` IS NOT NULL ".$forbidden." ;";
 //echo $query;
 $php_data = array_from_query($query);
 //print_r($php_data);
