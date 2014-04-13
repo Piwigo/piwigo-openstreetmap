@@ -130,7 +130,7 @@ L.tileLayer('".$baselayerurl."', { maxZoom: 18 }).addTo(map);
 map.addControl(L.control.zoom({position: 'topleft'}));
 
 L.marker([".$lat.", ".$lon."]).addTo(map)
-	.bindPopup('".render_element_name($picture)."').openPopup();
+	.bindPopup('".addslashes(render_element_name($picture))."').openPopup();
 
 /* BEGIN leaflet-providers */
 var baseLayers = ['OpenStreetMap.Mapnik', 'OpenStreetMap.BlackAndWhite', 'OpenStreetMap.DE', 'OpenStreetMap.HOT', 'MapQuestOpen.OSM', 'MapQuestOpen.Aerial', 'Stamen.Watercolor'],
