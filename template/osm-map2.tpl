@@ -228,7 +228,7 @@ function toggle(arrow)
 */
 
 	/* BEGIN leaflet-search https://github.com/stefanocudini/leaflet-search */
-	var jsonpurl = 'http://open.mapquestapi.com/nominatim/v1/search.php?q={s}'+
+	var jsonpurl = 'https://open.mapquestapi.com/nominatim/v1/search.php?q={s}'+
 				   '&format=json&osm_type=N&limit=100&addressdetails=0',
 		jsonpName = 'json_callback';
 	//third party jsonp service
@@ -448,10 +448,10 @@ function toggle(arrow)
 
 {/literal}
 </script>
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css">
 <link rel="stylesheet" href="{$OSM_PATH}leaflet/jcarousel.responsive.css" />
-<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
-<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script src="https://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
 <script src="{$OSM_PATH}leaflet/jquery.jcarousel.min.js"></script>
 <script>
 {literal}

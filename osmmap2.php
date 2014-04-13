@@ -232,14 +232,14 @@ $center_lng = isset($_GET['center_lng']) ? $_GET['center_lng'] : '0';
 
 // Load baselayerURL
 // Key1 BC9A493B41014CAABB98F0471D759707
-if     ($baselayer == 'mapnik')		$baselayerurl = 'http://tile.openstreetmap.org/{z}/{x}/{y}.png';
+if     ($baselayer == 'mapnik')		$baselayerurl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 else if($baselayer == 'mapquest')	$baselayerurl = 'http://otile1.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png';
 else if($baselayer == 'cloudmade')	$baselayerurl = 'http://{s}.tile.cloudmade.com/7807cc60c1354628aab5156cfc1d4b3b/997/256/{z}/{x}/{y}.png';
 else if($baselayer == 'mapnikde')	$baselayerurl = 'http://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png';
 else if($baselayer == 'mapnikfr')	$baselayerurl = 'http://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png';
 else if($baselayer == 'blackandwhite')	$baselayerurl = 'http://{s}.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png';
 else if($baselayer == 'mapnikhot')	$baselayerurl = 'http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png';
-else if($baselayer == 'mapquestaerial')	$baselayerurl = 'http://oatile1.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.jpg';
+else if($baselayer == 'mapquestaerial')	$baselayerurl = 'http://oatile{s}.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.jpg';
 else if($baselayer == 'custom')	$baselayerurl = $custombaselayerurl;
 
 $attribution = osmcopyright($attrleaflet, $attrimagery, $attrmodule, $baselayer, $custombaselayer);
@@ -358,11 +358,11 @@ $template->assign(
 		'CONTENT_ENCODING'	=> get_pwg_charset(),
 		'OSM_PATH'			=> embellish_url(get_absolute_root_url().OSM_PATH),
 		'GALLERY_TITLE'		=> $linkname .' - '. $conf['gallery_title'],
-		'HOME'                          => make_index_url(),
-		'HOME_PREV'                     => isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : get_absolute_root_url(),
-		'HOME_NAME'                     => l10n("Home"),
-		'HOME_PREV_NAME'        => l10n("Previous"),
-		'TOTAL'                         => sprintf( l10n('%d items'), count($php_data) ),
+		'HOME'              => make_index_url(),
+		'HOME_PREV'         => isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : get_absolute_root_url(),
+		'HOME_NAME'         => l10n("Home"),
+		'HOME_PREV_NAME'    => l10n("Previous"),
+		'TOTAL'             => sprintf( l10n('%d items'), count($php_data) ),
 		'MYROOT_URL'		=> get_absolute_root_url(),
 		'OSMJS'				=> $js,
 	)
