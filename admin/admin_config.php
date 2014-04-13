@@ -90,12 +90,15 @@ $available_add_before = array(
 $available_pin = array(
 	'0' => l10n('NOPIN'),
 	'1' => l10n('DEFAULTPIN'),
-	'2' => l10n('LEAFPINGREEN'),
-	'3' => l10n('LEAFPINORANGE'),
-	'4' => l10n('LEAFPINRED'),
-	'5' => l10n('MAPICONSBLEU'),
-	'6' => l10n('MAPICONSGREEN'),
-	'7' => l10n('OWNPIN'),
+	'2' => l10n('DEFAULTPINGREEN'),
+	'3' => l10n('DEFAULTPINRED'),
+	'4' => l10n('LEAFPINGREEN'),
+	'5' => l10n('LEAFPINORANGE'),
+	'6' => l10n('LEAFPINRED'),
+	'7' => l10n('MAPICONSBLEU'),
+	'8' => l10n('MAPICONSGREEN'),
+	'9' => l10n('OWNPIN'),
+	'10' => l10n('IMAGE'),
 );
 
 // Available popup
@@ -140,6 +143,15 @@ if (isset($_POST['submit']) && !empty($_POST['osm_height']))
 			'attrleaflet' 		=> get_boolean($_POST['osm_attrleaflet']),
 			'attrimagery' 		=> get_boolean($_POST['osm_attrimagery']),
 			'attrplugin' 		=> get_boolean($_POST['osm_attrplugin']),
+			),
+		'pin' => array(
+			'pin' 				=> $_POST['osm_pin'],
+			'pinpath' 			=> $_POST['osm_pinpath'],
+			'pinsize'			=> $_POST['osm_pinsize'],
+			'pinshadowpath' 	=> $_POST['osm_pinshadowpath'],
+			'pinshadowsize' 	=> $_POST['osm_pinshadowsize'],
+			'pinoffset' 		=> $_POST['osm_pinoffset'],
+			'pinpopupoffset' 	=> $_POST['osm_pinpopupoffset'],
 			),
 	);
 

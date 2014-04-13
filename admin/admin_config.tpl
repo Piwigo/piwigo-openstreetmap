@@ -108,23 +108,26 @@ Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" ta
 		<legend>{'G_MAP'|@translate}</legend>
 		<ul>
 			<li>
+				<img id="tile_preview" align="right" src="">
 				<label>{'BASELAYER'|@translate} : </label>
-				<select name="osm_baselayer">
+				<select name="osm_baselayer" id="osm_baselayer" onchange="tile_toggle(this)">
 					{html_options options=$AVAILABLE_BASELAYER selected=$map.baselayer}
 				</select>
 				<br/><small>{'BASELAYER_DESC'|@translate}</small><br/>
 				<small>Check out <a href="http://leaflet-extras.github.io/leaflet-providers/preview/" target="_blank">this example</a> with half a hundred different layers to choose from.</small>
 			</li>
-			<li>
-				<label>{'CUSTOMBASELAYER'|@translate} : </label>
-				<input type="text" value="{$map.custombaselayer}" name="osm_custombaselayer" size="40"/>
-				<br/><small>{'CUSTOMBASELAYER_DESC'|@translate}</small>
-			</li>
-			<li>
-				<label>{'CUSTOMBASELAYERURL'|@translate} : </label>
-				<input type="text" value="{$map.custombaselayerurl}" name="osm_custombaselayerurl" size="40"/>
-				<br/><small>{'CUSTOMBASELAYERURL_DESC'|@translate}</small>
-			</li>
+			<div id="custom-tile-toggle" style="visibility:hidden; width:0px; height:0px; display:none;">
+				<li>
+					<label>{'CUSTOMBASELAYER'|@translate} : </label>
+					<input type="text" value="{$map.custombaselayer}" name="osm_custombaselayer" size="40"/>
+					<br/><small>{'CUSTOMBASELAYER_DESC'|@translate}</small>
+				</li>
+				<li>
+					<label>{'CUSTOMBASELAYERURL'|@translate} : </label>
+					<input type="text" value="{$map.custombaselayerurl}" name="osm_custombaselayerurl" size="40"/>
+					<br/><small>{'CUSTOMBASELAYERURL_DESC'|@translate}</small>
+				</li>
+			</div>
 			<li>
 				<label>{'NOWORLDWARP'|@translate} : </label>
 				<label><input type="radio" name="osm_noworldwarp" value="true" {if $map.noworldwarp}checked="checked"{/if}/> {'Yes'|@translate}</label>
@@ -149,53 +152,145 @@ Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" ta
 				<label><input type="radio" name="osm_attrplugin" value="false" {if not $map.attrplugin}checked="checked"{/if}/> {'No'|@translate}</label>
 				<br/><small>{'ATTRPLUGIN_DESC'|@translate}</small>
 			</li>
+
 		</ul>
-<!--           <fieldset>
+           <fieldset>
 		  <legend>{'H_PIN'|@translate}</legend>
 		  <ul>
 			<li>
-				<label>{'PIN'|@translate} : </label>
-				<select name="osm_pin">
-					{html_options options=$AVAILABLE_PIN selected=$SELECTED_PIN}
+				<img id="pin_preview" align="left" src="">
+				<label >{'PIN'|@translate} : </label>
+				<select name="osm_pin" id="osm_pin" onchange="pin_toggle(this)">
+					{html_options options=$AVAILABLE_PIN selected=$pin.pin}
 				</select>
 				<br/><small>{'PIN_DESC'|@translate}</small>
 			</li>
-			<li>
-				<label>{'PINPATH'|@translate} : </label>
-				<input type="text" value="{$PINPATH}" name="osm_pinpath" size="40"/>
-				<br/><small>{'PINPATH_DESC'|@translate}</small>
-			</li>
-			<li>
-				<label>{'PINSIZE'|@translate} : </label>
-				<input type="text" value="{$CUSTOMBASELAYERURL}" name="osm_pinsize" size="6/>
-				<br/><small>{'PINSIZE_DESC'|@translate}</small>
-			</li>
-			<li>
-				<label>{'PINSHADOWPATH'|@translate} : </label>
-				<input type="text" value="{$PINSHADOWPATH}" name="osm_pinshadowpath" size="40"/>
-				<br/><small>{'PINSHADOWPATH_DESC'|@translate}</small>
-			</li>
-			<li>
-				<label>{'PINSHADOWSIZE'|@translate} : </label>
-				<input type="text" value="{$PINSHADOWSIZE}" name="osm_pinshadowsize" size="4"/>
-				<br/><small>{'PINSHADOWSIZE_DESC'|@translate}</small>
-			</li>
-			<li>
-				<label>{'PINOFFSET'|@translate} : </label>
-				<input type="text" value="{$PINOFFSET}" name="osm_pinoffset" size="4"/>
-				<br/><small>{'PINOFFSET_DESC'|@translate}</small>
-			</li>
-			<li>
-				<label>{'PINPOPUPOFFSET'|@translate} : </label>
-				<input type="text" value="{$PINPOPUPOFFSET}" name="osm_pinpopupoffset" size="4"/>
-				<br/><small>{'PINPOPUPOFFSET_DESC'|@translate}</small>
-			</li>
+			<div id="custom-pin-toggle" style="visibility:hidden; width:0px; height:0px; display:none;">
+				<li>
+					<label>{'PINPATH'|@translate} : </label>
+					<input type="text" value="{$pin.pinpath}" name="osm_pinpath" size="40"/>
+					<br/><small>{'PINPATH_DESC'|@translate}</small>
+				</li>
+				<li>
+					<label>{'PINSIZE'|@translate} : </label>
+					<input type="text" value="{$pin.pinsize}" name="osm_pinsize" size="6"/>
+					<br/><small>{'PINSIZE_DESC'|@translate}</small>
+				</li>
+				<li>
+					<label>{'PINSHADOWPATH'|@translate} : </label>
+					<input type="text" value="{$pin.pinshadowpath}" name="osm_pinshadowpath" size="40"/>
+					<br/><small>{'PINSHADOWPATH_DESC'|@translate}</small>
+				</li>
+				<li>
+					<label>{'PINSHADOWSIZE'|@translate} : </label>
+					<input type="text" value="{$pin.pinshadowsize}" name="osm_pinshadowsize" size="4"/>
+					<br/><small>{'PINSHADOWSIZE_DESC'|@translate}</small>
+				</li>
+				<li>
+					<label>{'PINOFFSET'|@translate} : </label>
+					<input type="text" value="{$pin.pinoffset}" name="osm_pinoffset" size="4"/>
+					<br/><small>{'PINOFFSET_DESC'|@translate}</small>
+				</li>
+				<li>
+					<label>{'PINPOPUPOFFSET'|@translate} : </label>
+					<input type="text" value="{$pin.pinpopupoffset}" name="osm_pinpopupoffset" size="4"/>
+					<br/><small>{'PINPOPUPOFFSET_DESC'|@translate}</small>
+				</li>
+			</div>
 		  </ul>
 		</fieldset>
-		-->
 	</fieldset>
 
 	<p>
 		<input class="submit" type="submit" value="{'Save Settings'|@translate}" name="submit"/>
 	</p>
 </form>
+
+{literal}
+<script type="text/javascript">
+function tile_toggle()
+{
+	var div = document.getElementById("custom-tile-toggle");
+	var select = document.getElementById("osm_baselayer");
+	//alert(select.selectedIndex);
+	if (select.selectedIndex == 8) // If custom
+	{
+		div.removeAttribute("style");
+	} else {
+		div.setAttribute("style","visibility:hidden; width:0px; height:0px; display:none;");
+	}
+	tile_preview();
+}
+
+function pin_toggle()
+{
+	var div = document.getElementById("custom-pin-toggle");
+	var select = document.getElementById("osm_pin");
+	//alert(select.selectedIndex);
+	if (select.selectedIndex == 9) // If custom
+	{
+		div.removeAttribute("style");
+	} else {
+		div.setAttribute("style","visibility:hidden; width:0px; height:0px; display:none;");
+	}
+	pin_preview();
+}
+
+function tile_preview()
+{
+	var select = document.getElementById("osm_baselayer");
+	baselayer = new Array(
+		'https://c.tile.openstreetmap.org/5/15/11.png',
+		'http://c.www.toolserver.org/tiles/bw-mapnik/5/15/11.png',
+		'http://c.tile.openstreetmap.fr/hot/5/15/11.png',
+		'http://c.tile.openstreetmap.de/tiles/osmde/5/15/11.png',
+		'http://c.tile.openstreetmap.fr/hot/5/15/11.png',
+		'http://otile1.mqcdn.com/tiles/1.0.0/osm/5/15/11.png',
+		'http://oatile1.mqcdn.com/tiles/1.0.0/sat/5/15/11.png',
+		'http://a.tile.cloudmade.com/7807cc60c1354628aab5156cfc1d4b3b/997/256/5/15/11.png',
+		'NULL'
+	);
+	//alert(baselayer[select.selectedIndex]);
+	var img_elem = document.getElementById("tile_preview");
+	if (baselayer[select.selectedIndex] == "NULL")
+	{
+		img_elem.setAttribute("style","visibility:hidden; width:0px; height:0px; display:none;");
+	} else {
+		img_elem.removeAttribute("style");
+		img_elem.src = baselayer[select.selectedIndex];
+	}
+}
+
+function pin_preview()
+{
+	var select = document.getElementById("osm_pin");
+	pins = new Array(
+		'NULL',
+		'{/literal}{$OSM_PATH}{literal}leaflet/images/marker-blue.png',
+		'{/literal}{$OSM_PATH}{literal}leaflet/images/marker-green.png',
+		'{/literal}{$OSM_PATH}{literal}leaflet/images/marker-red.png',
+		'{/literal}{$OSM_PATH}{literal}leaflet/images/leaf-green.png',
+		'{/literal}{$OSM_PATH}{literal}leaflet/images/leaf-orange.png',
+		'{/literal}{$OSM_PATH}{literal}leaflet/images/leaf-red.png',
+		'{/literal}{$OSM_PATH}{literal}leaflet/images/mapicons-blue.png',
+		'{/literal}{$OSM_PATH}{literal}leaflet/images/mapicons-green.png',
+		'NULL',
+		'NULL'
+	);
+	//alert(pins[select.selectedIndex]);
+	var img_elem = document.getElementById("pin_preview");
+	if (pins[select.selectedIndex] == "NULL")
+	{
+		img_elem.setAttribute("style","visibility:hidden; width:0px; height:0px; display:none;");
+	} else {
+		img_elem.removeAttribute("style");
+		img_elem.setAttribute("style","padding-right: 5px;");
+		img_elem.src = pins[select.selectedIndex];
+	}
+}
+
+window.onload = pin_preview();
+window.onload = tile_preview();
+
+</script>
+{/literal}

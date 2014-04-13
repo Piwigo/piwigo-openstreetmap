@@ -225,6 +225,13 @@ $noworldwarp = isset($conf['osm_conf']['map']['noworldwarp']) ? $conf['osm_conf'
 $attrleaflet = isset($conf['osm_conf']['map']['attrleaflet']) ? $conf['osm_conf']['map']['attrleaflet'] : 'false';
 $attrimagery = isset($conf['osm_conf']['map']['attrimagery']) ? $conf['osm_conf']['map']['attrimagery'] : 'false';
 $attrmodule = isset($conf['osm_conf']['map']['attrplugin']) ? $conf['osm_conf']['map']['attrplugin'] : 'false';
+$pinid = isset($conf['osm_conf']['pin']['pin']) ? $conf['osm_conf']['pin']['pin'] : 1;
+$pinpath = isset($conf['osm_conf']['pin']['pinpath']) ? $conf['osm_conf']['pin']['pinpath'] : '';
+$pinsize = isset($conf['osm_conf']['pin']['pinsize']) ? $conf['osm_conf']['pin']['pinsize'] : '';
+$pinshadowpath = isset($conf['osm_conf']['pin']['pinshadowpath']) ? $conf['osm_conf']['pin']['pinshadowpath'] : '';
+$pinshadowsize = isset($conf['osm_conf']['pin']['pinshadowsize']) ? $conf['osm_conf']['pin']['pinshadowsize'] : '';
+$pinoffset = isset($conf['osm_conf']['pin']['pinoffset']) ? $conf['osm_conf']['pin']['pinoffset'] : '';
+$pinpopupoffset = isset($conf['osm_conf']['pin']['pinpopupoffset']) ? $conf['osm_conf']['pin']['pinpopupoffset'] : '';
 
 /* If we have zoom and center coordonate, set it otherwise fallback default */
 $zoom = isset($_GET['zoom']) ? $_GET['zoom'] : '2';
@@ -262,9 +269,33 @@ else
 //$js = "\nvar addressPoints = ". json_encode($js_data, JSON_UNESCAPED_SLASHES) .";\n";
 $js = "\nvar addressPoints = ". str_replace("\/","/",json_encode($js_data)) .";\n";
 
-/*
+$available_pin = array(
+	'0' => '',
+	'1' => '',
+	'2' => 'PlgIconGreen',
+	'3' => 'PlgIconRed',
+	'4' => 'LeafIconGreen',
+	'5' => 'LeafIconOrange',
+	'6' => 'LeafIconRed',
+	'7' => 'MapIconBlue',
+	'8' => 'MapIconGreen',
+	'9' => 'CustomIcon',
+	'10' => 'ImgIcon'
+);
+
 // Icons
 $js .= "
+
+var PlgIcon = L.Icon.extend({
+	options: {
+		shadowUrl: 'plugins/piwigo-openstreetmap/leaflet/images/marker-shadow.png',
+		iconSize:     [25, 41],
+		shadowSize:   [41, 41],
+		iconAnchor:   [21, 21],
+		popupAnchor:  [-10, -10]
+	}
+});
+
 var LeafIcon = L.Icon.extend({
 	options: {
 		shadowUrl: 'plugins/piwigo-openstreetmap/leaflet/images/leaf-shadow.png',
@@ -276,25 +307,52 @@ var LeafIcon = L.Icon.extend({
 	}
 });
 
-var mapIcon = L.Icon.extend({
+var MapIcon = L.Icon.extend({
 	options: {
 		shadowUrl: 'plugins/piwigo-openstreetmap/leaflet/images/mapicons-shadow.png',
 		iconSize:     [32, 37],
 		shadowSize:   [51, 37],
 		iconAnchor:   [19, 38],
-		shadowAnchor: [-20, 33],
-		popupAnchor:  [-2, -10]
+		shadowAnchor: [4, 33],
+		popupAnchor:  [-2, -33]
+	}
+});
+";
+
+if ($pinid == 9)
+{
+	$js .= "\nvar CustomIcon = L.Icon.extend({
+		options: {
+			iconUrl: ".$pinpath.",
+			shadowUrl: ".$pinshadowpath.",
+			iconSize: ".$pinsize.",
+			shadowSize:  ".$pinshadowsize.",
+			iconAnchor:   ".$pinoffset.",
+			shadowAnchor: ".$pinoffset.",
+			popupAnchor:  ".$pinpopupoffset."
+		}
+	});";
+}
+
+$js .= "\nvar ImgIcon = L.Icon.extend({
+	options: {
+		iconSize:     [42, 42],
+		iconAnchor:   [21, 21],
+		popupAnchor:  [-4,-21]
 	}
 });
 
-var greenIcon = new LeafIcon({iconUrl: 'plugins/piwigo-openstreetmap/leaflet/images/leaf-green.png'}),
-	redIcon = new LeafIcon({iconUrl: 'plugins/piwigo-openstreetmap/leaflet/images/leaf-red.png'}),
-	orangeIcon = new LeafIcon({iconUrl: 'plugins/piwigo-openstreetmap/leaflet/images/leaf-orange.png'});
+var PlgIconGreen = new PlgIcon({iconUrl: 'plugins/piwigo-openstreetmap/leaflet/images/marker-green.png'}),
+	PlgIconRed = new PlgIcon({iconUrl: 'plugins/piwigo-openstreetmap/leaflet/images/marker-red.png'});
 
-var bluemapicons = new mapIcon({iconUrl: 'plugins/piwigo-openstreetmap/leaflet/images/mapicons-blue.png'}),
-	greenmapicons = new mapIcon({iconUrl: 'plugins/piwigo-openstreetmap/leaflet/images/mapicons-green.png'});
+var LeafIconGreen = new LeafIcon({iconUrl: 'plugins/piwigo-openstreetmap/leaflet/images/leaf-green.png'}),
+	LeafIconRed = new LeafIcon({iconUrl: 'plugins/piwigo-openstreetmap/leaflet/images/leaf-red.png'}),
+	LeafIconOrange = new LeafIcon({iconUrl: 'plugins/piwigo-openstreetmap/leaflet/images/leaf-orange.png'});
+
+var MapIconBlue = new MapIcon({iconUrl: 'plugins/piwigo-openstreetmap/leaflet/images/mapicons-blue.png'}),
+	MapIconGreen = new MapIcon({iconUrl: 'plugins/piwigo-openstreetmap/leaflet/images/mapicons-green.png'});
+
 ";
-*/
 
 // Create the map and get a new map instance attached and element with id="tile-map"
 $js .= "\nvar Url = '".$baselayerurl."',
@@ -314,8 +372,16 @@ $js .= "for (var i = 0; i < addressPoints.length; i++) {
 	var author = a[6];
 	var width = a[7];
 	var latlng = new L.LatLng(a[0], a[1]);
-	var marker = new L.Marker(latlng, { title: title });
 	";
+
+// create Marker
+if ($pinid == 1) { // 0 is No Marker
+	$js .= "var marker = new L.Marker(latlng, { title: title });\n";
+} else if ($pinid >= 2 and $pinid <= 9) {
+	$js .= "var marker = new L.Marker(latlng, { title: title, icon: ".$available_pin[$pinid]."});\n";
+} else if ($pinid == 10) {
+	$js .= "var marker = new L.Marker(latlng, { title: title, icon: new ImgIcon({iconUrl: pathurl})});\n";
+}
 
 // create Popup
 if ($popup < 2)
@@ -343,7 +409,7 @@ if ($popup < 2)
 		$myinfo .= "<br />'+author+'";
 	}
 	$myinfo .= "</p></div>'";
-	$js .= "var myinfo = ".$myinfo.";\n";
+	$js .= "\tvar myinfo = ".$myinfo.";\n";
 	$js .= "\tmarker.bindPopup(myinfo, {minWidth: '+width+'});\n";
 }
 
