@@ -72,6 +72,15 @@ function plugin_install()
 			'attrimagery' 		=> true,
 			'attrplugin' 		=> true,
 			),
+		'pin' => array(
+			'pin' 				=> 1,
+			'pinpath' 			=> '',
+			'pinsize'			=> '',
+			'pinshadowpath' 	=> '',
+			'pinshadowsize' 	=> '',
+			'pinoffset' 		=> '',
+			'pinpopupoffset' 	=> '',
+			),
 	);
 	/* Add configuration to the config table */
 	$conf['osm_conf'] = serialize($default_config);

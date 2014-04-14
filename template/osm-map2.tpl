@@ -137,6 +137,74 @@ html, body {
 #jcarousel-img {
 	cursor: pointer;
 }
+/*PIC*/
+.pic {
+  height: 40px;
+  width: 40px;
+  overflow: hidden;
+  margin: 0px;
+  border: 1px solid white;
+
+  -webkit-box-shadow: 5px 5px 5px #111;
+  box-shadow: 5px 5px 5px #111;
+  float: left;
+}
+
+.pic:hover {
+  cursor: pointer;
+}
+/*MORPH*/
+.morph {
+  -webkit-transition: all 0.5s ease;
+     -moz-transition: all 0.5s ease;
+       -o-transition: all 0.5s ease;
+      -ms-transition: all 0.5s ease;
+          transition: all 0.5s ease;
+}
+
+.morph:hover {
+  border-radius: 50%;
+  -webkit-transform: rotate(360deg);
+     -moz-transform: rotate(360deg);
+       -o-transform: rotate(360deg);
+      -ms-transform: rotate(360deg);
+          transform: rotate(360deg);
+}
+
+a.tooltips {
+  position: relative;
+  display: inline;
+}
+a.tooltips span {
+  position: absolute;
+  width:140px;
+  color: #FFFFFF;
+  background: #000000;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  visibility: hidden;
+  border-radius: 6px;
+}
+a.tooltips span:after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -8px;
+  width: 0; height: 0;
+  border-top: 8px solid #000000;
+  border-right: 8px solid transparent;
+  border-left: 8px solid transparent;
+}
+a:hover.tooltips span {
+  visibility: visible;
+  opacity: 0.8;
+  bottom: 30px;
+  left: 50%;
+  margin-left: -76px;
+  z-index: 999;
+}
 
 #dialog {
 	font-family: Arial,Helvetica,sans-serif;
@@ -179,8 +247,10 @@ html, body {
 			<div class="jcarousel-wrapper" id="jcarousel-wrapper" style="max-width: 0px;">
 				<div class="jcarousel">
 					<ul id="jcarousel-thumb">
-						<!-- <li><img src="http://placehold.it/40x40&text=FooBar1" alt="FooBar1"></li> -->
-						<!-- <li><img src="http://placehold.it/40x40&text=FooBar2" alt="FooBar2"></li> -->
+						<!-- <li><img class="morph pic" src="http://placehold.it/40x40&text=FooBar1"><span>FooBar1</span></a></li> -->
+						<!-- <li><img src="http://placehold.it/40x40&text=FooBar2" alt="FooBar2"></li>  -->
+						<!-- <li><img class="morph pic" src="http://placehold.it/40x40&text=FooBar3"></li> -->
+						<!-- <li class="tooltips"><img class="morph pic" src="http://placehold.it/40x40&text=FooBar3"><span>FooBar4</span></li>  -->
 					</ul>
 				</div>
 
@@ -228,7 +298,7 @@ function toggle(arrow)
 */
 
 	/* BEGIN leaflet-search https://github.com/stefanocudini/leaflet-search */
-	var jsonpurl = 'http://open.mapquestapi.com/nominatim/v1/search.php?q={s}'+
+	var jsonpurl = 'https://open.mapquestapi.com/nominatim/v1/search.php?q={s}'+
 				   '&format=json&osm_type=N&limit=100&addressdetails=0',
 		jsonpName = 'json_callback';
 	//third party jsonp service
@@ -344,6 +414,7 @@ function toggle(arrow)
 				img_elem.setAttribute("width","40");
 				img_elem.setAttribute("height","40");
 				img_elem.setAttribute("onclick","OnThumbClick("+i+")");
+				img_elem.setAttribute("class","morph pic");
 				img_elem.src = pathurl;
 				document.getElementById("jcarousel-thumb").appendChild(li_elem).appendChild(img_elem);
 				nb_items++;
@@ -448,10 +519,10 @@ function toggle(arrow)
 
 {/literal}
 </script>
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css">
 <link rel="stylesheet" href="{$OSM_PATH}leaflet/jcarousel.responsive.css" />
-<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
-<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script src="https://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
 <script src="{$OSM_PATH}leaflet/jquery.jcarousel.min.js"></script>
 <script>
 {literal}

@@ -130,14 +130,14 @@ L.tileLayer('".$baselayerurl."', { maxZoom: 18 }).addTo(map);
 map.addControl(L.control.zoom({position: 'topleft'}));
 
 L.marker([".$lat.", ".$lon."]).addTo(map)
-	.bindPopup('".render_element_name($picture)."').openPopup();
+	.bindPopup('".addslashes(render_element_name($picture))."').openPopup();
 
-/* BEGIN leaflet-providers */
+/* BEGIN leaflet-providers 
 var baseLayers = ['OpenStreetMap.Mapnik', 'OpenStreetMap.BlackAndWhite', 'OpenStreetMap.DE', 'OpenStreetMap.HOT', 'MapQuestOpen.OSM', 'MapQuestOpen.Aerial', 'Stamen.Watercolor'],
     overlays = [''];
 
 L.control.layers.provided(baseLayers, overlays).addTo(map);
-/* END leaflet-providers */
+ END leaflet-providers */
 \n";
 
 $template->assign(array(
@@ -145,7 +145,7 @@ $template->assign(array(
 	'F_ACTION' => $self_url,
 	'TN_SRC' => DerivativeImage::thumb_url($picture).'?'.time(),
 	'TITLE' => render_element_name($picture),
-	'OSM_PATH' => OSM_PATH,
+	'OSM_PATH' => embellish_url(get_absolute_root_url().OSM_PATH),
 	'OSM_JS' => $js,
 	'LAT' => $lat,
 	'LON' => $lon,

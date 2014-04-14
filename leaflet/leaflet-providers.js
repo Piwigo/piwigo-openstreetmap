@@ -30,7 +30,7 @@
 					options: L.Util.extend({}, provider.options, variant.options)
 				};
 			} else if (typeof provider.url === 'function') {
-				provider.url = provider.url(parts.splice(1).join('.'));
+				provider.url = provider.url(parts.splice(1, parts.length - 1).join('.'));
 			}
 
 			// replace attribution placeholders with their values from toplevel provider attribution,
@@ -456,7 +456,7 @@
 					    i = 0;
 
 					while (i < len) {
-						if (typeof base[i] === 'string') {
+						if (typeof overlay[i] === 'string') {
 							out[labelFormatter(overlay[i])] = L.tileLayer.provider(overlay[i]);
 						}
 						i++;
