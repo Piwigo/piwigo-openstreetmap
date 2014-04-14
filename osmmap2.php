@@ -282,8 +282,10 @@ $available_pin = array(
 	'9' => 'CustomIcon',
 	'10' => 'ImgIcon'
 );
+
 // Icons
 $js .= "
+
 var PlgIcon = L.Icon.extend({
 	options: {
 		shadowUrl: 'plugins/piwigo-openstreetmap/leaflet/images/marker-shadow.png',
@@ -293,6 +295,7 @@ var PlgIcon = L.Icon.extend({
 		popupAnchor:  [-10, -10]
 	}
 });
+
 var LeafIcon = L.Icon.extend({
 	options: {
 		shadowUrl: 'plugins/piwigo-openstreetmap/leaflet/images/leaf-shadow.png',
@@ -348,6 +351,7 @@ var LeafIconGreen = new LeafIcon({iconUrl: 'plugins/piwigo-openstreetmap/leaflet
 
 var MapIconBlue = new MapIcon({iconUrl: 'plugins/piwigo-openstreetmap/leaflet/images/mapicons-blue.png'}),
 	MapIconGreen = new MapIcon({iconUrl: 'plugins/piwigo-openstreetmap/leaflet/images/mapicons-green.png'});
+
 ";
 
 // Create the map and get a new map instance attached and element with id="tile-map"
@@ -356,6 +360,7 @@ $js .= "\nvar Url = '".$baselayerurl."',
 	TileLayer = new L.TileLayer(Url, {maxZoom: 18, noWrap: ".$nowarp.", attribution: Attribution}),
 	latlng = new L.LatLng(".$center_lat.", ".$center_lng.");\n";
 $js .= "var map = new L.Map('map', {center: latlng, zoom: ".$zoom.", layers: [TileLayer], contextmenu: true});\n";
+$js .= "L.control.scale().addTo(map);\n";
 $js .= "map.attributionControl.setPrefix('');\n";
 $js .= "var MarkerClusterList=[];\n";
 $js .= "var markers = new L.MarkerClusterGroup();\n";
@@ -378,6 +383,7 @@ if ($pinid == 1) { // 0 is No Marker
 } else if ($pinid == 10) {
 	$js .= "var marker = new L.Marker(latlng, { title: title, icon: new ImgIcon({iconUrl: pathurl})});\n";
 }
+
 // create Popup
 if ($popup < 2)
 {
