@@ -360,6 +360,7 @@ $js .= "\nvar Url = '".$baselayerurl."',
 	TileLayer = new L.TileLayer(Url, {maxZoom: 18, noWrap: ".$nowarp.", attribution: Attribution}),
 	latlng = new L.LatLng(".$center_lat.", ".$center_lng.");\n";
 $js .= "var map = new L.Map('map', {center: latlng, zoom: ".$zoom.", layers: [TileLayer], contextmenu: true});\n";
+$js .= "L.control.scale().addTo(map);\n";
 $js .= "map.attributionControl.setPrefix('');\n";
 $js .= "var MarkerClusterList=[];\n";
 $js .= "var markers = new L.MarkerClusterGroup();\n";
