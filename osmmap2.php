@@ -338,7 +338,7 @@ $js .= "\nvar ImgIcon = L.Icon.extend({
 	options: {
 		iconSize:     [42, 42],
 		iconAnchor:   [21, 21],
-		popupAnchor:  [-4,-21]
+		popupAnchor:  [0,-21]
 	}
 });
 
