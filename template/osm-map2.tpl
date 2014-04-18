@@ -172,38 +172,39 @@ html, body {
 }
 
 a.tooltips {
-  position: relative;
-  display: inline;
+	position: relative;
+	display: inline;
 }
 a.tooltips span {
-  position: absolute;
-  width:140px;
-  color: #FFFFFF;
-  background: #000000;
-  height: 30px;
-  line-height: 30px;
-  text-align: center;
-  visibility: hidden;
-  border-radius: 6px;
+	position: absolute;
+	padding: 5px;
+	color: #FFFFFF;
+	background: rgba(0,0,0,0.8);
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	visibility: hidden;
+	border-radius: 6px;
 }
 a.tooltips span:after {
-  content: '';
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  margin-left: -8px;
-  width: 0; height: 0;
-  border-top: 8px solid #000000;
-  border-right: 8px solid transparent;
-  border-left: 8px solid transparent;
+	content: '';
+	position: absolute;
+	top: 100%;
+	left: 50%;
+	margin-left: -8px;
+	width: 0;
+	height: 0;
+	border-top: 8px solid #000000;
+	border-right: 8px solid transparent;
+	border-left: 8px solid transparent;
 }
 a:hover.tooltips span {
-  visibility: visible;
-  opacity: 0.8;
-  bottom: 30px;
-  left: 50%;
-  margin-left: -76px;
-  z-index: 999;
+	visibility: visible;
+	opacity: 0.8;
+	bottom: 30px;
+	left: 50%;
+	margin-left: -76px;
+	z-index: 999;
 }
 
 #dialog {
@@ -229,18 +230,18 @@ a:hover.tooltips span {
 
 	<div id="ribbon-map-toggle" class="show">
 		<div id="ribbon-map-nav">
-			<span class="osm-home"></span><a href="{$HOME}">{$HOME_NAME}</a><br/>
-			<span class="osm-left-big"></span><a href="{$HOME_PREV}">{$HOME_PREV_NAME}</a>
+			<span class="osm-home"></span><a href="{$HOME}" class="tooltips">{$HOME_NAME}<span>Go to Piwigo gallery</span></a><br/>
+			<span class="osm-left-big"></span><a href="{$HOME_PREV}" class="tooltips">{$HOME_PREV_NAME}<span>Go to back one page</span></a>
 		</div>
 
 		<div id="ribbon-map-results">
 			<b id="nb_showall" style="color: rgb(204, 0, 0);">{$TOTAL}</b><br/>
-			<span class="osm-link-ext"></span><a id="map-showall" target="_blank" href="">Show All</a>
+			<span class="osm-link-ext"></span><a id="map-showall" target="_blank" href="" class="tooltips">Show All<span>Show all items in Piwigo gallery</span></a>
 		</div>
 
 		<div id="ribbon-map-location">
-			<span class="osm-link"></span><a href="#" onclick="linkToThisMap();" id="opener" >Link to this map</a><br/>
-			<span class="osm-direction"></span><a href="#" onclick="findMyLocation();">Find my position</a>
+			<span class="osm-link"></span><a href="#" onclick="linkToThisMap();" id="opener" class="tooltips">Link to this map<span>Share this view</span></a><br/>
+			<span class="osm-direction"></span><a href="#" onclick="findMyLocation();" class="tooltips">Find my position<span>Search my position on the map</span></a>
 		</div>
 
 		<div id="ribbon-map-wrapper" style="visibility:hidden; max-width: 0px;">
@@ -250,7 +251,7 @@ a:hover.tooltips span {
 						<!-- <li><img class="morph pic" src="http://placehold.it/40x40&text=FooBar1"><span>FooBar1</span></a></li> -->
 						<!-- <li><img src="http://placehold.it/40x40&text=FooBar2" alt="FooBar2"></li>  -->
 						<!-- <li><img class="morph pic" src="http://placehold.it/40x40&text=FooBar3"></li> -->
-						<!-- <li class="tooltips"><img class="morph pic" src="http://placehold.it/40x40&text=FooBar3"><span>FooBar4</span></li>  -->
+						<!-- <li class="tooltips"><span>Tooltip</span><img class="morph pic" src="http://placehold.it/40x40&text=FooBar3"></li> -->
 					</ul>
 				</div>
 
@@ -346,6 +347,14 @@ function toggle(arrow)
 	/* END leaflet-locatecontrol */
 
 	/* BEGIN leaflet-contextmenu https://github.com/aratcliffe/Leaflet.contextmenu */
+	function goHome (){
+		window.location.assign('{/literal}{$HOME}{literal}');
+	}
+
+	function goBack (){
+		window.location.assign('{/literal}{$HOME_PREV}{literal}');
+	}
+
 	function showCoordinates (e) {
 		var popup = L.popup();
 		popup
@@ -359,6 +368,40 @@ function toggle(arrow)
 		getMarkers(); /* Center on Map is not consider as Move so we have to update the data ourself */
 	}
 
+	function goShowAll (e) {
+		/* Get coordonates */
+		var bounds = map.getBounds();
+		var min = bounds.getSouthWest().wrap();
+		var max = bounds.getNorthEast().wrap();
+
+		/* Update ShowAll link */
+		var root_url = '{/literal}{$MYROOT_URL}{literal}';
+		var myurl = root_url+"osmmap.php?min_lat="+min.lat+"&min_lng="+min.lng+"&max_lat="+max.lat+"&max_lng="+max.lng;
+		//console.log("ShowAll:"+myurl);
+		//window.location.assign(myurl);
+		window.open(url,'_blank');
+	}
+
+	function linkToThisMap (){
+		var center = map.getCenter();
+		var zoom = map.getZoom();
+
+		var centerlat = center.lat;
+		var centerlng = center.lng;
+
+		var root_url = '{/literal}{$MYROOT_URL}{literal}';
+		var myurl = root_url+"osmmap.php?zoom="+zoom+"&center_lat="+centerlat+"&center_lng="+centerlng;
+		//console.log(myurl);
+		document.getElementById('textfield').value = myurl;
+		$('#dialog').dialog('open');
+	}
+
+	function findMyLocation (){
+		/* http://leafletjs.com/examples/mobile-example.html */
+		/* http://www.bennadel.com/blog/2023-Geocoding-A-User-s-Location-Using-Javascript-s-GeoLocation-API.htm */
+		map.locate({setView: true, maxZoom: 16});
+	}
+
 	function zoomIn (e) {
 		map.zoomIn();
 	}
@@ -367,9 +410,13 @@ function toggle(arrow)
 		map.zoomOut();
 	}
 
+	map.contextmenu.addItem({text: '{/literal}{$HOME_NAME}{literal}', iconCls: 'osm-home', callback: goHome});
+	map.contextmenu.addItem({text: '{/literal}{$HOME_PREV_NAME}{literal}', iconCls: 'osm-left-big', callback: goBack});
+	map.contextmenu.addItem('-');
 	map.contextmenu.addItem({text: 'Show coordinates', iconCls: 'osm-pin', callback: showCoordinates});
 	map.contextmenu.addItem({text: 'Center map here', iconCls: 'osm-location', callback: centerMap});
 	map.contextmenu.addItem('-');
+	map.contextmenu.addItem({text: 'Show all items', iconCls: 'osm-link-ext', callback: goShowAll});
 	map.contextmenu.addItem({text: 'Link to this map', iconCls: 'osm-link', callback: linkToThisMap});
 	map.contextmenu.addItem({text: 'Find my position', iconCls: 'osm-direction', callback: findMyLocation});
 	map.contextmenu.addItem({separator: true});
@@ -384,6 +431,7 @@ function toggle(arrow)
 		getMarkers();
 	}
 
+	/* Generate the carrousel */
 	function getMarkers(){
 		/* Get coordonates */
 		var bounds = map.getBounds();
@@ -478,26 +526,6 @@ function toggle(arrow)
 			var childNode = childNodes[i];
 			childNode.parentNode.removeChild(childNode);
 		}
-	}
-
-	function linkToThisMap (){
-		var center = map.getCenter();
-		var zoom = map.getZoom();
-
-		var centerlat = center.lat;
-		var centerlng = center.lng;
-
-		var root_url = '{/literal}{$MYROOT_URL}{literal}';
-		var myurl = root_url+"osmmap.php?zoom="+zoom+"&center_lat="+centerlat+"&center_lng="+centerlng;
-		//console.log(myurl);
-		document.getElementById('textfield').value = myurl;
-		$('#dialog').dialog('open');
-	}
-
-	function findMyLocation (){
-		/* http://leafletjs.com/examples/mobile-example.html */
-		/* http://www.bennadel.com/blog/2023-Geocoding-A-User-s-Location-Using-Javascript-s-GeoLocation-API.htm */
-		map.locate({setView: true, maxZoom: 16});
 	}
 
 	/* BEGIN leaflet Location */
