@@ -379,7 +379,7 @@ function toggle(arrow)
 		var myurl = root_url+"osmmap.php?min_lat="+min.lat+"&min_lng="+min.lng+"&max_lat="+max.lat+"&max_lng="+max.lng;
 		//console.log("ShowAll:"+myurl);
 		//window.location.assign(myurl);
-		window.open(url,'_blank');
+		window.open(myurl,'_blank');
 	}
 
 	function linkToThisMap (){
