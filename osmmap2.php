@@ -89,6 +89,16 @@ if (isset($page['section']))
 	}
 }
 
+$forbidden = get_sql_condition_FandF(
+	array
+	(
+		'forbidden_categories' => 'category_id',
+		'visible_categories' => 'category_id',
+		'visible_images' => 'id'
+	),
+	"\n AND"
+);
+
 /* We have lat and lng coordonate for virtual album */
 if (isset($_GET['min_lat']) and isset($_GET['max_lat']) and isset($_GET['min_lng']) and isset($_GET['max_lng']))
 {
@@ -118,7 +128,7 @@ FROM ".IMAGES_TABLE."
 WHERE `latitude` IS NOT NULL AND `longitude` IS NOT NULL 
 AND `latitude` > ".$_GET['min_lat']." AND `latitude` < ".$_GET['max_lat']."
 AND `longitude` > ".$_GET['min_lng']." AND `longitude` < ".$_GET['max_lng']."
-GROUP BY id;";
+".$forbidden." GROUP BY id;";
 
 	$items = hash_from_query( $query, 'id');
 
@@ -133,16 +143,6 @@ GROUP BY id;";
 	header('Location: '.get_absolute_root_url().'index.php?/category/'.$osm_sub_album['id']);
 	exit;
 }
-
-$forbidden = get_sql_condition_FandF(
-	array
-	(
-		'forbidden_categories' => 'category_id',
-		'visible_categories' => 'category_id',
-		'visible_images' => 'id'
-	),
-	"\n AND"
-);
 
 // Fetch data with latitude and longitude
 //$query="SELECT `latitude`, `longitude`, `name`, `path` FROM ".IMAGES_TABLE." WHERE `latitude` IS NOT NULL AND `longitude` IS NOT NULL;";
@@ -325,11 +325,11 @@ if ($pinid == 9)
 		options: {
 			iconUrl: ".$pinpath.",
 			shadowUrl: ".$pinshadowpath.",
-			iconSize: ".$pinsize.",
-			shadowSize:  ".$pinshadowsize.",
-			iconAnchor:   ".$pinoffset.",
-			shadowAnchor: ".$pinoffset.",
-			popupAnchor:  ".$pinpopupoffset."
+			iconSize: [".$pinsize."],
+			shadowSize: [".$pinshadowsize."],
+			iconAnchor: [".$pinoffset."],
+			shadowAnchor: [".$pinoffset."],
+			popupAnchor: [".$pinpopupoffset."]
 		}
 	});";
 }
