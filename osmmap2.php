@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /***********************************************
 * File      :   osmmap.php
 * Project   :   piwigo-openstreetmap
