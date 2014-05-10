@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /***********************************************
 * File      :   osmmap.php
 * Project   :   piwigo-openstreetmap
@@ -124,8 +124,9 @@ if (isset($_GET['min_lat']) and isset($_GET['max_lat']) and isset($_GET['min_lng
 
 	/* Get all items inside the lat and lng */
 	$query="SELECT  `id`, `latitude`, `longitude` 
-FROM ".IMAGES_TABLE." 
-WHERE `latitude` IS NOT NULL AND `longitude` IS NOT NULL 
+FROM ".IMAGES_TABLE." AS i
+	INNER JOIN ".IMAGE_CATEGORY_TABLE." AS ic ON id = ic.image_id
+WHERE ".$LIMIT_SEARCH." `latitude` IS NOT NULL AND `longitude` IS NOT NULL 
 AND `latitude` > ".$_GET['min_lat']." AND `latitude` < ".$_GET['max_lat']."
 AND `longitude` > ".$_GET['min_lng']." AND `longitude` < ".$_GET['max_lng']."
 ".$forbidden." GROUP BY id;";
