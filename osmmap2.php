@@ -68,26 +68,34 @@ if (isset($page['category']))
 	check_restrictions($page['category']['id']);
 
 $js_data = osm_get_items($page);
-/* START Debug generate dummy data
-$js_data = array();
-$str = 'abcdef';
-$minLat = -90.00;
-$maxLat = 90.00;
-$minLon = -180.00;
-$maxLon = 180.00;
-for ($i = 1; $i <= 5000; $i++)
-{
-	$js_data[] = array( (double)$minLat + (double)((float)rand()/(float)getrandmax() * (($maxLat - $minLat) + 1)),
-			   (double)$minLon + (double)((float)rand()/(float)getrandmax() * (($maxLon - $minLon) + 1)),
-			   str_shuffle($str),
-			   "http://placehold.it/120x120",
-			   "http://placehold.it/200x200",
-			   "Comment",
-			   "Author",
-			   (int)120
-			   );
-}
-END Debug generate dummy data */
+$pinid = isset($conf['osm_conf']['pin']['pin']) ? $conf['osm_conf']['pin']['pin'] : 1;
+$pinpath = isset($conf['osm_conf']['pin']['pinpath']) ? $conf['osm_conf']['pin']['pinpath'] : '';
+$pinsize = isset($conf['osm_conf']['pin']['pinsize']) ? $conf['osm_conf']['pin']['pinsize'] : '';
+$pinshadowpath = isset($conf['osm_conf']['pin']['pinshadowpath']) ? $conf['osm_conf']['pin']['pinshadowpath'] : '';
+$pinshadowsize = isset($conf['osm_conf']['pin']['pinshadowsize']) ? $conf['osm_conf']['pin']['pinshadowsize'] : '';
+$pinoffset = isset($conf['osm_conf']['pin']['pinoffset']) ? $conf['osm_conf']['pin']['pinoffset'] : '';
+$pinpopupoffset = isset($conf['osm_conf']['pin']['pinpopupoffset']) ? $conf['osm_conf']['pin']['pinpopupoffset'] : '';
+
+/* If we have zoom and center coordonate, set it otherwise fallback default */
+$zoom = isset($_GET['zoom']) ? $_GET['zoom'] : '2';
+$center_lat = isset($_GET['center_lat']) ? $_GET['center_lat'] : '0';
+$center_lng = isset($_GET['center_lng']) ? $_GET['center_lng'] : '0';
+$tmpl = 'osm-map2.tpl'
+$contextmenu = true;
+
+$available_pin = array(
+	'0' => '',
+	'1' => '',
+	'2' => 'PlgIconGreen',
+	'3' => 'PlgIconRed',
+	'4' => 'LeafIconGreen',
+	'5' => 'LeafIconOrange',
+	'6' => 'LeafIconRed',
+	'7' => 'MapIconBlue',
+	'8' => 'MapIconGreen',
+	'9' => 'CustomIcon',
+	'10' => 'ImgIcon'
+);
 
 // Load parameter, fallback to default if unset
 $linkname = isset($conf['osm_conf']['left_menu']['link']) ? $conf['osm_conf']['left_menu']['link'] : 'OS World Map';
@@ -104,18 +112,6 @@ $noworldwarp = isset($conf['osm_conf']['map']['noworldwarp']) ? $conf['osm_conf'
 $attrleaflet = isset($conf['osm_conf']['map']['attrleaflet']) ? $conf['osm_conf']['map']['attrleaflet'] : 'false';
 $attrimagery = isset($conf['osm_conf']['map']['attrimagery']) ? $conf['osm_conf']['map']['attrimagery'] : 'false';
 $attrmodule = isset($conf['osm_conf']['map']['attrplugin']) ? $conf['osm_conf']['map']['attrplugin'] : 'false';
-$pinid = isset($conf['osm_conf']['pin']['pin']) ? $conf['osm_conf']['pin']['pin'] : 1;
-$pinpath = isset($conf['osm_conf']['pin']['pinpath']) ? $conf['osm_conf']['pin']['pinpath'] : '';
-$pinsize = isset($conf['osm_conf']['pin']['pinsize']) ? $conf['osm_conf']['pin']['pinsize'] : '';
-$pinshadowpath = isset($conf['osm_conf']['pin']['pinshadowpath']) ? $conf['osm_conf']['pin']['pinshadowpath'] : '';
-$pinshadowsize = isset($conf['osm_conf']['pin']['pinshadowsize']) ? $conf['osm_conf']['pin']['pinshadowsize'] : '';
-$pinoffset = isset($conf['osm_conf']['pin']['pinoffset']) ? $conf['osm_conf']['pin']['pinoffset'] : '';
-$pinpopupoffset = isset($conf['osm_conf']['pin']['pinpopupoffset']) ? $conf['osm_conf']['pin']['pinpopupoffset'] : '';
-
-/* If we have zoom and center coordonate, set it otherwise fallback default */
-$zoom = isset($_GET['zoom']) ? $_GET['zoom'] : '2';
-$center_lat = isset($_GET['center_lat']) ? $_GET['center_lat'] : '0';
-$center_lng = isset($_GET['center_lng']) ? $_GET['center_lng'] : '0';
 
 // Load baselayerURL
 // Key1 BC9A493B41014CAABB98F0471D759707
@@ -148,20 +144,17 @@ else
 //$js = "\nvar addressPoints = ". json_encode($js_data, JSON_UNESCAPED_SLASHES) .";\n";
 $js = "\nvar addressPoints = ". str_replace("\/","/",json_encode($js_data)) .";\n";
 
-$available_pin = array(
-	'0' => '',
-	'1' => '',
-	'2' => 'PlgIconGreen',
-	'3' => 'PlgIconRed',
-	'4' => 'LeafIconGreen',
-	'5' => 'LeafIconOrange',
-	'6' => 'LeafIconRed',
-	'7' => 'MapIconBlue',
-	'8' => 'MapIconGreen',
-	'9' => 'CustomIcon',
-	'10' => 'ImgIcon'
-);
 
+// Create the map and get a new map instance attached and element with id="tile-map"
+$js .= "\nvar Url = '".$baselayerurl."',
+	Attribution = '".$attribution."',
+	TileLayer = new L.TileLayer(Url, {maxZoom: 18, noWrap: ".$nowarp.", attribution: Attribution}),
+	latlng = new L.LatLng(".$center_lat.", ".$center_lng.");\n";
+$js .= "var map = new L.Map('map', {center: latlng, zoom: ".$zoom.", layers: [TileLayer], contextmenu: " . $contextmenu . "});\n";
+$js .= "map.attributionControl.setPrefix('');\n";
+$js .= "var MarkerClusterList=[];\n";
+$js .= "var markers = new L.MarkerClusterGroup();\n";
+$js .= "L.control.scale().addTo(map);\n";
 // Icons
 $js .= "
 
@@ -233,16 +226,6 @@ var MapIconBlue = new MapIcon({iconUrl: 'plugins/piwigo-openstreetmap/leaflet/im
 
 ";
 
-// Create the map and get a new map instance attached and element with id="tile-map"
-$js .= "\nvar Url = '".$baselayerurl."',
-	Attribution = '".$attribution."',
-	TileLayer = new L.TileLayer(Url, {maxZoom: 18, noWrap: ".$nowarp.", attribution: Attribution}),
-	latlng = new L.LatLng(".$center_lat.", ".$center_lng.");\n";
-$js .= "var map = new L.Map('map', {center: latlng, zoom: ".$zoom.", layers: [TileLayer], contextmenu: true});\n";
-$js .= "L.control.scale().addTo(map);\n";
-$js .= "map.attributionControl.setPrefix('');\n";
-$js .= "var MarkerClusterList=[];\n";
-$js .= "var markers = new L.MarkerClusterGroup();\n";
 $js .= "for (var i = 0; i < addressPoints.length; i++) {
 	var a = addressPoints[i];
 	var title = a[2];
@@ -252,6 +235,7 @@ $js .= "for (var i = 0; i < addressPoints.length; i++) {
 	var author = a[6];
 	var width = a[7];
 	var latlng = new L.LatLng(a[0], a[1]);
+	var marker = new L.Marker(latlng, { title: title });
 	";
 
 // create Marker
@@ -298,7 +282,7 @@ if ($popup < 2)
 }";
 $js .= "\nmap.addLayer(markers);\n";
 
-$template->set_filename('map', dirname(__FILE__).'/template/osm-map2.tpl' );
+$template->set_filename('map', dirname(__FILE__). '/template/' . $tmpl);
 
 $template->assign(
 	array(

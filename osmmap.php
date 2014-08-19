@@ -68,6 +68,13 @@ if (isset($page['category']))
 	check_restrictions($page['category']['id']);
 
 $js_data = osm_get_items($page);
+$zoom = '2';
+$center_lat = '0';
+$center_lng = '0';
+$tmpl = 'osm-map.tpl'
+$pinid = 1;
+$contextmenu = false;
+$available_pin = '';
 
 // Load parameter, fallback to default if unset
 $linkname = isset($conf['osm_conf']['left_menu']['link']) ? $conf['osm_conf']['left_menu']['link'] : 'OS World Map';
@@ -84,9 +91,7 @@ $noworldwarp = isset($conf['osm_conf']['map']['noworldwarp']) ? $conf['osm_conf'
 $attrleaflet = isset($conf['osm_conf']['map']['attrleaflet']) ? $conf['osm_conf']['map']['attrleaflet'] : 'false';
 $attrimagery = isset($conf['osm_conf']['map']['attrimagery']) ? $conf['osm_conf']['map']['attrimagery'] : 'false';
 $attrmodule = isset($conf['osm_conf']['map']['attrplugin']) ? $conf['osm_conf']['map']['attrplugin'] : 'false';
-$zoom = '2';
-$center_lat = '0';
-$center_lng = '0';
+
 // Load baselayerURL
 // Key1 BC9A493B41014CAABB98F0471D759707
 if     ($baselayer == 'mapnik')		$baselayerurl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
@@ -124,8 +129,9 @@ $js .= "\nvar Url = '".$baselayerurl."',
 	Attribution = '".$attribution."',
 	TileLayer = new L.TileLayer(Url, {maxZoom: 18, noWrap: ".$nowarp.", attribution: Attribution}),
 	latlng = new L.LatLng(".$center_lat.", ".$center_lng.");\n";
-$js .= "var map = new L.Map('map', {center: latlng, zoom: ".$zoom.", layers: [TileLayer]});\n";
+$js .= "var map = new L.Map('map', {center: latlng, zoom: ".$zoom.", layers: [TileLayer], contextmenu: " . $contextmenu . "});\n";
 $js .= "map.attributionControl.setPrefix('');\n";
+$js .= "var MarkerClusterList=[];\n";
 $js .= "var markers = new L.MarkerClusterGroup();\n";
 $js .= "for (var i = 0; i < addressPoints.length; i++) {
 	var a = addressPoints[i];
@@ -138,6 +144,15 @@ $js .= "for (var i = 0; i < addressPoints.length; i++) {
 	var latlng = new L.LatLng(a[0], a[1]);
 	var marker = new L.Marker(latlng, { title: title });
 	";
+
+// create Marker
+if ($pinid == 1) { // 0 is No Marker
+	$js .= "var marker = new L.Marker(latlng, { title: title });\n";
+} else if ($pinid >= 2 and $pinid <= 9) {
+	$js .= "var marker = new L.Marker(latlng, { title: title, icon: ".$available_pin[$pinid]."});\n";
+} else if ($pinid == 10) {
+	$js .= "var marker = new L.Marker(latlng, { title: title, icon: new ImgIcon({iconUrl: pathurl})});\n";
+}
 
 // create Popup
 if ($popup < 2)
@@ -168,11 +183,12 @@ if ($popup < 2)
 	$js .= "marker.bindPopup(".$myinfo.", {minWidth: '+width+'}).openPopup();";
 }
 
-	$js .= "\tmarkers.addLayer(marker);\n
+	$js .= "\tmarkers.addLayer(marker);\n";
+	$js .= "\tMarkerClusterList.push(marker);
 }";
 $js .= "\nmap.addLayer(markers);\n";
 
-$template->set_filename('map', dirname(__FILE__).'/template/osm-map.tpl' );
+$template->set_filename('map', dirname(__FILE__). '/template/' . $tmpl);
 
 $template->assign(
 	array(
@@ -185,6 +201,7 @@ $template->assign(
 		'HOME_PREV_NAME'    => l10n("Previous"),
 		'TOTAL'             => sprintf( l10n('%d items'), count($php_data) ),
 		'OSMJS'				=> $js,
+		'MYROOT_URL'		=> get_absolute_root_url(),
 	)
 );
 
