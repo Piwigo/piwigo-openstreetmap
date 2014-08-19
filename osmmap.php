@@ -67,144 +67,17 @@ $page = array_merge( $page, $result );
 if (isset($page['category']))
 	check_restrictions($page['category']['id']);
 
+$local_conf = array()
+$local_conf[zoom] = '2';
+$local_conf[center_lat] = '0';
+$local_conf[center_lng] = '0';
+$local_conf[tmpl] = 'osm-map.tpl'
+$local_conf[pinid] = 1;
+$local_conf[contextmenu] = false;
+$local_conf[available_pin] = '';
+$local_conf[control] = false;
+
 $js_data = osm_get_items($page);
-$zoom = '2';
-$center_lat = '0';
-$center_lng = '0';
-$tmpl = 'osm-map.tpl'
-$pinid = 1;
-$contextmenu = false;
-$available_pin = '';
-
-// Load parameter, fallback to default if unset
-$linkname = isset($conf['osm_conf']['left_menu']['link']) ? $conf['osm_conf']['left_menu']['link'] : 'OS World Map';
-$popup = isset($conf['osm_conf']['left_menu']['popup']) ? $conf['osm_conf']['left_menu']['popup'] : 0;
-$popupinfo_name = isset($conf['osm_conf']['left_menu']['popupinfo_name']) ? $conf['osm_conf']['left_menu']['popupinfo_name'] : 0;
-$popupinfo_img = isset($conf['osm_conf']['left_menu']['popupinfo_img']) ? $conf['osm_conf']['left_menu']['popupinfo_img'] : 0;
-$popupinfo_link = isset($conf['osm_conf']['left_menu']['popupinfo_link']) ? $conf['osm_conf']['left_menu']['popupinfo_link'] : 0;
-$popupinfo_comment = isset($conf['osm_conf']['left_menu']['popupinfo_comment']) ? $conf['osm_conf']['left_menu']['popupinfo_comment'] : 0;
-$popupinfo_author  = isset($conf['osm_conf']['left_menu']['popupinfo_author']) ? $conf['osm_conf']['left_menu']['popupinfo_author'] : 0;
-$baselayer = isset($conf['osm_conf']['map']['baselayer']) ? $conf['osm_conf']['map']['baselayer'] : 'mapnik';
-$custombaselayer = isset($conf['osm_conf']['map']['custombaselayer']) ? $conf['osm_conf']['map']['custombaselayer'] : '';
-$custombaselayerurl = isset($conf['osm_conf']['map']['custombaselayerurl']) ? $conf['osm_conf']['map']['custombaselayerurl'] : '';
-$noworldwarp = isset($conf['osm_conf']['map']['noworldwarp']) ? $conf['osm_conf']['map']['noworldwarp'] : 'false';
-$attrleaflet = isset($conf['osm_conf']['map']['attrleaflet']) ? $conf['osm_conf']['map']['attrleaflet'] : 'false';
-$attrimagery = isset($conf['osm_conf']['map']['attrimagery']) ? $conf['osm_conf']['map']['attrimagery'] : 'false';
-$attrmodule = isset($conf['osm_conf']['map']['attrplugin']) ? $conf['osm_conf']['map']['attrplugin'] : 'false';
-
-// Load baselayerURL
-// Key1 BC9A493B41014CAABB98F0471D759707
-if     ($baselayer == 'mapnik')		$baselayerurl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-else if($baselayer == 'mapquest')	$baselayerurl = 'http://otile1.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png';
-else if($baselayer == 'cloudmade')	$baselayerurl = 'http://{s}.tile.cloudmade.com/7807cc60c1354628aab5156cfc1d4b3b/997/256/{z}/{x}/{y}.png';
-else if($baselayer == 'mapnikde')	$baselayerurl = 'http://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png';
-else if($baselayer == 'mapnikfr')	$baselayerurl = 'http://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png';
-else if($baselayer == 'blackandwhite')	$baselayerurl = 'http://{s}.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png';
-else if($baselayer == 'mapnikhot')	$baselayerurl = 'http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png';
-else if($baselayer == 'mapquestaerial')	$baselayerurl = 'http://oatile{s}.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.jpg';
-else if($baselayer == 'custom')	$baselayerurl = $custombaselayerurl;
-
-$attribution = osmcopyright($attrleaflet, $attrimagery, $attrmodule, $baselayer, $custombaselayer);
-
-// Generate Javascript
-// ----------------------------------------
-// no worldWarp (no world copies, restrict the view to one world)
-if($noworldwarp)
-{
-	$nowarp = " true ";
-	$worldcopyjump = "worldCopyJump: false, maxBounds: [ [82, -180], [-82, 180] ]";
-}
-else
-{
-	$nowarp = " false ";
-	$worldcopyjump = "worldCopyJump: true";
-}
-
-//$js = "\nvar addressPoints = ". json_encode($js_data, JSON_UNESCAPED_SLASHES) .";\n";
-$js = "\nvar addressPoints = ". str_replace("\/","/",json_encode($js_data)) .";\n";
-
-
-// Create the map and get a new map instance attached and element with id="tile-map"
-$js .= "\nvar Url = '".$baselayerurl."',
-	Attribution = '".$attribution."',
-	TileLayer = new L.TileLayer(Url, {maxZoom: 18, noWrap: ".$nowarp.", attribution: Attribution}),
-	latlng = new L.LatLng(".$center_lat.", ".$center_lng.");\n";
-$js .= "var map = new L.Map('map', {center: latlng, zoom: ".$zoom.", layers: [TileLayer], contextmenu: " . $contextmenu . "});\n";
-$js .= "map.attributionControl.setPrefix('');\n";
-$js .= "var MarkerClusterList=[];\n";
-$js .= "var markers = new L.MarkerClusterGroup();\n";
-$js .= "for (var i = 0; i < addressPoints.length; i++) {
-	var a = addressPoints[i];
-	var title = a[2];
-	var pathurl = a[3];
-	var imgurl = a[4];
-	var comment = a[5];
-	var author = a[6];
-	var width = a[7];
-	var latlng = new L.LatLng(a[0], a[1]);
-	var marker = new L.Marker(latlng, { title: title });
-	";
-
-// create Marker
-if ($pinid == 1) { // 0 is No Marker
-	$js .= "var marker = new L.Marker(latlng, { title: title });\n";
-} else if ($pinid >= 2 and $pinid <= 9) {
-	$js .= "var marker = new L.Marker(latlng, { title: title, icon: ".$available_pin[$pinid]."});\n";
-} else if ($pinid == 10) {
-	$js .= "var marker = new L.Marker(latlng, { title: title, icon: new ImgIcon({iconUrl: pathurl})});\n";
-}
-
-// create Popup
-if ($popup < 2)
-{
-	$openpopup = ".openPopup()";
-	$myinfo = "'<p>";
-	if($popupinfo_name)
-	{
-		$myinfo .= "'+title+'";
-	}
-	if($popupinfo_img and !$popupinfo_link)
-	{
-		$myinfo .= "<br /><img src=\"'+pathurl+'\">";
-	}
-	else if($popupinfo_img and $popupinfo_link)
-	{
-		$myinfo .= "<br /><a href=\"'+imgurl+'\"><img src=\"'+pathurl+'\"></a>";
-	}
-	if($popupinfo_comment)
-	{
-		$myinfo .= "<br />'+comment+'";
-	}
-	if($popupinfo_author)
-	{
-		$myinfo .= "<br />'+author+'";
-	}
-	$myinfo .= "</p>'";
-	$js .= "marker.bindPopup(".$myinfo.", {minWidth: '+width+'}).openPopup();";
-}
-
-	$js .= "\tmarkers.addLayer(marker);\n";
-	$js .= "\tMarkerClusterList.push(marker);
-}";
-$js .= "\nmap.addLayer(markers);\n";
-
-$template->set_filename('map', dirname(__FILE__). '/template/' . $tmpl);
-
-$template->assign(
-	array(
-		'CONTENT_ENCODING'	=> get_pwg_charset(),
-		'OSM_PATH'			=> embellish_url(get_absolute_root_url().OSM_PATH),
-		'GALLERY_TITLE'		=> $linkname .' - '. $conf['gallery_title'],
-		'HOME'              => make_index_url(),
-		'HOME_PREV'         => isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : get_absolute_root_url(),
-		'HOME_NAME'         => l10n("Home"),
-		'HOME_PREV_NAME'    => l10n("Previous"),
-		'TOTAL'             => sprintf( l10n('%d items'), count($php_data) ),
-		'OSMJS'				=> $js,
-		'MYROOT_URL'		=> get_absolute_root_url(),
-	)
-);
-
-$template->pparse('map');
-$template->p();
+$js = osm_get_js($conf, $local_conf, $js_data);
+osm_gen_template($conf, $local_conf, $js_data, $template)
 ?>
