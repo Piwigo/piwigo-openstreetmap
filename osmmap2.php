@@ -1,6 +1,6 @@
 <?php
 /***********************************************
-* File      :   osmmap.php
+* File      :   osmmap2.php
 * Project   :   piwigo-openstreetmap
 * Descr     :   Display a world map
 *
@@ -150,7 +150,7 @@ AND `longitude` > ".$_GET['min_lng']." AND `longitude` < ".$_GET['max_lng']."
 // SUBSTRING_INDEX(TRIM(LEADING '.' FROM `path`), '.', 1) full path without filename extension
 // SUBSTRING_INDEX(TRIM(LEADING '.' FROM `path`), '.', -1) full path with only filename extension
 
-$query="SELECT `id`, `latitude`, `longitude`, 
+$query="SELECT `latitude`, `longitude`, 
 IFNULL(`name`, '') AS `name`, 
 IF(`representative_ext` IS NULL, 
 	CONCAT(SUBSTRING_INDEX(TRIM(LEADING '.' FROM `path`), '.', 1 ), '-sq.', SUBSTRING_INDEX(TRIM(LEADING '.' FROM `path`), '.', -1 )), 
@@ -432,8 +432,8 @@ $template->assign(
 		'HOME_NAME'         => l10n("Home"),
 		'HOME_PREV_NAME'    => l10n("Previous"),
 		'TOTAL'             => sprintf( l10n('%d items'), count($php_data) ),
-		'MYROOT_URL'		=> get_absolute_root_url(),
 		'OSMJS'				=> $js,
+		'MYROOT_URL'		=> get_absolute_root_url(),
 	)
 );
 

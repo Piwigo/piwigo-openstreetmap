@@ -25,6 +25,9 @@
 ************************************************/
 
 
+function osm_get_items()
+{
+}
 function osm_parse_map_data_url($tokens, &$next_token)
 {
     $page = parse_section_url($tokens, $next_token);
