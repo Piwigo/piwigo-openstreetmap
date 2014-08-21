@@ -94,9 +94,13 @@ function osm_render_element_content()
 
     // Load coordinates from picture
     $query = 'SELECT latitude,longitude FROM '.IMAGES_TABLE.' WHERE id = \''.$page['image_id'].'\' ;';
+    //FIXME LIMIT 1 ?
     $result = pwg_query($query);
     $row = pwg_db_fetch_assoc($result);
-    if (!$row or !$row['latitude'] or empty($row['latitude'])) { return; }
+    if (!$row or !$row['latitude'] or empty($row['latitude']))
+    {
+        return;
+    }
     $lat = $row['latitude'];
     $lon = $row['longitude'];
 
@@ -106,107 +110,24 @@ function osm_render_element_content()
     $osmname = isset($conf['osm_conf']['right_panel']['link']) ? $conf['osm_conf']['right_panel']['link'] : 'Location';
     $osmnamecss = isset($conf['osm_conf']['right_panel']['linkcss']) ? $conf['osm_conf']['right_panel']['linkcss'] : '';
     $showosm = isset($conf['osm_conf']['right_panel']['showosm']) ? $conf['osm_conf']['right_panel']['showosm'] : 'true';
-    $baselayer = isset($conf['osm_conf']['map']['baselayer']) ? $conf['osm_conf']['map']['baselayer'] : 'mapnik';
-    $custombaselayer = isset($conf['osm_conf']['map']['custombaselayer']) ? $conf['osm_conf']['map']['custombaselayer'] : '';
-    $custombaselayerurl = isset($conf['osm_conf']['map']['custombaselayerurl']) ? $conf['osm_conf']['map']['custombaselayerurl'] : '';
-    $noworldwarp = isset($conf['osm_conf']['map']['noworldwarp']) ? $conf['osm_conf']['map']['noworldwarp'] : 'false';
-    $attrleaflet = isset($conf['osm_conf']['map']['attrleaflet']) ? $conf['osm_conf']['map']['attrleaflet'] : 'false';
-    $attrimagery = isset($conf['osm_conf']['map']['attrimagery']) ? $conf['osm_conf']['map']['attrimagery'] : 'false';
-    $attrmodule = isset($conf['osm_conf']['map']['attrplugin']) ? $conf['osm_conf']['map']['attrplugin'] : 'false';
-
     if (strlen($osmnamecss) != 0)
     {
-	$osmnamecss = "style='".$osmnamecss."'";
+        $osmnamecss = "style='".$osmnamecss."'";
     }
-
     $osmlink="https://openstreetmap.org/?mlat=".$lat."&amp;mlon=".$lon."&zoom=12&layers=M";
 
-    // Load baselayerURL
-    // Key1 BC9A493B41014CAABB98F0471D759707
-	if     ($baselayer == 'mapnik')		$baselayerurl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-	else if($baselayer == 'mapquest')	$baselayerurl = 'http://otile1.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png';
-	else if($baselayer == 'cloudmade')	$baselayerurl = 'http://{s}.tile.cloudmade.com/7807cc60c1354628aab5156cfc1d4b3b/997/256/{z}/{x}/{y}.png';
-	else if($baselayer == 'mapnikde')	$baselayerurl = 'http://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png';
-	else if($baselayer == 'mapnikfr')	$baselayerurl = 'http://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png';
-	else if($baselayer == 'blackandwhite')	$baselayerurl = 'http://{s}.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png';
-	else if($baselayer == 'mapnikhot')	$baselayerurl = 'http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png';
-	else if($baselayer == 'mapquestaerial')	$baselayerurl = 'http://oatile{s}.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.jpg';
-	else if($baselayer == 'custom')	$baselayerurl = $custombaselayerurl;
+    $local_conf = array()
+    $local_conf['pinid'] = 1;
+    $local_conf['contextmenu'] = false;
+    $local_conf['available_pin'] = '';
+    $local_conf['control'] = false;
+    $local_conf['img_popup'] = false;
+    $local_conf['center_lat'] = $lat;
+    $local_conf['center_lng'] = $lon;
+    $local_conf['zoom'] = $zoom;
+    $js_data = array(array($lat, $lon, null, null, null, null, null, null))
 
-	//$attribution = osmcopyright($attrleaflet, $attrimagery, $attrmodule, $baselayer, $custombaselayer);
-	$attribution = '<a id="osm_license_link" style="cursor: pointer;" onclick="ShowOSMLicense();">see map license</a>';
-
-    // Generate Javascript
-    // ----------------------------------------
-    // no worldWarp (no world copies, restrict the view to one world)
-    if($noworldwarp)
-    {
-	$nowarp = " true ";
-	$worldcopyjump = "worldCopyJump: false, maxBounds: [ [82, -180], [-82, 180] ]";
-    }
-    else
-    {
-	$nowarp = " false ";
-	$worldcopyjump = "worldCopyJump: true";
-    }
-
-/*
-    // Icons
-    $js = "\n
-var LeafIcon = L.Icon.extend({
-    options: {
-	shadowUrl: 'plugins/piwigo-openstreetmap/leaflet/images/leaf-shadow.png',
-	iconSize:     [38, 95],
-	shadowSize:   [50, 64],
-	iconAnchor:   [22, 94],
-	shadowAnchor: [4, 62],
-	popupAnchor:  [-3, -76]
-    }
-});
-
-var mapIcon = L.Icon.extend({
-    options: {
-	shadowUrl: 'plugins/piwigo-openstreetmap/leaflet/images/mapicons-shadow.png',
-	iconSize:     [32, 37],
-	shadowSize:   [51, 37],
-	iconAnchor:   [19, 38],
-	shadowAnchor: [-20, 33],
-	popupAnchor:  [-2, -10]
-    }
-});
-
-var greenIcon = new LeafIcon({iconUrl: 'plugins/piwigo-openstreetmap/leaflet/images/leaf-green.png'}),
-	redIcon = new LeafIcon({iconUrl: 'plugins/piwigo-openstreetmap/leaflet/images/leaf-red.png'}),
-	orangeIcon = new LeafIcon({iconUrl: 'plugins/piwigo-openstreetmap/leaflet/images/leaf-orange.png'});
-
-var bluemapicons = new mapIcon({iconUrl: 'plugins/piwigo-openstreetmap/leaflet/images/mapicons-blue.png'}),
-	greenmapicons = new mapIcon({iconUrl: 'plugins/piwigo-openstreetmap/leaflet/images/mapicons-green.png'});
-";
-*/
-    // Create the map and get a new map instance attached and element with id="tile-map"
-    $js = "\nvar map = new L.Map('map', {".$worldcopyjump."});\n";
-    $js .= "map.attributionControl.setPrefix('');\n";
-    $js .= "var baselayer = new L.TileLayer('".$baselayerurl."', {maxZoom: 18, noWrap: ".$nowarp.", attribution: '".$attribution."'});\n";
-    $js .= "var coord = new L.LatLng(".$lat.", ".$lon.");\n";
-    $js .= "var marker = new L.Marker(coord);\n";
-    //$js .= "var marker = new L.Marker(coord, {icon: bluemapicons});\n";
-    $js .= "map.addLayer(marker);\n";
-
-    // set map view
-    $js .= "map.setView(coord, ".$zoom.").addLayer(baselayer);\n";
-
-    $js .= "\n<!-- pop up full OSM license when clicked -->
-function ShowOSMLicense()
-{
-	var osm_attrib = document.getElementById('osm_attrib');
-	if (osm_attrib.style['display'] != 'none') {
-		osm_attrib.setAttribute('style','visibility:hidden;');
-		osm_attrib.setAttribute('style','display: none;');
-	} else {
-		osm_attrib.removeAttribute('style');
-	}
-}
-\n\n";
+    $js = osm_get_js($conf, $local_conf, $js_data);
 
     // Select the template
     $template->set_filenames(

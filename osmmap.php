@@ -68,16 +68,16 @@ if (isset($page['category']))
 	check_restrictions($page['category']['id']);
 
 $local_conf = array()
-$local_conf[zoom] = '2';
-$local_conf[center_lat] = '0';
-$local_conf[center_lng] = '0';
-$local_conf[tmpl] = 'osm-map.tpl'
-$local_conf[pinid] = 1;
-$local_conf[contextmenu] = false;
-$local_conf[available_pin] = '';
-$local_conf[control] = false;
+$local_conf['zoom'] = '2';
+$local_conf['center_lat'] = '0';
+$local_conf['center_lng'] = '0';
+$local_conf['pinid'] = 1;
+$local_conf['contextmenu'] = false;
+$local_conf['available_pin'] = '';
+$local_conf['control'] = false;
+$local_conf['img_popup'] = false;
 
 $js_data = osm_get_items($page);
 $js = osm_get_js($conf, $local_conf, $js_data);
-osm_gen_template($conf, $local_conf, $js_data, $template)
+osm_gen_template($conf, 'osm-map.tpl', $js_data, $template)
 ?>

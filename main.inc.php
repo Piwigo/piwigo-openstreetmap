@@ -114,30 +114,4 @@ function osm_strbool($value)
 	return $value ? 'true' : 'false';
 }
 
-function osmcopyright($attrleaflet, $attrimagery, $attrmodule, $bl, $custombaselayer)
-{
-	$return = "";
-
-	if ($attrleaflet) $return .= '<a href="http://leafletjs.com/" target="_blank">Leaflet</a> ';
-
-	if ($attrmodule) $return .= l10n('PLUGINBY').' <a href="https://github.com/xbgmsharp/piwigo-openstreetmap" target="_blank">xbgmsharp</a> ';
-
-	if ($attrimagery)
-	{
-		$return .= " ";
-		if     ($bl == 'mapnik')	$return .= "Tiles Courtesy of OSM.org (CC BY-SA)";
-		else if($bl == 'mapnikfr')	$return .= "Tiles Courtesy of Openstreetmap.fr (CC BY-SA)";
-		else if($bl == 'mapnikde')	$return .= "Tiles Courtesy of Openstreetmap.de (CC BY-SA)";
-		else if($bl == 'blackandwhite')	$return .= "Tiles Courtesy of OSM.org (CC BY-SA)";
-		else if($bl == 'mapnikhot')	$return .= 'Tiles Courtesy of &copy; <a href="http://hot.openstreetmap.org/" target="_blank">Humanitarian OpenStreetMap Team</a>';
-		else if($bl == 'cloudmade')	$return .= 'Tiles Courtesy of &copy; <a href="http://cloudmade.com">CloudMade</a> ';
-		else if($bl == 'mapquest')	$return .= 'Tiles Courtesy of &copy; <a href="http://www.mapquest.com/">MapQuest</a>';
-		else if($bl == 'mapquestaerial')	$return .= 'Tiles Courtesy of <a href="http://www.mapquest.com/">MapQuest</a> &mdash; Portions Courtesy NASA/JPL-Caltech and U.S. Depart. of Agriculture, Farm Service Agency';
-		else if($bl == 'custom')	$return .= $custombaselayer;
-	}
-	// Mandatory by http://www.openstreetmap.org/copyright
-	$return .= ' &copy; <a href="http://www.openstreetmap.org" target="_blank">OpenStreetMap</a> contributors, (<a href="http://www.openstreetmap.org/copyright" target="_blank">ODbL</a>)';
-	return $return;
-}
-
 ?>

@@ -67,22 +67,21 @@ $page = array_merge( $page, $result );
 if (isset($page['category']))
 	check_restrictions($page['category']['id']);
 
-$local_conf[pinid] = isset($conf['osm_conf']['pin']['pin']) ? $conf['osm_conf']['pin']['pin'] : 1;
-$local_conf[pinpath] = isset($conf['osm_conf']['pin']['pinpath']) ? $conf['osm_conf']['pin']['pinpath'] : '';
-$local_conf[pinsize] = isset($conf['osm_conf']['pin']['pinsize']) ? $conf['osm_conf']['pin']['pinsize'] : '';
-$local_conf[pinshadowpath] = isset($conf['osm_conf']['pin']['pinshadowpath']) ? $conf['osm_conf']['pin']['pinshadowpath'] : '';
-$local_conf[pinshadowsize] = isset($conf['osm_conf']['pin']['pinshadowsize']) ? $conf['osm_conf']['pin']['pinshadowsize'] : '';
-$local_conf[pinoffset] = isset($conf['osm_conf']['pin']['pinoffset']) ? $conf['osm_conf']['pin']['pinoffset'] : '';
-$local_conf[pinpopupoffset] = isset($conf['osm_conf']['pin']['pinpopupoffset']) ? $conf['osm_conf']['pin']['pinpopupoffset'] : '';
-
 $local_conf = array()
+$local_conf['pinid'] = isset($conf['osm_conf']['pin']['pin']) ? $conf['osm_conf']['pin']['pin'] : 1;
+$local_conf['pinpath'] = isset($conf['osm_conf']['pin']['pinpath']) ? $conf['osm_conf']['pin']['pinpath'] : '';
+$local_conf['pinsize'] = isset($conf['osm_conf']['pin']['pinsize']) ? $conf['osm_conf']['pin']['pinsize'] : '';
+$local_conf['pinshadowpath'] = isset($conf['osm_conf']['pin']['pinshadowpath']) ? $conf['osm_conf']['pin']['pinshadowpath'] : '';
+$local_conf['pinshadowsize'] = isset($conf['osm_conf']['pin']['pinshadowsize']) ? $conf['osm_conf']['pin']['pinshadowsize'] : '';
+$local_conf['pinoffset'] = isset($conf['osm_conf']['pin']['pinoffset']) ? $conf['osm_conf']['pin']['pinoffset'] : '';
+$local_conf['pinpopupoffset'] = isset($conf['osm_conf']['pin']['pinpopupoffset']) ? $conf['osm_conf']['pin']['pinpopupoffset'] : '';
+
 /* If we have zoom and center coordonate, set it otherwise fallback default */
-$local_conf[zoom] = isset($_GET['zoom']) ? $_GET['zoom'] : '2';
-$local_conf[center_lat] = isset($_GET['center_lat']) ? $_GET['center_lat'] : '0';
-$local_conf[center_lng] = isset($_GET['center_lng']) ? $_GET['center_lng'] : '0';
-$local_conf[tmpl] = 'osm-map2.tpl'
-$local_conf[contextmenu] = true;
-$local_conf[available_pin] = array(
+$local_conf['zoom'] = isset($_GET['zoom']) ? $_GET['zoom'] : '2';
+$local_conf['center_lat'] = isset($_GET['center_lat']) ? $_GET['center_lat'] : '0';
+$local_conf['center_lng'] = isset($_GET['center_lng']) ? $_GET['center_lng'] : '0';
+$local_conf['contextmenu'] = true;
+$local_conf['available_pin'] = array(
 	'0' => '',
 	'1' => '',
 	'2' => 'PlgIconGreen',
@@ -95,9 +94,10 @@ $local_conf[available_pin] = array(
 	'9' => 'CustomIcon',
 	'10' => 'ImgIcon'
 );
-$local_conf[control] = true;
+$local_conf['control'] = true;
+$local_conf['img_popup'] = true;
 
 $js_data = osm_get_items($page);
 $js = osm_get_js($conf, $local_conf, $js_data);
-osm_gen_template($conf, $local_conf, $js_data, $template)
+osm_gen_template($conf, 'osm-map2.tpl', $js_data, $template)
 ?>

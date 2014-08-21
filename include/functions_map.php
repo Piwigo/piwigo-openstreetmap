@@ -24,6 +24,32 @@
 *
 ************************************************/
 
+function osmcopyright($attrleaflet, $attrimagery, $attrmodule, $bl, $custombaselayer)
+{
+	$return = "";
+
+	if ($attrleaflet) $return .= '<a href="http://leafletjs.com/" target="_blank">Leaflet</a> ';
+
+	if ($attrmodule) $return .= l10n('PLUGINBY').' <a href="https://github.com/xbgmsharp/piwigo-openstreetmap" target="_blank">xbgmsharp</a> ';
+
+	if ($attrimagery)
+	{
+		$return .= " ";
+		if     ($bl == 'mapnik')	$return .= "Tiles Courtesy of OSM.org (CC BY-SA)";
+		else if($bl == 'mapnikfr')	$return .= "Tiles Courtesy of Openstreetmap.fr (CC BY-SA)";
+		else if($bl == 'mapnikde')	$return .= "Tiles Courtesy of Openstreetmap.de (CC BY-SA)";
+		else if($bl == 'blackandwhite')	$return .= "Tiles Courtesy of OSM.org (CC BY-SA)";
+		else if($bl == 'mapnikhot')	$return .= 'Tiles Courtesy of &copy; <a href="http://hot.openstreetmap.org/" target="_blank">Humanitarian OpenStreetMap Team</a>';
+		else if($bl == 'cloudmade')	$return .= 'Tiles Courtesy of &copy; <a href="http://cloudmade.com">CloudMade</a> ';
+		else if($bl == 'mapquest')	$return .= 'Tiles Courtesy of &copy; <a href="http://www.mapquest.com/">MapQuest</a>';
+		else if($bl == 'mapquestaerial')	$return .= 'Tiles Courtesy of <a href="http://www.mapquest.com/">MapQuest</a> &mdash; Portions Courtesy NASA/JPL-Caltech and U.S. Depart. of Agriculture, Farm Service Agency';
+		else if($bl == 'custom')	$return .= $custombaselayer;
+	}
+	// Mandatory by http://www.openstreetmap.org/copyright
+	$return .= ' &copy; <a href="http://www.openstreetmap.org" target="_blank">OpenStreetMap</a> contributors, (<a href="http://www.openstreetmap.org/copyright" target="_blank">ODbL</a>)';
+	return $return;
+}
+
 function osm_get_items($page)
 {
     // Limit search by category, by tag, by smartalbum
@@ -155,7 +181,10 @@ function osm_get_items($page)
 function osm_get_js($conf, $local_conf)
 {
     // Load parameter, fallback to default if unset
-    $popup = isset($conf['osm_conf']['left_menu']['popup']) ? $conf['osm_conf']['left_menu']['popup'] : 0;
+    if (isset($local_conf['popup']))
+        popup = $local_conf['popup']
+    else
+        $popup = isset($conf['osm_conf']['left_menu']['popup']) ? $conf['osm_conf']['left_menu']['popup'] : 0;
     $popupinfo_name = isset($conf['osm_conf']['left_menu']['popupinfo_name']) ? $conf['osm_conf']['left_menu']['popupinfo_name'] : 0;
     $popupinfo_img = isset($conf['osm_conf']['left_menu']['popupinfo_img']) ? $conf['osm_conf']['left_menu']['popupinfo_img'] : 0;
     $popupinfo_link = isset($conf['osm_conf']['left_menu']['popupinfo_link']) ? $conf['osm_conf']['left_menu']['popupinfo_link'] : 0;
@@ -204,12 +233,12 @@ function osm_get_js($conf, $local_conf)
     $js .= "\nvar Url = '".$baselayerurl."',
     Attribution = '".$attribution."',
     TileLayer = new L.TileLayer(Url, {maxZoom: 18, noWrap: ".$nowarp.", attribution: Attribution}),
-    latlng = new L.LatLng(".$local_conf[center_lat].", ".$local_conf[center_lng].");\n";
-    $js .= "var map = new L.Map('map', {center: latlng, zoom: ".$local_conf[zoom].", layers: [TileLayer], contextmenu: " . $local_conf[contextmenu] . "});\n";
+    latlng = new L.LatLng(".$local_conf['center_lat'].", ".$local_conf['center_lng'].");\n";
+    $js .= "var map = new L.Map('map', {" . $worldCopyJump . "center: latlng, zoom: ".$local_conf['zoom'].", layers: [TileLayer], contextmenu: " . $local_conf['contextmenu'] . "});\n";
     $js .= "map.attributionControl.setPrefix('');\n";
     $js .= "var MarkerClusterList=[];\n";
     $js .= "var markers = new L.MarkerClusterGroup();\n";
-    if ($local_conf[control] === true)
+    if ($local_conf['control'] === true)
     {
         $js .= "L.control.scale().addTo(map);\n";
         // Icons
@@ -248,17 +277,17 @@ function osm_get_js($conf, $local_conf)
         });
         ";
 
-        if ($local_conf[pinid] == 9)
+        if ($local_conf['pinid'] == 9)
         {
             $js .= "\nvar CustomIcon = L.Icon.extend({
                 options: {
-                    iconUrl: ".$local_conf[pinpath].",
-                    shadowUrl: ".$local_conf[pinshadowpath].",
-                    iconSize: [".$local_conf[pinsize]."],
-                    shadowSize: [".$local_conf[pinshadowsize]."],
-                    iconAnchor: [".$local_conf[pinoffset]."],
-                    shadowAnchor: [".$local_conf[pinoffset]."],
-                    popupAnchor: [".$local_conf[pinpopupoffset]."]
+                    iconUrl: ".$local_conf['pinpath'].",
+                    shadowUrl: ".$local_conf['pinshadowpath'].",
+                    iconSize: [".$local_conf['pinsize']."],
+                    shadowSize: [".$local_conf['pinshadowsize']."],
+                    iconAnchor: [".$local_conf['pinoffset']."],
+                    shadowAnchor: [".$local_conf['pinoffset']."],
+                    popupAnchor: [".$local_conf['pinpopupoffset']."]
                 }
             });";
         }
@@ -285,22 +314,21 @@ function osm_get_js($conf, $local_conf)
     }
     $js .= "for (var i = 0; i < addressPoints.length; i++) {
         var a = addressPoints[i];
+        var latlng = new L.LatLng(a[0], a[1]);
         var title = a[2];
         var pathurl = a[3];
         var imgurl = a[4];
         var comment = a[5];
         var author = a[6];
         var width = a[7];
-        var latlng = new L.LatLng(a[0], a[1]);
-        var marker = new L.Marker(latlng, { title: title });
         ";
 
     // create Marker
-    if ($local_conf[pinid] == 1) { // 0 is No Marker
+    if ($local_conf['pinid'] == 1) { // 0 is No Marker
         $js .= "var marker = new L.Marker(latlng, { title: title });\n";
-    } else if ($local_conf[pinid] >= 2 and $local_conf[pinid] <= 9) {
-        $js .= "var marker = new L.Marker(latlng, { title: title, icon: ".$local_conf[available_pin][$local_conf[pinid]]."});\n";
-    } else if ($local_conf[pinid] == 10) {
+    } else if ($local_conf['pinid'] >= 2 and $local_conf['pinid'] <= 9) {
+        $js .= "var marker = new L.Marker(latlng, { title: title, icon: ".$local_conf['available_pin'][$local_conf['pinid']]."});\n";
+    } else if ($local_conf['pinid'] == 10) {
         $js .= "var marker = new L.Marker(latlng, { title: title, icon: new ImgIcon({iconUrl: pathurl})});\n";
     }
 
@@ -318,7 +346,7 @@ function osm_get_js($conf, $local_conf)
         }
         else if($popupinfo_img and $popupinfo_link)
         {
-            if ($local_conf[popup] == true)
+            if ($local_conf['img_popup'] == true)
                 $attribute = ' target=\"_blank\"';
             else
                 $attribute = '';
@@ -344,7 +372,7 @@ function osm_get_js($conf, $local_conf)
     return $js;
 }
 
-function osm_gen_template($conf, $local_conf, $js, $template)
+function osm_gen_template($conf, $js, $tmpl, $template)
 {
     $linkname = isset($conf['osm_conf']['left_menu']['link']) ? $conf['osm_conf']['left_menu']['link'] : 'OS World Map';
     $template->set_filename('map', dirname(__FILE__). '/template/' . $tmpl);
