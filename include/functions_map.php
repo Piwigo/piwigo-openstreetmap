@@ -178,11 +178,11 @@ function osm_get_items($page)
     return $js_data;
 }
 
-function osm_get_js($conf, $local_conf)
+function osm_get_js($conf, $local_conf, $js_data)
 {
     // Load parameter, fallback to default if unset
     if (isset($local_conf['popup']))
-        popup = $local_conf['popup']
+        $popup = $local_conf['popup'];
     else
         $popup = isset($conf['osm_conf']['left_menu']['popup']) ? $conf['osm_conf']['left_menu']['popup'] : 0;
     $popupinfo_name = isset($conf['osm_conf']['left_menu']['popupinfo_name']) ? $conf['osm_conf']['left_menu']['popupinfo_name'] : 0;
@@ -234,10 +234,11 @@ function osm_get_js($conf, $local_conf)
     Attribution = '".$attribution."',
     TileLayer = new L.TileLayer(Url, {maxZoom: 18, noWrap: ".$nowarp.", attribution: Attribution}),
     latlng = new L.LatLng(".$local_conf['center_lat'].", ".$local_conf['center_lng'].");\n";
-    $js .= "var map = new L.Map('map', {" . $worldCopyJump . "center: latlng, zoom: ".$local_conf['zoom'].", layers: [TileLayer], contextmenu: " . $local_conf['contextmenu'] . "});\n";
+    $js .= "var map = new L.Map('map', {" . $worldcopyjump . ", center: latlng, zoom: ".$local_conf['zoom'].", layers: [TileLayer], contextmenu: " . $local_conf['contextmenu'] . "});\n";
     $js .= "map.attributionControl.setPrefix('');\n";
     $js .= "var MarkerClusterList=[];\n";
-    $js .= "var markers = new L.MarkerClusterGroup();\n";
+    $js .= "if (typeof L.MarkerClusterGroup === 'function')\n";
+    $js .= "     var markers = new L.MarkerClusterGroup();\n";
     if ($local_conf['control'] === true)
     {
         $js .= "L.control.scale().addTo(map);\n";
@@ -312,6 +313,7 @@ function osm_get_js($conf, $local_conf)
 
         ";
     }
+
     $js .= "for (var i = 0; i < addressPoints.length; i++) {
         var a = addressPoints[i];
         var latlng = new L.LatLng(a[0], a[1]);
@@ -360,22 +362,26 @@ function osm_get_js($conf, $local_conf)
         {
             $myinfo .= "<br />'+author+'";
         }
-        $myinfo .= "</p></div>";
+        $myinfo .= "</p></div>'";
         $js .= "\tvar myinfo = ".$myinfo.";\n";
         $js .= "\tmarker.bindPopup(myinfo, {minWidth: '+width+'});\n";
     }
 
-        $js .= "\tmarkers.addLayer(marker);\n";
-        $js .= "\tMarkerClusterList.push(marker);
-    }";
-    $js .= "\nmap.addLayer(markers);\n";
+        $js .= "\nif (typeof L.MarkerClusterGroup === 'function')
+\t    markers.addLayer(marker);
+\telse
+\t    map.addLayer(marker);
+\tMarkerClusterList.push(marker);
+\t}";
+    $js .= "\nif (typeof L.MarkerClusterGroup === 'function')\n";
+    $js .= "    map.addLayer(markers);\n";
     return $js;
 }
 
-function osm_gen_template($conf, $js, $tmpl, $template)
+function osm_gen_template($conf, $js, $js_data, $tmpl, $template)
 {
     $linkname = isset($conf['osm_conf']['left_menu']['link']) ? $conf['osm_conf']['left_menu']['link'] : 'OS World Map';
-    $template->set_filename('map', dirname(__FILE__). '/template/' . $tmpl);
+    $template->set_filename('map', dirname(__FILE__). '/../template/' . $tmpl);
 
     $template->assign(
         array(
@@ -386,7 +392,7 @@ function osm_gen_template($conf, $js, $tmpl, $template)
             'HOME_PREV'         => isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : get_absolute_root_url(),
             'HOME_NAME'         => l10n("Home"),
             'HOME_PREV_NAME'    => l10n("Previous"),
-            'TOTAL'             => sprintf( l10n('%d items'), count($php_data) ),
+            'TOTAL'             => sprintf( l10n('%d items'), count($js_data) ),
             'OSMJS'				=> $js,
             'MYROOT_URL'		=> get_absolute_root_url(),
         )
