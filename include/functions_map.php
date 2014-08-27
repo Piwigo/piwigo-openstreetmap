@@ -46,7 +46,8 @@ function osmcopyright($attrleaflet, $attrimagery, $attrmodule, $bl, $custombasel
 		else if($bl == 'custom')	$return .= $custombaselayer;
 	}
 	// Mandatory by http://www.openstreetmap.org/copyright
-	$return .= ' &copy; <a href="http://www.openstreetmap.org" target="_blank">OpenStreetMap</a> contributors, (<a href="http://www.openstreetmap.org/copyright" target="_blank">ODbL</a>)';
+	$return .= ' &copy; ';
+	$return .= l10n("OSM_CONTRIBUTORS");
 	return $return;
 }
 
@@ -392,7 +393,7 @@ function osm_gen_template($conf, $js, $js_data, $tmpl, $template)
             'HOME_PREV'         => isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : get_absolute_root_url(),
             'HOME_NAME'         => l10n("Home"),
             'HOME_PREV_NAME'    => l10n("Previous"),
-            'TOTAL'             => sprintf( l10n('%d items'), count($js_data) ),
+            'TOTAL'             => sprintf( l10n('ITEMS'), count($js_data) ),
             'OSMJS'				=> $js,
             'MYROOT_URL'		=> get_absolute_root_url(),
         )

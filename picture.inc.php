@@ -67,13 +67,13 @@ function osm_insert_map($content, &$smarty)
 	<script type="text/javascript">{$OSMJS}</script>
 	<div id="osm_attrib" style="visibility: hidden; display: none;">
 		<ul>
-			<li>Plugin by <a href="https://github.com/xbgmsharp/piwigo-openstreetmap" target="_blank">xbgmsharp</a></li>
+			<li>{"PLUGIN_BY"|@translate}</li>
 			<li><a href="http://leafletjs.com/" target="_blank">Leaflet</a></li>
-			<li>&copy; <a href="http://www.openstreetmap.org" target="_blank">OpenStreetMap</a> contributors, (<a href="http://www.openstreetmap.org/copyright" target="_blank">ODbL</a>)</li>
+			<li>&copy; {"OSM_CONTRIBUTORS"|@translate}</li>
 		</ul>
 	</div>
 	{if $SHOWOSM}
-        View on <a href="{$OSMLINK}" target="_blank">OpenStreetMap</a>
+        <a href="{$OSMLINK}" target="_blank">{"VIEW_OSM"|@translate}</a>
 	{/if}
     </dd>
 </div>

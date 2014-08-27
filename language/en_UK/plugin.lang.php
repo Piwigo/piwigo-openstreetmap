@@ -87,4 +87,28 @@ $lang['LONGITUDE'] = 'Longitude';
 $lang['EDIT_MAP'] = 'Map';
 $lang['EDIT_UPDATE_LOCATION_DESC'] = 'Click inside the map to update location.';
 
+$lang['PLUGIN_BY'] = 'Plugin by <a href="https://github.com/xbgmsharp/piwigo-openstreetmap" target="_blank">xbgmsharp</a>';
+$lang['OSM_CONTRIBUTORS'] = '<a href="http://www.openstreetmap.org" target="_blank">OpenStreetMap</a> contributors, (<a href="http://www.openstreetmap.org/copyright" target="_blank">ODbL</a>)';
+$lang['VIEW_OSM'] = 'View on OpenStreetMap';
+$lang['OSWORLDMAP'] = 'OS World Map';
+$lang['ITEMS_SCREEN'] = 'Show items of this screen';
+$lang['MOUSE_OVER'] = 'Mouse over a cluster to see the bounds of its children and click a cluster to zoom to those bounds';
+$lang['ITEMS'] = '%d items';
+$lang['BROWSER_JAVASCRIPT'] = 'Your browser must have JavaScript enable';
+$lang['PIWIGO_GALLERY'] = 'Go to Piwigo gallery';
+$lang['BACK_ON_PAGE'] = 'Go to back one page';
+$lang['SHOW_ALL'] = 'Show All';
+$lang['SHOW_ALL_PIWIGO'] = 'Show all items in Piwigo gallery';
+$lang['LINK_MAP'] = 'Link to this map';
+$lang['SHARE'] = 'Share this view';
+$lang['FIND_POSITION'] = 'Find my position';
+$lang['SEARCH_MY_POSITION'] = 'Search my position on the map';
+$lang['COPY_PASTE_URL'] = 'Copy and Paste the URL below:';
+$lang['CLICKED_MAP'] = "You clicked the map at ";
+$lang['SHOW_COORD'] = 'Show coordinates';
+$lang['CENTER_MAP'] = 'Center map here';
+$lang['SHOW_ALL_ITEMS'] = 'Show all items';
+$lang['ZOOM_IN'] = 'Zoom in';
+$lang['ZOOM_OUT'] = 'Zoom out';
+$lang['METERS_FROM_POINT'] = 'You are within %s meters from this point';
 ?>

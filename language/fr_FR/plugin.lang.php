@@ -13,7 +13,7 @@ $lang['RIGHTLINK'] = "Nom du titre";
 $lang['RIGHTLINK_DESC'] = "Le nom a afficher au dessus de la carte.";
 $lang['RIGHTLINKCSS'] = "CustomCSS";
 $lang['RIGHTLINKCSS_DESC'] = "CSS style a appliquer au titre.";
-$lang['SHOWOSM'] = "Affiche 'View on OpenStreetMap'";
+$lang['SHOWOSM'] = "Affiche 'Afficher sur OpenStreetMap'";
 $lang['SHOWOSM_DESC'] = "Ajoute un lien apres la cate pour etre visualiser sur le site web OpenStreetMap.";
 
 $lang['L_MAP'] = "Configuration menu de gauche";
@@ -89,4 +89,30 @@ $lang['EDIT_UPDATE_LOCATION_DESC'] = 'Cliquez sur la carte pour mettre à jour l
 $lang['LATITUDE'] = 'Latitude';
 $lang['LONGITUDE'] = 'Longitude';
 $lang['EDIT_MAP'] = 'Carte';
+
+$lang['PLUGIN_BY'] = 'Plugin par <a href="https://github.com/xbgmsharp/piwigo-openstreetmap" target="_blank">xbgmsharp</a>';
+$lang['OSM_CONTRIBUTORS'] = 'Contributeurs <a href="http://www.openstreetmap.org" target="_blank">OpenStreetMap</a>, (<a href="http://www.openstreetmap.org/copyright" target="_blank">ODbL</a>)';
+$lang['VIEW_OSM'] = 'Afficher sur OpenStreetMap';
+$lang['OSWORLDMAP'] = 'Carte du monde';
+$lang['ITEMS_SCREEN'] = 'Voir les photos sur l\'écran';
+$lang['MOUSE_OVER'] = 'Mouse over a cluster to see the bounds of its children and click a cluster to zoom to those bounds';
+$lang['MOUSE_OVER'] = 'Passez la souris sur un groupe pour voir limites de ces enfants et cliquez sur un groupe pour zoomer sur les limites';
+$lang['ITEMS'] = '%s photos';
+$lang['BROWSER_JAVASCRIPT'] = 'Votre navigateur doit avoir la fonction javascript activée';
+$lang['PIWIGO_GALLERY'] = 'Aller sur la galerie Piwigo';
+$lang['BACK_ON_PAGE'] = 'Revenir à une page';
+$lang['SHOW_ALL'] = 'Tout voir';
+$lang['SHOW_ALL_PIWIGO'] = 'Voir toutes les photos dans une galerie Piwigo';
+$lang['LINK_MAP'] = 'Lien vers cette carte';
+$lang['SHARE'] = 'Partager cette vue';
+$lang['FIND_POSITION'] = 'Trouver ma position';
+$lang['SEARCH_MY_POSITION'] = 'Chercher ma position sur la carte';
+$lang['COPY_PASTE_URL'] = 'Copier et coller l\'URL ci-dessous:';
+$lang['CLICKED_MAP'] = "Vous avez cliqué sur la carte à ";
+$lang['SHOW_COORD'] = 'Voir les coordonnées';
+$lang['CENTER_MAP'] = 'Centre la carte ici';
+$lang['SHOW_ALL_ITEMS'] = 'Voir toutes les photos';
+$lang['ZOOM_IN'] = 'Zoomer';
+$lang['ZOOM_OUT'] = 'Dézoomer';
+$lang['METERS_FROM_POINT'] = 'Vous êtes à %s mètres de ce point';
 ?>

@@ -216,7 +216,7 @@ a:hover.tooltips span {
 {/literal}{/html_style}{/html_head}
 </head>
 <body>
-<noscript>Your browser must have JavaScript enable</noscript> 
+<noscript>{'BROWSER_JAVASCRIPT'|@translate}</noscript> 
 
 <div id="map"></div>
 <!-- <div id="content"></div> -->
@@ -230,18 +230,18 @@ a:hover.tooltips span {
 
 	<div id="ribbon-map-toggle" class="show">
 		<div id="ribbon-map-nav">
-			<span class="osm-home"></span><a href="{$HOME}" class="tooltips">{$HOME_NAME}<span>Go to Piwigo gallery</span></a><br/>
-			<span class="osm-left-big"></span><a href="{$HOME_PREV}" class="tooltips">{$HOME_PREV_NAME}<span>Go to back one page</span></a>
+			<span class="osm-home"></span><a href="{$HOME}" class="tooltips">{$HOME_NAME}<span>{'PIWIGO_GALLERY'|@translate}</span></a><br/>
+			<span class="osm-left-big"></span><a href="{$HOME_PREV}" class="tooltips">{$HOME_PREV_NAME}<span>{'BACK_ON_PAGE'|@translate}</span></a>
 		</div>
 
 		<div id="ribbon-map-results">
 			<b id="nb_showall" style="color: rgb(204, 0, 0);">{$TOTAL}</b><br/>
-			<span class="osm-link-ext"></span><a id="map-showall" target="_blank" href="" class="tooltips">Show All<span>Show all items in Piwigo gallery</span></a>
+			<span class="osm-link-ext"></span><a id="map-showall" target="_blank" href="" class="tooltips">{'SHOW_ALL'|@translate}<span>{'SHOW_ALL_PIWIGO'|@translate}</span></a>
 		</div>
 
 		<div id="ribbon-map-location">
-			<span class="osm-link"></span><a href="#" onclick="linkToThisMap();" id="opener" class="tooltips">Link to this map<span>Share this view</span></a><br/>
-			<span class="osm-direction"></span><a href="#" onclick="findMyLocation();" class="tooltips">Find my position<span>Search my position on the map</span></a>
+			<span class="osm-link"></span><a href="#" onclick="linkToThisMap();" id="opener" class="tooltips">{'LINK_MAP'|@translate}<span>{'SHARE'|@translate}</span></a><br/>
+			<span class="osm-direction"></span><a href="#" onclick="findMyLocation();" class="tooltips">{'FIND_POSITION'|@translate}<span>{'SEARCH_MY_POSITION'|@translate}</span></a>
 		</div>
 
 		<div id="ribbon-map-wrapper" style="visibility:hidden; max-width: 0px;">
@@ -263,8 +263,8 @@ a:hover.tooltips span {
 	</div> <!-- ribbon-map-toggle -->
 </div> <!-- ribbon-map -->
 
-<div id="dialog" title="Link to this map">
-	<p>Copy and Paste the URL below:</p>
+<div id="dialog" title="{'LINK_MAP'|@translate}">
+	<p>{'COPY_PASTE_URL'|@translate}</p>
 	<input type="text" value="" style="width: 550px;" onfocus="this.select();" id="textfield"></input>
 </div>
 
@@ -359,7 +359,7 @@ function toggle(arrow)
 		var popup = L.popup();
 		popup
 			.setLatLng(e.latlng)
-			.setContent("You clicked the map at " + e.latlng.toString())
+			.setContent({/literal}{'CLICKED_MAP'|@translate}{literal} + e.latlng.toString())
 			.openOn(map);
 	}
 
@@ -413,15 +413,15 @@ function toggle(arrow)
 	map.contextmenu.addItem({text: '{/literal}{$HOME_NAME}{literal}', iconCls: 'osm-home', callback: goHome});
 	map.contextmenu.addItem({text: '{/literal}{$HOME_PREV_NAME}{literal}', iconCls: 'osm-left-big', callback: goBack});
 	map.contextmenu.addItem('-');
-	map.contextmenu.addItem({text: 'Show coordinates', iconCls: 'osm-pin', callback: showCoordinates});
-	map.contextmenu.addItem({text: 'Center map here', iconCls: 'osm-location', callback: centerMap});
+	map.contextmenu.addItem({text: '{/literal}{'SHOW_COORD'|@translate}{literal}', iconCls: 'osm-pin', callback: showCoordinates});
+	map.contextmenu.addItem({text: '{/literal}{'CENTER_MAP'|@translate}{literal}', iconCls: 'osm-location', callback: centerMap});
 	map.contextmenu.addItem('-');
-	map.contextmenu.addItem({text: 'Show all items', iconCls: 'osm-link-ext', callback: goShowAll});
-	map.contextmenu.addItem({text: 'Link to this map', iconCls: 'osm-link', callback: linkToThisMap});
-	map.contextmenu.addItem({text: 'Find my position', iconCls: 'osm-direction', callback: findMyLocation});
+	map.contextmenu.addItem({text: '{/literal}{'SHOW_ALL_ITEMS'|@translate}{literal}', iconCls: 'osm-link-ext', callback: goShowAll});
+	map.contextmenu.addItem({text: '{/literal}{'LINK_MAP'|@translate}{literal}', iconCls: 'osm-link', callback: linkToThisMap});
+	map.contextmenu.addItem({text: '{/literal}{'FIND_POSITION'|@translate}{literal}', iconCls: 'osm-direction', callback: findMyLocation});
 	map.contextmenu.addItem({separator: true});
-	map.contextmenu.addItem({text: 'Zoom in', iconCls: 'osm-zoom-in', callback: zoomIn});
-	map.contextmenu.addItem({text: 'Zoom out', iconCls: 'osm-zoom-out', callback: zoomOut});
+	map.contextmenu.addItem({text: '{/literal}{'ZOOM_IN'|@translate}{literal}', iconCls: 'osm-zoom-in', callback: zoomIn});
+	map.contextmenu.addItem({text: '{/literal}{'ZOOM_OUT'|@translate}{literal}', iconCls: 'osm-zoom-out', callback: zoomOut});
 	/* END leaflet-locatecontrol */
 
 	/* BEGIN piwigo-openstreetmap plugin */
@@ -470,7 +470,7 @@ function toggle(arrow)
 			}
 		}
 		/* Update items counts */
-		document.getElementById("nb_showall").innerHTML = nb_items +' items';
+		document.getElementById("nb_showall").innerHTML = {/literal}{'ITEMS'|@translate}{literal};
 
 		/* Update jcarousel and all witdh*/
 		if (nb_items>0) {
@@ -531,9 +531,9 @@ function toggle(arrow)
 	/* BEGIN leaflet Location */
 	function onLocationFound(e) {
 		var radius = e.accuracy / 2;
-
+		var str = {/literal}{'METERS_FROM_POINT'|@translate}{literal};
 		L.marker(e.latlng).addTo(map)
-			.bindPopup("You are within " + radius + " meters from this point").openPopup();
+			.bindPopup(str.replace('%d', radius)).openPopup();
 
 		L.circle(e.latlng, radius).addTo(map);
 	}

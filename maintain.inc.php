@@ -55,7 +55,7 @@ function plugin_install()
 			),
 		'left_menu' => array(
 			'enabled'		=> true,
-			'link'			=> 'OS World Map',
+			'link'			=> l10n('OSWORLDMAP'),
 			'popup'			=> 0,
 			'popupinfo_name'	=> true,
 			'popupinfo_img'		=> true,
