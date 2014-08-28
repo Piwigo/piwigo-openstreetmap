@@ -55,32 +55,35 @@ function osm_get_items($page)
 {
     // Limit search by category, by tag, by smartalbum
     $LIMIT_SEARCH="";
+    $INNER_JOIN="";
     if (isset($page['section']))
     {
-        if ($page['section']='categories' and isset($page['category']) and isset($page['category']['id']) )
+        if ($page['section'] === 'categories' and isset($page['category']) and isset($page['category']['id']) )
         {
-            $LIMIT_SEARCH = "`storage_category_id` = ".$page['category']['id']." AND ";
+            $LIMIT_SEARCH = "FIND_IN_SET(".$page['category']['id'].", c.uppercats) AND ";
+            $INNER_JOIN = "INNER JOIN ".CATEGORIES_TABLE." AS c ON ic.category_id = c.id";
         }
-        if ($page['section']='tags' and isset($page['tags']) and isset($page['tags'][0]['id']) )
+        if ($page['section'] === 'tags' and isset($page['tags']) and isset($page['tags'][0]['id']) )
         {
             $items = get_image_ids_for_tags( array($page['tags'][0]['id']) );
             if ( !empty($items) )
             {
-                $LIMIT_SEARCH = "image_id IN (".implode(',', $items).") AND ";
+                $LIMIT_SEARCH = "ic.image_id IN (".implode(',', $items).") AND ";
             }
         }
-        if ($page['section']='tags' and isset($page['category']) and isset($page['category']['id']) )
+        if ($page['section'] === 'tags' and isset($page['category']) and isset($page['category']['id']) )
         {
-            $LIMIT_SEARCH = "category_id=".$page['category']['id']." AND ";
+            $LIMIT_SEARCH = "FIND_IN_SET(".$page['category']['id'].", c.uppercats) AND ";
+            $INNER_JOIN = "INNER JOIN ".CATEGORIES_TABLE." AS c ON ic.category_id = c.id";
         }
     }
 
     $forbidden = get_sql_condition_FandF(
         array
         (
-            'forbidden_categories' => 'category_id',
-            'visible_categories' => 'category_id',
-            'visible_images' => 'id'
+            'forbidden_categories' => 'ic.category_id',
+            'visible_categories' => 'ic.category_id',
+            'visible_images' => 'i.id'
         ),
         "\n AND"
     );
@@ -89,6 +92,7 @@ function osm_get_items($page)
     if (isset($_GET['min_lat']) and isset($_GET['max_lat']) and isset($_GET['min_lng']) and isset($_GET['max_lng']))
     {
         $LIMIT_SEARCH="";
+        $INNER_JOIN="";
 
         /* Delete all previous album */
         $query="SELECT `id` FROM ".CATEGORIES_TABLE." WHERE `name` = 'Locations' AND `comment` LIKE '%OSM plugin%';";
@@ -115,7 +119,7 @@ function osm_get_items($page)
     WHERE ".$LIMIT_SEARCH." `latitude` IS NOT NULL AND `longitude` IS NOT NULL 
     AND `latitude` > ".$_GET['min_lat']." AND `latitude` < ".$_GET['max_lat']."
     AND `longitude` > ".$_GET['min_lng']." AND `longitude` < ".$_GET['max_lng']."
-    ".$forbidden." GROUP BY id;";
+    ".$forbidden.";";
 
         $items = hash_from_query( $query, 'id');
 
@@ -136,28 +140,28 @@ function osm_get_items($page)
     // SUBSTRING_INDEX(TRIM(LEADING '.' FROM `path`), '.', 1) full path without filename extension
     // SUBSTRING_INDEX(TRIM(LEADING '.' FROM `path`), '.', -1) full path with only filename extension
 
-    $query="SELECT `latitude`, `longitude`, 
-    IFNULL(`name`, '') AS `name`, 
-    IF(`representative_ext` IS NULL, 
-        CONCAT(SUBSTRING_INDEX(TRIM(LEADING '.' FROM `path`), '.', 1 ), '-sq.', SUBSTRING_INDEX(TRIM(LEADING '.' FROM `path`), '.', -1 )), 
+    $query="SELECT i.latitude, i.longitude,
+    IFNULL(i.name, '') AS `name`,
+    IF(i.representative_ext IS NULL,
+        CONCAT(SUBSTRING_INDEX(TRIM(LEADING '.' FROM i.path), '.', 1 ), '-sq.', SUBSTRING_INDEX(TRIM(LEADING '.' FROM i.path), '.', -1 )),
         TRIM(LEADING '.' FROM
-            REPLACE(`path`, `file`,
-                    CONCAT('pwg_representative/',
-                        CONCAT(
-                            TRIM(TRAILING '.' FROM SUBSTRING_INDEX(`file`, '.', 1 )),
-                            CONCAT('-sq.', `representative_ext`)
-                        )
+            REPLACE(i.path, i.file,
+                CONCAT('pwg_representative/',
+                    CONCAT(
+                        TRIM(TRAILING '.' FROM SUBSTRING_INDEX(i.file, '.', 1 )),
+                        CONCAT('-sq.', i.representative_ext)
                     )
                 )
             )
-    ) AS `pathurl`, 
-    TRIM(TRAILING '/' FROM CONCAT( `id`, '/category/', IFNULL(`storage_category_id`, '') ) ) as `imgurl`, 
-    IFNULL(`comment`, '') AS `comment`,
-    IFNULL(`author`, '') AS `author`,
-    `width`
+        )
+    ) AS `pathurl`,
+    TRIM(TRAILING '/' FROM CONCAT( i.id, '/category/', IFNULL(i.storage_category_id, '') ) ) AS `imgurl`,
+    IFNULL(i.comment, '') AS `comment`,
+    IFNULL(i.author, '') AS `author`,
+    i.width
         FROM ".IMAGES_TABLE." AS i
-            INNER JOIN ".IMAGE_CATEGORY_TABLE." AS ic ON id = ic.image_id
-            WHERE ".$LIMIT_SEARCH." `latitude` IS NOT NULL AND `longitude` IS NOT NULL ".$forbidden." GROUP BY id;";
+            INNER JOIN (".IMAGE_CATEGORY_TABLE." AS ic ".$INNER_JOIN.") ON i.id = ic.image_id
+            WHERE ".$LIMIT_SEARCH." i.latitude IS NOT NULL AND i.longitude IS NOT NULL ".$forbidden.";";
     //echo $query;
     $php_data = array_from_query($query);
     //print_r($php_data);
