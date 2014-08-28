@@ -37,75 +37,75 @@ global $template, $conf, $lang;
 
 // Available baselayer
 $available_baselayer = array(
-	'mapnik' 		=> 'OpenStreetMap Mapnik',
-	'blackandwhite' => 'OpenStreetMap BlackAndWhite',
-	'mapnikfr' 		=> 'OpenStreetMap FR',
-	'mapnikde' 		=> 'OpenStreetMap DE',
-	'mapnikhot' 	=> 'OpenStreetMap HOT',
-	'mapquest' 		=> 'MapQuestOpen',
-	'mapquestaerial' => 'MapQuestOpen Aerial',
-	'cloudmade' 	=> 'Cloudmade',
-	'custom' 		=> 'custom',
+    'mapnik' 		=> 'OpenStreetMap Mapnik',
+    'blackandwhite' => 'OpenStreetMap BlackAndWhite',
+    'mapnikfr' 		=> 'OpenStreetMap FR',
+    'mapnikde' 		=> 'OpenStreetMap DE',
+    'mapnikhot' 	=> 'OpenStreetMap HOT',
+    'mapquest' 		=> 'MapQuestOpen',
+    'mapquestaerial' => 'MapQuestOpen Aerial',
+    'cloudmade' 	=> 'Cloudmade',
+    'custom' 		=> 'custom',
 );
 
 // Available zoom value
 $available_zoom = array(
-	'1' => '1',
-	'2' => '2',
-	'3' => '3',
-	'4' => '4',
-	'5' => '5',
-	'6' => '6',
-	'7' => '7',
-	'8' => '8',
-	'9' => '9',
-	'10' => '10',
-	'11' => '11',
-	'12' => '12',
-	'13' => '13',
-	'14' => '14',
-	'15' => '15',
-	'16' => '16',
-	'17' => '17',
-	'18' => '18',
+    '1' => '1',
+    '2' => '2',
+    '3' => '3',
+    '4' => '4',
+    '5' => '5',
+    '6' => '6',
+    '7' => '7',
+    '8' => '8',
+    '9' => '9',
+    '10' => '10',
+    '11' => '11',
+    '12' => '12',
+    '13' => '13',
+    '14' => '14',
+    '15' => '15',
+    '16' => '16',
+    '17' => '17',
+    '18' => '18',
 );
 
 // Available options
 $available_add_before = array(
-	'Author' => l10n('Author'),
-	'datecreate' => l10n('Created on'),
-	'datepost' => l10n('Posted on'),
-	'Dimensions' => l10n('Dimensions'),
-	'File' => l10n('File'),
-	'Filesize' => l10n('Filesize'),
-	'Tags' => l10n('Tags'),
-	'Categories' => l10n('Albums'),
-	'Visits' => l10n('Visits'),
-	'Average' => l10n('Rating score'),
-	'rating' => l10n('Rate this photo'),
-	'Privacy' => l10n('Who can see this photo?'),
+    'Author' => l10n('Author'),
+    'datecreate' => l10n('Created on'),
+    'datepost' => l10n('Posted on'),
+    'Dimensions' => l10n('Dimensions'),
+    'File' => l10n('File'),
+    'Filesize' => l10n('Filesize'),
+    'Tags' => l10n('Tags'),
+    'Categories' => l10n('Albums'),
+    'Visits' => l10n('Visits'),
+    'Average' => l10n('Rating score'),
+    'rating' => l10n('Rate this photo'),
+    'Privacy' => l10n('Who can see this photo?'),
 );
 
 // Available pin
 $available_pin = array(
-	'0' => l10n('NOPIN'),
-	'1' => l10n('DEFAULTPIN'),
-	'2' => l10n('DEFAULTPINGREEN'),
-	'3' => l10n('DEFAULTPINRED'),
-	'4' => l10n('LEAFPINGREEN'),
-	'5' => l10n('LEAFPINORANGE'),
-	'6' => l10n('LEAFPINRED'),
-	'7' => l10n('MAPICONSBLEU'),
-	'8' => l10n('MAPICONSGREEN'),
-	'9' => l10n('OWNPIN'),
-	'10' => l10n('IMAGE'),
+    '0' => l10n('NOPIN'),
+    '1' => l10n('DEFAULTPIN'),
+    '2' => l10n('DEFAULTPINGREEN'),
+    '3' => l10n('DEFAULTPINRED'),
+    '4' => l10n('LEAFPINGREEN'),
+    '5' => l10n('LEAFPINORANGE'),
+    '6' => l10n('LEAFPINRED'),
+    '7' => l10n('MAPICONSBLEU'),
+    '8' => l10n('MAPICONSGREEN'),
+    '9' => l10n('OWNPIN'),
+    '10' => l10n('IMAGE'),
 );
 
 // Available popup
 $available_popup = array(
-	'0' => l10n('CLICK'),
-//	'1' => l10n('ALWAYS'),
-	'2' => l10n('NEVER'),
+    '0' => l10n('CLICK'),
+//    '1' => l10n('ALWAYS'),
+    '2' => l10n('NEVER'),
 );
 
 $query = 'SELECT COUNT(*) FROM '.IMAGES_TABLE.' WHERE `latitude` IS NOT NULL and `longitude` IS NOT NULL ';
@@ -114,67 +114,68 @@ list($nb_geotagged) = pwg_db_fetch_array( pwg_query($query) );
 // Update conf if submitted in admin site
 if (isset($_POST['submit']) && !empty($_POST['osm_height']))
 {
-	// On post admin form
-	$conf['osm_conf'] = array(
-		'right_panel' => array(
-			'enabled' 	=> get_boolean($_POST['osm_right_panel']),
-			'add_before' 	=> $_POST['osm_add_before'],
-			'height' 	=> $_POST['osm_height'],
-			'zoom' 		=> $_POST['osm_zoom'],
-			'link'		=> $_POST['osm_right_link'],
-			'linkcss'	=> $_POST['osm_right_linkcss'],
-			'showosm' 	=> get_boolean($_POST['osm_showosm']),
-			),
-		'left_menu' => array(
-			'enabled'       	=> get_boolean($_POST['osm_left_menu']),
-			'link'          	=> $_POST['osm_left_link'],
-			'popup'                 => $_POST['osm_left_popup'],
-			'popupinfo_name'	=> isset($_POST['osm_left_popupinfo_name']),
-			'popupinfo_img'		=> isset($_POST['osm_left_popupinfo_img']),
-			'popupinfo_link'	=> isset($_POST['osm_left_popupinfo_link']),
-			'popupinfo_comment'	=> isset($_POST['osm_left_popupinfo_comment']),
-			'popupinfo_author'	=> isset($_POST['osm_left_popupinfo_author']),
-			),
-		'map' => array(
-			'baselayer' 		=> $_POST['osm_baselayer'],
-			'custombaselayer' 	=> $_POST['osm_custombaselayer'],
-			'custombaselayerurl'	=> $_POST['osm_custombaselayerurl'],
-			'noworldwarp' 		=> get_boolean($_POST['osm_noworldwarp']),
-			'attrleaflet' 		=> get_boolean($_POST['osm_attrleaflet']),
-			'attrimagery' 		=> get_boolean($_POST['osm_attrimagery']),
-			'attrplugin' 		=> get_boolean($_POST['osm_attrplugin']),
-			),
-		'pin' => array(
-			'pin' 				=> $_POST['osm_pin'],
-			'pinpath' 			=> $_POST['osm_pinpath'],
-			'pinsize'			=> $_POST['osm_pinsize'],
-			'pinshadowpath' 	=> $_POST['osm_pinshadowpath'],
-			'pinshadowsize' 	=> $_POST['osm_pinshadowsize'],
-			'pinoffset' 		=> $_POST['osm_pinoffset'],
-			'pinpopupoffset' 	=> $_POST['osm_pinpopupoffset'],
-			),
-	);
+    // On post admin form
+    $conf['osm_conf'] = array(
+        'right_panel' => array(
+            'enabled' 	=> get_boolean($_POST['osm_right_panel']),
+            'add_before' 	=> $_POST['osm_add_before'],
+            'height' 	=> $_POST['osm_height'],
+            'zoom' 		=> $_POST['osm_zoom'],
+            'link'		=> $_POST['osm_right_link'],
+            'linkcss'	=> $_POST['osm_right_linkcss'],
+            'showosm' 	=> get_boolean($_POST['osm_showosm']),
+            ),
+        'left_menu' => array(
+            'enabled'       	=> get_boolean($_POST['osm_left_menu']),
+            'link'          	=> $_POST['osm_left_link'],
+            'popup'                 => $_POST['osm_left_popup'],
+            'popupinfo_name'	=> isset($_POST['osm_left_popupinfo_name']),
+            'popupinfo_img'		=> isset($_POST['osm_left_popupinfo_img']),
+            'popupinfo_link'	=> isset($_POST['osm_left_popupinfo_link']),
+            'popupinfo_comment'	=> isset($_POST['osm_left_popupinfo_comment']),
+            'popupinfo_author'	=> isset($_POST['osm_left_popupinfo_author']),
+            ),
+        'map' => array(
+            'baselayer' 		=> $_POST['osm_baselayer'],
+            'custombaselayer' 	=> $_POST['osm_custombaselayer'],
+            'custombaselayerurl'	=> $_POST['osm_custombaselayerurl'],
+            'noworldwarp' 		=> get_boolean($_POST['osm_noworldwarp']),
+            'attrleaflet' 		=> get_boolean($_POST['osm_attrleaflet']),
+            'attrimagery' 		=> get_boolean($_POST['osm_attrimagery']),
+            'attrplugin' 		=> get_boolean($_POST['osm_attrplugin']),
+            ),
+        'pin' => array(
+            'pin' 				=> $_POST['osm_pin'],
+            'pinpath' 			=> $_POST['osm_pinpath'],
+            'pinsize'			=> $_POST['osm_pinsize'],
+            'pinshadowpath' 	=> $_POST['osm_pinshadowpath'],
+            'pinshadowsize' 	=> $_POST['osm_pinshadowsize'],
+            'pinoffset' 		=> $_POST['osm_pinoffset'],
+            'pinpopupoffset' 	=> $_POST['osm_pinpopupoffset'],
+            ),
+        
+    );
 
-	// Update config to DB
-	conf_update_param('osm_conf', serialize($conf['osm_conf']));
+    // Update config to DB
+    conf_update_param('osm_conf', serialize($conf['osm_conf']));
 
-	// the prefilter changes, we must delete compiled templatess
-	$template->delete_compiled_templates();
-	array_push($page['infos'], l10n('Your configuration settings are saved'));
+    // the prefilter changes, we must delete compiled templatess
+    $template->delete_compiled_templates();
+    array_push($page['infos'], l10n('Your configuration settings are saved'));
 }
 
 // send value to template
 $template->assign($conf['osm_conf']);
 $template->assign(
-	array(
-		'AVAILABLE_ADD_BEFORE'	=> $available_add_before,
-		'AVAILABLE_ZOOM'	=> $available_zoom,
-		'AVAILABLE_BASELAYER'	=> $available_baselayer,
-		'AVAILABLE_PIN'		=> $available_pin,
-		'AVAILABLE_POPUP'	=> $available_popup,
-		'NB_GEOTAGGED' 		=> $nb_geotagged,
-		'OSM_PATH'          => OSM_PATH,
-	)
+    array(
+        'AVAILABLE_ADD_BEFORE'	=> $available_add_before,
+        'AVAILABLE_ZOOM'	=> $available_zoom,
+        'AVAILABLE_BASELAYER'	=> $available_baselayer,
+        'AVAILABLE_PIN'		=> $available_pin,
+        'AVAILABLE_POPUP'	=> $available_popup,
+        'NB_GEOTAGGED' 		=> $nb_geotagged,
+        'OSM_PATH'          => OSM_PATH,
+    )
 );
 
 ?>
