@@ -140,6 +140,10 @@ if (isset($_POST['submit']) && !empty($_POST['osm_height']))
             'height' 	=> $_POST['osm_cat_height'],
             'width' 	=> $_POST['osm_cat_width'],
             ),
+        'main_menu' => array(
+            'enabled' 	=> get_boolean($_POST['osm_main_menu']),
+            'height' 	=> $_POST['osm_menu_height'],
+            ),
         'map' => array(
             'baselayer' 		=> $_POST['osm_baselayer'],
             'custombaselayer' 	=> $_POST['osm_custombaselayer'],

@@ -39,6 +39,10 @@ $lang['SHOWCMAP'] = "Ajouter la carte dans la description de la catégorie";
 $lang['WIDTH'] = 'Largeur de la carte';
 $lang['WIDTH_DESC'] = 'en pixel ou auto';
 
+$lang['M_MAP'] = "Menu principal";
+$lang['SHOWMMAP'] = "Ajouter la carte dans le menu principal";
+$lang['SHOWMMAP_DESC'] = 'Show a world map menu on main menu, will display all the images in the gallery.';
+
 $lang['G_MAP'] = "Configuration de la Carte";
 $lang['BASELAYER'] = "Style de Carte";
 $lang['BASELAYER_DESC'] = "Mapnik est le style par défaut d'OpenStreetMap.";

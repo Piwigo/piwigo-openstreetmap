@@ -202,6 +202,7 @@ function osm_get_js($conf, $local_conf, $js_data)
     $attrleaflet = isset($conf['osm_conf']['map']['attrleaflet']) ? $conf['osm_conf']['map']['attrleaflet'] : 'false';
     $attrimagery = isset($conf['osm_conf']['map']['attrimagery']) ? $conf['osm_conf']['map']['attrimagery'] : 'false';
     $attrmodule = isset($conf['osm_conf']['map']['attrplugin']) ? $conf['osm_conf']['map']['attrplugin'] : 'false';
+    $divname = isset($local_conf['divname']) ? $local_conf['divname'] : 'map';
 
     // Load baselayerURL
     // Key1 BC9A493B41014CAABB98F0471D759707
@@ -239,14 +240,14 @@ function osm_get_js($conf, $local_conf, $js_data)
     Attribution = '".$attribution."',
     TileLayer = new L.TileLayer(Url, {maxZoom: 18, noWrap: ".$nowarp.", attribution: Attribution}),
     latlng = new L.LatLng(".$local_conf['center_lat'].", ".$local_conf['center_lng'].");\n";
-    $js .= "var map = new L.Map('map', {" . $worldcopyjump . ", center: latlng, zoom: ".$local_conf['zoom'].", layers: [TileLayer], contextmenu: " . $local_conf['contextmenu'] . "});\n";
-    $js .= "map.attributionControl.setPrefix('');\n";
+    $js .= "var " . $divname . " = new L.Map('" . $divname . "', {" . $worldcopyjump . ", center: latlng, zoom: ".$local_conf['zoom'].", layers: [TileLayer], contextmenu: " . $local_conf['contextmenu'] . "});\n";
+    $js .= $divname . ".attributionControl.setPrefix('');\n";
     $js .= "var MarkerClusterList=[];\n";
     $js .= "if (typeof L.MarkerClusterGroup === 'function')\n";
     $js .= "     var markers = new L.MarkerClusterGroup();\n";
     if ($local_conf['control'] === true)
     {
-        $js .= "L.control.scale().addTo(map);\n";
+        $js .= "L.control.scale().addTo(" . $divname . ");\n";
         // Icons
         $js .= "
 
@@ -375,16 +376,16 @@ function osm_get_js($conf, $local_conf, $js_data)
         $js .= "\nif (typeof L.MarkerClusterGroup === 'function')
 \t    markers.addLayer(marker);
 \telse
-\t    map.addLayer(marker);
+\t    " . $divname . ".addLayer(marker);
 \tMarkerClusterList.push(marker);
 \t}";
     $js .= "\nif (typeof L.MarkerClusterGroup === 'function')\n";
-    $js .= "    map.addLayer(markers);\n";
+    $js .= "    " . $divname . ".addLayer(markers);\n";
     if (isset($local_conf['auto_center']) and $local_conf['auto_center'] === 0 ) {
     $js .= "var group = new L.featureGroup(MarkerClusterList);";
-    $js .= "this.map.whenReady(function () {
+    $js .= "this." . $divname . ".whenReady(function () {
     window.setTimeout(function () {
-                map.fitBounds(group.getBounds());
+                " . $divname . ".fitBounds(group.getBounds());
     }.bind(this), 200);
 }, this);";
     }

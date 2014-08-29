@@ -111,7 +111,7 @@ Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" ta
 				<label>{'SHOWCMAP'|@translate} : </label>
 				<label><input type="radio" name="osm_category_description" value="true" {if $category_description.enabled}checked="checked"{/if}/> {'Yes'|@translate}</label>
 				<label><input type="radio" name="osm_category_description" value="false" {if not $category_description.enabled}checked="checked"{/if}/> {'No'|@translate}</label>
-				<br/><small>{'SHOWCMAP'|@translate}</small>
+				<br/><small>{'SHOWCMAP_DESC'|@translate}</small>
 			</li>
 			<li>
 				<label>{'HEIGHT'|@translate} : </label>
@@ -122,6 +122,22 @@ Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" ta
 				<label>{'WIDTH'|@translate} : </label>
 				<input type="text" value="{$category_description.width}" name="osm_cat_width" size="4" required/>
 				<br/><small>{'WIDTH_DESC'|@translate}</small>
+			</li>
+		</ul>
+	</fieldset>
+	<fieldset>
+		<legend>{'M_MAP'|@translate}</legend>
+		<ul>
+			<li>
+				<label>{'SHOWMMAP'|@translate} : </label>
+				<label><input type="radio" name="osm_main_menu" value="true" {if $main_menu.enabled}checked="checked"{/if}/> {'Yes'|@translate}</label>
+				<label><input type="radio" name="osm_main_menu" value="false" {if not $main_menu.enabled}checked="checked"{/if}/> {'No'|@translate}</label>
+				<br/><small>{'SHOWMMAP_DESC'|@translate}</small>
+			</li>
+			<li>
+				<label>{'HEIGHT'|@translate} : </label>
+				<input type="text" value="{$main_menu.height}" name="osm_menu_height" size="4" required/>
+				<br/><small>{'HEIGHT_DESC'|@translate}</small>
 			</li>
 		</ul>
 	</fieldset>

@@ -68,6 +68,10 @@ function plugin_install()
             'height' 	=> '200',
             'width' 	=> 'auto',
             ),
+        'main_menu' => array(
+            'enabled' 	=> false,
+            'height' 	=> '200',
+            ),
 		'map' => array(
 			'baselayer' 		=> 'mapnik',
 			'custombaselayer' 	=> null,

@@ -37,8 +37,13 @@ $lang['POPUPAUTHOR'] = "Author of the image";
 
 $lang['C_MAP'] = "Category's description";
 $lang['SHOWCMAP'] = "Add a map in category's description";
+$lang['SHOWCMAP_DESC'] = 'Show a world map menu on category\'s description, will display all the images in the gallery.';
 $lang['WIDTH'] = 'Map width';
 $lang['WIDTH_DESC'] = 'in px or auto';
+
+$lang['M_MAP'] = "Main menu";
+$lang['SHOWMMAP'] = "Add a map in main menu";
+$lang['SHOWMMAP_DESC'] = 'Show a world map menu on main menu, will display all the images in the gallery.';
 
 $lang['G_MAP'] = "Map configuration";
 $lang['BASELAYER'] = "Map style";
