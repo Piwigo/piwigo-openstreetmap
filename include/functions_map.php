@@ -380,12 +380,20 @@ function osm_get_js($conf, $local_conf, $js_data)
 \t}";
     $js .= "\nif (typeof L.MarkerClusterGroup === 'function')\n";
     $js .= "    map.addLayer(markers);\n";
+    if (isset($local_conf['auto_center']) and $local_conf['auto_center'] === 0 ) {
+    $js .= "var group = new L.featureGroup(MarkerClusterList);";
+    $js .= "this.map.whenReady(function () {
+    window.setTimeout(function () {
+                map.fitBounds(group.getBounds());
+    }.bind(this), 200);
+}, this);";
+    }
     return $js;
 }
 
 function osm_gen_template($conf, $js, $js_data, $tmpl, $template)
 {
-    $linkname = isset($conf['osm_conf']['left_menu']['link']) ? $conf['osm_conf']['left_menu']['link'] : 'OS World Map';
+    $linkname = isset($conf['osm_conf']['left_menu']['link']) ? $conf['osm_conf']['left_menu']['link'] : l10n('OSWorldMap');
     $template->set_filename('map', dirname(__FILE__). '/../template/' . $tmpl);
 
     $template->assign(

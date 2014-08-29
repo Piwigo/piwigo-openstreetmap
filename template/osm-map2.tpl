@@ -359,7 +359,7 @@ function toggle(arrow)
 		var popup = L.popup();
 		popup
 			.setLatLng(e.latlng)
-			.setContent({/literal}{'CLICKED_MAP'|@translate}{literal} + e.latlng.toString())
+			.setContent("{/literal}{'CLICKED_MAP'|@translate}{literal}" + e.latlng.toString())
 			.openOn(map);
 	}
 

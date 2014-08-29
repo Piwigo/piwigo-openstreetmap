@@ -135,6 +135,11 @@ if (isset($_POST['submit']) && !empty($_POST['osm_height']))
             'popupinfo_comment'	=> isset($_POST['osm_left_popupinfo_comment']),
             'popupinfo_author'	=> isset($_POST['osm_left_popupinfo_author']),
             ),
+        'category_description' => array(
+            'enabled' 	=> get_boolean($_POST['osm_category_description']),
+            'height' 	=> $_POST['osm_cat_height'],
+            'width' 	=> $_POST['osm_cat_width'],
+            ),
         'map' => array(
             'baselayer' 		=> $_POST['osm_baselayer'],
             'custombaselayer' 	=> $_POST['osm_custombaselayer'],

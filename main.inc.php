@@ -24,6 +24,10 @@ if (script_basename() == 'picture')
 {
 	include_once(dirname(__FILE__).'/picture.inc.php');
 }
+elseif (script_basename() == 'index')
+{
+            include_once(dirname(__FILE__).'/index.inc.php');
+}
 
 // Do we have to show a link on the left menu
 if ($conf['osm_conf']['left_menu']['enabled'])
@@ -77,9 +81,9 @@ function osm_end_index()
 	osm_load_language();
 
 	$map_url = osm_duplicate_map_index_url( array(), array('start') );
-	$link_title = sprintf( l10n('displays %s on a map'), strip_tags($page['title']) );
+	$link_title = sprintf( l10n('DISPLAY_ON_MAP'), strip_tags($page['title']) );
 	$template->concat( 'PLUGIN_INDEX_ACTIONS' , "\n<li>".sprintf(OSM_ACTION_MODEL,
-		$map_url, $link_title, '', 'map', l10n('Map')
+		$map_url, $link_title, '', 'map', l10n('MAP')
 		).'</li>');
 }
 
@@ -98,8 +102,8 @@ function osm_blockmanager_apply($mb_arr)
 		include_once( dirname(__FILE__) .'/include/functions.php');
 		load_language('plugin.lang', OSM_PATH);
 		global $conf;
-		$linkname = isset($conf['osm_conf']['left_menu']['link']) ? $conf['osm_conf']['left_menu']['link'] : 'OS World Map';
-		$link_title = sprintf( l10n('displays %s on a map'), strip_tags($conf['gallery_title']) );
+		$linkname = isset($conf['osm_conf']['left_menu']['link']) ? $conf['osm_conf']['left_menu']['link'] : l10n('OSWorldMap');
+		$link_title = sprintf( l10n('DISPLAY_ON_MAP'), strip_tags($conf['gallery_title']) );
 		$block->data['osm'] = array(
 			'URL' => osm_make_map_index_url( array('section'=>'categories') ),
 			'TITLE' => $link_title,

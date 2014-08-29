@@ -105,6 +105,27 @@ Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" ta
 		</ul>
 	</fieldset>
 	<fieldset>
+		<legend>{'C_MAP'|@translate}</legend>
+		<ul>
+			<li>
+				<label>{'SHOWCMAP'|@translate} : </label>
+				<label><input type="radio" name="osm_category_description" value="true" {if $category_description.enabled}checked="checked"{/if}/> {'Yes'|@translate}</label>
+				<label><input type="radio" name="osm_category_description" value="false" {if not $category_description.enabled}checked="checked"{/if}/> {'No'|@translate}</label>
+				<br/><small>{'SHOWCMAP'|@translate}</small>
+			</li>
+			<li>
+				<label>{'HEIGHT'|@translate} : </label>
+				<input type="text" value="{$category_description.height}" name="osm_cat_height" size="4" required/>
+				<br/><small>{'HEIGHT_DESC'|@translate}</small>
+			</li>
+			<li>
+				<label>{'WIDTH'|@translate} : </label>
+				<input type="text" value="{$category_description.width}" name="osm_cat_width" size="4" required/>
+				<br/><small>{'WIDTH_DESC'|@translate}</small>
+			</li>
+		</ul>
+	</fieldset>
+	<fieldset>
 		<legend>{'G_MAP'|@translate}</legend>
 		<ul>
 			<li>

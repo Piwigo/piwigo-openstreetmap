@@ -35,6 +35,11 @@ $lang['POPUPLINK'] = "Add a link to image";
 $lang['POPUPCOMMENT'] = "Comment of the image";
 $lang['POPUPAUTHOR'] = "Author of the image";
 
+$lang['C_MAP'] = "Category's description";
+$lang['SHOWCMAP'] = "Add a map in category's description";
+$lang['WIDTH'] = 'Map width';
+$lang['WIDTH_DESC'] = 'in px or auto';
+
 $lang['G_MAP'] = "Map configuration";
 $lang['BASELAYER'] = "Map style";
 $lang['BASELAYER_DESC'] = "Mapnik is the default style of OpenStreetMap.";
@@ -86,6 +91,9 @@ $lang['LATITUDE'] = 'Latitude';
 $lang['LONGITUDE'] = 'Longitude';
 $lang['EDIT_MAP'] = 'Map';
 $lang['EDIT_UPDATE_LOCATION_DESC'] = 'Click inside the map to update location.';
+
+$lang['DISPLAY_ON_MAP'] = 'displays %s on a map';
+$lang['MAP'] = 'Map';
 
 $lang['PLUGIN_BY'] = 'Plugin by <a href="https://github.com/xbgmsharp/piwigo-openstreetmap" target="_blank">xbgmsharp</a>';
 $lang['OSM_CONTRIBUTORS'] = '<a href="http://www.openstreetmap.org" target="_blank">OpenStreetMap</a> contributors, (<a href="http://www.openstreetmap.org/copyright" target="_blank">ODbL</a>)';

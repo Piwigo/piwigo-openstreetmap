@@ -63,18 +63,18 @@ function osm_insert_map($content, &$smarty)
 <div id="map-info" class="imageInfo">
     <dt {$OSMNAMECSS}>{$OSMNAME}</dt>
     <dd>
-	<div id="map"></div>
-	<script type="text/javascript">{$OSMJS}</script>
-	<div id="osm_attrib" style="visibility: hidden; display: none;">
-		<ul>
-			<li>{"PLUGIN_BY"|@translate}</li>
-			<li><a href="http://leafletjs.com/" target="_blank">Leaflet</a></li>
-			<li>&copy; {"OSM_CONTRIBUTORS"|@translate}</li>
-		</ul>
-	</div>
-	{if $SHOWOSM}
+        <div id="map"></div>
+        <script type="text/javascript">{$OSMJS}</script>
+        <div id="osm_attrib" style="visibility: hidden; display: none;">
+            <ul>
+                <li>{"PLUGIN_BY"|@translate}</li>
+                <li><a href="http://leafletjs.com/" target="_blank">Leaflet</a></li>
+                <li>&copy; {"OSM_CONTRIBUTORS"|@translate}</li>
+            </ul>
+        </div>
+        {if $SHOWOSM}
         <a href="{$OSMLINK}" target="_blank">{"VIEW_OSM"|@translate}</a>
-	{/if}
+        {/if}
     </dd>
 </div>
 {/if}
@@ -138,15 +138,15 @@ function osm_render_element_content()
 
     // Assign the template variables
     $template->assign(
-	array(
-	    'HEIGHT'		=> $height,
-	    'OSMJS' 		=> $js,
-	    'OSM_PATH'		=> embellish_url(get_absolute_root_url().OSM_PATH),
-	    'OSMNAME'		=> $osmname,
-	    'OSMNAMECSS'	=> $osmnamecss,
-	    'SHOWOSM'		=> $showosm,
-	    'OSMLINK'		=> $osmlink,
-	)
+        array(
+            'HEIGHT'		=> $height,
+            'OSMJS' 		=> $js,
+            'OSM_PATH'		=> embellish_url(get_absolute_root_url().OSM_PATH),
+            'OSMNAME'		=> $osmname,
+            'OSMNAMECSS'	=> $osmnamecss,
+            'SHOWOSM'		=> $showosm,
+            'OSMLINK'		=> $osmlink,
+        )
     );
 
     // Return the rendered html

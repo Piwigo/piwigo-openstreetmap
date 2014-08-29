@@ -63,6 +63,11 @@ function plugin_install()
 			'popupinfo_comment'	=> true,
 			'popupinfo_author'	=> true,
 			),
+        'category_description' => array(
+            'enabled' 	=> true,
+            'height' 	=> '200',
+            'width' 	=> 'auto',
+            ),
 		'map' => array(
 			'baselayer' 		=> 'mapnik',
 			'custombaselayer' 	=> null,
