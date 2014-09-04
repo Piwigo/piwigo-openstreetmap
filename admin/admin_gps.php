@@ -62,7 +62,7 @@ function gps_upload_file($uploaded_file) {
     $uploaded_file_tmp = $uploaded_file['tmp_name'];
     $uploaded_file_name = preg_replace('/[^a-zA-Z0-9s.]/', '_', $uploaded_file['name']);
     $uploaded_file_destination = $uploaded_galleries_dir . '/' . $uploaded_file_name;
-    $ext = pathinfo($uploaded_file_name)['extension']
+    $ext = pathinfo($uploaded_file_name)['extension'];
     $uploaded_errors = array();
     if(!in_array($ext, array('csv', 'gpx', 'kml', 'wkt', 'topojson', 'geojson'))) {
         $uploaded_errors['upload_error'] = l10n('Extension not supported');
