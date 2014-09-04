@@ -76,6 +76,7 @@ $local_conf['contextmenu'] = 'false';
 $local_conf['available_pin'] = '';
 $local_conf['control'] = false;
 $local_conf['img_popup'] = false;
+$local_conf['paths'] = osm_get_gps($page);
 
 $js_data = osm_get_items($page);
 $js = osm_get_js($conf, $local_conf, $js_data);

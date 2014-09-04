@@ -14,6 +14,7 @@
 <script src="{$OSM_PATH}leaflet/leaflet-search.min.js"></script>
 <script src="{$OSM_PATH}leaflet/leaflet.markercluster.js"></script>
 <script src="{$OSM_PATH}leaflet/leaflet.contextmenu.js"></script>
+<script src="{$OSM_PATH}leaflet/leaflet-omnivore.min.js"></script>
 {html_style}
 {literal}
 html, body {

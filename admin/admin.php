@@ -41,13 +41,14 @@ include_once(PHPWG_ROOT_PATH.'admin/include/tabsheet.class.php');
 $template->set_filename('plugin_admin_content', dirname(__FILE__).'/admin.tpl');
 
 if (!isset($_GET['tab']))
-  $page['tab'] = 'config';
+  $page['tab'] = 'gps';
 else
   $page['tab'] = $_GET['tab'];
 
 $my_base_url = get_admin_plugin_menu_link(__FILE__);
 
 $tabsheet = new tabsheet();
+$tabsheet->add( 'gps', '<span class="icon-cog"></span>' . l10n('Upload GPS file'), add_url_params( $my_base_url, array('tab'=>'gps') ) );
 $tabsheet->add( 'config', '<span class="icon-cog"></span>' . l10n('Configuration'), add_url_params( $my_base_url, array('tab'=>'config') ) );
 $tabsheet->select($page['tab']);
 

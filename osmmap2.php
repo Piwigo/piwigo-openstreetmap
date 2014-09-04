@@ -96,6 +96,7 @@ $local_conf['available_pin'] = array(
 );
 $local_conf['control'] = true;
 $local_conf['img_popup'] = true;
+$local_conf['paths'] = osm_get_gps($page);
 
 $js_data = osm_get_items($page);
 $js = osm_get_js($conf, $local_conf, $js_data);

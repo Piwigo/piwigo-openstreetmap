@@ -51,6 +51,18 @@ function osmcopyright($attrleaflet, $attrimagery, $attrmodule, $bl, $custombasel
     return $return;
 }
 
+function osm_get_gps($page)
+{
+    global $prefixeTable;
+    if (isset($page['category'])) {
+        $category = $page['category']['id'];
+        $query = "SELECT `path` FROM ".$prefixeTable."gps AS g INNER JOIN ".CATEGORIES_TABLE." AS c ON g.category_id = c.id WHERE FIND_IN_SET(".$category.", c.uppercats);";
+    } else {
+        $query = "SELECT `path` FROM ".$prefixeTable."gps;";
+    }
+    return array_from_query($query, 'path');
+}
+
 function osm_get_items($page)
 {
     // Limit search by category, by tag, by smartalbum
@@ -379,6 +391,12 @@ function osm_get_js($conf, $local_conf, $js_data)
 \t    " . $divname . ".addLayer(marker);
 \tMarkerClusterList.push(marker);
 \t}";
+    if (isset($local_conf['paths'])) {
+        foreach ($local_conf['paths'] as $path) {
+            $ext = pathinfo($path)['extension'];
+            $js .= "\nomnivore.".$ext."('".$path."').addTo(".$divname.");";
+        }
+    }
     $js .= "\nif (typeof L.MarkerClusterGroup === 'function')\n";
     $js .= "    " . $divname . ".addLayer(markers);\n";
     if (isset($local_conf['auto_center']) and $local_conf['auto_center'] === 0 ) {

@@ -1,7 +1,7 @@
 {html_head}
 <link href="{$OSM_PATH}leaflet/leaflet.css" rel="stylesheet">
 <script src="{$OSM_PATH}leaflet/leaflet.js"></script>
-<!--<script src="{$OSM_PATH}togeojson.js"></script>-->
+<script src="{$OSM_PATH}leaflet/leaflet-omnivore.min.js"></script>
 <link rel="stylesheet" href="{$OSM_PATH}leaflet/MarkerCluster.css" />
 <link rel="stylesheet" href="{$OSM_PATH}leaflet/MarkerCluster.Default.css" />
 <script src="{$OSM_PATH}leaflet/leaflet.markercluster.js"></script>

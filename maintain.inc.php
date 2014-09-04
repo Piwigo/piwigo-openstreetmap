@@ -27,6 +27,7 @@ if (!defined('PHPWG_ROOT_PATH')) die('Hacking attempt!');
 
 function plugin_install()
 {
+	global $prefixeTable;
 	if (!defined('OSM_PATH'))
 		define('OSM_PATH', PHPWG_PLUGINS_PATH . basename(dirname(__FILE__)).'/');
 
@@ -97,6 +98,13 @@ function plugin_install()
 
 	$q = 'UPDATE '.CONFIG_TABLE.' SET `comment` = "Configuration settings for piwigo-openstreetmap plugin" WHERE `param` = "osm_conf";';
 	pwg_query( $q );
+	$q = "CREATE TABLE  ".$prefixeTable."gps (
+		`id` int(11) NOT NULL auto_increment,
+		`category_id` smallint(5) unsigned NOT NULL,
+		`path` varchar(255) NOT NULL,
+	 	PRIMARY KEY  (`id`)
+	) DEFAULT CHARACTER SET ".DB_CHARSET." COLLATE utf8_general_ci;";
+	pwg_query( $q );
 
 	// Create world map link
 	$dir_name = basename( dirname(__FILE__) );
@@ -134,6 +142,7 @@ function plugin_uninstall()
 function plugin_activate()
 {
 	global $conf;
+	pwg_query( $q );
 
 	if ( (!isset($conf['osm_conf']))
 	    or (count($conf['osm_conf'], COUNT_RECURSIVE) != 25))
