@@ -98,7 +98,7 @@ function plugin_install()
 
 	$q = 'UPDATE '.CONFIG_TABLE.' SET `comment` = "Configuration settings for piwigo-openstreetmap plugin" WHERE `param` = "osm_conf";';
 	pwg_query( $q );
-	$q = "CREATE TABLE  ".$prefixeTable."gps (
+	$q = "CREATE TABLE IF NOT EXISTS ".$prefixeTable."gps (
 		`id` int(11) NOT NULL auto_increment,
 		`category_id` smallint(5) unsigned NOT NULL,
 		`path` varchar(255) NOT NULL,
@@ -142,7 +142,6 @@ function plugin_uninstall()
 function plugin_activate()
 {
 	global $conf;
-	pwg_query( $q );
 
 	if ( (!isset($conf['osm_conf']))
 	    or (count($conf['osm_conf'], COUNT_RECURSIVE) != 25))
