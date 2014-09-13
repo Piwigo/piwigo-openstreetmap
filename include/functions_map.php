@@ -393,7 +393,8 @@ function osm_get_js($conf, $local_conf, $js_data)
 \t}";
     if (isset($local_conf['paths'])) {
         foreach ($local_conf['paths'] as $path) {
-            $ext = pathinfo($path)['extension'];
+            $ext = pathinfo($path);
+            $ext = $ext['extension'];
             $js .= "\nomnivore.".$ext."('".$path."').addTo(".$divname.");";
         }
     }

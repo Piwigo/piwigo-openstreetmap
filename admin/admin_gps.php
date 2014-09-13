@@ -38,7 +38,7 @@ if (isset($_POST['submit'])) {
     $upload_file = array();
 
     if($_FILES['file_uploaded']['size'] != 0) {
-        $upload_file = gps_upload_file(pwg_db_real_escape_string($_FILES['file_uploaded']));
+        $upload_file = gps_upload_file($_FILES['file_uploaded']);
         if(count($upload_file['errors']) != 0)
             $uploaded_errors['file'] = $upload_file['errors'];
     } else {
@@ -61,8 +61,9 @@ function gps_upload_file($uploaded_file) {
     $uploaded_galleries_dir = PHPWG_ROOT_PATH.'galleries/gps/';
     $uploaded_file_tmp = $uploaded_file['tmp_name'];
     $uploaded_file_name = preg_replace('/[^a-zA-Z0-9s.]/', '_', $uploaded_file['name']);
-    $uploaded_file_destination = $uploaded_galleries_dir . '/' . $uploaded_file_name;
-    $ext = pathinfo($uploaded_file_name)['extension'];
+    $uploaded_file_destination = $uploaded_galleries_dir . $uploaded_file_name;
+    $ext = pathinfo($uploaded_file_name);
+    $ext = $ext['extension'];
     $uploaded_errors = array();
     if(!in_array($ext, array('csv', 'gpx', 'kml', 'wkt', 'topojson', 'geojson'))) {
         $uploaded_errors['upload_error'] = l10n('Extension not supported');
