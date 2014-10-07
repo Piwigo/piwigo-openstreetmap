@@ -234,10 +234,16 @@ $pinshadowsize = isset($conf['osm_conf']['pin']['pinshadowsize']) ? $conf['osm_c
 $pinoffset = isset($conf['osm_conf']['pin']['pinoffset']) ? $conf['osm_conf']['pin']['pinoffset'] : '';
 $pinpopupoffset = isset($conf['osm_conf']['pin']['pinpopupoffset']) ? $conf['osm_conf']['pin']['pinpopupoffset'] : '';
 
+/* If the config include parameters get them */
+$zoom = isset($conf['osm_conf']['left_menu']['zoom']) ? $conf['osm_conf']['left_menu']['zoom'] : 2;
+$center = isset($conf['osm_conf']['left_menu']['center']) ? $conf['osm_conf']['left_menu']['center'] : '0,0';
+$center_lat = isset($center) ? explode(',', $center)[0] : 0;
+$center_lng = isset($center) ? explode(',', $center)[1] : 0;
+
 /* If we have zoom and center coordonate, set it otherwise fallback default */
-$zoom = isset($_GET['zoom']) ? $_GET['zoom'] : '2';
-$center_lat = isset($_GET['center_lat']) ? $_GET['center_lat'] : '0';
-$center_lng = isset($_GET['center_lng']) ? $_GET['center_lng'] : '0';
+$zoom = isset($_GET['zoom']) ? $_GET['zoom'] : $zoom;
+$center_lat = isset($_GET['center_lat']) ? $_GET['center_lat'] : $center_lat;
+$center_lng = isset($_GET['center_lng']) ? $_GET['center_lng'] : $center_lng;
 
 // Load baselayerURL
 // Key1 BC9A493B41014CAABB98F0471D759707
