@@ -1,3 +1,15 @@
+Changes from v2.6.b to v2.7.a
+- Add custom pin marker support
+- Force usage of HTTPS for external URL and when possible for tiles #21
+- Add new options for world map view #40
+- Fix pictures without name #18 #23
+- Fix simple quote on title #20
+- Fix fontello with Firefox
+- Fix admin_photo_edit Click On Map
+- Update Leaflet to version 0.7.3
+- Update Leaflet plugins
+- Update language, thanks to the contributors
+
 Changes from v2.6a to v2.6.b
 - Fix Install method
 - Fix WorldMap URL
