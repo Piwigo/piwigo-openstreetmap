@@ -102,6 +102,18 @@ Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" ta
 				</div>
 				<small>{'LEFTPOPUPINFO_DESC'|@translate}</small>
 			</li>
+			<li>
+				<label>{'ZOOM'|@translate} : </label>
+				<select name="osm_left_zoom">
+					{html_options options=$AVAILABLE_ZOOM selected=$left_menu.zoom}
+				</select>
+				<br/><small>{'ZOOM_DESC'|@translate}, default is 2</small>
+			</li>
+			<li>
+				<label>{'CENTER_MAP'|@translate} : </label>
+				<input type="text" value="{$left_menu.center}" name="osm_left_center" size="30" placeholder="0,0"/>
+				<br/><small>{'CENTER_MAP_DESC'|@translate}. lat and lng separated by a comma, default is 0,0</small>
+			</li>
 		</ul>
 	</fieldset>
 	<fieldset>

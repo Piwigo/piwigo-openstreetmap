@@ -114,56 +114,48 @@ list($nb_geotagged) = pwg_db_fetch_array( pwg_query($query) );
 // Update conf if submitted in admin site
 if (isset($_POST['submit']) && !empty($_POST['osm_height']))
 {
-    // On post admin form
-    $conf['osm_conf'] = array(
-        'right_panel' => array(
-            'enabled' 	=> get_boolean($_POST['osm_right_panel']),
-            'add_before' 	=> $_POST['osm_add_before'],
-            'height' 	=> $_POST['osm_height'],
-            'zoom' 		=> $_POST['osm_zoom'],
-            'link'		=> $_POST['osm_right_link'],
-            'linkcss'	=> $_POST['osm_right_linkcss'],
-            'showosm' 	=> get_boolean($_POST['osm_showosm']),
-            ),
-        'left_menu' => array(
-            'enabled'       	=> get_boolean($_POST['osm_left_menu']),
-            'link'          	=> $_POST['osm_left_link'],
-            'popup'                 => $_POST['osm_left_popup'],
-            'popupinfo_name'	=> isset($_POST['osm_left_popupinfo_name']),
-            'popupinfo_img'		=> isset($_POST['osm_left_popupinfo_img']),
-            'popupinfo_link'	=> isset($_POST['osm_left_popupinfo_link']),
-            'popupinfo_comment'	=> isset($_POST['osm_left_popupinfo_comment']),
-            'popupinfo_author'	=> isset($_POST['osm_left_popupinfo_author']),
-            ),
-        'category_description' => array(
-            'enabled' 	=> get_boolean($_POST['osm_category_description']),
-            'height' 	=> $_POST['osm_cat_height'],
-            'width' 	=> $_POST['osm_cat_width'],
-            ),
-        'main_menu' => array(
-            'enabled' 	=> get_boolean($_POST['osm_main_menu']),
-            'height' 	=> $_POST['osm_menu_height'],
-            ),
-        'map' => array(
-            'baselayer' 		=> $_POST['osm_baselayer'],
-            'custombaselayer' 	=> $_POST['osm_custombaselayer'],
-            'custombaselayerurl'	=> $_POST['osm_custombaselayerurl'],
-            'noworldwarp' 		=> get_boolean($_POST['osm_noworldwarp']),
-            'attrleaflet' 		=> get_boolean($_POST['osm_attrleaflet']),
-            'attrimagery' 		=> get_boolean($_POST['osm_attrimagery']),
-            'attrplugin' 		=> get_boolean($_POST['osm_attrplugin']),
-            ),
-        'pin' => array(
-            'pin' 				=> $_POST['osm_pin'],
-            'pinpath' 			=> $_POST['osm_pinpath'],
-            'pinsize'			=> $_POST['osm_pinsize'],
-            'pinshadowpath' 	=> $_POST['osm_pinshadowpath'],
-            'pinshadowsize' 	=> $_POST['osm_pinshadowsize'],
-            'pinoffset' 		=> $_POST['osm_pinoffset'],
-            'pinpopupoffset' 	=> $_POST['osm_pinpopupoffset'],
-            ),
-        
-    );
+	// On post admin form
+	$conf['osm_conf'] = array(
+		'right_panel' => array(
+			'enabled' 	=> get_boolean($_POST['osm_right_panel']),
+			'add_before' 	=> $_POST['osm_add_before'],
+			'height' 	=> $_POST['osm_height'],
+			'zoom' 		=> $_POST['osm_zoom'],
+			'link'		=> $_POST['osm_right_link'],
+			'linkcss'	=> $_POST['osm_right_linkcss'],
+			'showosm' 	=> get_boolean($_POST['osm_showosm']),
+			),
+		'left_menu' => array(
+			'enabled'       	=> get_boolean($_POST['osm_left_menu']),
+			'link'          	=> $_POST['osm_left_link'],
+			'popup'             => $_POST['osm_left_popup'],
+			'popupinfo_name'	=> isset($_POST['osm_left_popupinfo_name']),
+			'popupinfo_img'		=> isset($_POST['osm_left_popupinfo_img']),
+			'popupinfo_link'	=> isset($_POST['osm_left_popupinfo_link']),
+			'popupinfo_comment'	=> isset($_POST['osm_left_popupinfo_comment']),
+			'popupinfo_author'	=> isset($_POST['osm_left_popupinfo_author']),
+			'zoom' 				=> $_POST['osm_left_zoom'],
+			'center'			=> $_POST['osm_left_center'],
+			),
+		'map' => array(
+			'baselayer' 		=> $_POST['osm_baselayer'],
+			'custombaselayer' 	=> $_POST['osm_custombaselayer'],
+			'custombaselayerurl'	=> $_POST['osm_custombaselayerurl'],
+			'noworldwarp' 		=> get_boolean($_POST['osm_noworldwarp']),
+			'attrleaflet' 		=> get_boolean($_POST['osm_attrleaflet']),
+			'attrimagery' 		=> get_boolean($_POST['osm_attrimagery']),
+			'attrplugin' 		=> get_boolean($_POST['osm_attrplugin']),
+			),
+		'pin' => array(
+			'pin' 				=> $_POST['osm_pin'],
+			'pinpath' 			=> $_POST['osm_pinpath'],
+			'pinsize'			=> $_POST['osm_pinsize'],
+			'pinshadowpath' 	=> $_POST['osm_pinshadowpath'],
+			'pinshadowsize' 	=> $_POST['osm_pinshadowsize'],
+			'pinoffset' 		=> $_POST['osm_pinoffset'],
+			'pinpopupoffset' 	=> $_POST['osm_pinpopupoffset'],
+			),
+	);
 
     // Update config to DB
     conf_update_param('osm_conf', serialize($conf['osm_conf']));
