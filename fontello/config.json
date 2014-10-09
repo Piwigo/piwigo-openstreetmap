@@ -7,6 +7,18 @@
   "ascent": 850,
   "glyphs": [
     {
+      "uid": "8b80d36d4ef43889db10bc1f0dc9a862",
+      "css": "user",
+      "code": 128292,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "e82cedfa1d5f15b00c5a81c9bd731ea2",
+      "css": "info-circled",
+      "code": 128289,
+      "src": "fontawesome"
+    },
+    {
       "uid": "d7271d490b71df4311e32cdacae8b331",
       "css": "home",
       "code": 128288,
@@ -58,6 +70,18 @@
       "uid": "d25d10efa900f529ad1d275657cfd30e",
       "css": "zoom-out",
       "code": 128278,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "63b3012c8cbe3654ba5bea598235aa3a",
+      "css": "angle-double-up",
+      "code": 128291,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "dfec4ffa849d8594c2e4b86f6320b8a6",
+      "css": "angle-double-down",
+      "code": 128290,
       "src": "fontawesome"
     },
     {
