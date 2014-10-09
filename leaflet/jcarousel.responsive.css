@@ -1,6 +1,6 @@
 .jcarousel-wrapper {
     margin: 5px auto;
-    position: relative;
+	/** display: none; **/
     border: 5px solid #fff;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
@@ -15,11 +15,10 @@
 .jcarousel {
     position: relative;
     overflow: hidden;
-    height: 40px;
+    height: 50px;
 }
 
 .jcarousel ul {
-    width: 20000em;
     position: relative;
     list-style: none;
     margin: 0;
@@ -28,19 +27,19 @@
 
 .jcarousel li {
     float: left;
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     margin-right: 5px;
 }
 
 .jcarousel img {
-    max-height: 40px;
-	max-width: 40px;
+    max-height: 50px;
+	max-width: 50px;
 }
 
 .jcarousel .loading {
     text-align: center;
-    line-height: 90px; /* Fake vertical aligning */
+    line-height: 50px; /* Fake vertical aligning */
 }
 
 /** Carousel Controls **/

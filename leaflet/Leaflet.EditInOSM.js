@@ -1,5 +1,21 @@
-(function (L, setTimeout) {
-
+(function (factory) {
+    var L;
+    if (typeof define === 'function' && define.amd) {
+        // AMD
+        define(['leaflet'], function(L) {
+            factory(L, setTimeout);
+        });
+    } else if (typeof module !== 'undefined') {
+        // Node/CommonJS
+        L = require('leaflet');
+        module.exports = factory(L, setTimeout);
+    } else {
+        // Browser globals
+        if (typeof window.L === 'undefined')
+            throw 'Leaflet must be loaded first';
+        factory(window.L, setTimeout);
+    }
+}(function (L, setTimeout) {
     var _controlContainer,
         _map,
         _zoomThreshold,
@@ -7,6 +23,19 @@
         _anchorClass = 'leaflet-control-edit-in-osm-toggle',
 
         _Widgets =  {
+            SimpleButton: function (config) {
+                var className = (config && config.className) || 'leaflet-control-edit-in-osm-simple',
+                    helpText = config && config.helpText,
+                    addEditors = (config && config.addEditors) || function (container, editors) {
+                        addEditorToWidget(container, editors[0], helpText);
+                    };
+
+                return {
+                    className: className,
+                    helpText: helpText,
+                    addEditors: addEditors
+                };
+            },
             MultiButton: function (config) {
                 var className = 'leaflet-control-edit-in-osm',
                     helpText = "Open this map extent in a map editor to provide more accurate data to OpenStreetMap",
@@ -44,8 +73,8 @@
                     buildUrl = function (map) {
                         return this.url + [
                             map.getZoom(),
-                            map.getCenter().wrap().lng,
-                            map.getCenter().wrap().lat
+                            map.getCenter().wrap().lat,
+                            map.getCenter().wrap().lng
                         ].join('/');
                     };
                 return {
@@ -151,7 +180,9 @@
             widgetSmallName = typeof(widget) === 'string' ? widget.toLowerCase() : '';
 
             // setup widget from string or object
-            if (widgetSmallName === "multibutton") {
+            if (widgetSmallName === "simplebutton") {
+                this.options.widget = new _Widgets.SimpleButton(this.options.widgetOptions);
+            } else if (widgetSmallName === "multibutton") {
                 this.options.widget = new _Widgets.MultiButton(this.options.widgetOptions);
             } else if (widgetSmallName === "attributionbox") {
                 this.options.widget = new _Widgets.AttributionBox(this.options.widgetOptions);
@@ -206,4 +237,4 @@
         }
     });
 
-})(L, setTimeout);
+}));
