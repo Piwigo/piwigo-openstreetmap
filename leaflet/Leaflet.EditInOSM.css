@@ -13,7 +13,7 @@
     display: block;
 }
 .leaflet-control-edit-in-osm .leaflet-control-edit-in-osm-toggle {
-    background-image: url("./edit-in-osm.png");
+    background-image: url("./images/edit-in-osm.png");
 }
 .leaflet-control-edit-in-osm .osm-editor + .osm-editor {
     border-left: 1px solid black;
