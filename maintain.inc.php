@@ -62,6 +62,8 @@ function plugin_install()
 			'popupinfo_link'	=> true,
 			'popupinfo_comment'	=> true,
 			'popupinfo_author'	=> true,
+			'zoom'				=> 2,
+			'center'			=> '0,0'
 			),
 		'map' => array(
 			'baselayer' 		=> 'mapnik',
@@ -127,7 +129,7 @@ function plugin_activate()
 	global $conf;
 
 	if ( (!isset($conf['osm_conf']))
-	    or (count($conf['osm_conf'], COUNT_RECURSIVE) != 25))
+	    or (count($conf['osm_conf'], COUNT_RECURSIVE) != 35))
 	{
 		plugin_install();
 	}
