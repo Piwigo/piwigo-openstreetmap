@@ -48,7 +48,7 @@ if (isset($_POST['submit'])) {
     if (count($uploaded_errors) == 0) {
         $file_path = pwg_db_real_escape_string($upload_file['destination']);
         $category = pwg_db_real_escape_string($_POST['category']);
-        $query="INSERT INTO ".$prefixeTable."gps ( `category_id`, `path` ) VALUES ('$category', '$file_path');";
+        $query="INSERT INTO ".$prefixeTable."osm_gps ( `category_id`, `path` ) VALUES ('$category', '$file_path');";
         pwg_query($query);
         array_push($page['infos'], l10n('File uploaded and synchronized'));
     } else {
@@ -58,7 +58,7 @@ if (isset($_POST['submit'])) {
 }
 
 function gps_upload_file($uploaded_file) {
-    $uploaded_galleries_dir = PHPWG_ROOT_PATH.'galleries/gps/';
+    $uploaded_galleries_dir = PHPWG_ROOT_PATH.'_data/i/galleries/gps/';
     $uploaded_file_tmp = $uploaded_file['tmp_name'];
     $uploaded_file_name = preg_replace('/[^a-zA-Z0-9s.]/', '_', $uploaded_file['name']);
     $uploaded_file_destination = $uploaded_galleries_dir . $uploaded_file_name;

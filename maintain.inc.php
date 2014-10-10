@@ -99,13 +99,18 @@ function plugin_install()
 
 	$q = 'UPDATE '.CONFIG_TABLE.' SET `comment` = "Configuration settings for piwigo-openstreetmap plugin" WHERE `param` = "osm_conf";';
 	pwg_query( $q );
-	$q = "CREATE TABLE IF NOT EXISTS ".$prefixeTable."gps (
+
+	// Create DB for GPX entries
+	$q = "CREATE TABLE IF NOT EXISTS ".$prefixeTable."osm_gps (
 		`id` int(11) NOT NULL auto_increment,
 		`category_id` smallint(5) unsigned NOT NULL,
 		`path` varchar(255) NOT NULL,
 	 	PRIMARY KEY  (`id`)
 	) DEFAULT CHARACTER SET ".DB_CHARSET." COLLATE utf8_general_ci;";
 	pwg_query( $q );
+
+	// Create album for GPX entries
+	mkdir (PHPWG_ROOT_PATH.'_data/i/galleries/gps/' );
 
 	// Create world map link
 	$dir_name = basename( dirname(__FILE__) );

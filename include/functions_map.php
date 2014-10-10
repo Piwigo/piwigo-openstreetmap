@@ -56,9 +56,9 @@ function osm_get_gps($page)
     global $prefixeTable;
     if (isset($page['category'])) {
         $category = $page['category']['id'];
-        $query = "SELECT `path` FROM ".$prefixeTable."gps AS g INNER JOIN ".CATEGORIES_TABLE." AS c ON g.category_id = c.id WHERE FIND_IN_SET(".$category.", c.uppercats);";
+        $query = "SELECT `path` FROM ".$prefixeTable."osm_gps AS g INNER JOIN ".CATEGORIES_TABLE." AS c ON g.category_id = c.id WHERE FIND_IN_SET(".$category.", c.uppercats);";
     } else {
-        $query = "SELECT `path` FROM ".$prefixeTable."gps;";
+        $query = "SELECT `path` FROM ".$prefixeTable."osm_gps;";
     }
     return array_from_query($query, 'path');
 }
