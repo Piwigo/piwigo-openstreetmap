@@ -254,6 +254,7 @@ function osm_get_js($conf, $local_conf, $js_data)
     latlng = new L.LatLng(".$local_conf['center_lat'].", ".$local_conf['center_lng'].");\n";
     $js .= "var " . $divname . " = new L.Map('" . $divname . "', {" . $worldcopyjump . ", center: latlng, zoom: ".$local_conf['zoom'].", layers: [TileLayer], contextmenu: " . $local_conf['contextmenu'] . "});\n";
     $js .= $divname . ".attributionControl.setPrefix('');\n";
+    $js .= "L.control.scale().addTo(map);\n";
     $js .= "var MarkerClusterList=[];\n";
     $js .= "if (typeof L.MarkerClusterGroup === 'function')\n";
     $js .= "     var markers = new L.MarkerClusterGroup();\n";

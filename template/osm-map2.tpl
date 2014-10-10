@@ -471,7 +471,7 @@ function toggle(arrow)
 			}
 		}
 		/* Update items counts */
-		document.getElementById("nb_showall").innerHTML = {/literal}{'ITEMS'|@translate}{literal};
+		document.getElementById("nb_showall").innerHTML = nb_items +' items';
 
 		/* Update jcarousel and all witdh*/
 		if (nb_items>0) {
@@ -532,9 +532,9 @@ function toggle(arrow)
 	/* BEGIN leaflet Location */
 	function onLocationFound(e) {
 		var radius = e.accuracy / 2;
-		var str = {/literal}{'METERS_FROM_POINT'|@translate}{literal};
+		var str = '{/literal}{'METERS_FROM_POINT'|@translate}{literal}';
 		L.marker(e.latlng).addTo(map)
-			.bindPopup(str.replace('%d', radius)).openPopup();
+			.bindPopup(str.replace('%s', radius)).openPopup();
 
 		L.circle(e.latlng, radius).addTo(map);
 	}

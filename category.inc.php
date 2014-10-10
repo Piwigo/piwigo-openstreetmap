@@ -60,7 +60,7 @@ function osm_render_category_description()
             $height = isset($conf['osm_conf']['category_description']['height']) ? $conf['osm_conf']['category_description']['height'] : '200';
             $width = isset($conf['osm_conf']['category_description']['width']) ? $conf['osm_conf']['category_description']['width'] : 'auto';
             $js = osm_get_js($conf, $local_conf, $js_data);
-            $template->set_filename('map', dirname(__FILE__).'/template/osm-index.tpl' );
+            $template->set_filename('map', dirname(__FILE__).'/template/osm-category.tpl' );
             $template->assign(
                 array(
                     'CONTENT_ENCODING'	=> get_pwg_charset(),

@@ -85,7 +85,7 @@
 	map.on('click', onMapClick);
 
 	/* BEGIN leaflet-search */
-	var jsonpurl = 'http://open.mapquestapi.com/nominatim/v1/search.php?q={s}'+
+	var jsonpurl = 'https://open.mapquestapi.com/nominatim/v1/search.php?q={s}'+
 				   '&format=json&osm_type=N&limit=100&addressdetails=0',
 		jsonpName = 'json_callback';
 	//third party jsonp service
