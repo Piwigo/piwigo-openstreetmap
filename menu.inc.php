@@ -1,10 +1,10 @@
 <?php
 /***********************************************
-* File      :   picture.inc.php
+* File      :   menu.inc.php
 * Project   :   piwigo-openstreetmap
-* Descr     :   Display map on right panel
+* Descr     :   Display an OSM map on mainmenu right
 *
-* Created   :   20.08.2014
+* Created   :   10.10.2014
 *
 * Copyright 2013-2014 <xbgmsharp@gmail.com>
 *
@@ -44,7 +44,7 @@ function osm_apply_menu($menu_ref_arr)
     global $template, $page, $conf;
 
     $menu = & $menu_ref_arr[0];
-   
+
     if (($block = $menu->get_block('mbLinks')) != null) {
         include_once( dirname(__FILE__) .'/include/functions.php');
         include_once(dirname(__FILE__).'/include/functions_map.php');

@@ -114,6 +114,14 @@ list($nb_geotagged) = pwg_db_fetch_array( pwg_query($query) );
 // Update conf if submitted in admin site
 if (isset($_POST['submit']) && !empty($_POST['osm_height']))
 {
+	// Check the center GPS position is valid
+	if ($_POST['osm_left_center'])
+		//print explode(',', $_POST['osm_left_center'])[0];
+		if (explode(',', $_POST['osm_left_center'])[0] <= -90 or explode(',', $_POST['osm_left_center'])[0] >= 90)
+			array_push($page['warnings'], l10n('The specify center latitude (-90=S to 90=N) is not valid'));
+		if (explode(',', $_POST['osm_left_center'])[1] <= -180 or explode(',', $_POST['osm_left_center'])[1] >= 180)
+			array_push($page['warnings'], l10n('The specify center longitude (-180=W to 180=E) is not valid'));
+
 	// On post admin form
 	$conf['osm_conf'] = array(
 		'right_panel' => array(
@@ -137,6 +145,15 @@ if (isset($_POST['submit']) && !empty($_POST['osm_height']))
 			'zoom' 				=> $_POST['osm_left_zoom'],
 			'center'			=> $_POST['osm_left_center'],
 			),
+        'category_description' => array(
+            'enabled'   => get_boolean($_POST['osm_category_description']),
+            'height'    => $_POST['osm_cat_height'],
+            'width'     => $_POST['osm_cat_width'],
+            ),
+        'main_menu' => array(
+            'enabled'   => get_boolean($_POST['osm_main_menu']),
+            'height'    => $_POST['osm_menu_height'],
+            ),
 		'map' => array(
 			'baselayer' 		=> $_POST['osm_baselayer'],
 			'custombaselayer' 	=> $_POST['osm_custombaselayer'],

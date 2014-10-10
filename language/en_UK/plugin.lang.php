@@ -34,6 +34,10 @@ $lang['POPUPTHUMB'] = "Thumbnail of the image";
 $lang['POPUPLINK'] = "Add a link to image";
 $lang['POPUPCOMMENT'] = "Comment of the image";
 $lang['POPUPAUTHOR'] = "Author of the image";
+$lang['ZOOM_MAP'] = "Zoomlevel";
+$lang['ZOOM_MAP_DESC'] = "1: far away, 18: very close, default is 2.";
+$lang['CENTER_MAP'] = "Center map here";
+$lang['CENTER_MAP_DESC'] = "Center the worlmap on the specific location (GPS coordinate). lat and lng separated by a comma, default is 0,0";
 
 $lang['C_MAP'] = "Category's description";
 $lang['SHOWCMAP'] = "Add a map in category's description";

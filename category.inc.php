@@ -1,10 +1,10 @@
 <?php
 /***********************************************
-* File      :   picture.inc.php
+* File      :   category.inc.php
 * Project   :   piwigo-openstreetmap
-* Descr     :   Display map on right panel
+* Descr     :   Display an OSM map on the category layout
 *
-* Created   :   20.08.2014
+* Created   :   10.10.2014
 *
 * Copyright 2013-2014 <xbgmsharp@gmail.com>
 *
@@ -24,8 +24,6 @@
 ************************************************/
 
 if (!defined('PHPWG_ROOT_PATH')) die('Hacking attempt!');
-
-//check_status(ACCESS_GUEST);
 
 // Do we have to show the right panel
 if ($conf['osm_conf']['category_description']['enabled'])

@@ -87,7 +87,7 @@ $template->set_filenames(
     'plugin_admin_content' => dirname(__FILE__).'/admin_photo.tpl'
     )
   );
- 
+
 // Retrieving direct information about picture
 $query = 'SELECT * FROM '.IMAGES_TABLE.' WHERE id = '.$_GET['image_id'].';';
 $picture = pwg_db_fetch_assoc(pwg_query($query));
@@ -116,6 +116,7 @@ else if($baselayer == 'mapnikhot')	$baselayerurl = 'http://{s}.tile.openstreetma
 else if($baselayer == 'mapquestaerial')	$baselayerurl = 'http://oatile1.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.jpg';
 else if($baselayer == 'custom')	$baselayerurl = $custombaselayerurl;
 
+include(dirname(__FILE__)."/../include/functions_map.php");
 $attribution = osmcopyright($attrleaflet, $attrimagery, $attrmodule, $baselayer, $custombaselayer);
 
 if ($lat == 0 and $lon == 0) { $zoom = 2; }

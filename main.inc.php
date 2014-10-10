@@ -26,8 +26,8 @@ if (script_basename() == 'picture')
 }
 elseif (script_basename() == 'index')
 {
-            include_once(dirname(__FILE__).'/index.inc.php');
-            include_once(dirname(__FILE__).'/menu.inc.php');
+    include_once(dirname(__FILE__).'/category.inc.php');
+    include_once(dirname(__FILE__).'/menu.inc.php');
 }
 
 // Do we have to show a link on the left menu

@@ -1,10 +1,10 @@
 <?php
 /***********************************************
-* File      :   admin_config.php
+* File      :   admin_gps.php
 * Project   :   piwigo-openstreetmap
-* Descr     :   Install / Uninstall method
+* Descr     :   read GPS file
 *
-* Created   :   28.05.2013
+* Created   :   10.10.2014
 *
 * Copyright 2013-2014 <xbgmsharp@gmail.com>
 *
