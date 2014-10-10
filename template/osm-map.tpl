@@ -30,7 +30,7 @@ html, body {
 {/literal}
 {/html_style}
 
-<span> <a href="{$HOME}">{$HOME_NAME}</a> <a href="{$HOME_PREV}">{$HOME_PREV_NAME}</a> - <b id="nb_showall">{$TOTAL}</b> - <a id="showall" target="_blank" href="">{'ITEMS_SCREEN'|@translate}</a> - {'MOUSE_OVER'|@translate}</span>
+<span> <a href="{$HOME}">{$HOME_NAME}</a> <a href="{$HOME_PREV}">{$HOME_PREV_NAME}</a> - <b id="nb_showall">{$TOTAL}</b> - <a id="showall" target="_blank" href="" style="display: none">Show items of this screen</a><span id='shownothing'>Mouse over a cluster to see the bounds of its children and click a cluster to zoom to those bounds</span></span>
 <div id="map"></div>
 <script type="text/javascript">{$OSMJS}</script>
 
@@ -54,6 +54,8 @@ html, body {
 		var myurl = "{/literal}{$HOME}{literal}osmmap.php?min_lat="+min.lat+"&min_lng="+min.lng+"&max_lat="+max.lat+"&max_lng="+max.lng;
 		//console.log(myurl);
 		document.getElementById("showall").setAttribute('href',myurl);
+		document.getElementById("shownothing").style.display = 'none';
+		document.getElementById("showall").style.display = 'inline';
 
 		var nb_items = 0;
 		for (var i = 0; i < addressPoints.length; i++) {
@@ -66,7 +68,7 @@ html, body {
 				nb_items++;
 			}
 		}
-		document.getElementById("nb_showall").innerHTML = sprintf(l10n('ITEMS'), nb_items);
+		document.getElementById("nb_showall").innerHTML = nb_items +' items';
 	}
 {/literal}
 </script>
