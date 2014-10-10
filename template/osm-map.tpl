@@ -30,7 +30,7 @@ html, body {
 {/literal}
 {/html_style}
 
-<span> <a href="{$HOME}">{$HOME_NAME}</a> <a href="{$HOME_PREV}">{$HOME_PREV_NAME}</a> - <b id="nb_showall">{$TOTAL}</b> - <a id="showall" target="_blank" href="" style="display: none">Show items of this screen</a><span id='shownothing'>Mouse over a cluster to see the bounds of its children and click a cluster to zoom to those bounds</span></span>
+<span> <a href="{$HOME}">{$HOME_NAME}</a> <a href="{$HOME_PREV}">{$HOME_PREV_NAME}</a> - <b id="nb_showall">{$TOTAL}</b> - <a id="showall" target="_blank" href="" style="display: none">{'ITEMS_SCREEN'|@translate}</a><span id='shownothing'>{'MOUSE_OVER'|@translate}</span></span>
 <div id="map"></div>
 <script type="text/javascript">{$OSMJS}</script>
 
