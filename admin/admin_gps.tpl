@@ -12,6 +12,9 @@
 </style>
 {/html_head}
 
+Import GPS files, allowed file types: jpg, 'csv', 'gpx', 'kml', 'wkt', 'topojson', 'geojson'.
+<br/><br/>
+The GPS data are be display on the world map like any other items.
 <div class="osm_layout">
     <form method="post" enctype="multipart/form-data">
         <p>
