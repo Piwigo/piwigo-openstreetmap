@@ -237,8 +237,9 @@ $pinpopupoffset = isset($conf['osm_conf']['pin']['pinpopupoffset']) ? $conf['osm
 /* If the config include parameters get them */
 $zoom = isset($conf['osm_conf']['left_menu']['zoom']) ? $conf['osm_conf']['left_menu']['zoom'] : 2;
 $center = isset($conf['osm_conf']['left_menu']['center']) ? $conf['osm_conf']['left_menu']['center'] : '0,0';
-$center_lat = isset($center) ? explode(',', $center)[0] : 0;
-$center_lng = isset($center) ? explode(',', $center)[1] : 0;
+$center_arr = preg_split('/,/', $center);
+$center_lat = isset($center_arr) ? $center_arr[0] : 0;
+$center_lng = isset($center_arr) ? $center_arr[1] : 0;
 
 /* If we have zoom and center coordonate, set it otherwise fallback default */
 $zoom = isset($_GET['zoom']) ? $_GET['zoom'] : $zoom;
