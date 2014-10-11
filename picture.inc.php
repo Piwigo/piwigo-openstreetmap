@@ -118,15 +118,14 @@ function osm_render_element_content()
     $osmlink="https://openstreetmap.org/?mlat=".$lat."&amp;mlon=".$lon."&zoom=12&layers=M";
 
     $local_conf = array();
-    $local_conf['pinid'] = 1;
     $local_conf['contextmenu'] = 'false';
-    $local_conf['available_pin'] = '';
     $local_conf['control'] = false;
     $local_conf['img_popup'] = false;
     $local_conf['popup'] = 2;
     $local_conf['center_lat'] = $lat;
     $local_conf['center_lng'] = $lon;
     $local_conf['zoom'] = $zoom;
+
     $js_data = array(array($lat, $lon, null, null, null, null, null, null));
 
     $js = osm_get_js($conf, $local_conf, $js_data);

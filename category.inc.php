@@ -46,10 +46,8 @@ function osm_render_category_description()
         if ($js_data != array())
         {
             $local_conf = array();
-            $local_conf['pinid'] = 1;
             $local_conf['contextmenu'] = 'false';
-            $local_conf['available_pin'] = '';
-            $local_conf['control'] = false;
+            $local_conf['control'] = true;
             $local_conf['img_popup'] = false;
             $local_conf['popup'] = 2;
             $local_conf['center_lat'] = 0;

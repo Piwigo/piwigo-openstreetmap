@@ -63,22 +63,32 @@ $next_token = 0;
 $result = osm_parse_map_data_url($tokens, $next_token);
 $page = array_merge( $page, $result );
 
-
 if (isset($page['category']))
 	check_restrictions($page['category']['id']);
 
+/* If the config include parameters get them */
+$zoom = isset($conf['osm_conf']['left_menu']['zoom']) ? $conf['osm_conf']['left_menu']['zoom'] : 2;
+$center = isset($conf['osm_conf']['left_menu']['center']) ? $conf['osm_conf']['left_menu']['center'] : '0,0';
+$center_arr = preg_split('/,/', $center);
+$center_lat = isset($center_arr) ? $center_arr[0] : 0;
+$center_lng = isset($center_arr) ? $center_arr[1] : 0;
+
+/* If we have zoom and center coordonate, set it otherwise fallback default */
+$zoom = isset($_GET['zoom']) ? $_GET['zoom'] : $zoom;
+$center_lat = isset($_GET['center_lat']) ? $_GET['center_lat'] : $center_lat;
+$center_lng = isset($_GET['center_lng']) ? $_GET['center_lng'] : $center_lng;
+
 $local_conf = array();
-$local_conf['zoom'] = '2';
-$local_conf['center_lat'] = '0';
-$local_conf['center_lng'] = '0';
-$local_conf['pinid'] = 1;
+$local_conf['zoom'] = $zoom;
+$local_conf['center_lat'] = $center_lat;
+$local_conf['center_lng'] = $center_lng;
 $local_conf['contextmenu'] = 'false';
-$local_conf['available_pin'] = '';
-$local_conf['control'] = false;
+$local_conf['control'] = true;
 $local_conf['img_popup'] = false;
 $local_conf['paths'] = osm_get_gps($page);
+$local_conf = $local_conf + $conf['osm_conf']['map'] + $conf['osm_conf']['left_menu'];
 
 $js_data = osm_get_items($page);
 $js = osm_get_js($conf, $local_conf, $js_data);
-osm_gen_template($conf, $js, $js_data, 'osm-map.tpl', $template)
+osm_gen_template($conf, $js, $js_data, 'osm-map.tpl', $template);
 ?>

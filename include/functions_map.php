@@ -157,10 +157,10 @@ function osm_get_items($page)
     IF(i.representative_ext IS NULL,
         CONCAT(SUBSTRING_INDEX(TRIM(LEADING '.' FROM i.path), '.', 1 ), '-sq.', SUBSTRING_INDEX(TRIM(LEADING '.' FROM i.path), '.', -1 )),
         TRIM(LEADING '.' FROM
-            REPLACE(i.path, i.file,
+            REPLACE(i.path, TRIM(TRAILING '.' FROM SUBSTRING_INDEX(i.path, '/', -1 )),
                 CONCAT('pwg_representative/',
                     CONCAT(
-                        TRIM(TRAILING '.' FROM SUBSTRING_INDEX(i.file, '.', 1 )),
+                        TRIM(TRAILING '.' FROM SUBSTRING_INDEX( SUBSTRING_INDEX(i.path, '/', -1 ) , '.', 1 )),
                         CONCAT('-sq.', i.representative_ext)
                     )
                 )
@@ -173,7 +173,7 @@ function osm_get_items($page)
     i.width
         FROM ".IMAGES_TABLE." AS i
             INNER JOIN (".IMAGE_CATEGORY_TABLE." AS ic ".$INNER_JOIN.") ON i.id = ic.image_id
-            WHERE ".$LIMIT_SEARCH." i.latitude IS NOT NULL AND i.longitude IS NOT NULL ".$forbidden.";";
+            WHERE ".$LIMIT_SEARCH." i.latitude IS NOT NULL AND i.longitude IS NOT NULL ".$forbidden." GROUP BY i.id;";
     //echo $query;
     $php_data = array_from_query($query);
     //print_r($php_data);
@@ -192,6 +192,26 @@ function osm_get_items($page)
                    (int)$array['width']
                    );
     }
+    /* START Debug generate dummy data
+    $js_data = array();
+    $str = 'abcdef';
+    $minLat = -90.00;
+    $maxLat = 90.00;
+    $minLon = -180.00;
+    $maxLon = 180.00;
+    for ($i = 1; $i <= 5000; $i++)
+    {
+        $js_data[] = array( (double)$minLat + (double)((float)rand()/(float)getrandmax() * (($maxLat - $minLat) + 1)),
+                   (double)$minLon + (double)((float)rand()/(float)getrandmax() * (($maxLon - $minLon) + 1)),
+                   str_shuffle($str),
+                   "http://placehold.it/120x120",
+                   "http://placehold.it/200x200",
+                   "Comment",
+                   "Author",
+                   (int)120
+                   );
+    }
+    END Debug generate dummy data */
     return $js_data;
 }
 
@@ -202,6 +222,7 @@ function osm_get_js($conf, $local_conf, $js_data)
         $popup = $local_conf['popup'];
     else
         $popup = isset($conf['osm_conf']['left_menu']['popup']) ? $conf['osm_conf']['left_menu']['popup'] : 0;
+    $linkname = isset($conf['osm_conf']['left_menu']['link']) ? $conf['osm_conf']['left_menu']['link'] : 'OS World Map';
     $popupinfo_name = isset($conf['osm_conf']['left_menu']['popupinfo_name']) ? $conf['osm_conf']['left_menu']['popupinfo_name'] : 0;
     $popupinfo_img = isset($conf['osm_conf']['left_menu']['popupinfo_img']) ? $conf['osm_conf']['left_menu']['popupinfo_img'] : 0;
     $popupinfo_link = isset($conf['osm_conf']['left_menu']['popupinfo_link']) ? $conf['osm_conf']['left_menu']['popupinfo_link'] : 0;
@@ -214,19 +235,37 @@ function osm_get_js($conf, $local_conf, $js_data)
     $attrleaflet = isset($conf['osm_conf']['map']['attrleaflet']) ? $conf['osm_conf']['map']['attrleaflet'] : 'false';
     $attrimagery = isset($conf['osm_conf']['map']['attrimagery']) ? $conf['osm_conf']['map']['attrimagery'] : 'false';
     $attrmodule = isset($conf['osm_conf']['map']['attrplugin']) ? $conf['osm_conf']['map']['attrplugin'] : 'false';
+    $pinid = isset($conf['osm_conf']['pin']['pin']) ? $conf['osm_conf']['pin']['pin'] : 1;
+    $pinpath = isset($conf['osm_conf']['pin']['pinpath']) ? $conf['osm_conf']['pin']['pinpath'] : '';
+    $pinsize = isset($conf['osm_conf']['pin']['pinsize']) ? $conf['osm_conf']['pin']['pinsize'] : '';
+    $pinshadowpath = isset($conf['osm_conf']['pin']['pinshadowpath']) ? $conf['osm_conf']['pin']['pinshadowpath'] : '';
+    $pinshadowsize = isset($conf['osm_conf']['pin']['pinshadowsize']) ? $conf['osm_conf']['pin']['pinshadowsize'] : '';
+    $pinoffset = isset($conf['osm_conf']['pin']['pinoffset']) ? $conf['osm_conf']['pin']['pinoffset'] : '';
+    $pinpopupoffset = isset($conf['osm_conf']['pin']['pinpopupoffset']) ? $conf['osm_conf']['pin']['pinpopupoffset'] : '';
     $divname = isset($local_conf['divname']) ? $local_conf['divname'] : 'map';
 
+    /* If the config include parameters get them */
+    $zoom = isset($conf['osm_conf']['left_menu']['zoom']) ? $conf['osm_conf']['left_menu']['zoom'] : 2;
+    $center = isset($conf['osm_conf']['left_menu']['center']) ? $conf['osm_conf']['left_menu']['center'] : '0,0';
+    $center_arr = preg_split('/,/', $center);
+    $center_lat = isset($center_arr) ? $center_arr[0] : 0;
+    $center_lng = isset($center_arr) ? $center_arr[1] : 0;
+
+    /* If we have zoom and center coordonate, set it otherwise fallback default */
+    $zoom = isset($_GET['zoom']) ? $_GET['zoom'] : $zoom;
+    $center_lat = isset($_GET['center_lat']) ? $_GET['center_lat'] : $center_lat;
+    $center_lng = isset($_GET['center_lng']) ? $_GET['center_lng'] : $center_lng;
+
     // Load baselayerURL
-    // Key1 BC9A493B41014CAABB98F0471D759707
-    if     ($baselayer == 'mapnik')		$baselayerurl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-    else if($baselayer == 'mapquest')	$baselayerurl = 'http://otile1.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png';
-    else if($baselayer == 'cloudmade')	$baselayerurl = 'http://{s}.tile.cloudmade.com/7807cc60c1354628aab5156cfc1d4b3b/997/256/{z}/{x}/{y}.png';
-    else if($baselayer == 'mapnikde')	$baselayerurl = 'http://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png';
-    else if($baselayer == 'mapnikfr')	$baselayerurl = 'http://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png';
-    else if($baselayer == 'blackandwhite')	$baselayerurl = 'http://{s}.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png';
-    else if($baselayer == 'mapnikhot')	$baselayerurl = 'http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png';
-    else if($baselayer == 'mapquestaerial')	$baselayerurl = 'http://oatile{s}.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.jpg';
-    else if($baselayer == 'custom')	$baselayerurl = $custombaselayerurl;
+    if     ($baselayer == 'mapnik')     $baselayerurl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+    else if($baselayer == 'mapquest')   $baselayerurl = 'http://otile1.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png';
+    else if($baselayer == 'cloudmade')  $baselayerurl = 'http://{s}.tile.cloudmade.com/7807cc60c1354628aab5156cfc1d4b3b/997/256/{z}/{x}/{y}.png';
+    else if($baselayer == 'mapnikde')   $baselayerurl = 'http://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png';
+    else if($baselayer == 'mapnikfr')   $baselayerurl = 'http://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png';
+    else if($baselayer == 'blackandwhite')  $baselayerurl = 'http://{s}.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png';
+    else if($baselayer == 'mapnikhot')  $baselayerurl = 'http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png';
+    else if($baselayer == 'mapquestaerial') $baselayerurl = 'http://oatile{s}.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.jpg';
+    else if($baselayer == 'custom') $baselayerurl = $custombaselayerurl;
 
     $attribution = osmcopyright($attrleaflet, $attrimagery, $attrmodule, $baselayer, $custombaselayer);
 
@@ -247,6 +286,20 @@ function osm_get_js($conf, $local_conf, $js_data)
     //$js = "\nvar addressPoints = ". json_encode($js_data, JSON_UNESCAPED_SLASHES) .";\n";
     $js = "\nvar addressPoints = ". str_replace("\/","/",json_encode($js_data)) .";\n";
 
+    $available_pin = array(
+        '0' => '',
+        '1' => '',
+        '2' => 'PlgIconGreen',
+        '3' => 'PlgIconRed',
+        '4' => 'LeafIconGreen',
+        '5' => 'LeafIconOrange',
+        '6' => 'LeafIconRed',
+        '7' => 'MapIconBlue',
+        '8' => 'MapIconGreen',
+        '9' => 'CustomIcon',
+        '10' => 'ImgIcon'
+    );
+
     // Create the map and get a new map instance attached and element with id="tile-map"
     $js .= "\nvar Url = '".$baselayerurl."',
     Attribution = '".$attribution."',
@@ -254,84 +307,83 @@ function osm_get_js($conf, $local_conf, $js_data)
     latlng = new L.LatLng(".$local_conf['center_lat'].", ".$local_conf['center_lng'].");\n";
     $js .= "var " . $divname . " = new L.Map('" . $divname . "', {" . $worldcopyjump . ", center: latlng, zoom: ".$local_conf['zoom'].", layers: [TileLayer], contextmenu: " . $local_conf['contextmenu'] . "});\n";
     $js .= $divname . ".attributionControl.setPrefix('');\n";
-    $js .= "L.control.scale().addTo(map);\n";
     $js .= "var MarkerClusterList=[];\n";
     $js .= "if (typeof L.MarkerClusterGroup === 'function')\n";
     $js .= "     var markers = new L.MarkerClusterGroup();\n";
     if ($local_conf['control'] === true)
     {
         $js .= "L.control.scale().addTo(" . $divname . ");\n";
-        // Icons
-        $js .= "
-
-        var PlgIcon = L.Icon.extend({
-            options: {
-                shadowUrl: 'plugins/piwigo-openstreetmap/leaflet/images/marker-shadow.png',
-                iconSize:     [25, 41],
-                shadowSize:   [41, 41],
-                iconAnchor:   [21, 21],
-                popupAnchor:  [-10, -10]
-            }
-        });
-
-        var LeafIcon = L.Icon.extend({
-            options: {
-                shadowUrl: 'plugins/piwigo-openstreetmap/leaflet/images/leaf-shadow.png',
-                iconSize:     [38, 95],
-                shadowSize:   [50, 64],
-                iconAnchor:   [22, 94],
-                shadowAnchor: [4, 62],
-                popupAnchor:  [-3, -76]
-            }
-        });
-
-        var MapIcon = L.Icon.extend({
-            options: {
-                shadowUrl: 'plugins/piwigo-openstreetmap/leaflet/images/mapicons-shadow.png',
-                iconSize:     [32, 37],
-                shadowSize:   [51, 37],
-                iconAnchor:   [19, 38],
-                shadowAnchor: [4, 33],
-                popupAnchor:  [-2, -33]
-            }
-        });
-        ";
-
-        if ($local_conf['pinid'] == 9)
-        {
-            $js .= "\nvar CustomIcon = L.Icon.extend({
-                options: {
-                    iconUrl: ".$local_conf['pinpath'].",
-                    shadowUrl: ".$local_conf['pinshadowpath'].",
-                    iconSize: [".$local_conf['pinsize']."],
-                    shadowSize: [".$local_conf['pinshadowsize']."],
-                    iconAnchor: [".$local_conf['pinoffset']."],
-                    shadowAnchor: [".$local_conf['pinoffset']."],
-                    popupAnchor: [".$local_conf['pinpopupoffset']."]
-                }
-            });";
-        }
-
-        $js .= "\nvar ImgIcon = L.Icon.extend({
-            options: {
-                iconSize:     [42, 42],
-                iconAnchor:   [21, 21],
-                popupAnchor:  [0,-21]
-            }
-        });
-
-        var PlgIconGreen = new PlgIcon({iconUrl: 'plugins/piwigo-openstreetmap/leaflet/images/marker-green.png'}),
-            PlgIconRed = new PlgIcon({iconUrl: 'plugins/piwigo-openstreetmap/leaflet/images/marker-red.png'});
-
-        var LeafIconGreen = new LeafIcon({iconUrl: 'plugins/piwigo-openstreetmap/leaflet/images/leaf-green.png'}),
-            LeafIconRed = new LeafIcon({iconUrl: 'plugins/piwigo-openstreetmap/leaflet/images/leaf-red.png'}),
-            LeafIconOrange = new LeafIcon({iconUrl: 'plugins/piwigo-openstreetmap/leaflet/images/leaf-orange.png'});
-
-        var MapIconBlue = new MapIcon({iconUrl: 'plugins/piwigo-openstreetmap/leaflet/images/mapicons-blue.png'}),
-            MapIconGreen = new MapIcon({iconUrl: 'plugins/piwigo-openstreetmap/leaflet/images/mapicons-green.png'});
-
-        ";
     }
+    // Icons
+    $js .= "
+
+    var PlgIcon = L.Icon.extend({
+        options: {
+            shadowUrl: 'plugins/piwigo-openstreetmap/leaflet/images/marker-shadow.png',
+            iconSize:     [25, 41],
+            shadowSize:   [41, 41],
+            iconAnchor:   [21, 21],
+            popupAnchor:  [-10, -10]
+        }
+    });
+
+    var LeafIcon = L.Icon.extend({
+        options: {
+            shadowUrl: 'plugins/piwigo-openstreetmap/leaflet/images/leaf-shadow.png',
+            iconSize:     [38, 95],
+            shadowSize:   [50, 64],
+            iconAnchor:   [22, 94],
+            shadowAnchor: [4, 62],
+            popupAnchor:  [-3, -76]
+        }
+    });
+
+    var MapIcon = L.Icon.extend({
+        options: {
+            shadowUrl: 'plugins/piwigo-openstreetmap/leaflet/images/mapicons-shadow.png',
+            iconSize:     [32, 37],
+            shadowSize:   [51, 37],
+            iconAnchor:   [19, 38],
+            shadowAnchor: [4, 33],
+            popupAnchor:  [-2, -33]
+        }
+    });
+    ";
+
+    if ($pinid == 9)
+    {
+        $js .= "\nvar CustomIcon = L.Icon.extend({
+            options: {
+                iconUrl: ".$pinpath.",
+                shadowUrl: ".$pinshadowpath.",
+                iconSize: [".$pinsize."],
+                shadowSize: [".$pinshadowsize."],
+                iconAnchor: [".$pinoffset."],
+                shadowAnchor: [".$pinoffset."],
+                popupAnchor: [".$pinpopupoffset."]
+            }
+        });";
+    }
+
+    $js .= "\nvar ImgIcon = L.Icon.extend({
+        options: {
+            iconSize:     [42, 42],
+            iconAnchor:   [21, 21],
+            popupAnchor:  [0,-21]
+        }
+    });
+
+    var PlgIconGreen = new PlgIcon({iconUrl: 'plugins/piwigo-openstreetmap/leaflet/images/marker-green.png'}),
+        PlgIconRed = new PlgIcon({iconUrl: 'plugins/piwigo-openstreetmap/leaflet/images/marker-red.png'});
+
+    var LeafIconGreen = new LeafIcon({iconUrl: 'plugins/piwigo-openstreetmap/leaflet/images/leaf-green.png'}),
+        LeafIconRed = new LeafIcon({iconUrl: 'plugins/piwigo-openstreetmap/leaflet/images/leaf-red.png'}),
+        LeafIconOrange = new LeafIcon({iconUrl: 'plugins/piwigo-openstreetmap/leaflet/images/leaf-orange.png'});
+
+    var MapIconBlue = new MapIcon({iconUrl: 'plugins/piwigo-openstreetmap/leaflet/images/mapicons-blue.png'}),
+        MapIconGreen = new MapIcon({iconUrl: 'plugins/piwigo-openstreetmap/leaflet/images/mapicons-green.png'});
+
+    ";
 
     $js .= "for (var i = 0; i < addressPoints.length; i++) {
         var a = addressPoints[i];
@@ -345,11 +397,11 @@ function osm_get_js($conf, $local_conf, $js_data)
         ";
 
     // create Marker
-    if ($local_conf['pinid'] == 1) { // 0 is No Marker
+    if ($pinid == 1) { // 0 is No Marker
         $js .= "var marker = new L.Marker(latlng, { title: title });\n";
-    } else if ($local_conf['pinid'] >= 2 and $local_conf['pinid'] <= 9) {
-        $js .= "var marker = new L.Marker(latlng, { title: title, icon: ".$local_conf['available_pin'][$local_conf['pinid']]."});\n";
-    } else if ($local_conf['pinid'] == 10) {
+    } else if ($pinid >= 2 and $pinid <= 9) {
+        $js .= "var marker = new L.Marker(latlng, { title: title, icon: ".$available_pin[$pinid]."});\n";
+    } else if ($pinid == 10) {
         $js .= "var marker = new L.Marker(latlng, { title: title, icon: new ImgIcon({iconUrl: pathurl})});\n";
     }
 
@@ -371,7 +423,7 @@ function osm_get_js($conf, $local_conf, $js_data)
                 $attribute = ' target=\"_blank\"';
             else
                 $attribute = '';
-            $myinfo .= "<br /><a href=\"'+imgurl+'\"".$attribute."><img src=\"'+pathurl+'\"></a>";
+            $myinfo .= "<br /><a target=\"_blank\" href=\"'+imgurl+'\"".$attribute."><img src=\"'+pathurl+'\"></a>";
         }
         if($popupinfo_comment)
         {
@@ -402,12 +454,12 @@ function osm_get_js($conf, $local_conf, $js_data)
     $js .= "\nif (typeof L.MarkerClusterGroup === 'function')\n";
     $js .= "    " . $divname . ".addLayer(markers);\n";
     if (isset($local_conf['auto_center']) and $local_conf['auto_center'] === 0 ) {
-    $js .= "var group = new L.featureGroup(MarkerClusterList);";
-    $js .= "this." . $divname . ".whenReady(function () {
-    window.setTimeout(function () {
-                " . $divname . ".fitBounds(group.getBounds());
-    }.bind(this), 200);
-}, this);";
+        $js .= "var group = new L.featureGroup(MarkerClusterList);";
+        $js .= "this." . $divname . ".whenReady(function () {
+        window.setTimeout(function () {
+                    " . $divname . ".fitBounds(group.getBounds());
+        }.bind(this), 200);
+    }, this);";
     }
     return $js;
 }
