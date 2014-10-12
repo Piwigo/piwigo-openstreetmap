@@ -44,7 +44,7 @@ $available_baselayer = array(
     'mapnikhot' 	=> 'OpenStreetMap HOT',
     'mapquest' 		=> 'MapQuestOpen',
     'mapquestaerial' => 'MapQuestOpen Aerial',
-    'cloudmade' 	=> 'Cloudmade',
+    //'cloudmade' 	=> 'Cloudmade',
     'custom' 		=> 'custom',
 );
 
