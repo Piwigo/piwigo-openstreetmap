@@ -88,6 +88,8 @@ $template->set_filenames(
     )
   );
 
+include_once( dirname(__FILE__) .'/../include/functions_map.php');
+
 // Retrieving direct information about picture
 $query = 'SELECT * FROM '.IMAGES_TABLE.' WHERE id = '.$_GET['image_id'].';';
 $picture = pwg_db_fetch_assoc(pwg_query($query));
@@ -104,42 +106,21 @@ $attrleaflet = isset($conf['osm_conf']['map']['attrleaflet']) ? $conf['osm_conf'
 $attrimagery = isset($conf['osm_conf']['map']['attrimagery']) ? $conf['osm_conf']['map']['attrimagery'] : 'false';
 $attrmodule = isset($conf['osm_conf']['map']['attrplugin']) ? $conf['osm_conf']['map']['attrplugin'] : 'false';
 
-// Load baselayerURL
-// Key1 BC9A493B41014CAABB98F0471D759707
-if     ($baselayer == 'mapnik')		$baselayerurl = 'http://tile.openstreetmap.org/{z}/{x}/{y}.png';
-else if($baselayer == 'mapquest')	$baselayerurl = 'http://otile1.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png';
-else if($baselayer == 'cloudmade')	$baselayerurl = 'http://{s}.tile.cloudmade.com/7807cc60c1354628aab5156cfc1d4b3b/997/256/{z}/{x}/{y}.png';
-else if($baselayer == 'mapnikde')	$baselayerurl = 'http://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png';
-else if($baselayer == 'mapnikfr')	$baselayerurl = 'http://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png';
-else if($baselayer == 'blackandwhite')	$baselayerurl = 'http://{s}.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png';
-else if($baselayer == 'mapnikhot')	$baselayerurl = 'http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png';
-else if($baselayer == 'mapquestaerial')	$baselayerurl = 'http://oatile1.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.jpg';
-else if($baselayer == 'custom')	$baselayerurl = $custombaselayerurl;
-
-include(dirname(__FILE__)."/../include/functions_map.php");
-$attribution = osmcopyright($attrleaflet, $attrimagery, $attrmodule, $baselayer, $custombaselayer);
-
 if ($lat == 0 and $lon == 0) { $zoom = 2; }
 
-// Generate Javascript
-// Override configuration due to the use of leaflet-providers.js
-// ----------------------------------------
-$js = "\nvar map = L.map('map', { 'zoomControl': false, editInOSMControlOptions: { editors: ['id'] }, }).setView([".$lat.", ".$lon."], ".$zoom.");
+$local_conf = array();
+$local_conf['contextmenu'] = 'false';
+$local_conf['control'] = true;
+$local_conf['img_popup'] = false;
+$local_conf['popup'] = 2;
+$local_conf['center_lat'] = $lat;
+$local_conf['center_lng'] = $lon;
+$local_conf['zoom'] = $zoom;
+$local_conf['editor'] = true;
 
-L.tileLayer('".$baselayerurl."', { maxZoom: 18 }).addTo(map);
-L.control.scale().addTo(map);
-map.addControl(L.control.zoom({position: 'topleft'}));
+$js_data = array(array($lat, $lon, null, null, null, null, null, null));
 
-L.marker([".$lat.", ".$lon."]).addTo(map)
-	.bindPopup('".addslashes(render_element_name($picture))."').openPopup();
-
-/* BEGIN leaflet-providers 
-var baseLayers = ['OpenStreetMap.Mapnik', 'OpenStreetMap.BlackAndWhite', 'OpenStreetMap.DE', 'OpenStreetMap.HOT', 'MapQuestOpen.OSM', 'MapQuestOpen.Aerial', 'Stamen.Watercolor'],
-    overlays = [''];
-
-L.control.layers.provided(baseLayers, overlays).addTo(map);
- END leaflet-providers */
-\n";
+$js = osm_get_js($conf, $local_conf, $js_data);
 
 $template->assign(array(
 	'PWG_TOKEN' => get_pwg_token(),
@@ -153,3 +134,5 @@ $template->assign(array(
 ));
 
 $template->assign_var_from_handle('ADMIN_CONTENT', 'plugin_admin_content');
+
+?>
