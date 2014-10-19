@@ -116,11 +116,12 @@ if (isset($_POST['submit']) && !empty($_POST['osm_height']))
 {
 	// Check the center GPS position is valid
 	if ($_POST['osm_left_center'])
-		//print explode(',', $_POST['osm_left_center'])[0];
-		if (explode(',', $_POST['osm_left_center'])[0] <= -90 or explode(',', $_POST['osm_left_center'])[0] >= 90)
-			array_push($page['warnings'], l10n('The specify center latitude (-90=S to 90=N) is not valid'));
-		if (explode(',', $_POST['osm_left_center'])[1] <= -180 or explode(',', $_POST['osm_left_center'])[1] >= 180)
-			array_push($page['warnings'], l10n('The specify center longitude (-180=W to 180=E) is not valid'));
+        //print explode(',', $_POST['osm_left_center'])[0];
+        $center_arr = explode(',', $_POST['osm_left_center']);
+        if (isset($center_arr[0]) and ($center_arr[0] <= -90 or $center_arr[0] >= 90))
+            array_push($page['warnings'], l10n('The specify center latitude (-90=S to 90=N) is not valid'));
+        if (isset($center_arr[1]) and ($center_arr[1] <= -180 or $center_arr[1] >= 180))
+            array_push($page['warnings'], l10n('The specify center longitude (-180=W to 180=E) is not valid'));
 
 	// On post admin form
 	$conf['osm_conf'] = array(

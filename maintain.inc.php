@@ -110,7 +110,7 @@ function plugin_install()
 	pwg_query( $q );
 
 	// Create album for GPX entries
-	mkdir (PHPWG_ROOT_PATH.'_data/i/galleries/gps/' );
+	mkdir (PHPWG_ROOT_PATH.PWG_LOCAL_DIR.'gps_track_files/');
 
 	// Create world map link
 	$dir_name = basename( dirname(__FILE__) );

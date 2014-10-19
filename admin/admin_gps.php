@@ -58,7 +58,12 @@ if (isset($_POST['submit'])) {
 }
 
 function gps_upload_file($uploaded_file) {
-    $uploaded_galleries_dir = PHPWG_ROOT_PATH.'_data/i/galleries/gps/';
+
+    if (!is_dir(PHPWG_ROOT_PATH.PWG_LOCAL_DIR.'gps_track_files/') and !is_writable(PHPWG_ROOT_PATH.PWG_LOCAL_DIR.'gps_track_files/'))
+        $uploaded_errors['upload_error'] = l10n('Unable to upload, No such writable directory: '. PHPWG_ROOT_PATH.PWG_LOCAL_DIR.'gps_track_files/');
+    // Create album for GPX entries
+    mkdir (PHPWG_ROOT_PATH.PWG_LOCAL_DIR.'gps_track_files/');
+    $uploaded_galleries_dir = PHPWG_ROOT_PATH.PWG_LOCAL_DIR.'gps_track_files/';
     $uploaded_file_tmp = $uploaded_file['tmp_name'];
     $uploaded_file_name = preg_replace('/[^a-zA-Z0-9s.]/', '_', $uploaded_file['name']);
     $uploaded_file_destination = $uploaded_galleries_dir . $uploaded_file_name;
