@@ -115,13 +115,18 @@ list($nb_geotagged) = pwg_db_fetch_array( pwg_query($query) );
 if (isset($_POST['submit']) && !empty($_POST['osm_height']))
 {
 	// Check the center GPS position is valid
-	if ($_POST['osm_left_center'])
-        //print explode(',', $_POST['osm_left_center'])[0];
+	if (isset($_POST['osm_left_center']) and strlen($_POST['osm_left_center']) != 0)
         $center_arr = explode(',', $_POST['osm_left_center']);
-        if (isset($center_arr[0]) and ($center_arr[0] <= -90 or $center_arr[0] >= 90))
-            array_push($page['warnings'], l10n('The specify center latitude (-90=S to 90=N) is not valid'));
-        if (isset($center_arr[1]) and ($center_arr[1] <= -180 or $center_arr[1] >= 180))
-            array_push($page['warnings'], l10n('The specify center longitude (-180=W to 180=E) is not valid'));
+        //print_r($center_arr);
+        $latitude = $center_arr[0];
+        $longitude = $center_arr[1];
+        if (isset($latitude) and isset($longitude))
+            if ( strlen($latitude)==0 and strlen($longitude)==0 )
+                array_push($page['warnings'], l10n('Both latitude/longitude must not empty'));
+            if (isset($latitude) and ($latitude <= -90 or $latitude >= 90))
+                array_push($page['warnings'], l10n('The specify center latitude (-90=S to 90=N) is not valid'));
+            if (isset($longitude) and ($longitude <= -180 or $longitude >= 180))
+                array_push($page['warnings'], l10n('The specify center longitude (-180=W to 180=E) is not valid'));
 
 	// On post admin form
 	$conf['osm_conf'] = array(

@@ -39,6 +39,9 @@ function osm_admin_menu($menu)
 	return $menu;
 }
 
+// Batch_manager support
+include_once(dirname(__FILE__).'/admin_batchmanager.php');
+
 // Hook to add an photo edit tab in photo edit
 add_event_handler('tabsheet_before_select','osm_photo_add_tab', 50, 2);
 function osm_photo_add_tab($sheets, $id)
