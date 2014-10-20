@@ -34,7 +34,7 @@ function plugin_install()
 	// Remove unused files from previous version
 	$toremove = array("admin.tpl", "admin.php", "admin_boot.php",
 	"leaflet/leaflet.ie.css", "leaflet/MarkerCluster.Default.ie.css",
-	"admin/admin_sync.php", "admin/admin_sync.tpl",	"admin/admin_batchmanager.php");
+	"admin/admin_sync.php", "admin/admin_sync.tpl");
 	foreach ($toremove as $file)
 	{
 		if (is_file(OSM_PATH.$file))
