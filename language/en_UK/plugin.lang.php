@@ -1,5 +1,4 @@
 <?php
-
 $lang['R_MAP'] = "Right panel configuration";
 $lang['DISPLAY'] = "Display configuration";
 $lang['SHOWLOCATION'] = "Display location map";
@@ -16,7 +15,6 @@ $lang['RIGHTLINKCSS'] = 'Custom CSS';
 $lang['RIGHTLINKCSS_DESC'] = 'Custom CSS style to apply to the location header.';
 $lang['SHOWOSM'] = "Display 'View on OpenStreetMap'";
 $lang['SHOWOSM_DESC'] = "Add a link after the map to view it on OpenStreetMap.";
-
 $lang['L_MAP'] = "Left menu configuration";
 $lang['SHOWWORLDMAPLEFT'] = "Add a world map menu on the left";
 $lang['SHOWWORLDMAPLEFT_DESC'] = 'Show a world map menu on the left menu, will display all the images in the gallery.';
@@ -34,21 +32,14 @@ $lang['POPUPTHUMB'] = "Thumbnail of the image";
 $lang['POPUPLINK'] = "Add a link to image";
 $lang['POPUPCOMMENT'] = "Comment of the image";
 $lang['POPUPAUTHOR'] = "Author of the image";
-$lang['ZOOM_MAP'] = "Zoomlevel";
-$lang['ZOOM_MAP_DESC'] = "1: far away, 18: very close, default is 2.";
-$lang['CENTER_MAP'] = "Center map here";
-$lang['CENTER_MAP_DESC'] = "Center the worlmap on the specific location (GPS coordinate). lat and lng separated by a comma, default is 0,0";
-
 $lang['C_MAP'] = "Category's description";
 $lang['SHOWCMAP'] = "Add a map in category's description";
 $lang['SHOWCMAP_DESC'] = 'Show a world map menu on category\'s description, will display all the images in the gallery.';
 $lang['WIDTH'] = 'Map width';
 $lang['WIDTH_DESC'] = 'in px or auto';
-
 $lang['M_MAP'] = "Main menu";
 $lang['SHOWMMAP'] = "Add a map in main menu";
 $lang['SHOWMMAP_DESC'] = 'Show a world map menu on main menu, will display all the images in the gallery.';
-
 $lang['G_MAP'] = "Map configuration";
 $lang['BASELAYER'] = "Map style";
 $lang['BASELAYER_DESC'] = "Mapnik is the default style of OpenStreetMap.";
@@ -64,7 +55,6 @@ $lang['ATTRIMAGERY'] = "Show map style";
 $lang['ATTRIMAGERY_DESC'] = "Shows the used map style.";
 $lang['ATTRPLUGIN'] = "Show author note";
 $lang['ATTRPLUGIN_DESC'] = "I created this plugin. :)";
-
 $lang['H_PIN'] = "Pin configuration";
 $lang['PIN'] = "Select pin";
 $lang['PIN_DESC'] = 'Select the icon you want, will appear as show on the right.';
@@ -76,7 +66,7 @@ $lang['DEFAULTPINRED'] = "Default Leaflet red";
 $lang['LEAFPINGREEN'] = "Alt Leaflet green";
 $lang['LEAFPINORANGE'] = "Alt Leaflet orange";
 $lang['LEAFPINRED'] ="Alt Leaflet red";
-$lang['MAPICONSBLEU'] = "MapsIcons bleue";
+$lang['MAPICONSBLEU'] = 'MapsIcons blue';
 $lang['MAPICONSGREEN'] = "MapsIcons green";
 $lang['IMAGE'] = "Use photo square thumbnail";
 $lang['PINPATH'] = "Own pin (custom style)";
@@ -91,19 +81,15 @@ $lang['PINOFFSET'] = "Pin point offset";
 $lang['PINOFFSET_DESC'] = 'The position on the pin image, where the pin hits the map. 0x0 is the top-left corner. Example: crosshairs = center of the image';
 $lang['PINPOPUPOFFSET'] = "Popup offset";
 $lang['PINPOPUPOFFSET_DESC'] = 'The position on the pin image, where the popup hits the pin. 0x0 is the pin point.';
-
 $lang['POWERBY'] = 'Powered by';
 $lang['IMAGERYBY'] = "Imagery by";
 $lang['PLUGINBY'] = "Plugin by";
-
 $lang['LATITUDE'] = 'Latitude';
 $lang['LONGITUDE'] = 'Longitude';
 $lang['EDIT_MAP'] = 'Map';
 $lang['EDIT_UPDATE_LOCATION_DESC'] = 'Click inside the map to update location.';
-
 $lang['DISPLAY_ON_MAP'] = 'displays %s on a map';
 $lang['MAP'] = 'Map';
-
 $lang['PLUGIN_BY'] = 'Plugin by <a href="https://github.com/xbgmsharp/piwigo-openstreetmap" target="_blank">xbgmsharp</a>';
 $lang['OSM_CONTRIBUTORS'] = '<a href="http://www.openstreetmap.org" target="_blank">OpenStreetMap</a> contributors, (<a href="http://www.openstreetmap.org/copyright" target="_blank">ODbL</a>)';
 $lang['VIEW_OSM'] = 'View on OpenStreetMap';
@@ -120,7 +106,7 @@ $lang['LINK_MAP'] = 'Link to this map';
 $lang['SHARE'] = 'Share this view';
 $lang['FIND_POSITION'] = 'Find my position';
 $lang['SEARCH_MY_POSITION'] = 'Search my position on the map';
-$lang['COPY_PASTE_URL'] = 'Copy and Paste the URL below:';
+$lang['COPY_PASTE_URL'] = 'Copy and paste the URL below:';
 $lang['CLICKED_MAP'] = "You clicked the map at ";
 $lang['SHOW_COORD'] = 'Show coordinates';
 $lang['CENTER_MAP'] = 'Center map here';
@@ -128,4 +114,3 @@ $lang['SHOW_ALL_ITEMS'] = 'Show all items';
 $lang['ZOOM_IN'] = 'Zoom in';
 $lang['ZOOM_OUT'] = 'Zoom out';
 $lang['METERS_FROM_POINT'] = 'You are within %s meters from this point';
-?>
