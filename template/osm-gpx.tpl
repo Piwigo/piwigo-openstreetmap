@@ -1,6 +1,5 @@
 {html_head}
-<!-- <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script> -->
-<script src="{$OSM_PATH}leaflet/d3.v3.min.js" charset="utf-8"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.4.13/d3.min.js" charset="utf-8"></script>
 <link href="{$OSM_PATH}leaflet/leaflet.css" rel="stylesheet">
 <script src="{$OSM_PATH}leaflet/leaflet.js"></script>
 <script src="{$OSM_PATH}leaflet/Leaflet.Elevation-0.0.2.min.js"></script>
@@ -49,4 +48,3 @@
 		map.addLayer(service);
 {/literal}
 </script>
-
