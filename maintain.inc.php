@@ -101,7 +101,7 @@ function plugin_install()
 	pwg_query( $q );
 
 	// Create DB for GPX entries
-	$q = "DROP TABLE IF EXISTS ".$prefixeTable."osm_gps;"
+	$q = "DROP TABLE IF EXISTS ".$prefixeTable."osm_gps;";
 	pwg_query( $q );
 
 	// Create album for GPX entries
