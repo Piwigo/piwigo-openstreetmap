@@ -49,7 +49,6 @@ $my_base_url = get_admin_plugin_menu_link(__FILE__);
 
 $tabsheet = new tabsheet();
 $tabsheet->add( 'config', '<span class="icon-cog"></span>' . l10n('Configuration'), add_url_params( $my_base_url, array('tab'=>'config') ) );
-$tabsheet->add( 'gps', '<span class="icon-cog"></span>' . l10n('Upload GPS file'), add_url_params( $my_base_url, array('tab'=>'gps') ) );
 $tabsheet->select($page['tab']);
 
 $tabsheet->assign();
