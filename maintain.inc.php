@@ -34,7 +34,7 @@ function plugin_install()
 	// Remove unused files from previous version
 	$toremove = array("admin.tpl", "admin.php", "admin_boot.php",
 	"leaflet/leaflet.ie.css", "leaflet/MarkerCluster.Default.ie.css",
-	"admin/admin_sync.php", "admin/admin_sync.tpl");
+	"admin/admin_sync.php", "admin/admin_sync.tpl", "admin/admin_gps.php", "admin/admin_gps.tpl");
 	foreach ($toremove as $file)
 	{
 		if (is_file(OSM_PATH.$file))
@@ -101,17 +101,12 @@ function plugin_install()
 	pwg_query( $q );
 
 	// Create DB for GPX entries
-	$q = "CREATE TABLE IF NOT EXISTS ".$prefixeTable."osm_gps (
-		`id` int(11) NOT NULL auto_increment,
-		`category_id` smallint(5) unsigned NOT NULL,
-		`path` varchar(255) NOT NULL,
-	 	PRIMARY KEY  (`id`)
-	) DEFAULT CHARACTER SET ".DB_CHARSET." COLLATE utf8_general_ci;";
+	$q = "DROP TABLE IF EXISTS ".$prefixeTable."osm_gps;"
 	pwg_query( $q );
 
 	// Create album for GPX entries
 	if (!file_exists(PHPWG_ROOT_PATH.PWG_LOCAL_DIR.'gps_track_files/'))
-		mkdir (PHPWG_ROOT_PATH.PWG_LOCAL_DIR.'gps_track_files/');
+		rmdir (PHPWG_ROOT_PATH.PWG_LOCAL_DIR.'gps_track_files/');
 
 	// Create world map link
 	$dir_name = basename( dirname(__FILE__) );
