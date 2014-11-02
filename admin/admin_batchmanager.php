@@ -34,6 +34,7 @@ function osm_get_batch_manager_prefilters($prefilters)
 {
 	$prefilters[] = array('ID' => 'osm0', 'NAME' => l10n('OSM Geotagged'));
 	$prefilters[] = array('ID' => 'osm1', 'NAME' => l10n('OSM Not geotagged'));
+	$prefilters[] = array('ID' => 'osm2', 'NAME' => l10n('OSM GPX tracks'));
 	return $prefilters;
 }
 
@@ -45,6 +46,8 @@ function osm_perform_batch_manager_prefilters($filter_sets, $prefilter)
 		$filter = "`latitude` IS NOT NULL and `longitude` IS NOT NULL";
 	else if ($prefilter==="osm1")
 		$filter = "`latitude` IS NULL OR `longitude` IS NULL";
+	else if ($prefilter==="osm2")
+		$filter = "`path` LIKE '%gpx%' ";
 
 	if ( isset($filter) )
 	{
