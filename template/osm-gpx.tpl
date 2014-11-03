@@ -19,17 +19,17 @@
 {/html_style}
 
 <div id="mapgpx"></div>
-<script type="text/javascript">
+<script type="text/javascript">{$OSMGPX}
 {literal}
-
+/*
 		var map = new L.Map('mapgpx');
 
 		var url = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
 			attr ='Leaflet Plugin by xbgmsharp Tiles Courtesy of OSM.org (CC BY-SA) © OpenStreetMap contributors, (ODbL)',
 			service = new L.TileLayer(url, {attribution: attr});
-
-		var el = L.control.elevation({theme: 'steelblue-theme', width: 320});
-		el.addTo(map);
+*/
+		var el = L.control.elevation({theme: 'steelblue-theme', width: {/literal}{$WIDTH}{literal}});
+		el.addTo(mapgpx);
 		var g=new L.GPX("{/literal}{$FILENAME}{literal}", {
 			async: true,
 			marker_options: {
@@ -39,12 +39,12 @@
 			  }
 		});
 		g.on('loaded', function(e) {
-		  		map.fitBounds(e.target.getBounds());
+			mapgpx.fitBounds(e.target.getBounds());
 		});
 		g.on("addline",function(e){
 			el.addData(e.line);
 		});
-		g.addTo(map);
-		map.addLayer(service);
+		g.addTo(mapgpx);
+		//mapgpx.addLayer(service);
 {/literal}
 </script>

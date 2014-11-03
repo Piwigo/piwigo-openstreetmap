@@ -43,10 +43,12 @@ function osm_render_media($content, $picture)
 	}
 
 	$filename = embellish_url(get_gallery_home_url() . $picture['current']['element_url']);
+	$height = isset($conf['osm_conf']['gpx']['height']) ? $conf['osm_conf']['gpx']['height'] : '500';
+	$width = isset($conf['osm_conf']['gpx']['width']) ? $conf['osm_conf']['gpx']['width'] : '320';
 
 	$local_conf = array();
 	$local_conf['contextmenu'] = 'false';
-	$local_conf['control'] = false;
+	$local_conf['control'] = true;
 	$local_conf['img_popup'] = false;
 	$local_conf['popup'] = 2;
 	$local_conf['center_lat'] = 0;
@@ -66,10 +68,11 @@ function osm_render_media($content, $picture)
 	// Assign the template variables
 	$template->assign(
         array(
-            'HEIGHT'		=> '500',
-            'FILENAME'		=> $filename,
-            'OSM_PATH'		=> embellish_url(get_absolute_root_url().OSM_PATH),
-            'OSMGPX'		=> $js,
+			'HEIGHT'   => $height,
+			'WIDTH'    => $width,
+			'FILENAME' => $filename,
+			'OSM_PATH' => embellish_url(get_absolute_root_url().OSM_PATH),
+			'OSMGPX'   => $js,
             )
 	);
 
