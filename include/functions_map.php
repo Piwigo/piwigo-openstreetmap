@@ -53,13 +53,46 @@ function osmcopyright($attrleaflet, $attrimagery, $attrmodule, $bl, $custombasel
 
 function osm_get_gps($page)
 {
-    global $prefixeTable;
-    if (isset($page['category'])) {
-        $category = $page['category']['id'];
-        $query = "SELECT `path` FROM ".$prefixeTable."osm_gps AS g INNER JOIN ".CATEGORIES_TABLE." AS c ON g.category_id = c.id WHERE FIND_IN_SET(".$category.", c.uppercats);";
-    } else {
-        $query = "SELECT `path` FROM ".$prefixeTable."osm_gps;";
+    // Limit search by category, by tag, by smartalbum
+    $LIMIT_SEARCH="";
+    $INNER_JOIN="";
+    if (isset($page['section']))
+    {
+        if ($page['section'] === 'categories' and isset($page['category']) and isset($page['category']['id']) )
+        {
+            $LIMIT_SEARCH = "FIND_IN_SET(".$page['category']['id'].", c.uppercats) AND ";
+            $INNER_JOIN = "INNER JOIN ".CATEGORIES_TABLE." AS c ON ic.category_id = c.id";
+        }
+        if ($page['section'] === 'tags' and isset($page['tags']) and isset($page['tags'][0]['id']) )
+        {
+            $items = get_image_ids_for_tags( array($page['tags'][0]['id']) );
+            if ( !empty($items) )
+            {
+                $LIMIT_SEARCH = "ic.image_id IN (".implode(',', $items).") AND ";
+            }
+        }
+        if ($page['section'] === 'tags' and isset($page['category']) and isset($page['category']['id']) )
+        {
+            $LIMIT_SEARCH = "FIND_IN_SET(".$page['category']['id'].", c.uppercats) AND ";
+            $INNER_JOIN = "INNER JOIN ".CATEGORIES_TABLE." AS c ON ic.category_id = c.id";
+        }
     }
+
+    $forbidden = get_sql_condition_FandF(
+        array
+        (
+            'forbidden_categories' => 'ic.category_id',
+            'visible_categories' => 'ic.category_id',
+            'visible_images' => 'i.id'
+        ),
+        "\n AND"
+    );
+
+    /* Get all GPX tracks */
+    $query="SELECT i.path FROM ".IMAGES_TABLE." AS i
+            INNER JOIN (".IMAGE_CATEGORY_TABLE." AS ic ".$INNER_JOIN.") ON i.id = ic.image_id
+            WHERE ".$LIMIT_SEARCH." `path` LIKE '%gpx%' ".$forbidden." ";
+
     return array_from_query($query, 'path');
 }
 
@@ -302,16 +335,30 @@ function osm_get_js($conf, $local_conf, $js_data)
 
     $editor = isset($local_conf['editor']) ? "editInOSMControlOptions: { editors: ['id'] }, " : '';
 
-    // Create the map and get a new map instance attached and element with id="tile-map"
-    $js .= "\nvar Url = '".$baselayerurl."',
-    Attribution = '".$attribution."',
-    TileLayer = new L.TileLayer(Url, {maxZoom: 18, noWrap: ".$nowarp.", attribution: Attribution}),
-    latlng = new L.LatLng(".$local_conf['center_lat'].", ".$local_conf['center_lng'].");\n";
-    $js .= "var " . $divname . " = new L.Map('" . $divname . "', {" . $worldcopyjump . ", center: latlng, ".$editor." zoom: ".$local_conf['zoom'].", layers: [TileLayer], contextmenu: " . $local_conf['contextmenu'] . "});\n";
-    $js .= $divname . ".attributionControl.setPrefix('');\n";
-    $js .= "var MarkerClusterList=[];\n";
-    $js .= "if (typeof L.MarkerClusterGroup === 'function')\n";
-    $js .= "     var markers = new L.MarkerClusterGroup();\n";
+    if ($divname === 'mapgpx')
+    {
+        // Create the map and get a new map instance attached and element with $divname
+        // we return directly as there is no addressPoints for GPX
+        $js .= "\nvar Url = '".$baselayerurl."',
+        Attribution = '".$attribution."',
+        TileLayer = new L.TileLayer(Url, {maxZoom: 18, noWrap: ".$nowarp.", attribution: Attribution});\n";
+        $js .= "var " . $divname . " = new L.Map('" . $divname . "', {" . $worldcopyjump . ", zoom: ".$local_conf['zoom'].", layers: [TileLayer], contextmenu: " . $local_conf['contextmenu'] . "});\n";
+        $js .= $divname . ".attributionControl.setPrefix('');\n";
+        $js .= "\nL.control.scale().addTo(" . $divname . ");\n";
+        return $js;
+    } else {
+        // Create the map and get a new map instance attached and element with $divname
+        $js .= "\nvar Url = '".$baselayerurl."',
+        Attribution = '".$attribution."',
+        TileLayer = new L.TileLayer(Url, {maxZoom: 18, noWrap: ".$nowarp.", attribution: Attribution}),
+        latlng = new L.LatLng(".$local_conf['center_lat'].", ".$local_conf['center_lng'].");\n";
+        $js .= "var " . $divname . " = new L.Map('" . $divname . "', {" . $worldcopyjump . ", center: latlng, ".$editor." zoom: ".$local_conf['zoom'].", layers: [TileLayer], contextmenu: " . $local_conf['contextmenu'] . "});\n";
+        $js .= $divname . ".attributionControl.setPrefix('');\n";
+        $js .= "var MarkerClusterList=[];\n";
+        $js .= "if (typeof L.MarkerClusterGroup === 'function')\n";
+        $js .= "     var markers = new L.MarkerClusterGroup();\n";
+    }
+
     if ($local_conf['control'] === true)
     {
         $js .= "\nL.control.scale().addTo(" . $divname . ");\n";
