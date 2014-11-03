@@ -39,7 +39,7 @@ function osm_render_category_description()
     load_language('plugin.lang', OSM_PATH);
 
     global $template, $page, $conf;
-    #comment are used only with this condition index.php l294
+    // Comment are used only with this condition index.php l294
     if ($page['start']==0 and !isset($page['chronology_field']) )
     {
         $js_data = osm_get_items($page);
@@ -61,15 +61,15 @@ function osm_render_category_description()
             $template->set_filename('map', dirname(__FILE__).'/template/osm-category.tpl' );
             $template->assign(
                 array(
-                    'CONTENT_ENCODING'	=> get_pwg_charset(),
-                    'OSM_PATH'		=> embellish_url(get_absolute_root_url().OSM_PATH),
-                    'HOME'		=> make_index_url(),
-                    'HOME_PREV'		=> isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : get_absolute_root_url(),
-                    'HOME_NAME'		=> l10n("Home"),
-                    'HOME_PREV_NAME'	=> l10n("Previous"),
-                    'OSMJS'		=> $js,
-                    'HEIGHT'		=> $height,
-                    'WIDTH'		=> $width,
+                    'CONTENT_ENCODING' => get_pwg_charset(),
+                    'OSM_PATH'         => embellish_url(get_absolute_root_url().OSM_PATH),
+                    'HOME'             => make_index_url(),
+                    'HOME_PREV'        => isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : get_absolute_root_url(),
+                    'HOME_NAME'        => l10n("Home"),
+                    'HOME_PREV_NAME'   => l10n("Previous"),
+                    'OSMJS'            => $js,
+                    'HEIGHT'           => $height,
+                    'WIDTH'            => $width,
                 )
             );
 

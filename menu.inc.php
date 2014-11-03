@@ -51,7 +51,7 @@ function osm_apply_menu($menu_ref_arr)
         osm_load_language();
         load_language('plugin.lang', OSM_PATH);
 
-        #comment are used only with this condition index.php l294
+        // Comment are used only with this condition index.php l294
         if ($page['start']==0 and !isset($page['chronology_field']) )
         {
             $js_data = osm_get_items($page);
@@ -73,9 +73,9 @@ function osm_apply_menu($menu_ref_arr)
                 $template->set_template_dir(dirname(__FILE__).'/template/');
                 $template->assign(
                     array(
-                        'OSM_PATH'        => embellish_url(get_absolute_root_url().OSM_PATH),
-                        'OSMJS'           => $js,
-                        'HEIGHT'          => $height,
+                        'OSM_PATH' => embellish_url(get_absolute_root_url().OSM_PATH),
+                        'OSMJS'    => $js,
+                        'HEIGHT'   => $height,
                     )
                 );
                 $block->template = 'osm-menu.tpl';
