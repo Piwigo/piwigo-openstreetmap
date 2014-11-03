@@ -82,15 +82,15 @@ $lang['EDIT_UPDATE_LOCATION_DESC'] = "Cliquez sur la carte pour mettre à jour l
 $lang['LATITUDE'] = "Latitude";
 $lang['LONGITUDE'] = "Longitude";
 $lang['EDIT_MAP'] = "Carte";
-$lang['PLUGIN_BY'] = "Plugin créé par <a href='https://github.com/xbgmsharp/piwigo-openstreetmap' target='_blank'>xbgmsharp</a>";
-$lang['SHOWCMAP'] = "Ajoute une carte dans la catégorie "Description"";
-$lang['SHOWCMAP_DESC'] = "Affiche une carte mondiale de la catégorie "description", affichera toutes les images dans la galerie.";
+$lang['PLUGIN_BY'] = 'Plugin créé par <a href="https://github.com/xbgmsharp/piwigo-openstreetmap" target="_blank">xbgmsharp</a>";
+$lang['SHOWCMAP'] = "Ajoute une carte dans la catégorie 'Description'";
+$lang['SHOWCMAP_DESC'] = "Affiche une carte mondiale de la catégorie 'description', affichera toutes les images dans la galerie.";
 $lang['ZOOM_IN'] = "Zoom avant";
 $lang['ZOOM_OUT'] = "Zoom arrière";
 $lang['METERS_FROM_POINT'] = "Vous êtes à %s mètres de ce point";
 $lang['MOUSE_OVER'] = "Passez la souris sur un groupe pour voir les limites de ses enfants, puis cliquez sur un groupe pour zoomer sur les limites";
 $lang['M_MAP'] = "Menu principal";
-$lang['OSM_CONTRIBUTORS'] = "<a href='http://www.openstreetmap.org' target='_blank'>OpenStreetMap</a> contributeurs, (<a href='http://www.openstreetmap.org/copyright' target='_blank'>ODbL</a>)';
+$lang['OSM_CONTRIBUTORS'] = '<a href="http://www.openstreetmap.org" target="_blank" OpenStreetMap</a> contributeurs, (<a href="http://www.openstreetmap.org/copyright" target="_blank">ODbL</a>)";
 $lang['OSWORLDMAP'] = "Carte mondiale";
 $lang['PIWIGO_GALLERY'] = "Allez à la galerie Piwigo";
 $lang['SEARCH_MY_POSITION'] = "Chercher ma position sur la carte";
@@ -124,3 +124,9 @@ $lang['LINK_MAP'] = "Lien vers cette carte";
 $lang['MAP'] = "Carte";
 $lang['MAPICONSBLEU'] = "Icônes bleues";
 $lang['MAPICONSGREEN'] = "Icônes vertes";
+
+$lang['GPX_MAP'] = "GPX Carte";
+$lang['GPX_WIDTH'] = "Elevation panel width";
+$lang['LAYOUT_MAP'] = "WorldMap layout";
+$lang['LAYOUT_MAP_DESC'] = "Select the worldmap style you prefer";
+
