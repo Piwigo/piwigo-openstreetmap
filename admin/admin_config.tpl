@@ -80,6 +80,13 @@ Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" ta
 				<br/><small>{'SHOWWORLDMAPLEFT_DESC'|@translate}</small>
 			</li>
 			<li>
+				<label>{'LAYOUT_MAP'|@translate} : </label>
+				<select name="osm_left_layout">
+					{html_options options=$AVAILABLE_LAYOUT selected=$left_menu.layout}
+				</select>
+				<br/><small>{'LAYOUT_MAP_DESC'|@translate}</small>
+			</li>
+			<li>
 				<label>{'LEFTLINK'|@translate} : </label>
 				<input type="text" value="{$left_menu.link}" name="osm_left_link" size="20"/>
 				<br/><small>{'LEFTLINK_DESC'|@translate}</small>
@@ -150,6 +157,21 @@ Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" ta
 				<label>{'HEIGHT'|@translate} : </label>
 				<input type="text" value="{$main_menu.height}" name="osm_menu_height" size="4" required placeholder="200"/>
 				<br/><small>{'HEIGHT_DESC'|@translate}</small>
+			</li>
+		</ul>
+	</fieldset>
+	<fieldset>
+		<legend>{'GPX_MAP'|@translate}</legend>
+		<ul>
+			<li>
+				<label>{'HEIGHT'|@translate} : </label>
+				<input type="text" value="{$gpx.height}" name="osm_gpx_height" size="4" required placeholder="500"/>
+				<br/><small>{'HEIGHT_DESC'|@translate}</small>
+			</li>
+			<li>
+				<label>{'GPX_WIDTH'|@translate} : </label>
+				<input type="text" value="{$gpx.width}" name="osm_gpx_width" size="4" required placeholder="320"/>
+				<br/><small>{'WIDTH_DESC'|@translate}</small>
 			</li>
 		</ul>
 	</fieldset>
@@ -291,12 +313,12 @@ function tile_preview()
 	baselayer = new Array(
 		'https://c.tile.openstreetmap.org/5/15/11.png',
 		'http://c.www.toolserver.org/tiles/bw-mapnik/5/15/11.png',
-		'http://c.tile.openstreetmap.fr/hot/5/15/11.png',
-		'http://c.tile.openstreetmap.de/tiles/osmde/5/15/11.png',
-		'http://c.tile.openstreetmap.fr/hot/5/15/11.png',
-		'http://otile1.mqcdn.com/tiles/1.0.0/osm/5/15/11.png',
-		'http://oatile1.mqcdn.com/tiles/1.0.0/sat/5/15/11.png',
-		'http://a.tile.cloudmade.com/7807cc60c1354628aab5156cfc1d4b3b/997/256/5/15/11.png',
+		'https://c.tile.openstreetmap.fr/hot/5/15/11.png',
+		'https://c.tile.openstreetmap.de/tiles/osmde/5/15/11.png',
+		'https://c.tile.openstreetmap.fr/hot/5/15/11.png',
+		'https://otile1.mqcdn.com/tiles/1.0.0/osm/5/15/11.png',
+		'https://oatile1.mqcdn.com/tiles/1.0.0/sat/5/15/11.png',
+		'https://a.tile.cloudmade.com/7807cc60c1354628aab5156cfc1d4b3b/997/256/5/15/11.png',
 		'NULL'
 	);
 	//alert(baselayer[select.selectedIndex]);

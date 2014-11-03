@@ -45,52 +45,57 @@ function plugin_install()
 
 	$default_config = array(
 		'right_panel' => array(
-			'enabled' 	=> true,
-			'add_before' 	=> 'Average',
-			'height' 	=> '200',
-			'zoom' 		=> 12,
-			'link'		=> 'Location',
-			'linkcss'	=> null,
-			'showosm' 	=> true,
+			'enabled'    => true,
+			'add_before' => 'Average',
+			'height'     => '200',
+			'zoom'       => 12,
+			'link'       => 'Location',
+			'linkcss'    => null,
+			'showosm'    => true,
 			),
 		'left_menu' => array(
-			'enabled'		=> true,
-			'link'			=> l10n('OSWORLDMAP'),
-			'popup'			=> 0,
-			'popupinfo_name'	=> true,
-			'popupinfo_img'		=> true,
-			'popupinfo_link'	=> true,
-			'popupinfo_comment'	=> true,
-			'popupinfo_author'	=> true,
-			'zoom'				=> 2,
-			'center'			=> '0,0'
+			'enabled'           => true,
+			'link'              => l10n('OSWORLDMAP'),
+			'popup'             => 0,
+			'popupinfo_name'    => true,
+			'popupinfo_img'     => true,
+			'popupinfo_link'    => true,
+			'popupinfo_comment' => true,
+			'popupinfo_author'  => true,
+			'zoom'              => 2,
+			'center'            => '0,0',
+			'layout'            => 'osm-map2.tpl',
 			),
-        'category_description' => array(
-            'enabled' 	=> true,
-            'height' 	=> '200',
-            'width' 	=> 'auto',
-            ),
-        'main_menu' => array(
-            'enabled' 	=> false,
-            'height' 	=> '200',
-            ),
+		'category_description' => array(
+			'enabled' => true,
+			'height'  => '200',
+			'width'   => 'auto',
+			),
+		'main_menu' => array(
+			'enabled' => false,
+			'height'  => '200',
+			),
+		'gpx' => array(
+				'height' 	=> '500',
+				'width' 	=> '320',
+			),
 		'map' => array(
-			'baselayer' 		=> 'mapnik',
-			'custombaselayer' 	=> null,
-			'custombaselayerurl'	=> null,
-			'noworldwarp' 		=> false,
-			'attrleaflet' 		=> true,
-			'attrimagery' 		=> true,
-			'attrplugin' 		=> true,
+			'baselayer'          => 'mapnik',
+			'custombaselayer'    => null,
+			'custombaselayerurl' => null,
+			'noworldwarp'        => false,
+			'attrleaflet'        => true,
+			'attrimagery'        => true,
+			'attrplugin'         => true,
 			),
 		'pin' => array(
-			'pin' 				=> 1,
-			'pinpath' 			=> '',
-			'pinsize'			=> '',
-			'pinshadowpath' 	=> '',
-			'pinshadowsize' 	=> '',
-			'pinoffset' 		=> '',
-			'pinpopupoffset' 	=> '',
+			'pin'            => 1,
+			'pinpath'        => '',
+			'pinsize'        => '',
+			'pinshadowpath'  => '',
+			'pinshadowsize'  => '',
+			'pinoffset'      => '',
+			'pinpopupoffset' => '',
 			),
 	);
 	/* Add configuration to the config table */
@@ -146,7 +151,7 @@ function plugin_activate()
 	global $conf;
 
 	if ( (!isset($conf['osm_conf']))
-	    or (count($conf['osm_conf'], COUNT_RECURSIVE) != 40))
+	    or (count($conf['osm_conf'], COUNT_RECURSIVE) != 43))
 	{
 		plugin_install();
 	}
