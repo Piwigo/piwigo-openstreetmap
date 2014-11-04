@@ -108,15 +108,12 @@ $available_popup = array(
     '2' => l10n('NEVER'),
 );
 
-// Available layout value from the directory to be dynamic
-$available_layout = array();
-$filematch = dirname(__FILE__)."/../template/osm-map*.tpl";
-$matches = glob($filematch);
-if ( is_array ( $matches ) ) {
-     foreach ( $matches as $filename) {
-	array_push($available_layout, preg_replace('/^.*.\//', '', $filename));
-     }
-}
+// Available layout value
+$available_layout = array(
+    '1' => 'osm-map.tpl',
+    '2' => 'osm-map2.tpl',
+    '3' => 'osm-map3.tpl',
+);
 
 $query = 'SELECT COUNT(*) FROM '.IMAGES_TABLE.' WHERE `latitude` IS NOT NULL and `longitude` IS NOT NULL ';
 list($nb_geotagged) = pwg_db_fetch_array( pwg_query($query) );

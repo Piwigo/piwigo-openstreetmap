@@ -84,7 +84,9 @@ function osm_end_index()
 	}
 	osm_load_language();
 
-	$map_url = osm_duplicate_map_index_url( array(), array('start') );
+	global $conf;
+	$layout = isset($conf['osm_conf']['left_menu']['layout']) ? $conf['osm_conf']['left_menu']['layout'] : '2';
+	$map_url = osm_duplicate_map_index_url( array(), array('start') ) ."&v=".$layout;
 	$link_title = sprintf( l10n('DISPLAY_ON_MAP'), strip_tags($page['title']) );
 	$template->concat( 'PLUGIN_INDEX_ACTIONS' , "\n<li>".sprintf(OSM_ACTION_MODEL,
 		$map_url, $link_title, '', 'map', l10n('MAP')
@@ -107,9 +109,10 @@ function osm_blockmanager_apply($mb_arr)
 		load_language('plugin.lang', OSM_PATH);
 		global $conf;
 		$linkname = isset($conf['osm_conf']['left_menu']['link']) ? $conf['osm_conf']['left_menu']['link'] : l10n('OSWorldMap');
+		$layout = isset($conf['osm_conf']['left_menu']['layout']) ? $conf['osm_conf']['left_menu']['layout'] : '2';
 		$link_title = sprintf( l10n('DISPLAY_ON_MAP'), strip_tags($conf['gallery_title']) );
 		$block->data['osm'] = array(
-			'URL' => osm_make_map_index_url( array('section'=>'categories') ),
+			'URL' => osm_make_map_index_url( array('section'=>'categories') ) ."&v=".$layout,
 			'TITLE' => $link_title,
 			'NAME' => $linkname,
 			'REL'=> 'rel=nofollow'
