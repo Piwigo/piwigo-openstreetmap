@@ -110,11 +110,11 @@ Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" ta
 				<small>{'LEFTPOPUPINFO_DESC'|@translate}</small>
 			</li>
 			<li>
-				<label>{'ZOOM_MAP'|@translate} : </label>
+				<label>{'ZOOM'|@translate} : </label>
 				<select name="osm_left_zoom">
 					{html_options options=$AVAILABLE_ZOOM selected=$left_menu.zoom}
 				</select>
-				<br/><small>{'ZOOM_MAP_DESC'|@translate}</small>
+				<br/><small>{'ZOOM_DESC'|@translate}</small>
 			</li>
 			<li>
 				<label>{'CENTER_MAP'|@translate} : </label>
