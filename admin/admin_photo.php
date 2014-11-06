@@ -91,7 +91,20 @@ $template->set_filenames(
 include_once( dirname(__FILE__) .'/../include/functions_map.php');
 
 // Retrieving direct information about picture
-$query = 'SELECT * FROM '.IMAGES_TABLE.' WHERE id = '.$_GET['image_id'].';';
+$query = "SELECT *,
+IF(i.representative_ext IS NULL,
+        CONCAT(SUBSTRING_INDEX(TRIM(LEADING '.' FROM i.path), '.', 1 ), '-sq.', SUBSTRING_INDEX(TRIM(LEADING '.' FROM i.path), '.', -1 )),
+        TRIM(LEADING '.' FROM
+            REPLACE(i.path, TRIM(TRAILING '.' FROM SUBSTRING_INDEX(i.path, '/', -1 )),
+                CONCAT('pwg_representative/',
+                    CONCAT(
+                        TRIM(TRAILING '.' FROM SUBSTRING_INDEX( SUBSTRING_INDEX(i.path, '/', -1 ) , '.', 1 )),
+                        CONCAT('-sq.', i.representative_ext)
+                    )
+                )
+            )
+        )
+    ) AS `pathurl` FROM ".IMAGES_TABLE." AS i WHERE id = ".$_GET['image_id'].";";
 $picture = pwg_db_fetch_assoc(pwg_query($query));
 $lat = isset($picture['latitude']) ? $picture['latitude'] : 0;
 $lon = isset($picture['longitude']) ? $picture['longitude'] : 0;
@@ -118,19 +131,20 @@ $local_conf['center_lng'] = $lon;
 $local_conf['zoom'] = $zoom;
 $local_conf['editor'] = true;
 
-$js_data = array(array($lat, $lon, null, null, null, null, null, null));
+$pathurl = get_absolute_root_url() ."i.php?".$picture['pathurl'];
+$js_data = array(array($lat, $lon, null, $pathurl, null, null, null, null));
 
 $js = osm_get_js($conf, $local_conf, $js_data);
 
 $template->assign(array(
 	'PWG_TOKEN' => get_pwg_token(),
-	'F_ACTION' => $self_url,
-	'TN_SRC' => DerivativeImage::thumb_url($picture).'?'.time(),
-	'TITLE' => render_element_name($picture),
-	'OSM_PATH' => embellish_url(get_absolute_root_url().OSM_PATH),
-	'OSM_JS' => $js,
-	'LAT' => $lat,
-	'LON' => $lon,
+	'F_ACTION'  => $self_url,
+	'TN_SRC'    => DerivativeImage::thumb_url($picture).'?'.time(),
+	'TITLE'     => render_element_name($picture),
+	'OSM_PATH'  => embellish_url(get_absolute_root_url().OSM_PATH),
+	'OSM_JS'    => $js,
+	'LAT'       => $lat,
+	'LON'       => $lon,
 ));
 
 $template->assign_var_from_handle('ADMIN_CONTENT', 'plugin_admin_content');
