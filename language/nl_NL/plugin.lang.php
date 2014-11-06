@@ -113,3 +113,6 @@ $lang['FIND_POSITION'] = 'Vind mijn positie';
 $lang['BACK_ON_PAGE'] = 'Ga één pagina terug';
 $lang['CENTER_MAP'] = 'Centreer de kaart hier';
 $lang['COPY_PASTE_URL'] = 'Kopieer en plak de URL onderaan:';
+$lang['SHARE'] = 'Deel dit zicht';
+$lang['OSWORLDMAP'] = 'OS Wereld kaart';
+$lang['CLICKED_MAP'] = 'Je klikte de kaart op';
