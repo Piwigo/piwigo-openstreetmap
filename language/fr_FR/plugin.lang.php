@@ -100,7 +100,7 @@ $lang['SHOW_COORD'] = 'Montre les coordonnées';
 $lang['VIEW_OSM'] = 'Voir dans OpenStreetMap';
 $lang['WIDTH'] = 'Largeur de la carte';
 $lang['WIDTH_DESC'] = 'en pixel ou automatique';
-$lang['BACK_ON_PAGE'] = 'Revenir d\'une page';
+$lang['BACK_ON_PAGE'] = 'Retour\'une page';
 $lang['BROWSER_JAVASCRIPT'] = 'Votre navigateur doit avoir JavaScript';
 $lang['CENTER_MAP'] = 'Centrez la carte ici';
 $lang['CLICKED_MAP'] = 'Vous avez cliqué sur la carte à';
@@ -124,4 +124,3 @@ $lang['GPX_MAP'] = 'GPX Carte';
 $lang['GPX_WIDTH'] = 'Elevation panel width';
 $lang['LAYOUT_MAP'] = 'WorldMap layout';
 $lang['LAYOUT_MAP_DESC'] = 'Select the worldmap style you prefer';
-
