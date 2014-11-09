@@ -1,0 +1,1 @@
+Integrácia OpenStreeMap v Piwigo

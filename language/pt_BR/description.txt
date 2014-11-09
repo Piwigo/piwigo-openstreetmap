@@ -1,0 +1,1 @@
+Integração do OpenStreetMap com o Piwigo.

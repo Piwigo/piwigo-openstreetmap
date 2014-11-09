@@ -120,8 +120,3 @@ $lang['LINK_MAP'] = 'Lien vers cette carte';
 $lang['MAP'] = 'Carte';
 $lang['MAPICONSBLEU'] = 'Icônes bleues';
 $lang['MAPICONSGREEN'] = 'Icônes vertes';
-$lang['GPX_MAP'] = 'GPX Carte';
-$lang['GPX_WIDTH'] = 'Elevation panel width';
-$lang['LAYOUT_MAP'] = 'WorldMap layout';
-$lang['LAYOUT_MAP_DESC'] = 'Select the worldmap style you prefer';
-
