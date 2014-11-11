@@ -118,4 +118,4 @@ $lang['GPX_MAP'] = 'GPX Map';
 $lang['GPX_WIDTH'] = 'Elevation panel width';
 $lang['LAYOUT_MAP'] = 'WorldMap layout';
 $lang['LAYOUT_MAP_DESC'] = 'Select the worldmap style you prefer.';
-$lang['CENTER_MAP_DESC'] = 'Center the worlmap on the specific location (GPS coordinate). lat and lng separated by a comma, default is 0,0';
+$lang['CENTER_MAP_DESC'] = 'Center the worldmap on the specific location (GPS coordinate). lat and lng separated by a comma, default is 0,0';
