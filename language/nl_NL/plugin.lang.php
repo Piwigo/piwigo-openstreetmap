@@ -116,3 +116,7 @@ $lang['COPY_PASTE_URL'] = 'Kopieer en plak de URL onderaan:';
 $lang['SHARE'] = 'Deel dit zicht';
 $lang['OSWORLDMAP'] = 'OS Wereld kaart';
 $lang['CLICKED_MAP'] = 'Je klikte de kaart op';
+$lang['GPX_MAP'] = 'GPX Kaart';
+$lang['LAYOUT_MAP_DESC'] = 'Selecteer de stijl van de wereldkaart';
+$lang['ITEMS'] = '%d items';
+$lang['BROWSER_JAVASCRIPT'] = 'Javascript moet in je browser ingeschakeld zijn';
