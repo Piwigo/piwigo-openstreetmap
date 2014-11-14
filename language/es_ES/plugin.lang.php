@@ -133,3 +133,12 @@ $lang['COPY_PASTE_URL'] = 'Copia y pega la URL aquí debajo';
 $lang['CLICKED_MAP'] = 'Hizo clic en el mapa en';
 $lang['CENTER_MAP'] = 'Centrar el mapa aquí';
 $lang['BROWSER_JAVASCRIPT'] = 'Su navegador debe permitir JavaScript ';
+$lang['CENTER_MAP_DESC'] = 'Centrar el mapamundi en la locación especifica (coordenadas GPS). 
+Separando latitud y longitud por un coma, por defecto es 0,0';
+$lang['GPX_MAP'] = 'Mapa GPX';
+$lang['GPX_WIDTH'] = 'Ancho del panel de elevación';
+$lang['LAYOUT_MAP'] = 'Nivel del mapamundi';
+$lang['LAYOUT_MAP_DESC'] = 'Selecciona el estilo de mapamundi que prefiere';
+$lang['OSM_CONTRIBUTORS'] = '<a href="http://www.openstreetmap.org" target="_blank">OpenStreetMap</a> contribuidores, (<a href="http://www.openstreetmap.org/copyright" target="_blank">ODbL</a>)';
+$lang['SHOWCMAP_DESC'] = 'Mostrar un menú de mapa del mundo en la descripción de la categoría, se mostrarán todas las imágenes en la galería.';
+$lang['SHOWMMAP_DESC'] = 'Mostrar un menú de mapa del mundo en el menú principal, se mostrarán todas las imágenes en la galería.';
