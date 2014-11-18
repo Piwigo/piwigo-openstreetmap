@@ -121,3 +121,7 @@ $lang['MAP'] = 'Carte';
 $lang['MAPICONSBLEU'] = 'Icônes bleues';
 $lang['MAPICONSGREEN'] = 'Icônes vertes';
 $lang['GPX_MAP'] = 'GPX Carte';
+$lang['LAYOUT_MAP'] = 'Calque de carte';
+$lang['GPX_WIDTH'] = 'Niveau de zoom';
+$lang['LAYOUT_MAP_DESC'] = 'Sélectionnez le style de carte que vous préférez.';
+$lang['CENTER_MAP_DESC'] = 'Centrer la carte du monde sur un endroit précis (coordonnées GPS). Lat. et Long. séparées par une virgule. Par défaut : 0,0';
