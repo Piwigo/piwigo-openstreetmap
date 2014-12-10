@@ -113,3 +113,4 @@ $lang['DISPLAY_ON_MAP'] = 'visar %s på kartan';
 $lang['FIND_POSITION'] = 'Visa min postition';
 $lang['IMAGE'] = 'Använd kvadratisk miniatyrbild';
 $lang['ITEMS'] = '%d bilder';
+$lang['GPX_MAP'] = 'GPX-karta';
