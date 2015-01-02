@@ -45,3 +45,7 @@ $lang['COPY_PASTE_URL'] = 'Kopioi ja liitä alla oleva URL:';
 $lang['CUSTOMBASELAYER'] = 'Kustomoitu karttatyyli';
 $lang['CUSTOMBASELAYERURL'] = 'Tiilipalvelimen URL';
 $lang['C_MAP'] = 'Kategorian selitys';
+$lang['ATTRPLUGIN_DESC'] = 'Minä loin tämän liitännäisen. :)';
+$lang['BASELAYER_DESC'] = 'Mapnik on OpenStreetMap:in oletustyyli';
+$lang['DISPLAY_ON_MAP'] = 'näyttää %s kartalla';
+$lang['EDIT_UPDATE_LOCATION_DESC'] = 'Klikkaa karttaa päivittääksesi sijainnin.';
