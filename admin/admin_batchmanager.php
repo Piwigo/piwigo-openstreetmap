@@ -86,7 +86,8 @@ function osm_element_set_global_action($action, $collection)
 	$lon = trim($_POST['osmlon']);
 	if ( strlen($lat)>0 and strlen($lon)>0 )
 	{
-		if ( (double)$lat<=90 and (double)$lat>=-90
+		if ( is_numeric($lat) and is_numeric($lon)
+			and (double)$lat<=90 and (double)$lat>=-90
 			and (double)$lon<=180 and (double)$lon>=-180 )
 			$update_query = 'latitude='.$lat.', longitude='.$lon;
 		else
@@ -110,7 +111,7 @@ add_event_handler('loc_begin_element_set_unit', 'osm_loc_begin_element_set_unit'
 function osm_loc_begin_element_set_unit()
 {
 	global $page;
-	
+
 	if (!isset($_POST['submit']))
 	      return;
 
@@ -140,8 +141,9 @@ function osm_loc_begin_element_set_unit()
 
 		if ( strlen($data['latitude'])>0 and strlen($data['longitude'])>0 )
 		{
-			if ( (double)$data['latitude']>90 or (double)$data['latitude']<-90
-			    or (double)$data['longitude']>180 or (double)$data['longitude']<-180 )
+			if ( !is_numeric($data['latitude']) or !is_numeric($data['longitude'])
+				or (double)$data['latitude']>90 or (double)$data['latitude']<-90
+				or (double)$data['longitude']>180 or (double)$data['longitude']<-180 )
 				$error = true;
 		}
 		elseif ( strlen($data['latitude'])==0 and strlen($data['longitude'])==0 )
@@ -152,13 +154,13 @@ function osm_loc_begin_element_set_unit()
 		{
 			$error = true;
 		}
-		
+
 		if ($error)
 			$errors[] = $row['name'];
 		else
 			$datas[] = $data;
 	}
-	
+
 	mass_updates(
 		IMAGES_TABLE,
 		array(

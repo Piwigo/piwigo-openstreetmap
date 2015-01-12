@@ -53,7 +53,8 @@ if (isset($_POST['submit']))
 	$lon = trim($_POST['osmlon']);
 	if ( strlen($lat)>0 and strlen($lon)>0 )
 	{
-		if ( (double)$lat<=90 and (double)$lat>=-90
+		if ( is_numeric($lat) and is_numeric($lon)
+			and (double)$lat<=90 and (double)$lat>=-90
 			and (double)$lon<=180 and (double)$lon>=-180 )
 			$update_query = 'latitude='.$lat.', longitude='.$lon;
 		else
