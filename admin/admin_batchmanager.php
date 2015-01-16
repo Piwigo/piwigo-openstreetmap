@@ -75,16 +75,11 @@ function osm_loc_end_element_set_global()
   <div class="osm-map1 map1"></div>
   <script>
     $(document).ready(function() {
-         console.log( "#permitAction pageshow!" );
          $("#permitAction").on("change", function (e) {
-           console.log( "#permitAction pageshow and change!" );
             var optionSelected = $("option:selected", this);
             if ("openstreetmap" == optionSelected.val()) {
-              console.log( "#permitAction pageshow and change and OSM!" );
-
               $(".osm-map1").qleaflet();
-
-            } /* End if */
+            }
          });
     });
   </script>
@@ -218,6 +213,16 @@ function osm_prefilter_batch_manager_unit($content)
 		    <label>{\'Longitude\'|@translate}
 		      <input type="text" size="9" name="osmlon-{$element.id}" value="{$element.longitude}">
 		    </label>
+
+<style type="text/css"> .map1 { height: 200px !important; width:100% !important; margin: 5px; } </style>
+<script src="plugins/piwigo-openstreetmap/leaflet/qleaflet.jquery.js"></script>
+<div class="osm-map-{$element.id} map1" data-markerpos="{$element.latitude},{$element.longitude}" data-markertext="{$element.name}" data-formid="{$element.id}"></div>
+<script>
+  $(document).ready(function() {
+        $(".osm-map-{$element.id}").qleaflet();
+  });
+</script>
+
 		  </td>
 		</tr>';
 		$content = substr_replace($content, $add, $pos, 0);

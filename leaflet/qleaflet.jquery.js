@@ -26,7 +26,8 @@
               scrollWheelZoom : true,
               worldCopyJump: true,
               contextmenu: false
-            }
+            },
+          formid: false
         };
 
     // The actual plugin constructor
@@ -74,15 +75,22 @@
 	var popup = window.L.popup();
 
 	function onMapClick(e) {
-                console.log(e.latlng.toString());
-                console.log(document.forms);
+                //console.log(e.latlng.toString());
+                //console.log(document.forms);
+		//console.log(this.options);
   		popup
 			.setLatLng(e.latlng)
 			.setContent("You clicked the map at " + e.latlng.toString())
 			.openOn(this.map);
-		var form=document.forms[1]
-		form.osmlat.value = Math.ceil(e.latlng.lat * 100000) / 100000;
-		form.osmlon.value = Math.ceil(e.latlng.lng * 100000) / 100000;
+
+		if(this.options.formid != false) { // Batch manager single mode
+			$('[name=osmlat-'+this.options.formid+']').val(Math.ceil(e.latlng.lat * 100000) / 100000);
+			$('[name=osmlon-'+this.options.formid+']').val(Math.ceil(e.latlng.lng * 100000) / 100000);
+		} else { // Batch manager global mode
+			var form=document.forms[1];
+			form.osmlat.value = Math.ceil(e.latlng.lat * 100000) / 100000;
+			form.osmlon.value = Math.ceil(e.latlng.lng * 100000) / 100000;
+		}
 	}
 
         this.map.on('click', onMapClick, this);
@@ -119,7 +127,7 @@
 
       init : function() {
         this.id = this.element.attr('id');
-        //add id if necessart
+        //add id if necessary
         if(!this.id) {
           this.id = 'leafletmap' + Math.floor((Math.random()*100)+1);
           this.element.attr('id', this.id);
@@ -127,12 +135,13 @@
         // get data from data attributes in html
         // set markers for each map
         // other options are shared
-        if(typeof this.element.data('markerpos') != 'undefined' && this.element.data('markerpos').length != 0) {
+        if(typeof this.element.data('markerpos') != 'undefined' && this.element.data('markerpos').length > 1) {
           this.element.markers = [];
           this.element.markers.push({
             pos : this.element.data('markerpos').split(','),
             text: this.element.data('markertext')
           });
+          this.options.mapOptions.zoom = 15; // If position is set then zoom into it
         } else {
           this.element.markers = this.options.markers;
         }
@@ -140,10 +149,15 @@
         // set center
         if(typeof this.element.data('center') != 'undefined' && this.element.data('center').length != 0) {
           this.element.center = this.element.data('center').split(',');
-        } else if (typeof this.element.data('markerpos') != 'undefined' && this.element.data('markerpos').length != 0) {
+        } else if (typeof this.element.data('markerpos') != 'undefined' && this.element.data('markerpos').length > 1) {
           this.element.center = this.element.data('markerpos').split(',');
         } else {
           this.element.center = this.options.mapOptions.center;
+        }
+
+        // formid for batch manager single mode
+        if(typeof this.element.data('formid') != 'undefined' && this.element.data('formid').length != 0) {
+          this.options.formid = this.element.data('formid');
         }
 
         //render
