@@ -70,6 +70,24 @@ function osm_loc_end_element_set_global()
   <label>'.l10n('Longitude').' (-180=W to 180=E)
     <input type="text" size="9" name="osmlon">
   </label> (Empty values will erase coordinates)
+  <style type="text/css"> .map1 { height: 200px !important; width:100% !important; margin: 5px; } </style>
+  <script src="plugins/piwigo-openstreetmap/leaflet/qleaflet.jquery.js"></script>
+  <div class="osm-map1 map1"></div>
+  <script>
+    $(document).ready(function() {
+         console.log( "#permitAction pageshow!" );
+         $("#permitAction").on("change", function (e) {
+           console.log( "#permitAction pageshow and change!" );
+            var optionSelected = $("option:selected", this);
+            if ("openstreetmap" == optionSelected.val()) {
+              console.log( "#permitAction pageshow and change and OSM!" );
+
+              $(".osm-map1").qleaflet();
+
+            } /* End if */
+         });
+    });
+  </script>
 '));
 }
 
