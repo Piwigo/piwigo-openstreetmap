@@ -1,7 +1,18 @@
+Changes from v2.7.b to v2.7.c
+- RE Add Batch manager mode support
+- Extend PWG support for GPX tracks file
+- Add a prefilter for GPX tracks on batch manager
+- Add/Integrate Map in batch manager
+- Add new config option for world map layout
+- Add new config options for GPX view
+- Update language, thanks to the contributors
+- Drop previous support for GPS tracks file
+
 Changes from v2.7.a to v2.7.b
 - Add new options for world map view
 - Unify code, Thanks to GnunuX
 - Add support for GPS tracks file, Thanks to GnunuX
+- Fix PHP error for special config
 
 Changes from v2.6.b to v2.7.a
 - Add custom pin marker support
