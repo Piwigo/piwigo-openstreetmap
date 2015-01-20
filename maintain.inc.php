@@ -105,13 +105,14 @@ function plugin_install()
 	$q = 'UPDATE '.CONFIG_TABLE.' SET `comment` = "Configuration settings for piwigo-openstreetmap plugin" WHERE `param` = "osm_conf";';
 	pwg_query( $q );
 
-	// Create DB for GPX entries
+	// Remove previous created db table for GPX entries
 	$q = "DROP TABLE IF EXISTS ".$prefixeTable."osm_gps;";
 	pwg_query( $q );
 
-	// Create album for GPX entries
-	if (!file_exists(PHPWG_ROOT_PATH.PWG_LOCAL_DIR.'gps_track_files/'))
-		rmdir (PHPWG_ROOT_PATH.PWG_LOCAL_DIR.'gps_track_files/');
+	// Remove previous created directory for GPX entries
+	$gpx_dir = PHPWG_ROOT_PATH.PWG_LOCAL_DIR.'gps_track_files/';
+	if (file_exists($gpx_dir) and is_dir($gpx_dir))
+		osm_deltree($gpx_dir);
 
 	// Create world map link
 	$dir_name = basename( dirname(__FILE__) );
