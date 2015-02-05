@@ -172,6 +172,10 @@ if (isset($_POST['submit']) && !empty($_POST['osm_height']))
             'height' => $_POST['osm_gpx_height'],
             'width'  => $_POST['osm_gpx_width'],
             ),
+        'batch' => array(
+            'global_height' => $_POST['osm_batch_global_height'],
+            'unit_height'  => $_POST['osm_batch_unit_height'],
+            ),
 		'map' => array(
             'baselayer'          => $_POST['osm_baselayer'],
             'custombaselayer'    => $_POST['osm_custombaselayer'],
@@ -212,6 +216,8 @@ $template->assign(
         'AVAILABLE_LAYOUT'     => $available_layout,
         'NB_GEOTAGGED'         => $nb_geotagged,
         'OSM_PATH'             => OSM_PATH,
+        'GLOBAL_MODE'          => l10n('global mode'),
+        'SINGLE_MODE'          => l10n('unit mode'),
     )
 );
 

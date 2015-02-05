@@ -61,7 +61,7 @@ function osm_perform_batch_manager_prefilters($filter_sets, $prefilter)
 add_event_handler('loc_end_element_set_global', 'osm_loc_end_element_set_global');
 function osm_loc_end_element_set_global()
 {
-	global $template;
+	global $template, $conf;
 	$template->append('element_set_global_plugins_actions',
 		array('ID' => 'openstreetmap', 'NAME'=>l10n('OSM GeoTag'), 'CONTENT' => '
   <label>'.l10n('Latitude').' (-90=S to 90=N)
@@ -70,7 +70,7 @@ function osm_loc_end_element_set_global()
   <label>'.l10n('Longitude').' (-180=W to 180=E)
     <input type="text" size="9" name="osmlon">
   </label> (Empty values will erase coordinates)
-  <style type="text/css"> .map1 { height: 200px !important; width:100% !important; margin: 5px; } </style>
+  <style type="text/css"> .map1 { height: '. $conf["osm_conf"]["batch"]["global_height"] .'px !important; width:100% !important; margin: 5px; } </style>
   <script src="plugins/piwigo-openstreetmap/leaflet/qleaflet.jquery.js"></script>
   <div class="osm-map1 map1"></div>
   <script>
@@ -214,7 +214,7 @@ function osm_prefilter_batch_manager_unit($content)
 		      <input type="text" size="9" name="osmlon-{$element.id}" value="{$element.longitude}">
 		    </label>
 
-<style type="text/css"> .map1 { height: 200px !important; width:100% !important; margin: 5px; } </style>
+<style type="text/css"> .map1 { height: '. $conf["osm_conf"]["batch"]["unit_height"] .'px !important; width:100% !important; margin: 5px; } </style>
 <script src="plugins/piwigo-openstreetmap/leaflet/qleaflet.jquery.js"></script>
 <div class="osm-map-{$element.id} map1" data-markerpos="{$element.latitude},{$element.longitude}" data-markertext="{$element.name}" data-formid="{$element.id}"></div>
 <script>

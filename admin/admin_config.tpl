@@ -176,6 +176,21 @@ Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" ta
 		</ul>
 	</fieldset>
 	<fieldset>
+		<legend>{'Batch Manager'|@translate} {'MAP'|@translate}</legend>
+		<ul>
+			<li>
+				<label>{'HEIGHT'|@translate} {$GLOBAL_MODE}: </label>
+				<input type="text" value="{$batch.global_height}" name="osm_batch_global_height" size="4" required placeholder="200"/>
+				<br/><small>{'HEIGHT_DESC'|@translate}</small>
+			</li>
+			<li>
+				<label>{'HEIGHT'|@translate} {$SINGLE_MODE}: </label>
+				<input type="text" value="{$batch.unit_height}" name="osm_batch_unit_height" size="4" required placeholder="200"/>
+				<br/><small>{'HEIGHT_DESC'|@translate}</small>
+			</li>
+		</ul>
+	</fieldset>
+	<fieldset>
 		<legend>{'G_MAP'|@translate}</legend>
 		<ul>
 			<li>

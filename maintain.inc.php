@@ -28,6 +28,7 @@ if (!defined('PHPWG_ROOT_PATH')) die('Hacking attempt!');
 function plugin_install()
 {
 	global $prefixeTable;
+
 	if (!defined('OSM_PATH'))
 		define('OSM_PATH', PHPWG_PLUGINS_PATH . basename(dirname(__FILE__)).'/');
 
@@ -78,6 +79,10 @@ function plugin_install()
 		'gpx' => array(
 				'height' 	=> '500',
 				'width' 	=> '320',
+			),
+		'batch' => array(
+				'global_height' => '200',
+				'unit_height' 	=> '200',
 			),
 		'map' => array(
 			'baselayer'          => 'mapnik',
