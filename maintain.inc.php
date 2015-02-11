@@ -68,9 +68,10 @@ function plugin_install()
 			'layout'            => 2,
 			),
 		'category_description' => array(
-			'enabled' => true,
-			'height'  => '200',
-			'width'   => 'auto',
+			'enabled'        => true,
+			'index'          => 0,
+			'height'         => '200',
+			'width'          => 'auto',
 			),
 		'main_menu' => array(
 			'enabled' => false,

@@ -133,6 +133,13 @@ Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" ta
 				<br/><small>{'SHOWCMAP_DESC'|@translate}</small>
 			</li>
 			<li>
+				<label>{'POSITION_INDEX_CMAP'|@translate} : </label>
+				<select name="osm_cat_index">
+					{html_options options=$AVAILABLE_CAT_INDEX selected=$category_description.index}
+				</select>
+				<br/><small>{'POSITION_INDEX_CMAP_DESC'|@translate}</small>
+			</li>
+			<li>
 				<label>{'HEIGHT'|@translate} : </label>
 				<input type="text" value="{$category_description.height}" name="osm_cat_height" size="4" required placeholder="200"/>
 				<br/><small>{'HEIGHT_DESC'|@translate}</small>

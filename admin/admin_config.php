@@ -86,6 +86,16 @@ $available_add_before = array(
     'Privacy'   => l10n('Who can see this photo?'),
 );
 
+// Available options
+// 0 - PLUGIN_INDEX_CONTENT_BEGIN
+// 1 - PLUGIN_INDEX_CONTENT_COMMENT
+// 2 - PLUGIN_INDEX_CONTENT_END
+$available_cat_index = array(
+    '0' => l10n('Thumbnail'),
+    '1' => l10n('Description'),
+    '2' => l10n('Last'),
+);
+
 // Available pin
 $available_pin = array(
     '0' => l10n('NOPIN'),
@@ -163,6 +173,7 @@ if (isset($_POST['submit']) && !empty($_POST['osm_height']))
             'enabled' => get_boolean($_POST['osm_category_description']),
             'height'  => $_POST['osm_cat_height'],
             'width'   => $_POST['osm_cat_width'],
+            'index'   => $_POST['osm_cat_index'],
             ),
 		'main_menu' => array(
             'enabled' => get_boolean($_POST['osm_main_menu']),
@@ -209,6 +220,7 @@ $template->assign($conf['osm_conf']);
 $template->assign(
     array(
         'AVAILABLE_ADD_BEFORE' => $available_add_before,
+        'AVAILABLE_CAT_INDEX'  => $available_cat_index,
         'AVAILABLE_ZOOM'       => $available_zoom,
         'AVAILABLE_BASELAYER'  => $available_baselayer,
         'AVAILABLE_PIN'        => $available_pin,
