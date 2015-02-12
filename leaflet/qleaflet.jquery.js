@@ -2,8 +2,8 @@
  *  qleaflet js Maps Plugin
  *  Wrapper for leaflet.js library
  *  https://github.com/hamsterbacke23/qleaflet
- *  Author: Seitenbau GmbH (tobias.schmidt@seitenbau.com)
- *  Modify by: xbgmsharp (xbgmsharp@gmail.com))
+ *  Author: 2014 Seitenbau GmbH (tobias.schmidt@seitenbau.com)
+ *  Modify by: 2015 xbgmsharp (xbgmsharp@gmail.com)
  *  PWG batch manager integration
  */
 ;(function ( $, window, document, undefined ) {
@@ -27,7 +27,9 @@
               worldCopyJump: true,
               contextmenu: false
             },
-          formid: false
+          formid: false,
+          leafletSearchJsUri    : 'plugins/piwigo-openstreetmap/leaflet/leaflet-search.src.js',
+          leafletSearchCssUri   : 'plugins/piwigo-openstreetmap/leaflet/leaflet-search.min.css'
         };
 
     // The actual plugin constructor
@@ -94,11 +96,53 @@
 	}
 
         this.map.on('click', onMapClick, this);
+
+        /* BEGIN leaflet-search */
+         var jsonpurl = 'https://open.mapquestapi.com/nominatim/v1/search.php?q={s}'+
+                                   '&format=json&osm_type=N&limit=100&addressdetails=0',
+                jsonpName = 'json_callback';
+        //third party jsonp service
+
+        function filterJSONCall(rawjson) {      //callback that remap fields name
+                var json = {},
+                        key, loc, disp = [];
+
+                for(var i in rawjson)
+                {
+                        disp = rawjson[i].display_name.split(',');
+                        key = disp[0] +', '+ disp[1];
+                        loc = L.latLng( rawjson[i].lat, rawjson[i].lon );
+                        json[ key ]= loc;       //key,value format
+                }
+
+                return json;
+        }
+
+        var searchOpts = {
+                        url: jsonpurl,
+                        jsonpParam: jsonpName,
+                        filterJSON: filterJSONCall,
+                        animateLocation: false,
+                        markerLocation: true,
+                        zoom: 10,
+                        minLength: 3,
+                        autoType: false,
+                        position: 'topright'
+                };
+
+        window.L.control.search(searchOpts).addTo(this.map);
+        /* END leaflet-search */
+
       },
 
       bind : function(fn, scope) {
           return function () {
-              fn.apply(scope, arguments);
+              $.getScript(scope.options.leafletSearchJsUri).done(function( script, textStatus ) {
+                 // Force to load the leafletSearchJs on binding leafletJs
+                 //console.log( textStatus );
+                 window.L.Icon.Default.imagePath = scope.options.leafletImageUri;
+                 fn.apply(scope, arguments);
+              });
           };
       },
 
@@ -160,8 +204,9 @@
           this.options.formid = this.element.data('formid');
         }
 
-        //render
+        // render
         this.loadStylesheet(this.options.leafletCssUri);
+        this.loadStylesheet(this.options.leafletSearchCssUri);
         $.getScript(this.options.leafletJsUri, this.bind(this.setMap, this));
 
 	$(window).resize();
