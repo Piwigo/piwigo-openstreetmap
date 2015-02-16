@@ -119,3 +119,5 @@ $lang['GPX_WIDTH'] = 'Elevation panel width';
 $lang['LAYOUT_MAP'] = 'WorldMap layout';
 $lang['LAYOUT_MAP_DESC'] = 'Select the worldmap style you prefer.';
 $lang['CENTER_MAP_DESC'] = 'Center the worldmap on the specific location (GPS coordinate). lat and lng separated by a comma, default is 0,0';
+$lang['POSITION_INDEX_CMAP'] = 'Show the map at';
+$lang['POSITION_INDEX_CMAP_DESC'] = 'Will display the map at the specify index';

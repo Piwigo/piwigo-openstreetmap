@@ -114,7 +114,7 @@ $lang['SHOWCMAP'] = 'Füge eine Karte in der Kategoriebeschreibung hinzu';
 $lang['SHOWMMAP'] = 'Füge eine Karte im Hauptmenü hinzu';
 $lang['SHOW_ALL_ITEMS'] = 'Zeige alle Elemente';
 $lang['SHOW_ALL_PIWIGO'] = 'Zeige alle Elemente in der Piwigo-Gallery';
-$lang['WIDTH_DESC'] = 'in Pixeln oder automatisch';
+$lang['WIDTH_DESC'] = 'in Pixeln oder auto';
 $lang['PLUGIN_BY'] = 'Plugin von <a href="https://github.com/xbgmsharp/piwigo-openstreetmap" target="_blank">xbgmsharp</a>';
 $lang['PIWIGO_GALLERY'] = 'Gehe zur Piwigo-Gallery';
 $lang['OSM_CONTRIBUTORS'] = '<a href="http://www.openstreetmap.org" target="_blank">OpenStreetMap-Mitwirkende</a>, (<a href="http://www.openstreetmap.org/copyright" target="_blank">ODbL</a>)';
