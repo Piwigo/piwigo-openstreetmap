@@ -16,6 +16,8 @@ Upload this in ``your-gallery/plugins/`` dir.
 
         unzip piwigo-openstreetmap.zip
 
+        mv piwigo-openstreetmap-master piwigo-openstreetmap
+
 * or clone the project 
 
         git clone git://github.com/xbgmsharp/piwigo-openstreetmap.git
@@ -25,7 +27,7 @@ Then, go to the admin site, in the plugin section and activate it.
 Usage
 -----
 
-Syncronize the GeoTag to see the geo possition appear on the photo page.
+Go to a photo with Geo tag sync and see a map appear on the photo page.
 
 Please refer to the [wiki](https://github.com/xbgmsharp/piwigo-openstreetmap/wiki) for additional information.
 
