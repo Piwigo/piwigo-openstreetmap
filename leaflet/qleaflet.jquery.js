@@ -127,7 +127,7 @@
                         zoom: 10,
                         minLength: 3,
                         autoType: false,
-                        position: 'topright'
+                        position: 'topleft'
                 };
 
         window.L.control.search(searchOpts).addTo(this.map);
