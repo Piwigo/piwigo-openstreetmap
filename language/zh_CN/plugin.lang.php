@@ -141,3 +141,5 @@ $lang['GPX_WIDTH'] = '海拔面板宽度';
 $lang['IMAGE'] = '使用正方形缩略图';
 $lang['ITEMS'] = '%d 项目';
 $lang['BACK_ON_PAGE'] = '返回上一页';
+$lang['POSITION_INDEX_CMAP'] = '将地图显示在';
+$lang['POSITION_INDEX_CMAP_DESC'] = '在指定的首页上显示地图';
