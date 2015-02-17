@@ -140,3 +140,5 @@ $lang['GPX_MAP'] = 'GPS-kort';
 $lang['GPX_WIDTH'] = 'Bredde på højdepanelet';
 $lang['LAYOUT_MAP'] = 'Verdenskortlayout';
 $lang['LAYOUT_MAP_DESC'] = 'Vælg den verdenskortstil du foretrækker';
+$lang['POSITION_INDEX_CMAP'] = 'Vis kort på';
+$lang['POSITION_INDEX_CMAP_DESC'] = 'Viser kortet på det angivne indeks';
