@@ -140,3 +140,5 @@ $lang['PLUGIN_BY'] = 'Extensão por <a href="https://github.com/xbgmsharp/piwigo
 $lang['SHOWCMAP_DESC'] = 'Mostrar um menú mapa mundo na descrição da categoria, irá exibir todas as imagens na galeria.';
 $lang['SHOWMMAP_DESC'] = 'Mostrar um menú do mapa mundo no menú principal, irá exibir todas as imagens na galeria.';
 $lang['VIEW_OSM'] = 'ver no mapa aberto das ruas';
+$lang['POSITION_INDEX_CMAP'] = 'mostre o mapa em';
+$lang['POSITION_INDEX_CMAP_DESC'] = 'mostrará o mapa no índice específico';
