@@ -140,3 +140,5 @@ $lang['RIGHTLINKCSS_DESC'] = 'Користувальницький стиль CS
 $lang['RIGHTLINKCSS'] = 'Налаштування CSS';
 $lang['NEVER'] = 'без спливаючих вікон';
 $lang['PINPOPUPOFFSET'] = 'Зміщеня спливаючого вікна';
+$lang['POSITION_INDEX_CMAP_DESC'] = 'Покаже мапу за зазначеним індексом';
+$lang['POSITION_INDEX_CMAP'] = 'Показати мапу на';
