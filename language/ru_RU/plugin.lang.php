@@ -140,3 +140,5 @@ $lang['GPX_MAP'] = 'Карта GPX';
 $lang['GPX_WIDTH'] = 'Ширина панели высот';
 $lang['LAYOUT_MAP'] = 'Макет карты мира';
 $lang['LAYOUT_MAP_DESC'] = 'Выбор предпочитаемого Вами стиля для карты мира';
+$lang['POSITION_INDEX_CMAP_DESC'] = 'Отображать карту с конкретным индексом';
+$lang['POSITION_INDEX_CMAP'] = 'Показать на карте';
