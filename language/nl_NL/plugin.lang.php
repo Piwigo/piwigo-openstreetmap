@@ -140,3 +140,5 @@ $lang['OSM_CONTRIBUTORS'] = '<a href="http://www.openstreetmap.org" target="_bla
 $lang['MOUSE_OVER'] = 'Beweeg de muis over een groep om de grenzen van de onderdelen te bekijken en klik op een groep om deze te vergroten';
 $lang['LAYOUT_MAP'] = 'Vormgeving van de Wereldkaart';
 $lang['CENTER_MAP_DESC'] = 'Centreer de wereldkaart op een specifieke lokatie (GPS). Scheidt lengte- en breedtegraad van elkaar door een komma. De standaard instelling is 0,0.';
+$lang['POSITION_INDEX_CMAP'] = 'Geef de kaart weer op';
+$lang['POSITION_INDEX_CMAP_DESC'] = 'Geeft de kaart weer op de gespecificeerde index';
