@@ -140,3 +140,5 @@ $lang['GPX_WIDTH'] = 'Šírka panelu nadmorskej výšky';
 $lang['LAYOUT_MAP_DESC'] = 'Označte štýl preferovanej svetovej mapy.';
 $lang['LAYOUT_MAP'] = 'Rozmiestnenie mapy sveta';
 $lang['GPX_MAP'] = 'GPX mapa';
+$lang['POSITION_INDEX_CMAP_DESC'] = 'Bude zobrazená mapa v zadanom indexe';
+$lang['POSITION_INDEX_CMAP'] = 'Zobraziť mapu na';
