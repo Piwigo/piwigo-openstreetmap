@@ -142,3 +142,5 @@ $lang['GPX_MAP'] = 'GPX kart';
 $lang['GPX_WIDTH'] = 'Høydepanelets bredde';
 $lang['LAYOUT_MAP'] = 'Verdenskart design';
 $lang['LAYOUT_MAP_DESC'] = 'Velg verdenskart stilen du foretrekker.';
+$lang['POSITION_INDEX_CMAP'] = 'Vis kartet ved';
+$lang['POSITION_INDEX_CMAP_DESC'] = 'Viser kartet ved spesifisert indeks';
