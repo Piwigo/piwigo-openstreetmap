@@ -140,3 +140,5 @@ $lang['ATTRIMAGERY'] = 'Показва стил';
 $lang['ATTRLEAFLET'] = 'Показва тип ба скрипта';
 $lang['ADD_BEFORE'] = 'Добави преди';
 $lang['ALWAYS'] = 'покажи веднага';
+$lang['POSITION_INDEX_CMAP_DESC'] = 'Ще покаже картата на конкретна страница';
+$lang['POSITION_INDEX_CMAP'] = 'Покажи картата на';
