@@ -142,3 +142,5 @@ $lang['LAYOUT_MAP_DESC'] = 'Selecciona el estilo de mapamundi que prefiere';
 $lang['OSM_CONTRIBUTORS'] = '<a href="http://www.openstreetmap.org" target="_blank">OpenStreetMap</a> contribuidores, (<a href="http://www.openstreetmap.org/copyright" target="_blank">ODbL</a>)';
 $lang['SHOWCMAP_DESC'] = 'Mostrar un menú de mapa del mundo en la descripción de la categoría, se mostrarán todas las imágenes en la galería.';
 $lang['SHOWMMAP_DESC'] = 'Mostrar un menú de mapa del mundo en el menú principal, se mostrarán todas las imágenes en la galería.';
+$lang['POSITION_INDEX_CMAP'] = 'Mostrar el mapa en';
+$lang['POSITION_INDEX_CMAP_DESC'] = 'Mostrará el mapa en el índice especificado';
