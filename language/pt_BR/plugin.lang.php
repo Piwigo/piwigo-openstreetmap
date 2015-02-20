@@ -140,3 +140,5 @@ $lang['GPX_MAP'] = 'Mapa GPX';
 $lang['GPX_WIDTH'] = 'Largura do painel Elevação';
 $lang['LAYOUT_MAP'] = 'Layout do Mapa Mundi';
 $lang['LAYOUT_MAP_DESC'] = 'Selecione o estilo do mapa mundial que você preferir.';
+$lang['POSITION_INDEX_CMAP'] = 'Mostrar o mapa em';
+$lang['POSITION_INDEX_CMAP_DESC'] = 'Será exibido o mapa com o índice especificado';
