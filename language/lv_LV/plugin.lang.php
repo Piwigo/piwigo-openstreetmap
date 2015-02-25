@@ -140,3 +140,5 @@ $lang['LAYOUT_MAP_DESC'] = 'Izvēlieties worldmap stilu, kas jums patīk.';
 $lang['GPX_WIDTH'] = 'Pacēluma paneļa platums';
 $lang['LAYOUT_MAP'] = 'WorldMap izkārtojums';
 $lang['GPX_MAP'] = 'GPX Karte';
+$lang['POSITION_INDEX_CMAP_DESC'] = 'Rādīs karti pie piesaistītā indeksa';
+$lang['POSITION_INDEX_CMAP'] = 'Rādīt karti pie';
