@@ -140,3 +140,5 @@ $lang['CENTER_MAP_DESC'] = 'Centrare la mappa zoomabile sulla posizione specific
 $lang['CENTER_MAP'] = 'Centra la mappa qui';
 $lang['BROWSER_JAVASCRIPT'] = 'Il tuo browser deve avere JavaScript abilitato';
 $lang['BACK_ON_PAGE'] = 'Torna indietro di una pagina';
+$lang['POSITION_INDEX_CMAP_DESC'] = 'Sarà visualizzata la mappa nella posizione specifica';
+$lang['POSITION_INDEX_CMAP'] = 'Visualizza la mappa a';
