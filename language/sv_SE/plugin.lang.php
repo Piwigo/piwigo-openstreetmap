@@ -114,3 +114,4 @@ $lang['FIND_POSITION'] = 'Visa min postition';
 $lang['IMAGE'] = 'Använd kvadratisk miniatyrbild';
 $lang['ITEMS'] = '%d bilder';
 $lang['GPX_MAP'] = 'GPX-karta';
+$lang['CENTER_MAP_DESC'] = 'Centrera världskartan på specifik plats (GPS koordinater) lat,lon separerade av ett kommatecken, standardvärde är 0,0';
