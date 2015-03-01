@@ -115,3 +115,5 @@ $lang['IMAGE'] = 'Använd kvadratisk miniatyrbild';
 $lang['ITEMS'] = '%d bilder';
 $lang['GPX_MAP'] = 'GPX-karta';
 $lang['CENTER_MAP_DESC'] = 'Centrera världskartan på specifik plats (GPS koordinater) lat,lon separerade av ett kommatecken, standardvärde är 0,0';
+$lang['CUSTOMBASELAYERURL_DESC'] = 'Endast om "Anpassad" är valt som kartstil. Exempel: http://tile.openstreetmap.org/{z}/{x}/{y}.png';
+$lang['CUSTOMBASELAYERURL'] = 'Tile server URL';
