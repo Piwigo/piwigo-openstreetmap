@@ -165,7 +165,7 @@
         $(window).on('orientationchange pageshow resize', function () {
             $('#' + this.id).height($(window).height());
             self.map.invalidateSize();
-            self.map.setView(self.element.center, self.options.mapOptions.zoom);
+            self.map.setView(self.element.center, self.element.zoom);
         }).trigger('resize');
       },
 
@@ -185,7 +185,7 @@
             pos : this.element.data('markerpos').split(','),
             text: this.element.data('markertext')
           });
-          this.options.mapOptions.zoom = 15; // If position is set then zoom into it
+          this.element.zoom = 15; // If position is set then zoom into it
         } else {
           this.element.markers = this.options.markers;
         }
