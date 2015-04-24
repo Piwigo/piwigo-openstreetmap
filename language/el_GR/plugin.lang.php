@@ -140,3 +140,5 @@ $lang['LAYOUT_MAP_DESC'] = 'Επιλέξτε το στυλ Παγκόσμιου 
 $lang['LAYOUT_MAP'] = 'Layout Παγκόσμιου Χάρτη';
 $lang['ITEMS_SCREEN'] = 'Εμφάνιση στοιχείων της οθόνης';
 $lang['ITEMS'] = '%d στοιχεία';
+$lang['POSITION_INDEX_CMAP_DESC'] = 'Θα εμφανιστεί ο χάρτης με τον δείκτη που καθορίσατε';
+$lang['POSITION_INDEX_CMAP'] = 'Εμφάνιση του χάρτη σε';
