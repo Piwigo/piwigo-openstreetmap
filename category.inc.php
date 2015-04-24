@@ -51,7 +51,7 @@ function osm_render_category()
             $local_conf['contextmenu'] = 'false';
             $local_conf['control'] = true;
             $local_conf['img_popup'] = false;
-            $local_conf['popup'] = 2;
+            $local_conf['popup'] = 1;
             $local_conf['center_lat'] = 0;
             $local_conf['center_lng'] = 0;
             $local_conf['zoom'] = 2;
@@ -64,7 +64,7 @@ function osm_render_category()
             $template->assign(
                 array(
                     'CONTENT_ENCODING' => get_pwg_charset(),
-                    'OSM_PATH'         => embellish_url(get_absolute_root_url().OSM_PATH),
+                    'OSM_PATH'         => embellish_url(get_gallery_home_url().OSM_PATH),
                     'HOME'             => make_index_url(),
                     'HOME_PREV'        => isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : get_absolute_root_url(),
                     'HOME_NAME'        => l10n("Home"),

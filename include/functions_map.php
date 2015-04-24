@@ -525,7 +525,7 @@ function osm_gen_template($conf, $js, $js_data, $tmpl, $template)
     $template->assign(
         array(
             'CONTENT_ENCODING'	=> get_pwg_charset(),
-            'OSM_PATH'			=> embellish_url(get_absolute_root_url().OSM_PATH),
+            'OSM_PATH'			=> embellish_url(get_gallery_home_url().OSM_PATH),
             'GALLERY_TITLE'		=> $linkname .' - '. $conf['gallery_title'],
             'HOME'              => make_index_url(),
             'HOME_PREV'         => isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : get_absolute_root_url(),
@@ -546,7 +546,7 @@ function osm_parse_map_data_url($tokens, &$next_token)
     $page = parse_section_url($tokens, $next_token);
     if ( !isset($page['section']) )
       $page['section'] = 'categories';
-  
+
     $page = array_merge( $page, parse_well_known_params_url( $tokens, $next_token) );
     $page['start']=0;
     $page['box'] = osm_bounds_from_url( @$_GET['box'] );

@@ -73,7 +73,7 @@ function osm_apply_menu($menu_ref_arr)
                 $template->set_template_dir(dirname(__FILE__).'/template/');
                 $template->assign(
                     array(
-                        'OSM_PATH' => embellish_url(get_absolute_root_url().OSM_PATH),
+                        'OSM_PATH' => embellish_url(get_gallery_home_url().OSM_PATH),
                         'OSMJS'    => $js,
                         'HEIGHT'   => $height,
                     )

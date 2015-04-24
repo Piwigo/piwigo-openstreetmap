@@ -140,7 +140,7 @@ function osm_render_element_content()
         array(
             'HEIGHT'		=> $height,
             'OSMJS' 		=> $js,
-            'OSM_PATH'		=> embellish_url(get_absolute_root_url().OSM_PATH),
+            'OSM_PATH'		=> embellish_url(get_gallery_home_url().OSM_PATH),
             'OSMNAME'		=> $osmname,
             'OSMNAMECSS'	=> $osmnamecss,
             'SHOWOSM'		=> $showosm,
