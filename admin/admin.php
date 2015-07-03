@@ -49,6 +49,7 @@ $my_base_url = get_admin_plugin_menu_link(__FILE__);
 
 $tabsheet = new tabsheet();
 $tabsheet->add( 'config', '<span class="icon-cog"></span>' . l10n('Configuration'), add_url_params( $my_base_url, array('tab'=>'config') ) );
+$tabsheet->add( 'loc', '<span class="osm-location"></span>' . l10n('Location'), add_url_params( $my_base_url, array('tab'=>'loc') ) );
 $tabsheet->select($page['tab']);
 
 $tabsheet->assign();
