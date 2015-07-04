@@ -1,12 +1,12 @@
 <?php
 /***********************************************
-* File      :   admin_sync.php
+* File      :   admin_tag.php
 * Project   :   piwigo-openstreetmap
 * Descr     :   Create tags from reverse address
 *
-* Created   :   03.07.2015
+* Created   :   06.07.2015
 *
-* Copyright 2015 <xbgmsharp@gmail.com>
+* Copyright 2013-2015 <xbgmsharp@gmail.com>
 *
 * This program is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -41,6 +41,8 @@ $sync_options = array(
 	'simulate'		=> true,
 	'cat_id'		=> 0,
 	'subcats_included'	=> true,
+	'osm_tag_group'		=> 'location',
+	'osm_tag_address_suburb' => false,
 	'osm_tag_address_city_district' => false,
 	'osm_tag_address_city' => true,
 	'osm_tag_address_county' => false,
@@ -50,7 +52,7 @@ $sync_options = array(
 	'osm_tag_address_country_code' => false,
 );
 
-if ( isset($_POST['osm_submit']) )
+if ( isset($_POST['osm_tag_submit']) )
 {
 	// Override default value from the form
 	$sync_options = array(
@@ -58,6 +60,8 @@ if ( isset($_POST['osm_submit']) )
 		'simulate' => isset($_POST['simulate']),
 		'cat_id' => isset($_POST['cat_id']) ? (int)$_POST['cat_id'] : 0,
 		'subcats_included' => isset($_POST['subcats_included']),
+		'osm_tag_group'	=> $_POST['osm_taggroup'],
+		'osm_tag_address_suburb' => isset($_POST['osm_tag_address_suburb']),
 		'osm_tag_address_city_district' => isset($_POST['osm_tag_address_city_district']),
 		'osm_tag_address_city' => isset($_POST['osm_tag_address_city']),
 		'osm_tag_address_county' => isset($_POST['osm_tag_address_county']),
@@ -67,8 +71,7 @@ if ( isset($_POST['osm_submit']) )
 		'osm_tag_address_country_code' => isset($_POST['osm_tag_address_country_code'])
 	);
 
-	include_once( dirname(__FILE__).'/../../../include/functions_tag.inc.php' );
-// TODO allow to filter on overwrite
+	// TODO allow to filter on overwrite
 	// Define files which lat and long avaiable
 	define('SQL_EXIF', "`latitude` IS NOT NULL AND `longitude` is NOT NULL");
 	if ( $sync_options['cat_id']!=0 )
@@ -81,13 +84,13 @@ if ( isset($_POST['osm_submit']) )
 			$query .= 'id='.$sync_options['cat_id'];
 			$cat_ids = array_from_query($query, 'id');
 
-		$query='SELECT `id`, `latitude`, `longitude` FROM '.IMAGES_TABLE.' INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON id=image_id
+		$query='SELECT `id`, `name`, `latitude`, `longitude` FROM '.IMAGES_TABLE.' INNER JOIN '.IMAGE_CATEGORY_TABLE.' ON id=image_id
 			WHERE '. SQL_EXIF .' AND category_id IN ('.implode(',', $cat_ids).')
 			GROUP BY id';
 	}
 	else
 	{
-		$query='SELECT `id`, `latitude`, `longitude` FROM '.IMAGES_TABLE.' WHERE '. SQL_EXIF;
+		$query='SELECT `id`, `name`, `latitude`, `longitude` FROM '.IMAGES_TABLE.' WHERE '. SQL_EXIF;
 	}
 
 	$images = hash_from_query( $query, 'id');
@@ -155,30 +158,55 @@ if ( isset($_POST['osm_submit']) )
 			//print_r($response['address']);
 			//print_r($sync_options);
 			$tag_ids = array();
+			$tag_names = array();
+			if (isset($response['address']['suburb']) and $sync_options['osm_tag_address_suburb']) {
+				array_push( $tag_ids, tag_id_from_tag_name($sync_options['osm_tag_group'].":".$response['address']['suburb']) );
+				array_push( $tag_names, $response['address']['suburb'] );
+			}
 			if (isset($response['address']['city_district']) and $sync_options['osm_tag_address_city_district']) {
-				array_push( $tag_ids, tag_id_from_tag_name("location:".$response['address']['city_district']) );
+				array_push( $tag_ids, tag_id_from_tag_name($sync_options['osm_tag_group'].":".$response['address']['city_district']) );
+				array_push( $tag_names, $response['address']['city_district'] );
 			}
 			if (isset($response['address']['city']) and $sync_options['osm_tag_address_city']) {
-				array_push( $tag_ids, tag_id_from_tag_name("location:".$response['address']['city']) );
+				array_push( $tag_ids, tag_id_from_tag_name($sync_options['osm_tag_group'].":".$response['address']['city']) );
+				array_push( $tag_names, $response['address']['city'] );
 			}
 			if (isset($response['address']['county']) and $sync_options['osm_tag_address_county']) {
-				array_push( $tag_ids, tag_id_from_tag_name("location:".$response['address']['county']) );
+				array_push( $tag_ids, tag_id_from_tag_name($sync_options['osm_tag_group'].":".$response['address']['county']) );
+				array_push( $tag_names, $response['address']['county'] );
 			}
 			if (isset($response['address']['state']) and $sync_options['osm_tag_address_state']) {
-				array_push( $tag_ids, tag_id_from_tag_name("location:".$response['address']['state']) );
+				array_push( $tag_ids, tag_id_from_tag_name($sync_options['osm_tag_group'].":".$response['address']['state']) );
+				array_push( $tag_names, $response['address']['state'] );
 			}
 			if (isset($response['address']['country']) and $sync_options['osm_tag_address_country']) {
-				array_push( $tag_ids, tag_id_from_tag_name("location:".$response['address']['country']) );
+				array_push( $tag_ids, tag_id_from_tag_name($sync_options['osm_tag_group'].":".$response['address']['country']) );
+				array_push( $tag_names, $response['address']['country'] );
 			}
 			if (isset($response['address']['postcode']) and $sync_options['osm_tag_address_postcode']) {
-				array_push( $tag_ids, tag_id_from_tag_name("location:".$response['address']['postcode']) );
+				array_push( $tag_ids, tag_id_from_tag_name($sync_options['osm_tag_group'].":".$response['address']['postcode']) );
+				array_push( $tag_names, $response['address']['postcode'] );
 			}
 			if (isset($response['address']['country_code']) and $sync_options['osm_tag_address_country_code']) {
-				array_push( $tag_ids, tag_id_from_tag_name("location:".$response['address']['country_code']) );
+				array_push( $tag_ids, tag_id_from_tag_name($sync_options['osm_tag_group'].":".$response['address']['country_code']) );
+				array_push( $tag_names, $response['address']['country_code'] );
 			}
-			add_tags($tag_ids, [$image['id']]);
+			//print_r($tag_ids);
+			//print_r($tag_names);
+			if (!empty($tag_ids) and !empty($tag_names))
+			{
+				if (!$sync_options['simulate'])
+				{
+					add_tags($tag_ids, [$image['id']]);
+				}
+				$datas[] = $image['id'];
+				$infos[] = "Set tags '". osm_pprint_r($tag_names) ."' for ". $image['name'];
+			}
+			else
+			{
+				$warnings = "No valid tags for ". $image['name'] . " available tag: ". osm_pprint_r(array_keys($response['address']));
+			}
 		}
-
 		//die("Done one image");
 	} // Images loop
 
@@ -197,6 +225,13 @@ if ( isset($_POST['osm_submit']) )
 			'NB_WARNINGS'			=> count($warnings),
 		)
 	);
+}
+
+// Check if tag_groups is present and active
+$query="SELECT COUNT(*) FROM ".PLUGINS_TABLE." WHERE `id`='tag_groups' AND `state`='active';";
+list($tag_groups) = pwg_db_fetch_array( pwg_query($query) );
+if ($tag_groups != 1) {
+        $template->assign('plg_warnings', ["To use this feature you need the <a href='http://piwigo.org/ext/extension_view.php?eid=781' target='_blank'>tag_groups plugin</a> to be activate"] );
 }
 
 $query = 'SELECT COUNT(*) FROM '.IMAGES_TABLE.' WHERE `latitude` IS NOT NULL and `longitude` IS NOT NULL ';

@@ -12,7 +12,7 @@
 </style>
 {/html_head}
 
-Find the address base on the GPS (latitude, longitude) metadata information from the database.
+Create tags from the address base on the GPS (latitude, longitude) metadata information. 
 <br/><br/>
 Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" target="_blanck">plugin documentation</a> for additional information. Create an <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/issues" target="_blanck">issue</a> for support, or feedback, or feature request.
 
@@ -23,18 +23,29 @@ Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" ta
   </ul>
 </div>
 
+{if not empty($plg_warnings)}
+  <h3>{'Warnings'|@translate}</h3>
+  <div class="warnings">
+    <ul>
+      {foreach from=$plg_warnings item=warning}
+      <li>{$warning}</li>
+      {/foreach}
+    </ul>
+  </div>
+{/if}
+
 {if isset($metadata_result)}
 <div class="osm_layout">
   <legend>Synchronization results</legend>
   <ul>
-	<li>{$metadata_result.NB_ELEMENTS_DONE} {'photos updated in the database'|@translate}</li>
-	<li>{$metadata_result.NB_ELEMENTS_CANDIDATES} {'photos candidates for metadata synchronization'|@translate}</li>
+	<li>{$metadata_result.NB_ELEMENTS_DONE} {'tags updated in the database'|@translate}</li>
+	<li>{$metadata_result.NB_ELEMENTS_CANDIDATES} {'photos candidates for tags synchronization'|@translate}</li>
 	<li>{$metadata_result.NB_WARNINGS} {'warnings during synchronization'|@translate}</li>
 	<li>{$metadata_result.NB_ERRORS} {'errors during synchronization'|@translate}</li>
   </ul>
 
 {if not empty($sync_errors)}
-  <h3>{'SYNC_ERRORS'|@translate}</h3>
+  <h3>{'Error list'|@translate}</h3>
   <div class="errors">
     <ul>
       {foreach from=$sync_errors item=error}
@@ -45,7 +56,7 @@ Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" ta
 {/if}
 
 {if not empty($sync_warnings)}
-  <h3>{'SYNC_WARNINGS'|@translate}</h3>
+  <h3>{'Warnings'|@translate}</h3>
   <div class="warnings">
     <ul>
       {foreach from=$sync_warnings item=warning}
@@ -56,7 +67,7 @@ Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" ta
 {/if}
 
 {if not empty($sync_infos)}
-  <h3>{'SYNC_INFOS'|@translate}</h3>
+  <h3>{'Detailed informations'|@translate}</h3>
   <div class="infos">
     <ul>
       {foreach from=$sync_infos item=info}
@@ -71,32 +82,30 @@ Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" ta
 
 <form action="" method="post" id="update">
 
-  <fieldset id="syncOverwrite">
+  <fieldset id="tags">
 	<legend>{'Manage tags'|@translate}</legend>
 	<ul>
 		<li>
-			<label>{'TAG_ADDRESS'|@translate} : </label><br/>
+			<label>
+				<input type="text" name="osm_taggroup" value="location" placeholder="location" required="" /> {'Name of the tag group'|@translate}
+			</label>
+		</li>
+		<li>
+			<label>{'Use as tag'|@translate} : </label><br/>
 			<div style="padding-left: 25px">
+				<input type="checkbox" name="osm_tag_address_suburb" value="true" {if $osm_tag_address_suburb}checked="checked"{/if}/> {'suburb'|@translate}<br />
 				<input type="checkbox" name="osm_tag_address_city_district" value="true" {if $osm_tag_address_city_district}checked="checked"{/if}/> {'city_district'|@translate}<br />
-				<input type="checkbox" name="osm_tag_address_city" value="true" {if $osm_tag_address_city}checked="checked"{/if}/> {'city'|@translate}<br />
+				<input type="checkbox" name="osm_tag_address_city" value="true" checked="checked"/> {'city'|@translate}<br />
 				<input type="checkbox" name="osm_tag_address_county" value="true" {if $osm_tag_address_county}checked="checked"{/if}/> {'county'|@translate}<br />
 				<input type="checkbox" name="osm_tag_address_state" value="true" {if $osm_tag_address_state}checked="checked"{/if}/> {'state'|@translate}<br />
 				<input type="checkbox" name="osm_tag_address_country" value="true" {if $osm_tag_address_country}checked="checked"{/if}/> {'country'|@translate}<br />
 				<input type="checkbox" name="osm_tag_address_postcode" value="true" {if $osm_tag_address_postcode}checked="checked"{/if}/> {'postcode'|@translate}<br />
 				<input type="checkbox" name="osm_tag_address_country_code" value="true" {if $osm_tag_address_country_code}checked="checked"{/if}/> {'country_code'|@translate}<br />
 			</div>
-			<small>{'TAG_ADDRESS_DESC'|@translate}</small>
+			<small>{'Create tag using one or multiple value from the adress part'|@translate}</small>
 		</li>
 	</ul>
    </fieldset>
-
-  <fieldset id="syncOverwrite">
-    <legend>{'OVERWRITE_LGD'|@translate}</legend>
-    <ul>
-      <label><input type="checkbox" name="overwrite" value="1" checked="checked"> {'OVERWRITE'|@translate}</label>
-	<br/><small>{'OVERWRITE_DESC'|@translate}</small>
-    </ul>
-  </fieldset>
 
   <fieldset id="syncSimulation">
     <legend>{'Simulation'|@translate}</legend>
@@ -119,6 +128,6 @@ Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" ta
   </fieldset>
 
   <p>
-    <input type="submit" value="{'Submit'|@translate}" name="osm_submit">
+    <input type="submit" value="{'Submit'|@translate}" name="osm_tag_submit">
   </p>
 </form>
