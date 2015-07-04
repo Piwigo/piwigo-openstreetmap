@@ -231,7 +231,7 @@ if ( isset($_POST['osm_tag_submit']) )
 $query="SELECT COUNT(*) FROM ".PLUGINS_TABLE." WHERE `id`='tag_groups' AND `state`='active';";
 list($tag_groups) = pwg_db_fetch_array( pwg_query($query) );
 if ($tag_groups != 1) {
-        $template->assign('plg_warnings', ["To use this feature you need the <a href='http://piwigo.org/ext/extension_view.php?eid=781' target='_blank'>tag_groups plugin</a> to be activate"] );
+        $page['warnings'][] = "To use this feature you need the <a href='http://piwigo.org/ext/extension_view.php?eid=781' target='_blank'>tag_groups plugin</a> to be activate";
 }
 
 $query = 'SELECT COUNT(*) FROM '.IMAGES_TABLE.' WHERE `latitude` IS NOT NULL and `longitude` IS NOT NULL ';

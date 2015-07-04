@@ -23,17 +23,6 @@ Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" ta
   </ul>
 </div>
 
-{if not empty($plg_warnings)}
-  <h3>{'Warnings'|@translate}</h3>
-  <div class="warnings">
-    <ul>
-      {foreach from=$plg_warnings item=warning}
-      <li>{$warning}</li>
-      {/foreach}
-    </ul>
-  </div>
-{/if}
-
 {if isset($metadata_result)}
 <div class="osm_layout">
   <legend>Synchronization results</legend>
