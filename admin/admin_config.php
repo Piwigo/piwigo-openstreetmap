@@ -123,7 +123,8 @@ $available_popup = array(
 $available_layout = array(
     '1' => 'osm-map.tpl',
     '2' => 'osm-map2.tpl',
-//    '3' => 'osm-map3.tpl',
+    '3' => 'osm-map3.tpl',
+//    '4' => 'osm-map4.tpl',
 );
 
 $query = 'SELECT COUNT(*) FROM '.IMAGES_TABLE.' WHERE `latitude` IS NOT NULL and `longitude` IS NOT NULL ';
