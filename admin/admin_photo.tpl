@@ -39,10 +39,20 @@
 		<div style="float: left; margin: auto;">
 			<ul>
 				<li>
-					<label><input type="text" size="9" name="osmlat" value="{$LAT}"> {'LATITUDE'|@translate} (-90=S to 90=N)</label>
+					<label><input type="text" size="9" id="osmlat" name="osmlat" value="{$LAT}"> {'LATITUDE'|@translate} (-90=S to 90=N)</label>
 				</li>
 				<li>
-					<label><input type="text" size="9" name="osmlon" value="{$LON}"> {'LONGITUDE'|@translate} (-180=W to 180=E)</label>
+					<label><input type="text" size="9" id="osmlon" name="osmlon" value="{$LON}"> {'LONGITUDE'|@translate} (-180=W to 180=E)</label>
+				</li>
+			</ul>
+			<hr>
+			<ul>
+				<li>
+					<label>Save places :</label>
+					<select id="osmplaces" name="osmplaces" onchange="place_to_latlon(this)">
+						<option value="NULL">--</option>
+						{html_options options=$AVAILABLE_PLACES}
+					</select>
 				</li>
 			</ul>
 		</div>
@@ -119,5 +129,25 @@
 
 	map.addControl( new L.Control.Search(searchOpts) );
 	/* END leaflet-search */
+
+function place_to_latlon()
+{
+	var select = document.getElementById("osmplaces").value;
+	{/literal}{$LIST_PLACES}{literal}
+	//alert(arr_places[select]);
+	var lat_elem = document.getElementById("osmlat");
+	var lon_elem = document.getElementById("osmlon");
+	if (arr_places[select] == "NULL")
+	{
+		lat_elem.value = "0";
+		lon_elem.value = "0";
+	}
+	else
+	{
+		lat_elem.value = arr_places[select][1];
+		lon_elem.value = arr_places[select][2];
+	}
+}
+
 </script>
 {/literal}

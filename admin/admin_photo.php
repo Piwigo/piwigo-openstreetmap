@@ -137,6 +137,25 @@ $js_data = array(array($lat, $lon, null, $pathurl, null, null, null, null));
 
 $js = osm_get_js($conf, $local_conf, $js_data);
 
+// Fetch the template.
+global $prefixeTable;
+// Easy access
+define('osm_place_table', $prefixeTable.'osm_places');
+// Save location, eg Place
+  $query = '
+SELECT id, name, latitude, longitude
+  FROM '.osm_place_table.'
+;';
+  $result = pwg_query($query);
+// JS for the template
+  while ($row = pwg_db_fetch_assoc($result))
+  {
+    $list_of_places[$row['id']] = [$row['name'], $row['latitude'], $row['longitude'] ];
+    $available_places[$row['id']] =  $row['name'];
+  }
+
+$jsplaces = "\nvar arr_places = ". json_encode($list_of_places) .";\n";
+
 $template->assign(array(
 	'PWG_TOKEN' => get_pwg_token(),
 	'F_ACTION'  => $self_url,
@@ -146,6 +165,8 @@ $template->assign(array(
 	'OSM_JS'    => $js,
 	'LAT'       => $lat,
 	'LON'       => $lon,
+	'AVAILABLE_PLACES'    => $available_places,
+	'LIST_PLACES'     => $jsplaces,
 ));
 
 $template->assign_var_from_handle('ADMIN_CONTENT', 'plugin_admin_content');
