@@ -304,9 +304,9 @@ Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" ta
 function tile_toggle()
 {
 	var div = document.getElementById("custom-tile-toggle");
-	var select = document.getElementById("osm_baselayer");
+	var select = document.getElementById("osm_baselayer").value;
 	//alert(select.selectedIndex);
-	if (select.selectedIndex == 8) // If custom
+	if (select == "custom") // If custom
 	{
 		div.removeAttribute("style");
 	} else {
@@ -333,14 +333,15 @@ function tile_preview()
 {
 	var select = document.getElementById("osm_baselayer");
 	baselayer = new Array(
-		'https://c.tile.openstreetmap.org/5/15/11.png',
-		'http://c.www.toolserver.org/tiles/bw-mapnik/5/15/11.png',
-		'https://c.tile.openstreetmap.fr/hot/5/15/11.png',
-		'https://c.tile.openstreetmap.de/tiles/osmde/5/15/11.png',
-		'https://c.tile.openstreetmap.fr/hot/5/15/11.png',
-		'https://otile1.mqcdn.com/tiles/1.0.0/osm/5/15/11.png',
-		'https://oatile1.mqcdn.com/tiles/1.0.0/sat/5/15/11.png',
+		'{/literal}{$OSM_PATH}{literal}leaflet/icons/preview_openstreetmap_mapnik.png',
+		'{/literal}{$OSM_PATH}{literal}leaflet/icons/preview_openstreetmap_blackandwhite.png',
+		'{/literal}{$OSM_PATH}{literal}leaflet/icons/preview_openstreetmap_fr.png',
+		'{/literal}{$OSM_PATH}{literal}leaflet/icons/preview_openstreetmap_de.png',
+		'{/literal}{$OSM_PATH}{literal}leaflet/icons/preview_openstreetmap_fr.png',
+		'{/literal}{$OSM_PATH}{literal}leaflet/icons/preview_mapquest.png',
+		'{/literal}{$OSM_PATH}{literal}leaflet/icons/preview_mapquest_aerial.png',
 		'https://a.tile.cloudmade.com/7807cc60c1354628aab5156cfc1d4b3b/997/256/5/15/11.png',
+		'{/literal}{$OSM_PATH}{literal}leaflet/icons/preview_toner.png',
 		'NULL'
 	);
 	//alert(baselayer[select.selectedIndex]);

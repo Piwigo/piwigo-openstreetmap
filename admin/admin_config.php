@@ -45,6 +45,7 @@ $available_baselayer = array(
     'mapquest'      => 'MapQuestOpen',
     'mapquestaerial'=> 'MapQuestOpen Aerial',
     'cloudmade'     => 'Cloudmade',
+    'toner'         => 'Stamen Toner',
     'custom'        => 'Own tile (custom style)',
 );
 
