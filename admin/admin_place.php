@@ -59,6 +59,7 @@ if (isset($_POST['edit_submit']) and isset($_POST['edit_list']))
   $query = '
 SELECT name
   FROM '.osm_place_table.'
+  WHERE id NOT IN ('.$_POST['edit_list'].')
 ;';
   $existing_names = array_from_query($query, 'name');
 
@@ -82,22 +83,19 @@ SELECT id, name, latitude, longitude
     $place_lat = stripslashes($_POST['place_lat-'.$place_id]);
     $place_lon = stripslashes($_POST['place_lon-'.$place_id]);
 
-    if ($place_name != $current_name_of[$place_id])
+    if (in_array($place_name, $existing_names))
     {
-      if (in_array($place_name, $existing_names))
-      {
         $page['errors'][] = l10n('Place "%s" already exists', $place_name);
-      }
-      else if (!empty($place_name))
-      {
+    }
+    else if (!empty($place_name))
+    {
         $updates[] = array(
           'id' => $place_id,
           'name' => addslashes($place_name),
           'latitude' => $place_lat,
           'longitude' => $place_lon,
           );
-      }
-    }
+     }
   }
   mass_updates(
     osm_place_table,

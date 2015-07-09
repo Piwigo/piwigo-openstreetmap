@@ -147,7 +147,6 @@ $("#searchInput").on("keydown", function(e) {
     <p>
       <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
       <input type="submit" name="edit" value="{'Edit selected places'|@translate}">
-      <input type="submit" name="duplicate" value="{'Duplicate selected places'|@translate}">
       <input type="submit" name="delete" value="{'Delete selected places'|@translate}" onclick="return confirm('{'Are you sure?'|@translate}');">
     </p>
   </fieldset>
