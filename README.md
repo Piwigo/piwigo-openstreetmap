@@ -56,7 +56,3 @@ ANY WARRANTY; without even the  implied warranty of MERCHANTABILITY or FITNESS
 FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
 See <http://www.gnu.org/licenses/gpl.html>.
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/xbgmsharp/piwigo-openstreetmap/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
