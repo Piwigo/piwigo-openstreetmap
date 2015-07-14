@@ -126,7 +126,7 @@ function osm_render_element_content()
     $local_conf['center_lng'] = $lon;
     $local_conf['zoom'] = $zoom;
 
-    $js_data = array(array($lat, $lon, null, null, null, null, null, null));
+    $js_data = osm_get_items($page);
 
     $js = osm_get_js($conf, $local_conf, $js_data);
 
