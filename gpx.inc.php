@@ -86,7 +86,7 @@ function osm_render_media($content, $picture)
 			'HEIGHT'   => $height,
 			'WIDTH'    => $width,
 			'FILENAME' => $filename,
-			'OSM_PATH' => embellish_url(get_absolute_root_url().OSM_PATH),
+			'OSM_PATH' => embellish_url(get_gallery_home_url().OSM_PATH),
 			'OSMGPX'   => $js,
             )
 	);
