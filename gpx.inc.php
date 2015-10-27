@@ -26,9 +26,8 @@
 if (!defined('PHPWG_ROOT_PATH')) die('Hacking attempt!');
 
 // Add GPX support file extensions
-array_push($conf['file_ext'], 'gpx');
 // TF, 22.10.2015: handle kml as well!
-array_push($conf['file_ext'], 'kml');
+array_push($conf['file_ext'], 'gpx', 'kml');
 
 // Hook on to an event to display videos as standard images
 add_event_handler('render_element_content', 'osm_render_media', EVENT_HANDLER_PRIORITY_NEUTRAL, 2);
