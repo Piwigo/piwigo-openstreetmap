@@ -134,8 +134,8 @@ list($nb_geotagged) = pwg_db_fetch_array( pwg_query($query) );
 if (isset($_POST['submit']) && !empty($_POST['osm_height']))
 {
 	// Check the center GPS position is valid
-	if (isset($_POST['osm_left_center']) and strlen($_POST['osm_left_center']) != 0)
-        $center_arr = explode(',', $_POST['osm_left_center']);
+        $osm_left_center = (isset($_POST['osm_left_center']) and strlen($_POST['osm_left_center']) != 0) ? $_POST['osm_left_center'] : '0,0';
+        $center_arr = explode(',', $osm_left_center);
         //print_r($center_arr);
         $latitude = $center_arr[0];
         $longitude = $center_arr[1];
@@ -168,7 +168,8 @@ if (isset($_POST['submit']) && !empty($_POST['osm_height']))
             'popupinfo_comment' => isset($_POST['osm_left_popupinfo_comment']),
             'popupinfo_author'  => isset($_POST['osm_left_popupinfo_author']),
             'zoom'              => $_POST['osm_left_zoom'],
-            'center'            => $_POST['osm_left_center'],
+            'center'            => $osm_left_center,
+            'autocenter'        => get_boolean($_POST['osm_left_autocenter']),
             'layout'            => $_POST['osm_left_layout'],
 			),
         'category_description' => array(

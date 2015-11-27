@@ -110,13 +110,19 @@ Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" ta
 				<small>{'LEFTPOPUPINFO_DESC'|@translate}</small>
 			</li>
 			<li>
+				<label>{'Auto center'|@translate} : </label>
+				<label><input id="autocenter_enabled" type="radio" name="osm_left_autocenter" value="true" {if $left_menu.autocenter}checked="checked"{/if} onchange="autocenter_toggle(this);"/> {'Yes'|@translate}</label>
+				<label><input type="radio" name="osm_left_autocenter" value="false" {if not $left_menu.autocenter}checked="checked"{/if} onchange="autocenter_toggle(this);"/> {'No'|@translate}</label>
+				<br/><small>{'The map will be automatically centered and zoomed to contain all infos.'|@translate}</small>
+			</li>
+			<li id="osm_left_zoom_block">
 				<label>{'ZOOM'|@translate} : </label>
 				<select name="osm_left_zoom">
 					{html_options options=$AVAILABLE_ZOOM selected=$left_menu.zoom}
 				</select>
 				<br/><small>{'ZOOM_DESC'|@translate}</small>
 			</li>
-			<li>
+			<li id="osm_left_center_block">
 				<label>{'CENTER_MAP'|@translate} : </label>
 				<input type="text" value="{$left_menu.center}" name="osm_left_center" size="30" placeholder="0,0"/>
 				<br/><small>{'CENTER_MAP_DESC'|@translate}</small>
@@ -329,6 +335,21 @@ function pin_toggle()
 	pin_preview();
 }
 
+function autocenter_toggle()
+{
+	var radio = document.getElementById("autocenter_enabled");
+	var zoom_block = document.getElementById("osm_left_zoom_block");
+	var center_block = document.getElementById("osm_left_center_block");
+	if (radio.checked) // If autocenter
+	{
+		zoom_block.setAttribute("style", "display:none;");
+		center_block.setAttribute("style", "display:none;");
+	} else {
+		zoom_block.removeAttribute("style");
+		center_block.removeAttribute("style");
+	}
+}
+
 function tile_preview()
 {
 	var select = document.getElementById("osm_baselayer");
@@ -385,6 +406,7 @@ function pin_preview()
 
 window.onload = pin_preview();
 window.onload = tile_preview();
+window.onload = autocenter_toggle()
 
 </script>
 {/literal}
