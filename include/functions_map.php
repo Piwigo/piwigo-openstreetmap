@@ -536,8 +536,24 @@ function osm_gen_template($conf, $js, $js_data, $tmpl, $template)
             'TOTAL'             => sprintf( l10n('ITEMS'), count($js_data) ),
             'OSMJS'				=> $js,
             'MYROOT_URL'		=> get_absolute_root_url(),
+            'default_baselayer' => $conf['osm_conf']['map']['baselayer'],
         )
     );
+
+    if ( $conf['osm_conf']['map']['baselayer'] == 'custom' ) {
+        $iconbaselayer = $conf['osm_conf']['map']['custombaselayerurl'];
+        $iconbaselayer = str_replace('{s}', 'a', $iconbaselayer);
+        $iconbaselayer = str_replace('{z}', '5', $iconbaselayer);
+        $iconbaselayer = str_replace('{x}', '15', $iconbaselayer);
+        $iconbaselayer = str_replace('{y}', '11', $iconbaselayer);
+        $template->assign(
+            array(
+                'custombaselayer'    => $conf['osm_conf']['map']['custombaselayer'],
+                'custombaselayerurl' => $conf['osm_conf']['map']['custombaselayerurl'],
+                'iconbaselayer'      => $iconbaselayer,
+            )
+        );
+    }
 
     $template->pparse('map');
     $template->p();
