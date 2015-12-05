@@ -212,12 +212,12 @@ Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" ta
 			<div id="custom-tile-toggle" style="visibility:hidden; width:0px; height:0px; display:none;">
 				<li>
 					<label>{'CUSTOMBASELAYER'|@translate} : </label>
-					<input type="text" value="{$map.custombaselayer}" name="osm_custombaselayer" size="40"/>
+					<input type="text" value="{$map.custombaselayer}" name="osm_custombaselayer" id="osm_custombaselayer" size="40"/>
 					<br/><small>{'CUSTOMBASELAYER_DESC'|@translate}</small>
 				</li>
 				<li>
 					<label>{'CUSTOMBASELAYERURL'|@translate} : </label>
-					<input type="text" value="{$map.custombaselayerurl}" name="osm_custombaselayerurl" size="40"/>
+					<input type="text" value="{$map.custombaselayerurl}" name="osm_custombaselayerurl" id="osm_custombaselayerurl" onchange="tile_toggle(this)" size="40"/>
 					<br/><small>{'CUSTOMBASELAYERURL_DESC'|@translate}</small>
 				</li>
 			</div>
@@ -332,6 +332,12 @@ function pin_toggle()
 function tile_preview()
 {
 	var select = document.getElementById("osm_baselayer");
+	var custom_url = document.getElementById("osm_custombaselayerurl").value;
+	if ( custom_url ) {
+		custom_url = custom_url.replace('{z}', '5').replace('{x}', '15').replace('{y}', '11');
+	} else {
+		custom_url = 'NULL';
+	}
 	baselayer = new Array(
 		'{/literal}{$OSM_PATH}{literal}leaflet/icons/preview_openstreetmap_mapnik.png',
 		'{/literal}{$OSM_PATH}{literal}leaflet/icons/preview_openstreetmap_blackandwhite.png',
@@ -342,7 +348,7 @@ function tile_preview()
 		'{/literal}{$OSM_PATH}{literal}leaflet/icons/preview_mapquest_aerial.png',
 		'https://a.tile.cloudmade.com/7807cc60c1354628aab5156cfc1d4b3b/997/256/5/15/11.png',
 		'{/literal}{$OSM_PATH}{literal}leaflet/icons/preview_toner.png',
-		'NULL'
+		custom_url
 	);
 	//alert(baselayer[select.selectedIndex]);
 	var img_elem = document.getElementById("tile_preview");
