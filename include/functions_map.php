@@ -92,7 +92,7 @@ function osm_get_gps($page)
     /* Get all GPX tracks */
     $query="SELECT i.path FROM ".IMAGES_TABLE." AS i
             INNER JOIN (".IMAGE_CATEGORY_TABLE." AS ic ".$INNER_JOIN.") ON i.id = ic.image_id
-            WHERE ".$LIMIT_SEARCH." `path` LIKE '%gpx%' ".$forbidden." ";
+            WHERE ".$LIMIT_SEARCH." `path` LIKE '%.gpx' ".$forbidden." ";
 
     return array_from_query($query, 'path');
 }
