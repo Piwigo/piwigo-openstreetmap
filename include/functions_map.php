@@ -186,7 +186,6 @@ function osm_get_items($page)
     // SUBSTRING_INDEX(TRIM(LEADING '.' FROM `path`), '.', 1) full path without filename extension
     // SUBSTRING_INDEX(TRIM(LEADING '.' FROM `path`), '.', -1) full path with only filename extension
 
-	// Fix for issue #74: i.storage_category_id might be in the list of $forbidden categories, use ic.category_id instead
     $query="SELECT i.latitude, i.longitude,
     IFNULL(i.name, '') AS `name`,
     IF(i.representative_ext IS NULL,
@@ -202,7 +201,7 @@ function osm_get_items($page)
             )
         )
     ) AS `pathurl`,
-    TRIM(TRAILING '/' FROM CONCAT( i.id, '/category/', IFNULL(ic.category_id, '') ) ) AS `imgurl`,
+    TRIM(TRAILING '/' FROM CONCAT( i.id, '/category/', IFNULL(i.storage_category_id, '') ) ) AS `imgurl`,
     IFNULL(i.comment, '') AS `comment`,
     IFNULL(i.author, '') AS `author`,
     i.width
