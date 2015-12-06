@@ -186,6 +186,9 @@ function osm_get_items($page)
     // SUBSTRING_INDEX(TRIM(LEADING '.' FROM `path`), '.', 1) full path without filename extension
     // SUBSTRING_INDEX(TRIM(LEADING '.' FROM `path`), '.', -1) full path with only filename extension
 
+
+    if (isset($page['image_id'])) $LIMIT_SEARCH .= 'i.id = ' . $page['image_id'] . ' AND ';
+
     $query="SELECT i.latitude, i.longitude,
     IFNULL(i.name, '') AS `name`,
     IF(i.representative_ext IS NULL,
