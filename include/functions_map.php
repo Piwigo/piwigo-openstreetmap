@@ -279,16 +279,25 @@ function osm_get_js($conf, $local_conf, $js_data)
     $divname = isset($local_conf['divname']) ? $local_conf['divname'] : 'map';
 
     /* If the config include parameters get them */
-    $zoom = isset($conf['osm_conf']['left_menu']['zoom']) ? $conf['osm_conf']['left_menu']['zoom'] : 2;
     $center = isset($conf['osm_conf']['left_menu']['center']) ? $conf['osm_conf']['left_menu']['center'] : '0,0';
     $center_arr = preg_split('/,/', $center);
     $center_lat = isset($center_arr) ? $center_arr[0] : 0;
     $center_lng = isset($center_arr) ? $center_arr[1] : 0;
 
     /* If we have zoom and center coordonate, set it otherwise fallback default */
-    $zoom = isset($_GET['zoom']) ? $_GET['zoom'] : $zoom;
+    $zoom = isset($_GET['zoom'])
+        ? $_GET['zoom']
+        : (
+            isset($local_conf['zoom'])
+                ? $local_conf['zoom']
+                : 2
+            );
     $center_lat = isset($_GET['center_lat']) ? $_GET['center_lat'] : $center_lat;
     $center_lng = isset($_GET['center_lng']) ? $_GET['center_lng'] : $center_lng;
+
+    $autocenter = isset($local_conf['autocenter'])
+        ? $local_conf['autocenter']
+        : 0;
 
     // Load baselayerURL
     if     ($baselayer == 'mapnik')     $baselayerurl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
@@ -344,7 +353,7 @@ function osm_get_js($conf, $local_conf, $js_data)
         $js .= "\nvar Url = '".$baselayerurl."',
         Attribution = '".$attribution."',
         TileLayer = new L.TileLayer(Url, {maxZoom: 18, noWrap: ".$nowarp.", attribution: Attribution});\n";
-        $js .= "var " . $divname . " = new L.Map('" . $divname . "', {" . $worldcopyjump . ", zoom: ".$local_conf['zoom'].", layers: [TileLayer], contextmenu: " . $local_conf['contextmenu'] . "});\n";
+        $js .= "var " . $divname . " = new L.Map('" . $divname . "', {" . $worldcopyjump . ", zoom: ".$zoom.", layers: [TileLayer], contextmenu: " . $local_conf['contextmenu'] . "});\n";
         $js .= $divname . ".attributionControl.setPrefix('');\n";
         $js .= "\nL.control.scale().addTo(" . $divname . ");\n";
         return $js;
@@ -354,7 +363,7 @@ function osm_get_js($conf, $local_conf, $js_data)
         Attribution = '".$attribution."',
         TileLayer = new L.TileLayer(Url, {maxZoom: 18, noWrap: ".$nowarp.", attribution: Attribution}),
         latlng = new L.LatLng(".$local_conf['center_lat'].", ".$local_conf['center_lng'].");\n";
-        $js .= "var " . $divname . " = new L.Map('" . $divname . "', {" . $worldcopyjump . ", center: latlng, ".$editor." zoom: ".$local_conf['zoom'].", layers: [TileLayer], contextmenu: " . $local_conf['contextmenu'] . "});\n";
+        $js .= "var " . $divname . " = new L.Map('" . $divname . "', {" . $worldcopyjump . ", center: latlng, ".$editor." zoom: ".$zoom.", layers: [TileLayer], contextmenu: " . $local_conf['contextmenu'] . "});\n";
         $js .= $divname . ".attributionControl.setPrefix('');\n";
         $js .= "var MarkerClusterList=[];\n";
         $js .= "if (typeof L.MarkerClusterGroup === 'function')\n";
@@ -508,7 +517,7 @@ function osm_get_js($conf, $local_conf, $js_data)
     }
     $js .= "\nif (typeof L.MarkerClusterGroup === 'function')\n";
     $js .= "    " . $divname . ".addLayer(markers);\n";
-    if (isset($local_conf['auto_center']) and $local_conf['auto_center'] === 0 ) {
+    if ( $autocenter ) {
         $js .= "var group = new L.featureGroup(MarkerClusterList);";
         $js .= "this." . $divname . ".whenReady(function () {
         window.setTimeout(function () {

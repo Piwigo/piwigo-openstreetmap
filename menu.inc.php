@@ -65,7 +65,7 @@ function osm_apply_menu($menu_ref_arr)
                 $local_conf['center_lat'] = 0;
                 $local_conf['center_lng'] = 0;
                 $local_conf['zoom'] = 2;
-                $local_conf['auto_center'] = 0;
+                $local_conf['autocenter'] = 1;
                 $local_conf['divname'] = 'mapmenu';
                 $local_conf['paths'] = osm_get_gps($page);
                 $height = isset($conf['osm_conf']['main_menu']['height']) ? $conf['osm_conf']['main_menu']['height'] : '200';
