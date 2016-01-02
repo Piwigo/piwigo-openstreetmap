@@ -54,7 +54,8 @@ function osm_apply_menu($menu_ref_arr)
         // Comment are used only with this condition index.php l294
         if ($page['start']==0 and !isset($page['chronology_field']) )
         {
-            $js_data = osm_get_items($page);
+			// TF, 20160102: pass config as parameter
+            $js_data = osm_get_items($conf, $page);
             if ($js_data != array())
             {
                 $local_conf = array();
@@ -67,7 +68,8 @@ function osm_apply_menu($menu_ref_arr)
                 $local_conf['zoom'] = 2;
                 $local_conf['auto_center'] = 0;
                 $local_conf['divname'] = 'mapmenu';
-                $local_conf['paths'] = osm_get_gps($page);
+				// TF, 20160102: pass config as parameter
+                $local_conf['paths'] = osm_get_gps($conf, $page);
                 $height = isset($conf['osm_conf']['main_menu']['height']) ? $conf['osm_conf']['main_menu']['height'] : '200';
                 $js = osm_get_js($conf, $local_conf, $js_data);
                 $template->set_template_dir(dirname(__FILE__).'/template/');

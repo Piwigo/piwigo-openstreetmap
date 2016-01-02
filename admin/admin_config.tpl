@@ -110,6 +110,13 @@ Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" ta
 				<small>{'LEFTPOPUPINFO_DESC'|@translate}</small>
 			</li>
 			<li>
+				<label>{'LEFTPOPUPLICKTARGET'|@translate} : </label>
+				<select name="osm_left_popup_click_target">
+					{html_options options=$AVAILABLE_POPUP_CLICK_TARGET selected=$left_menu.popup_click_target}
+				</select>
+				<br/><small>{'LEFTPOPUPCLICKTARGET_DESC'|@translate}</small>
+			</li>
+			<li>
 				<label>{'ZOOM'|@translate} : </label>
 				<select name="osm_left_zoom">
 					{html_options options=$AVAILABLE_ZOOM selected=$left_menu.zoom}
@@ -148,6 +155,18 @@ Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" ta
 				<label>{'WIDTH'|@translate} : </label>
 				<input type="text" value="{$category_description.width}" name="osm_cat_width" size="4" required placeholder="auto"/>
 				<br/><small>{'WIDTH_DESC'|@translate}</small>
+			</li>
+			<li>
+				<label>{'NOGPXFORSUBCAT'|@translate} : </label>
+				<label><input type="radio" name="osm_nogpxforsubcat" value="true" {if $category_description.nogpxforsubcat}checked="checked"{/if}/> {'Yes'|@translate}</label>
+				<label><input type="radio" name="osm_nogpxforsubcat" value="false" {if not $category_description.nogpxforsubcat}checked="checked"{/if}/> {'No'|@translate}</label>
+				<br/><small>{'NOGPXFORSUBCAT_DESC'|@translate}</small>
+			</li>
+			<li>
+				<label>{'FIRSTIMAGEFORSUBCAT'|@translate} : </label>
+				<label><input type="radio" name="osm_firstimageforsubcat" value="true" {if $category_description.firstimageforsubcat}checked="checked"{/if}/> {'Yes'|@translate}</label>
+				<label><input type="radio" name="osm_firstimageforsubcat" value="false" {if not $category_description.firstimageforsubcat}checked="checked"{/if}/> {'No'|@translate}</label>
+				<br/><small>{'FIRSTIMAGEFORSUBCAT_DESC'|@translate}</small>
 			</li>
 		</ul>
 	</fieldset>

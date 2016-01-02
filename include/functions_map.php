@@ -52,53 +52,75 @@ function osmcopyright($attrleaflet, $attrimagery, $attrmodule, $bl, $custombasel
     return $return;
 }
 
-function osm_get_gps($page)
+function osm_get_gps($conf, $page)
 {
-    // Limit search by category, by tag, by smartalbum
-    $LIMIT_SEARCH="";
-    $INNER_JOIN="";
-    if (isset($page['section']))
+    // Load parameter, fallback to default if unset
+    $nogpxforsubcat = isset($conf['osm_conf']['category_description']['nogpxforsubcat']) ? $conf['osm_conf']['category_description']['nogpxforsubcat'] : 'false';
+	
+	$gpx_list = array();
+	
+	// TF, 20160102
+	// check if any items (= pictures) are on that page and show gpx tracks only IF items>0 OR nogpxforsubcat=FALSE
+	if (!($nogpxforsubcat) or (isset($page['items']) and isset($page['items'][0])))
     {
-        if ($page['section'] === 'categories' and isset($page['category']) and isset($page['category']['id']) )
-        {
-            $LIMIT_SEARCH = "FIND_IN_SET(".$page['category']['id'].", c.uppercats) AND ";
-            $INNER_JOIN = "INNER JOIN ".CATEGORIES_TABLE." AS c ON ic.category_id = c.id";
-        }
-        if ($page['section'] === 'tags' and isset($page['tags']) and isset($page['tags'][0]['id']) )
-        {
-            $items = get_image_ids_for_tags( array($page['tags'][0]['id']) );
-            if ( !empty($items) )
-            {
-                $LIMIT_SEARCH = "ic.image_id IN (".implode(',', $items).") AND ";
-            }
-        }
-        if ($page['section'] === 'tags' and isset($page['category']) and isset($page['category']['id']) )
-        {
-            $LIMIT_SEARCH = "FIND_IN_SET(".$page['category']['id'].", c.uppercats) AND ";
-            $INNER_JOIN = "INNER JOIN ".CATEGORIES_TABLE." AS c ON ic.category_id = c.id";
-        }
-    }
+		// Limit search by category, by tag, by smartalbum
+		$LIMIT_SEARCH="";
+		$INNER_JOIN="";
+		if (isset($page['section']))
+		{
+			if ($page['section'] === 'categories' and isset($page['category']) and isset($page['category']['id']) )
+			{
+				$LIMIT_SEARCH = "FIND_IN_SET(".$page['category']['id'].", c.uppercats) AND ";
+				$INNER_JOIN = "INNER JOIN ".CATEGORIES_TABLE." AS c ON ic.category_id = c.id";
+			}
+			if ($page['section'] === 'tags' and isset($page['tags']) and isset($page['tags'][0]['id']) )
+			{
+				$items = get_image_ids_for_tags( array($page['tags'][0]['id']) );
+				if ( !empty($items) )
+				{
+					$LIMIT_SEARCH = "ic.image_id IN (".implode(',', $items).") AND ";
+				}
+			}
+			if ($page['section'] === 'tags' and isset($page['category']) and isset($page['category']['id']) )
+			{
+				$LIMIT_SEARCH = "FIND_IN_SET(".$page['category']['id'].", c.uppercats) AND ";
+				$INNER_JOIN = "INNER JOIN ".CATEGORIES_TABLE." AS c ON ic.category_id = c.id";
+			}
+		}
 
-    $forbidden = get_sql_condition_FandF(
-        array
-        (
-            'forbidden_categories' => 'ic.category_id',
-            'visible_categories' => 'ic.category_id',
-            'visible_images' => 'i.id'
-        ),
-        "\n AND"
-    );
+		// print_r('limit: ');
+		// print_r($LIMIT_SEARCH);
+		// print_r(' - ');
+		// print_r('join: ');
+		// print_r($INNER_JOIN);
+		// print_r(' - ');
 
-    /* Get all GPX tracks */
-    $query="SELECT i.path FROM ".IMAGES_TABLE." AS i
-            INNER JOIN (".IMAGE_CATEGORY_TABLE." AS ic ".$INNER_JOIN.") ON i.id = ic.image_id
-            WHERE ".$LIMIT_SEARCH." `path` LIKE '%gpx%' ".$forbidden." ";
+		$forbidden = get_sql_condition_FandF(
+			array
+			(
+				'forbidden_categories' => 'ic.category_id',
+				'visible_categories' => 'ic.category_id',
+				'visible_images' => 'i.id'
+			),
+			"\n AND"
+		);
 
-    return array_from_query($query, 'path');
+		/* Get all GPX tracks */
+		$query="SELECT i.path FROM ".IMAGES_TABLE." AS i
+				INNER JOIN (".IMAGE_CATEGORY_TABLE." AS ic ".$INNER_JOIN.") ON i.id = ic.image_id
+				WHERE ".$LIMIT_SEARCH." `path` LIKE '%gpx%' ".$forbidden." ";
+
+		$gpx_list = array_from_query($query, 'path');
+	}
+	
+    return $gpx_list;
 }
 
-function osm_get_items($page)
+function osm_get_items($conf, $page)
 {
+    // Load parameter, fallback to default if unset
+    $firstimageforsubcat = isset($conf['osm_conf']['category_description']['firstimageforsubcat']) ? $conf['osm_conf']['category_description']['firstimageforsubcat'] : 'false';
+
     // Limit search by category, by tag, by smartalbum
     $LIMIT_SEARCH="";
     $INNER_JOIN="";
@@ -123,7 +145,7 @@ function osm_get_items($page)
             $INNER_JOIN = "INNER JOIN ".CATEGORIES_TABLE." AS c ON ic.category_id = c.id";
         }
     }
-
+	
     $forbidden = get_sql_condition_FandF(
         array
         (
@@ -134,7 +156,7 @@ function osm_get_items($page)
         "\n AND"
     );
 
-    /* We have lat and lng coordonate for virtual album */
+    /* We have lat and lng coordinate for virtual album */
     if (isset($_GET['min_lat']) and isset($_GET['max_lat']) and isset($_GET['min_lng']) and isset($_GET['max_lng']))
     {
         $LIMIT_SEARCH="";
@@ -186,6 +208,32 @@ function osm_get_items($page)
     // SUBSTRING_INDEX(TRIM(LEADING '.' FROM `path`), '.', 1) full path without filename extension
     // SUBSTRING_INDEX(TRIM(LEADING '.' FROM `path`), '.', -1) full path with only filename extension
 
+	// TF, 20160102
+	// check if any items (= pictures) are on that page
+	// if not => has only sub galleries but no pictures => show only first picture IF flag $firstimageforsubcat is set accordingly
+	if (!($firstimageforsubcat) or isset($page['items']) and isset($page['items'][0]))
+    {
+		$only_first_item = false;
+	}
+	else
+	{
+		$only_first_item = true;
+	}
+
+	// TF, 20160102
+	// if we show only the first picture then we want to link to the category
+	if ($only_first_item)
+	{
+		$concat_for_url = "'category/', IFNULL(ic.category_id, '')";
+	}
+	else 
+	{
+		// Fix for issue #74: i.storage_category_id might be in the list of $forbidden categories, use ic.category_id instead
+		$concat_for_url = "i.id, '/category/', IFNULL(ic.category_id, '')";
+	}
+
+	// TF, 20160102
+	// add ORDER BY to always show the first image in a category
     $query="SELECT i.latitude, i.longitude,
     IFNULL(i.name, '') AS `name`,
     IF(i.representative_ext IS NULL,
@@ -201,30 +249,55 @@ function osm_get_items($page)
             )
         )
     ) AS `pathurl`,
-    TRIM(TRAILING '/' FROM CONCAT( i.id, '/category/', IFNULL(i.storage_category_id, '') ) ) AS `imgurl`,
+    TRIM(TRAILING '/' FROM CONCAT( ".$concat_for_url." ) ) AS `imgurl`,
     IFNULL(i.comment, '') AS `comment`,
     IFNULL(i.author, '') AS `author`,
-    i.width
+    i.width,
+	ic.category_id AS imgcategory 
         FROM ".IMAGES_TABLE." AS i
             INNER JOIN (".IMAGE_CATEGORY_TABLE." AS ic ".$INNER_JOIN.") ON i.id = ic.image_id
-            WHERE ".$LIMIT_SEARCH." i.latitude IS NOT NULL AND i.longitude IS NOT NULL ".$forbidden." GROUP BY i.id;";
-    //echo $query;
+            WHERE ".$LIMIT_SEARCH." i.latitude IS NOT NULL AND i.longitude IS NOT NULL ".$forbidden." GROUP BY i.id
+		ORDER BY ic.category_id, ic.rank";
+    // echo $query;
+	// echo '<br/>';
+
     $php_data = array_from_query($query);
     //print_r($php_data);
+
     $js_data = array();
+	$cur_category = "";
     foreach($php_data as $array)
     {
         // MySQL did all the job
-        //print_r($array);
-        $js_data[] = array((double)$array['latitude'],
-                   (double)$array['longitude'],
-                   $array['name'],
-                   get_absolute_root_url() ."i.php?".$array['pathurl'],
-                   get_absolute_root_url() ."picture.php?/".$array['imgurl'],
-                   $array['comment'],
-                   $array['author'],
-                   (int)$array['width']
-                   );
+        // print_r($array);
+		// echo '<br/>';
+		if (!$only_first_item || $array['imgcategory'] != $cur_category)
+		{
+			// TF, 20160102
+			// if we show only the first picture then we want to link to the category
+			if ($only_first_item)
+			{
+				$linkurl = get_absolute_root_url() ."index.php?/".$array['imgurl'];
+			}
+			else
+			{
+				$linkurl = get_absolute_root_url() ."picture.php?/".$array['imgurl'];
+			}
+
+			$js_data[] = array((double)$array['latitude'],
+					   (double)$array['longitude'],
+					   $array['name'],
+					   get_absolute_root_url() ."i.php?".$array['pathurl'],
+					   $linkurl,
+					   $array['comment'],
+					   $array['author'],
+					   (int)$array['width']
+					   );
+
+			$cur_category = $array['imgcategory'];
+			// print_r($linkurl);
+			// echo ' added <br/>';
+		}
     }
     /* START Debug generate dummy data
     $js_data = array();
@@ -246,6 +319,7 @@ function osm_get_items($page)
                    );
     }
     END Debug generate dummy data */
+
     return $js_data;
 }
 
@@ -262,6 +336,7 @@ function osm_get_js($conf, $local_conf, $js_data)
     $popupinfo_link = isset($conf['osm_conf']['left_menu']['popupinfo_link']) ? $conf['osm_conf']['left_menu']['popupinfo_link'] : 0;
     $popupinfo_comment = isset($conf['osm_conf']['left_menu']['popupinfo_comment']) ? $conf['osm_conf']['left_menu']['popupinfo_comment'] : 0;
     $popupinfo_author  = isset($conf['osm_conf']['left_menu']['popupinfo_author']) ? $conf['osm_conf']['left_menu']['popupinfo_author'] : 0;
+	$popup_click_target = isset($conf['osm_conf']['left_menu']['popup_click_target']) ? $conf['osm_conf']['left_menu']['popup_click_target'] : 0;
     $baselayer = isset($conf['osm_conf']['map']['baselayer']) ? $conf['osm_conf']['map']['baselayer'] : 'mapnik';
     $custombaselayer = isset($conf['osm_conf']['map']['custombaselayer']) ? $conf['osm_conf']['map']['custombaselayer'] : '';
     $custombaselayerurl = isset($conf['osm_conf']['map']['custombaselayerurl']) ? $conf['osm_conf']['map']['custombaselayerurl'] : '';
@@ -292,13 +367,15 @@ function osm_get_js($conf, $local_conf, $js_data)
 
     // Load baselayerURL
     if     ($baselayer == 'mapnik')     $baselayerurl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-    else if($baselayer == 'mapquest')   $baselayerurl = 'http://otile1.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png';
     else if($baselayer == 'cloudmade')  $baselayerurl = 'http://{s}.tile.cloudmade.com/7807cc60c1354628aab5156cfc1d4b3b/997/256/{z}/{x}/{y}.png';
     else if($baselayer == 'mapnikde')   $baselayerurl = 'http://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png';
     else if($baselayer == 'mapnikfr')   $baselayerurl = 'http://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png';
     else if($baselayer == 'blackandwhite')  $baselayerurl = 'http://{s}.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png';
     else if($baselayer == 'mapnikhot')  $baselayerurl = 'http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png';
-    else if($baselayer == 'mapquestaerial') $baselayerurl = 'http://oatile{s}.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.jpg';
+    // else if($baselayer == 'mapquest')   $baselayerurl = 'http://otile1.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png';
+    // else if($baselayer == 'mapquestaerial') $baselayerurl = 'http://oatile{s}.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.jpg';
+    else if($baselayer == 'mapquest')   $baselayerurl = 'http://otile1.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.png';
+    else if($baselayer == 'mapquestaerial') $baselayerurl = 'http://otile1.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.png';
     else if($baselayer == 'toner') $baselayerurl = 'https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.png';
     else if($baselayer == 'custom') $baselayerurl = $custombaselayerurl;
 
@@ -478,7 +555,24 @@ function osm_get_js($conf, $local_conf, $js_data)
                 $attribute = ' target=\"_blank\"';
             else
                 $attribute = '';
-            $myinfo .= "<br /><a target=\"_blank\" href=\"'+imgurl+'\"".$attribute."><img src=\"'+pathurl+'\"></a>";
+			// TF, 20160102
+			// choose link target based on config setting
+			$linktarget = "_blank";
+			switch ($popup_click_target) {
+				case 0:
+					$linktarget = "_blank";
+					break;
+				case 1:
+					$linktarget = "_top";
+					break;
+				case 2:
+					$linktarget = "_self";
+					break;
+				case 3:
+					$linktarget = "_parent";
+					break;
+			}
+            $myinfo .= "<br /><a target=\"".$linktarget."\" href=\"'+imgurl+'\"".$attribute."><img src=\"'+pathurl+'\"></a>";
         }
         if($popupinfo_comment)
         {
@@ -501,9 +595,16 @@ function osm_get_js($conf, $local_conf, $js_data)
 \t}";
     if (isset($local_conf['paths'])) {
         foreach ($local_conf['paths'] as $path) {
-            $ext = pathinfo($path);
-            $ext = $ext['extension'];
-            $js .= "\nomnivore.".$ext."('".$path."').addTo(".$divname.");";
+            $ext = pathinfo($path)['extension'];
+            $geojson_path = str_replace(".$ext", '.geojson', $path);
+            if (file_exists($geojson_path) and is_readable ($geojson_path)){
+                $contain = file_get_contents(PHPWG_ROOT_PATH . $geojson_path);
+                $contain = rtrim($contain);
+                $js .= "\nvar contain = $contain";
+                $js .= "\nvar l = L.geoJson(contain).addTo($divname);";
+            } else {
+                $js .= "\nomnivore.".$ext."('".$path."').addTo(".$divname.");";
+            }
         }
     }
     $js .= "\nif (typeof L.MarkerClusterGroup === 'function')\n";
@@ -516,6 +617,7 @@ function osm_get_js($conf, $local_conf, $js_data)
         }.bind(this), 200);
     }, this);";
     }
+
     return $js;
 }
 

@@ -119,6 +119,15 @@ $available_popup = array(
     '2' => l10n('NEVER'),
 );
 
+// TF, 20160102: give choice where to show clicked picture
+// Available popup click targets
+$available_popup_click_target = array(
+    '0' => l10n('BLANK'),
+    '1' => l10n('TOP'),
+//    '2' => l10n('SELF'),
+//    '3' => l10n('PARENT'),
+);
+
 // Available layout value
 $available_layout = array(
     '1' => 'osm-map.tpl',
@@ -167,6 +176,7 @@ if (isset($_POST['submit']) && !empty($_POST['osm_height']))
             'popupinfo_link'    => isset($_POST['osm_left_popupinfo_link']),
             'popupinfo_comment' => isset($_POST['osm_left_popupinfo_comment']),
             'popupinfo_author'  => isset($_POST['osm_left_popupinfo_author']),
+            'popup_click_target'=> $_POST['osm_left_popup_click_target'],
             'zoom'              => $_POST['osm_left_zoom'],
             'center'            => $_POST['osm_left_center'],
             'layout'            => $_POST['osm_left_layout'],
@@ -176,6 +186,10 @@ if (isset($_POST['submit']) && !empty($_POST['osm_height']))
             'height'  => $_POST['osm_cat_height'],
             'width'   => $_POST['osm_cat_width'],
             'index'   => $_POST['osm_cat_index'],
+// TF, 20160102: improve performance by hiding gpx tracks of sub-categories
+            'nogpxforsubcat'      => get_boolean($_POST['osm_nogpxforsubcat']),
+// TF, 20160102: improve performance by only showing firsat image of sub-categories
+            'firstimageforsubcat' => get_boolean($_POST['osm_firstimageforsubcat']),
             ),
 		'main_menu' => array(
             'enabled' => get_boolean($_POST['osm_main_menu']),
@@ -212,7 +226,7 @@ if (isset($_POST['submit']) && !empty($_POST['osm_height']))
     // Update config to DB
     conf_update_param('osm_conf', serialize($conf['osm_conf']));
 
-    // the prefilter changes, we must delete compiled templatess
+    // the prefilter changes, we must delete compiled templates
     $template->delete_compiled_templates();
     array_push($page['infos'], l10n('Your configuration settings are saved'));
 }
@@ -227,6 +241,7 @@ $template->assign(
         'AVAILABLE_BASELAYER'  => $available_baselayer,
         'AVAILABLE_PIN'        => $available_pin,
         'AVAILABLE_POPUP'      => $available_popup,
+		'AVAILABLE_POPUP_CLICK_TARGET' => $available_popup_click_target,
         'AVAILABLE_LAYOUT'     => $available_layout,
         'NB_GEOTAGGED'         => $nb_geotagged,
         'OSM_PATH'             => OSM_PATH,

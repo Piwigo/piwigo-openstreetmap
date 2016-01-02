@@ -126,7 +126,8 @@ function osm_render_element_content()
     $local_conf['center_lng'] = $lon;
     $local_conf['zoom'] = $zoom;
 
-    $js_data = osm_get_items($page);
+	// TF, 20160102: pass config as parameter
+    $js_data = osm_get_items($conf, $page);
 
     $js = osm_get_js($conf, $local_conf, $js_data);
 
