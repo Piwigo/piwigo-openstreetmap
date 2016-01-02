@@ -88,13 +88,6 @@ function osm_get_gps($conf, $page)
 			}
 		}
 
-		// print_r('limit: ');
-		// print_r($LIMIT_SEARCH);
-		// print_r(' - ');
-		// print_r('join: ');
-		// print_r($INNER_JOIN);
-		// print_r(' - ');
-
 		$forbidden = get_sql_condition_FandF(
 			array
 			(
@@ -108,7 +101,7 @@ function osm_get_gps($conf, $page)
 		/* Get all GPX tracks */
 		$query="SELECT i.path FROM ".IMAGES_TABLE." AS i
 				INNER JOIN (".IMAGE_CATEGORY_TABLE." AS ic ".$INNER_JOIN.") ON i.id = ic.image_id
-				WHERE ".$LIMIT_SEARCH." `path` LIKE '%gpx%' ".$forbidden." ";
+				WHERE ".$LIMIT_SEARCH." `path` LIKE '%.gpx' ".$forbidden." ";
 
 		$gpx_list = array_from_query($query, 'path');
 	}
@@ -234,6 +227,7 @@ function osm_get_items($conf, $page)
 
 	// TF, 20160102
 	// add ORDER BY to always show the first image in a category
+	if (isset($page['image_id'])) $LIMIT_SEARCH .= 'i.id = ' . $page['image_id'] . ' AND ';
     $query="SELECT i.latitude, i.longitude,
     IFNULL(i.name, '') AS `name`,
     IF(i.representative_ext IS NULL,
@@ -259,7 +253,6 @@ function osm_get_items($conf, $page)
             WHERE ".$LIMIT_SEARCH." i.latitude IS NOT NULL AND i.longitude IS NOT NULL ".$forbidden." GROUP BY i.id
 		ORDER BY ic.category_id, ic.rank";
     // echo $query;
-	// echo '<br/>';
 
     $php_data = array_from_query($query);
     //print_r($php_data);
@@ -295,8 +288,6 @@ function osm_get_items($conf, $page)
 					   );
 
 			$cur_category = $array['imgcategory'];
-			// print_r($linkurl);
-			// echo ' added <br/>';
 		}
     }
     /* START Debug generate dummy data
@@ -354,27 +345,35 @@ function osm_get_js($conf, $local_conf, $js_data)
     $divname = isset($local_conf['divname']) ? $local_conf['divname'] : 'map';
 
     /* If the config include parameters get them */
-    $zoom = isset($conf['osm_conf']['left_menu']['zoom']) ? $conf['osm_conf']['left_menu']['zoom'] : 2;
+
     $center = isset($conf['osm_conf']['left_menu']['center']) ? $conf['osm_conf']['left_menu']['center'] : '0,0';
     $center_arr = preg_split('/,/', $center);
     $center_lat = isset($center_arr) ? $center_arr[0] : 0;
     $center_lng = isset($center_arr) ? $center_arr[1] : 0;
 
     /* If we have zoom and center coordonate, set it otherwise fallback default */
-    $zoom = isset($_GET['zoom']) ? $_GET['zoom'] : $zoom;
+    $zoom = isset($_GET['zoom'])
+        ? $_GET['zoom']
+        : (
+            isset($local_conf['zoom'])
+                ? $local_conf['zoom']
+                : 2
+            );
     $center_lat = isset($_GET['center_lat']) ? $_GET['center_lat'] : $center_lat;
     $center_lng = isset($_GET['center_lng']) ? $_GET['center_lng'] : $center_lng;
 
+    $autocenter = isset($local_conf['autocenter'])
+        ? $local_conf['autocenter']
+        : 0;
     // Load baselayerURL
+	// TF, 20160102: fix for broken mapquest links
     if     ($baselayer == 'mapnik')     $baselayerurl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+    else if($baselayer == 'mapquest')   $baselayerurl = 'http://otile1.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.png';
     else if($baselayer == 'cloudmade')  $baselayerurl = 'http://{s}.tile.cloudmade.com/7807cc60c1354628aab5156cfc1d4b3b/997/256/{z}/{x}/{y}.png';
     else if($baselayer == 'mapnikde')   $baselayerurl = 'http://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png';
     else if($baselayer == 'mapnikfr')   $baselayerurl = 'http://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png';
     else if($baselayer == 'blackandwhite')  $baselayerurl = 'http://{s}.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png';
     else if($baselayer == 'mapnikhot')  $baselayerurl = 'http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png';
-    // else if($baselayer == 'mapquest')   $baselayerurl = 'http://otile1.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png';
-    // else if($baselayer == 'mapquestaerial') $baselayerurl = 'http://oatile{s}.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.jpg';
-    else if($baselayer == 'mapquest')   $baselayerurl = 'http://otile1.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.png';
     else if($baselayer == 'mapquestaerial') $baselayerurl = 'http://otile1.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.png';
     else if($baselayer == 'toner') $baselayerurl = 'https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.png';
     else if($baselayer == 'custom') $baselayerurl = $custombaselayerurl;
@@ -421,7 +420,7 @@ function osm_get_js($conf, $local_conf, $js_data)
         $js .= "\nvar Url = '".$baselayerurl."',
         Attribution = '".$attribution."',
         TileLayer = new L.TileLayer(Url, {maxZoom: 18, noWrap: ".$nowarp.", attribution: Attribution});\n";
-        $js .= "var " . $divname . " = new L.Map('" . $divname . "', {" . $worldcopyjump . ", zoom: ".$local_conf['zoom'].", layers: [TileLayer], contextmenu: " . $local_conf['contextmenu'] . "});\n";
+        $js .= "var " . $divname . " = new L.Map('" . $divname . "', {" . $worldcopyjump . ", zoom: ".$zoom.", layers: [TileLayer], contextmenu: " . $local_conf['contextmenu'] . "});\n";
         $js .= $divname . ".attributionControl.setPrefix('');\n";
         $js .= "\nL.control.scale().addTo(" . $divname . ");\n";
         return $js;
@@ -431,7 +430,7 @@ function osm_get_js($conf, $local_conf, $js_data)
         Attribution = '".$attribution."',
         TileLayer = new L.TileLayer(Url, {maxZoom: 18, noWrap: ".$nowarp.", attribution: Attribution}),
         latlng = new L.LatLng(".$local_conf['center_lat'].", ".$local_conf['center_lng'].");\n";
-        $js .= "var " . $divname . " = new L.Map('" . $divname . "', {" . $worldcopyjump . ", center: latlng, ".$editor." zoom: ".$local_conf['zoom'].", layers: [TileLayer], contextmenu: " . $local_conf['contextmenu'] . "});\n";
+        $js .= "var " . $divname . " = new L.Map('" . $divname . "', {" . $worldcopyjump . ", center: latlng, ".$editor." zoom: ".$zoom.", layers: [TileLayer], contextmenu: " . $local_conf['contextmenu'] . "});\n";
         $js .= $divname . ".attributionControl.setPrefix('');\n";
         $js .= "var MarkerClusterList=[];\n";
         $js .= "if (typeof L.MarkerClusterGroup === 'function')\n";
@@ -595,21 +594,14 @@ function osm_get_js($conf, $local_conf, $js_data)
 \t}";
     if (isset($local_conf['paths'])) {
         foreach ($local_conf['paths'] as $path) {
-            $ext = pathinfo($path)['extension'];
-            $geojson_path = str_replace(".$ext", '.geojson', $path);
-            if (file_exists($geojson_path) and is_readable ($geojson_path)){
-                $contain = file_get_contents(PHPWG_ROOT_PATH . $geojson_path);
-                $contain = rtrim($contain);
-                $js .= "\nvar contain = $contain";
-                $js .= "\nvar l = L.geoJson(contain).addTo($divname);";
-            } else {
-                $js .= "\nomnivore.".$ext."('".$path."').addTo(".$divname.");";
-            }
+            $ext = pathinfo($path);
+            $ext = $ext['extension'];
+            $js .= "\nomnivore.".$ext."('".$path."').addTo(".$divname.");";
         }
     }
     $js .= "\nif (typeof L.MarkerClusterGroup === 'function')\n";
     $js .= "    " . $divname . ".addLayer(markers);\n";
-    if (isset($local_conf['auto_center']) and $local_conf['auto_center'] === 0 ) {
+    if ( $autocenter ) {
         $js .= "var group = new L.featureGroup(MarkerClusterList);";
         $js .= "this." . $divname . ".whenReady(function () {
         window.setTimeout(function () {
@@ -638,9 +630,24 @@ function osm_gen_template($conf, $js, $js_data, $tmpl, $template)
             'TOTAL'             => sprintf( l10n('ITEMS'), count($js_data) ),
             'OSMJS'				=> $js,
             'MYROOT_URL'		=> get_absolute_root_url(),
+            'default_baselayer' => $conf['osm_conf']['map']['baselayer'],
         )
     );
 
+    if ( $conf['osm_conf']['map']['baselayer'] == 'custom' ) {
+        $iconbaselayer = $conf['osm_conf']['map']['custombaselayerurl'];
+        $iconbaselayer = str_replace('{s}', 'a', $iconbaselayer);
+        $iconbaselayer = str_replace('{z}', '5', $iconbaselayer);
+        $iconbaselayer = str_replace('{x}', '15', $iconbaselayer);
+        $iconbaselayer = str_replace('{y}', '11', $iconbaselayer);
+        $template->assign(
+            array(
+                'custombaselayer'    => $conf['osm_conf']['map']['custombaselayer'],
+                'custombaselayerurl' => $conf['osm_conf']['map']['custombaselayerurl'],
+                'iconbaselayer'      => $iconbaselayer,
+            )
+        );
+    }
     $template->pparse('map');
     $template->p();
 }
