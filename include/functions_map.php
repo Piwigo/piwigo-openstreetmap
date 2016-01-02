@@ -201,7 +201,6 @@ function osm_get_items($conf, $page)
     // SUBSTRING_INDEX(TRIM(LEADING '.' FROM `path`), '.', 1) full path without filename extension
     // SUBSTRING_INDEX(TRIM(LEADING '.' FROM `path`), '.', -1) full path with only filename extension
 
-<<<<<<< HEAD
 	// TF, 20160102
 	// check if any items (= pictures) are on that page
 	// if not => has only sub galleries but no pictures => show only first picture IF flag $firstimageforsubcat is set accordingly
@@ -229,9 +228,6 @@ function osm_get_items($conf, $page)
 	// TF, 20160102
 	// add ORDER BY to always show the first image in a category
 	if (isset($page['image_id'])) $LIMIT_SEARCH .= 'i.id = ' . $page['image_id'] . ' AND ';
-=======
-	// Fix for issue #74: i.storage_category_id might be in the list of $forbidden categories, use ic.category_id instead
->>>>>>> refs/remotes/origin/Fix-for-#74
     $query="SELECT i.latitude, i.longitude,
     IFNULL(i.name, '') AS `name`,
     IF(i.representative_ext IS NULL,
@@ -247,11 +243,7 @@ function osm_get_items($conf, $page)
             )
         )
     ) AS `pathurl`,
-<<<<<<< HEAD
     TRIM(TRAILING '/' FROM CONCAT( ".$concat_for_url." ) ) AS `imgurl`,
-=======
-    TRIM(TRAILING '/' FROM CONCAT( i.id, '/category/', IFNULL(ic.category_id, '') ) ) AS `imgurl`,
->>>>>>> refs/remotes/origin/Fix-for-#74
     IFNULL(i.comment, '') AS `comment`,
     IFNULL(i.author, '') AS `author`,
     i.width,
