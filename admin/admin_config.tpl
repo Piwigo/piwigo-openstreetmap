@@ -110,7 +110,7 @@ Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" ta
 				<small>{'LEFTPOPUPINFO_DESC'|@translate}</small>
 			</li>
 			<li>
-				<label>{'LEFTPOPUPLICKTARGET'|@translate} : </label>
+				<label>{'LEFTPOPUPCLICKTARGET'|@translate} : </label>
 				<select name="osm_left_popup_click_target">
 					{html_options options=$AVAILABLE_POPUP_CLICK_TARGET selected=$left_menu.popup_click_target}
 				</select>
