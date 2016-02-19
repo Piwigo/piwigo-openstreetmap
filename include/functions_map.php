@@ -520,7 +520,7 @@ function osm_get_js($conf, $local_conf, $js_data)
     }
     $js .= "\nif (typeof L.MarkerClusterGroup === 'function')\n";
     $js .= "    " . $divname . ".addLayer(markers);\n";
-    if ( $autocenter ) {
+    if ( $autocenter and !isset($_GET['center_lat']) and !isset($_GET['center_lng']) and !isset($_GET['zoom']) ) {
         $js .= "var group = new L.featureGroup(MarkerClusterList);";
         $js .= "this." . $divname . ".whenReady(function () {
         window.setTimeout(function () {
