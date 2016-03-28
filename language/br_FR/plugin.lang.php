@@ -48,3 +48,5 @@ $lang['GPX_MAP'] = 'Kartenn GPX';
 $lang['LINK_MAP'] = 'Liamm d\'ar gartenn-mañ';
 $lang['WIDTH'] = 'Ledander ar gartenn';
 $lang['SHOW_COORD'] = 'Diskouez ar c\'henvuzulioù';
+$lang['DISPLAY_ON_MAP'] = 'Diskwel %s war ur gartenn';
+$lang['DISPLAY'] = 'Diskwel ar c\'hefluniadur';
