@@ -66,7 +66,7 @@ function osm_apply_menu($menu_ref_arr)
                 $local_conf['center_lat'] = 0;
                 $local_conf['center_lng'] = 0;
                 $local_conf['zoom'] = 2;
-                $local_conf['auto_center'] = 0;
+                $local_conf['auto_center'] = true;
                 $local_conf['divname'] = 'mapmenu';
 				// TF, 20160102: pass config as parameter
                 $local_conf['paths'] = osm_get_gps($conf, $page);

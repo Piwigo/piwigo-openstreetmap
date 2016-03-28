@@ -179,6 +179,7 @@ if (isset($_POST['submit']) && !empty($_POST['osm_height']))
             'popup_click_target'=> $_POST['osm_left_popup_click_target'],
             'zoom'              => $_POST['osm_left_zoom'],
             'center'            => $_POST['osm_left_center'],
+			'autocenter'        => get_boolean($_POST['osm_left_autocenter']),
             'layout'            => $_POST['osm_left_layout'],
 			),
         'category_description' => array(

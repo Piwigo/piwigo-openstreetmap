@@ -362,8 +362,9 @@ function osm_get_js($conf, $local_conf, $js_data)
     $center_lat = isset($_GET['center_lat']) ? $_GET['center_lat'] : $center_lat;
     $center_lng = isset($_GET['center_lng']) ? $_GET['center_lng'] : $center_lng;
 
-    $autocenter = isset($local_conf['autocenter'])
-        ? $local_conf['autocenter']
+    //print_r($conf);
+    $autocenter = isset($conf['osm_conf']['left_menu']['autocenter'])
+        ? $conf['osm_conf']['left_menu']['autocenter']
         : 0;
     // Load baselayerURL
 	// TF, 20160102: fix for broken mapquest links

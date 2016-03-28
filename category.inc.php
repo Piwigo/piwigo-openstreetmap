@@ -56,7 +56,7 @@ function osm_render_category()
             $local_conf['center_lat'] = 0;
             $local_conf['center_lng'] = 0;
             $local_conf['zoom'] = 2;
-            $local_conf['auto_center'] = 0;
+            $local_conf['auto_center'] = 1;
 			// TF, 20160102: pass config as parameter
             $local_conf['paths'] = osm_get_gps($conf, $page);
             $height = isset($conf['osm_conf']['category_description']['height']) ? $conf['osm_conf']['category_description']['height'] : '200';
