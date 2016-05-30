@@ -52,7 +52,15 @@ $sync_options = array(
 	'osm_tag_address_country_code' => false,
 );
 
-if ( isset($_POST['osm_tag_submit']) )
+// Check if tag_groups is present and active
+$query="SELECT COUNT(*) FROM ".PLUGINS_TABLE." WHERE `id`='tag_groups' AND `state`='active';";
+list($tag_groups) = pwg_db_fetch_array( pwg_query($query) );
+if ($tag_groups != 1) {
+        $page['warnings'][] = "To use this feature you need the <a href='http://piwigo.org/ext/extension_view.php?eid=781' target='_blank'>tag_groups plugin</a> to be activate";
+}
+
+// On submit
+if ( $tag_groups == 1 and isset($_POST['osm_tag_submit']) )
 {
 	// Override default value from the form
 	$sync_options = array(
@@ -72,7 +80,7 @@ if ( isset($_POST['osm_tag_submit']) )
 	);
 
 	// TODO allow to filter on overwrite
-	// Define files which lat and long avaiable
+	// Define files with lat and lon available
 	define('SQL_EXIF', "`latitude` IS NOT NULL AND `longitude` is NOT NULL");
 	if ( $sync_options['cat_id']!=0 )
 	{
@@ -101,18 +109,21 @@ if ( isset($_POST['osm_tag_submit']) )
 	foreach ($images as $image)
 	{
 		// Fech reverse location from API
+		// http://wiki.openstreetmap.org/wiki/Nominatim
 		// https://nominatim.openstreetmap.org/reverse?format=xml&lat=51.082333&lon=10.366229&zoom=12
 		// https://open.mapquestapi.com/nominatim/v1/reverse.php?format=xml&lat=48.858366666667&lon=2.2942166666667&zoom=12
-		// http://wiki.openstreetmap.org/wiki/Nominatim
 		//$osm_url = "https://nominatim.openstreetmap.org/reverse?format=json&addressdetails=1&zoom=12&lat=". $image['latitude'] ."&lon=". $image['longitude'];
-		$osm_url = "https://open.mapquestapi.com/nominatim/v1/reverse.php?format=json&addressdetails=1&zoom=12&lat=". $image['latitude'] ."&lon=". $image['longitude'];
+		//  As of Sept 2015 require a API KEY
+		//$osm_url = "https://open.mapquestapi.com/nominatim/v1/reverse.php?format=json&addressdetails=1&zoom=12&lat=". $image['latitude'] ."&lon=". $image['longitude'];
+		//$osm_url = "http://localhost:8443/api/". $image['latitude'] ."/". $image['longitude'];
+		$osm_url = "https://nominatim-xbgmsharp.rhcloud.com/api/". $image['latitude'] ."/". $image['longitude'];
 		//print $osm_url ."<br/>";
 
 		// Ensure we do have PHP curl install
 		// Or should fallback to fopen
 		if (function_exists('curl_init'))
 		{
-			// Get cURL resource
+			// Get Curl resource
 			$curl = curl_init();
 			// Set some options http://wiki.openstreetmap.org/wiki/Nominatim_usage_policy
 			curl_setopt_array($curl, array(
@@ -127,7 +138,7 @@ if ( isset($_POST['osm_tag_submit']) )
 			curl_close($curl);
 
 		} else {
-			// Curl module un available, use fopen
+			// Curl module unavailable, use fopen
 			$opts = array(
 				'http'=>array(
 					'method'=>"GET",
@@ -153,8 +164,10 @@ if ( isset($_POST['osm_tag_submit']) )
 			//print_r($response);
 
 		// If reponse include [address]
-		if (isset($response) and isset($response['address']) and is_array($response['address']))
+		if (isset($response) and isset($response['success']) and isset($response['success'][0]) and isset($response['success'][0]['result'])
+			and isset($response['success'][0]['result']['address']) and is_array($response['success'][0]['result']['address']))
 		{
+			$response['address'] = $response['success'][0]['result']['address'];
 			//print_r($response['address']);
 			//print_r($sync_options);
 			$tag_ids = array();
@@ -225,13 +238,6 @@ if ( isset($_POST['osm_tag_submit']) )
 			'NB_WARNINGS'			=> count($warnings),
 		)
 	);
-}
-
-// Check if tag_groups is present and active
-$query="SELECT COUNT(*) FROM ".PLUGINS_TABLE." WHERE `id`='tag_groups' AND `state`='active';";
-list($tag_groups) = pwg_db_fetch_array( pwg_query($query) );
-if ($tag_groups != 1) {
-        $page['warnings'][] = "To use this feature you need the <a href='http://piwigo.org/ext/extension_view.php?eid=781' target='_blank'>tag_groups plugin</a> to be activate";
 }
 
 $query = 'SELECT COUNT(*) FROM '.IMAGES_TABLE.' WHERE `latitude` IS NOT NULL and `longitude` IS NOT NULL ';

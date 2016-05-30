@@ -91,7 +91,7 @@ Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" ta
 				<input type="checkbox" name="osm_tag_address_postcode" value="true" {if $osm_tag_address_postcode}checked="checked"{/if}/> {'postcode'|@translate}<br />
 				<input type="checkbox" name="osm_tag_address_country_code" value="true" {if $osm_tag_address_country_code}checked="checked"{/if}/> {'country_code'|@translate}<br />
 			</div>
-			<small>{'Create tag using one or multiple value from the adress part'|@translate}</small>
+			<small>{'Create tag using one or multiple value from the address part'|@translate}</small>
 		</li>
 	</ul>
    </fieldset>
