@@ -6,7 +6,7 @@
 *
 * Created   :   18.01.2014
 *
-* Copyright 2013-2015 <xbgmsharp@gmail.com>
+* Copyright 2013-2016 <xbgmsharp@gmail.com>
 *
 * This program is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
