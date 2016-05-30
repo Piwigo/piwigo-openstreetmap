@@ -1,3 +1,11 @@
+Changes from v2.7.c to v2.8.a
+- Add option to set the position of the map in category
+- Add search feature for BatchManager map
+- Add new option for BatchManager map height
+- Add new GeoReverse keyword
+- A lot of fix/improvements, thanks to the contributors
+- Update language, thanks to the contributors
+
 Changes from v2.7.b to v2.7.c
 - RE Add Batch manager mode support
 - Extend PWG support for GPX tracks file
