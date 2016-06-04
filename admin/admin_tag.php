@@ -76,7 +76,8 @@ if ( $tag_groups == 1 and isset($_POST['osm_tag_submit']) )
 		'osm_tag_address_state' => isset($_POST['osm_tag_address_state']),
 		'osm_tag_address_country' => isset($_POST['osm_tag_address_country']),
 		'osm_tag_address_postcode' => isset($_POST['osm_tag_address_postcode']),
-		'osm_tag_address_country_code' => isset($_POST['osm_tag_address_country_code'])
+		'osm_tag_address_country_code' => isset($_POST['osm_tag_address_country_code']),
+		'language' => preg_split("/_/",$_POST['language'])[0]
 	);
 
 	// TODO allow to filter on overwrite
@@ -116,7 +117,7 @@ if ( $tag_groups == 1 and isset($_POST['osm_tag_submit']) )
 		//  As of Sept 2015 require a API KEY
 		//$osm_url = "https://open.mapquestapi.com/nominatim/v1/reverse.php?format=json&addressdetails=1&zoom=12&lat=". $image['latitude'] ."&lon=". $image['longitude'];
 		//$osm_url = "http://localhost:8443/api/". $image['latitude'] ."/". $image['longitude'];
-		$osm_url = "https://nominatim-xbgmsharp.rhcloud.com/api/". $image['latitude'] ."/". $image['longitude'];
+		$osm_url = "https://nominatim-xbgmsharp.rhcloud.com/api/". $image['latitude'] ."/". $image['longitude'] ."/". $sync_options['language'];
 		//print $osm_url ."<br/>";
 
 		// Ensure we do have PHP curl install
@@ -170,47 +171,48 @@ if ( $tag_groups == 1 and isset($_POST['osm_tag_submit']) )
 			$response['address'] = $response['success'][0]['result']['address'];
 			//print_r($response['address']);
 			//print_r($sync_options);
-			$tag_ids = array();
 			$tag_names = array();
 			if (isset($response['address']['suburb']) and $sync_options['osm_tag_address_suburb']) {
-				array_push( $tag_ids, tag_id_from_tag_name($sync_options['osm_tag_group'].":".$response['address']['suburb']) );
 				array_push( $tag_names, $response['address']['suburb'] );
 			}
 			if (isset($response['address']['city_district']) and $sync_options['osm_tag_address_city_district']) {
-				array_push( $tag_ids, tag_id_from_tag_name($sync_options['osm_tag_group'].":".$response['address']['city_district']) );
 				array_push( $tag_names, $response['address']['city_district'] );
 			}
 			if (isset($response['address']['city']) and $sync_options['osm_tag_address_city']) {
-				array_push( $tag_ids, tag_id_from_tag_name($sync_options['osm_tag_group'].":".$response['address']['city']) );
 				array_push( $tag_names, $response['address']['city'] );
 			}
 			if (isset($response['address']['county']) and $sync_options['osm_tag_address_county']) {
-				array_push( $tag_ids, tag_id_from_tag_name($sync_options['osm_tag_group'].":".$response['address']['county']) );
 				array_push( $tag_names, $response['address']['county'] );
 			}
 			if (isset($response['address']['state']) and $sync_options['osm_tag_address_state']) {
-				array_push( $tag_ids, tag_id_from_tag_name($sync_options['osm_tag_group'].":".$response['address']['state']) );
 				array_push( $tag_names, $response['address']['state'] );
 			}
 			if (isset($response['address']['country']) and $sync_options['osm_tag_address_country']) {
-				array_push( $tag_ids, tag_id_from_tag_name($sync_options['osm_tag_group'].":".$response['address']['country']) );
 				array_push( $tag_names, $response['address']['country'] );
 			}
 			if (isset($response['address']['postcode']) and $sync_options['osm_tag_address_postcode']) {
-				array_push( $tag_ids, tag_id_from_tag_name($sync_options['osm_tag_group'].":".$response['address']['postcode']) );
 				array_push( $tag_names, $response['address']['postcode'] );
 			}
 			if (isset($response['address']['country_code']) and $sync_options['osm_tag_address_country_code']) {
-				array_push( $tag_ids, tag_id_from_tag_name($sync_options['osm_tag_group'].":".$response['address']['country_code']) );
 				array_push( $tag_names, $response['address']['country_code'] );
 			}
-			//print_r($tag_ids);
 			//print_r($tag_names);
-			if (!empty($tag_ids) and !empty($tag_names))
+			if (!empty($tag_names))
 			{
 				if (!$sync_options['simulate'])
 				{
-					add_tags($tag_ids, [$image['id']]);
+					/* Create tag */
+					$tag_ids = array();
+					foreach ($tag_names as $tag_name)
+					{
+						array_push( $tag_ids, tag_id_from_tag_name($sync_options['osm_tag_group'].":".$tag_name) );
+					}
+					/* Assign tags to image */
+					//print_r($tag_ids);
+					if (!empty($tag_ids))
+					{
+						add_tags($tag_ids, [$image['id']]);
+					}
 				}
 				$datas[] = $image['id'];
 				$infos[] = "Set tags '". osm_pprint_r($tag_names) ."' for ". $image['name'];
@@ -255,6 +257,9 @@ $template->assign(
 		'SUBCATS_INCLUDED_CHECKED' 	=> $sync_options['subcats_included'] ? 'checked="checked"' : '',
 		'NB_GEOTAGGED' 			=> $nb_geotagged,
 		'OSM_PATH'			=> OSM_PATH,
+		'sync_options'			=> $sync_options,
+		'language_options' 		=> get_languages(),
+		'language_selected'		=> get_default_language(),
 	)
 );
 
