@@ -77,7 +77,7 @@ Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" ta
 		<li>
 			<label>
 				{'Name of the tag group'|@translate}:
-				<input type="text" name="osm_taggroup" value="{$sync_options.osm_tag_group}" placeholder="location" required="" />
+				<input type="text" name="osm_taggroup" value="{$sync_options.osm_tag_group}" placeholder="location" required="" size="30"/>
 			</label>
 		</li>
 		<li>

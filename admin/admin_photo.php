@@ -142,6 +142,8 @@ global $prefixeTable;
 // Easy access
 define('osm_place_table', $prefixeTable.'osm_places');
 // Save location, eg Place
+$list_of_places = [];
+$available_places = [];
   $query = '
 SELECT id, name, latitude, longitude
   FROM '.osm_place_table.'
