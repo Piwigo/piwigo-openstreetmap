@@ -62,10 +62,6 @@
 		<legend>{'EDIT_MAP'|@translate}</legend>
 		{'EDIT_UPDATE_LOCATION_DESC'|@translate}
 		<div id="map"></div>
-		<div id="info">
-			<small>Search values: OpenStreetMap Data offer by MapQuest Open Platform 
-			<a href="http://open.mapquestapi.com/nominatim/">open.mapquestapi.com</a></small>
-		</div>
 	</fieldset>
 
 	<p>
@@ -94,7 +90,9 @@
 
 	map.on('click', onMapClick);
 
+	/* Disable search require AppKey from mapquest */
 	/* BEGIN leaflet-search */
+	/*
 	var jsonpurl = 'https://open.mapquestapi.com/nominatim/v1/search.php?q={s}'+
 				   '&format=json&osm_type=N&limit=100&addressdetails=0',
 		jsonpName = 'json_callback';
@@ -128,6 +126,7 @@
 		};
 
 	map.addControl( new L.Control.Search(searchOpts) );
+	*/
 	/* END leaflet-search */
 
 function place_to_latlon()
