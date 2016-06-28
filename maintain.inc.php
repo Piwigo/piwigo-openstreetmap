@@ -120,6 +120,22 @@ function plugin_install()
 	if (file_exists($gpx_dir) and is_dir($gpx_dir))
 		osm_deltree($gpx_dir);
 
+	// Easy access
+	if (!defined('osm_place_table'))
+		define('osm_place_table', $prefixeTable.'osm_places');
+
+	/* Table to hold osm places details */
+	$q = 'CREATE TABLE IF NOT EXISTS `'.osm_place_table.'` (
+                `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+                `latitude` double(8,6) NOT NULL,
+                `longitude` double(8,6) NOT NULL,
+                `name` varchar(255) DEFAULT NULL,
+                `parentId` mediumint(8),
+                PRIMARY KEY (id)
+        ) ENGINE=MyISAM DEFAULT CHARSET=utf8
+        ;';
+	pwg_query($q);
+
 	// Create world map link
 	$dir_name = basename( dirname(__FILE__) );
 	$c = <<<EOF
