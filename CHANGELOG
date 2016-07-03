@@ -1,8 +1,17 @@
+Changes from v2.8.a to v2.8.b
+- Improve tag management from reverse geo address
+- Fix Undefined variable on photo admin page
+- Update Leaflet to version 0.7.7
+- Fix osm_places table on plugin install
+
 Changes from v2.7.c to v2.8.a
 - Add option to set the position of the map in category
 - Add search feature for BatchManager map
 - Add new option for BatchManager map height
-- Add new GeoReverse keyword
+- Allow to create tag from reverse geo address
+- Allow to re-use location, places.
+- Improve worldmap v2 and v3
+- New worldmap v4
 - A lot of fix/improvements, thanks to the contributors
 - Update language, thanks to the contributors
 
