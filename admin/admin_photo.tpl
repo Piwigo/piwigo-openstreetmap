@@ -44,6 +44,7 @@
 				<li>
 					<label><input type="text" size="9" id="osmlon" name="osmlon" value="{$LON}"> {'LONGITUDE'|@translate} (-180=W to 180=E)</label>
 				</li>
+				(Empty values will erase coordinates)
 			</ul>
 			<hr>
 			<ul>
