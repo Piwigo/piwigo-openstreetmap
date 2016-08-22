@@ -39,11 +39,22 @@ check_input_parameter('image_id', $_GET, false, PATTERN_ID);
 
 $admin_photo_base_url = get_root_url().'admin.php?page=photo-'.$_GET['image_id'];
 $self_url = get_root_url().'admin.php?page=plugin&amp;section=piwigo-openstreetmap/admin/admin_photo.php&amp;image_id='.$_GET['image_id'];
+$delete_url = get_root_url().'admin.php?page=plugin&amp;section=piwigo-openstreetmap/admin/admin_photo.php&amp;delete_coords=1&amp;image_id='.$_GET['image_id'].'&amp;pwg_token='.get_pwg_token();
 
 load_language('plugin.lang', PHPWG_PLUGINS_PATH.basename(dirname(__FILE__)).'/');
 load_language('plugin.lang', OSM_PATH);
 
 global $template, $page, $conf;
+
+// Delete the extra data
+if (isset($_GET['delete_coords']) and $_GET['delete_coords'] == 1)
+{
+        check_pwg_token();
+	$_POST['osmlat'] = "";
+	$_POST['osmlon'] = "";
+	$_POST['submit'] = 1;
+}
+
 
 if (isset($_POST['submit']))
 {
@@ -60,10 +71,12 @@ if (isset($_POST['submit']))
 		else
 			$page['errors'][] = 'Invalid latitude or longitude value';
 	}
-	elseif ( strlen($lat)==0 and strlen($lon)==0 )
+	elseif ( (strlen($lat)==0 and strlen($lon)==0) or (isset($_GET['delete_coords']) and $_GET['delete_coords'] == 1)) {
 		$update_query = 'latitude=NULL, longitude=NULL';
-	else
+		array_push( $page['infos'], l10n('Coordinates erased'));
+	} else {
 		$page['errors'][] = 'Both latitude/longitude must be empty or not empty';
+	}
 
 	if (isset($update_query))
 	{
@@ -159,16 +172,17 @@ SELECT id, name, latitude, longitude
 $jsplaces = "\nvar arr_places = ". json_encode($list_of_places) .";\n";
 
 $template->assign(array(
-	'PWG_TOKEN' => get_pwg_token(),
-	'F_ACTION'  => $self_url,
-	'TN_SRC'    => DerivativeImage::thumb_url($picture).'?'.time(),
-	'TITLE'     => render_element_name($picture),
-	'OSM_PATH'  => embellish_url(get_absolute_root_url().OSM_PATH),
-	'OSM_JS'    => $js,
-	'LAT'       => $lat,
-	'LON'       => $lon,
-	'AVAILABLE_PLACES'    => $available_places,
-	'LIST_PLACES'     => $jsplaces,
+	'PWG_TOKEN'		=> get_pwg_token(),
+	'F_ACTION'		=> $self_url,
+	'DELETE_URL'		=> $delete_url,
+	'TN_SRC'		=> DerivativeImage::thumb_url($picture).'?'.time(),
+	'TITLE'			=> render_element_name($picture),
+	'OSM_PATH'		=> embellish_url(get_absolute_root_url().OSM_PATH),
+	'OSM_JS'		=> $js,
+	'LAT'			=> $lat,
+	'LON'			=> $lon,
+	'AVAILABLE_PLACES'	=> $available_places,
+	'LIST_PLACES'		=> $jsplaces,
 ));
 
 $template->assign_var_from_handle('ADMIN_CONTENT', 'plugin_admin_content');
