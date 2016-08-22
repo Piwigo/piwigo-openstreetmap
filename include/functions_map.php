@@ -204,7 +204,7 @@ function osm_get_items($page)
             )
         )
     ) AS `pathurl`,
-    TRIM(TRAILING '/' FROM CONCAT( i.id, '/category/', IFNULL(i.storage_category_id, '') ) ) AS `imgurl`,
+    TRIM(TRAILING '/' FROM CONCAT( i.id, '/category/', IFNULL(i.category_id, '') ) ) AS `imgurl`,
     IFNULL(i.comment, '') AS `comment`,
     IFNULL(i.author, '') AS `author`,
     i.width
