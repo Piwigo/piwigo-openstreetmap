@@ -44,9 +44,9 @@ $available_baselayer = array(
     'mapnikhot'     => 'OpenStreetMap HOT',
     'mapquest'      => 'MapQuestOpen',
     'mapquestaerial'=> 'MapQuestOpen Aerial',
-    'cloudmade'     => 'Cloudmade',
     'toner'         => 'Stamen Toner',
     'custom'        => 'Own tile (custom style)',
+    'esri'          => 'Esri.WorldImagery',
 );
 
 // Available zoom value

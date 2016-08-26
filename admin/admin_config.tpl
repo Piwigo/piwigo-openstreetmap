@@ -216,6 +216,7 @@ Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" ta
 				<small>Check out <a href="http://leaflet-extras.github.io/leaflet-providers/preview/" target="_blank">this example</a> with half a hundred different layers to choose from.</small>
 			</li>
 			<div id="custom-tile-toggle" style="visibility:hidden; width:0px; height:0px; display:none;">
+				<fieldset>
 				<li>
 					<label>{'CUSTOMBASELAYER'|@translate} : </label>
 					<input type="text" value="{$map.custombaselayer}" name="osm_custombaselayer" id="osm_custombaselayer" size="40"/>
@@ -226,6 +227,16 @@ Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" ta
 					<input type="text" value="{$map.custombaselayerurl}" name="osm_custombaselayerurl" id="osm_custombaselayerurl" onchange="tile_toggle(this)" size="40"/>
 					<br/><small>{'CUSTOMBASELAYERURL_DESC'|@translate}</small>
 				</li>
+				</fieldset>
+			</div>
+			<div id="mapquest-tile-toggle" style="visibility:hidden; width:0px; height:0px; display:none;">
+				<fieldset>
+				<li>
+					<label>{'MAPQUEST_APIKEY'|@translate} : </label>
+					<input type="text" value="{$map.mapquest_apikey}" name="osm_mapquest_apikey" id="osm_mapquest_apikey" size="40"/>
+					<br/><small>{'MAPQUEST_APIKEY_DESC'|@translate} Check out <a href="http://www.mapquestapi.com/" target="_blank">MapQuest API</a></small>
+				</li>
+				</fieldset>
 			</div>
 			<li>
 				<label>{'NOWORLDWARP'|@translate} : </label>
@@ -309,14 +320,21 @@ Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" ta
 <script type="text/javascript">
 function tile_toggle()
 {
-	var div = document.getElementById("custom-tile-toggle");
+	var div_custom = document.getElementById("custom-tile-toggle");
+	var div_mapquest = document.getElementById("mapquest-tile-toggle");
 	var select = document.getElementById("osm_baselayer").value;
 	//alert(select.selectedIndex);
 	if (select == "custom") // If custom
 	{
-		div.removeAttribute("style");
+		div_custom.removeAttribute("style");
+		div_mapquest.setAttribute("style","visibility:hidden; width:0px; height:0px; display:none;");
+	} else if (select.startsWith("mapquest")) // If mapquest
+	{
+		div_mapquest.removeAttribute("style");
+		div_custom.setAttribute("style","visibility:hidden; width:0px; height:0px; display:none;");
 	} else {
-		div.setAttribute("style","visibility:hidden; width:0px; height:0px; display:none;");
+		div_custom.setAttribute("style","visibility:hidden; width:0px; height:0px; display:none;");
+		div_mapquest.setAttribute("style","visibility:hidden; width:0px; height:0px; display:none;");
 	}
 	tile_preview();
 }
@@ -367,9 +385,9 @@ function tile_preview()
 		'{/literal}{$OSM_PATH}{literal}leaflet/icons/preview_openstreetmap_fr.png',
 		'{/literal}{$OSM_PATH}{literal}leaflet/icons/preview_mapquest.png',
 		'{/literal}{$OSM_PATH}{literal}leaflet/icons/preview_mapquest_aerial.png',
-		'https://a.tile.cloudmade.com/7807cc60c1354628aab5156cfc1d4b3b/997/256/5/15/11.png',
 		'{/literal}{$OSM_PATH}{literal}leaflet/icons/preview_toner.png',
-		custom_url
+		custom_url,
+		'{/literal}{$OSM_PATH}{literal}leaflet/icons/preview_Esri.WorldTopoMap.png'
 	);
 	//alert(baselayer[select.selectedIndex]);
 	var img_elem = document.getElementById("tile_preview");
