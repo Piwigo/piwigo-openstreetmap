@@ -149,7 +149,7 @@ if (isset($_POST['submit']) && !empty($_POST['osm_height']))
 
 	// On post admin form
 	$conf['osm_conf'] = array(
-		'right_panel' => array(
+	'right_panel' => array(
             'enabled'    => get_boolean($_POST['osm_right_panel']),
             'add_before' => $_POST['osm_add_before'],
             'height'     => $_POST['osm_height'],
@@ -158,7 +158,7 @@ if (isset($_POST['submit']) && !empty($_POST['osm_height']))
             'linkcss'    => $_POST['osm_right_linkcss'],
             'showosm'    => get_boolean($_POST['osm_showosm']),
 			),
-		'left_menu' => array(
+	'left_menu' => array(
             'enabled'           => get_boolean($_POST['osm_left_menu']),
             'link'              => $_POST['osm_left_link'],
             'popup'             => $_POST['osm_left_popup'],
@@ -178,7 +178,7 @@ if (isset($_POST['submit']) && !empty($_POST['osm_height']))
             'width'   => $_POST['osm_cat_width'],
             'index'   => $_POST['osm_cat_index'],
             ),
-		'main_menu' => array(
+	'main_menu' => array(
             'enabled' => get_boolean($_POST['osm_main_menu']),
             'height'  => $_POST['osm_menu_height'],
             ),
@@ -190,7 +190,7 @@ if (isset($_POST['submit']) && !empty($_POST['osm_height']))
             'global_height' => $_POST['osm_batch_global_height'],
             'unit_height'  => $_POST['osm_batch_unit_height'],
             ),
-		'map' => array(
+	'map' => array(
             'baselayer'          => $_POST['osm_baselayer'],
             'custombaselayer'    => $_POST['osm_custombaselayer'],
             'custombaselayerurl' => $_POST['osm_custombaselayerurl'],
@@ -198,6 +198,7 @@ if (isset($_POST['submit']) && !empty($_POST['osm_height']))
             'attrleaflet'        => get_boolean($_POST['osm_attrleaflet']),
             'attrimagery'        => get_boolean($_POST['osm_attrimagery']),
             'attrplugin'         => get_boolean($_POST['osm_attrplugin']),
+            'mapquestapi'         => $_POST['osm_mapquestapi']),
 			),
 		'pin' => array(
             'pin'            => $_POST['osm_pin'],

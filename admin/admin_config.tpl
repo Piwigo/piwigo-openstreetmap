@@ -233,7 +233,7 @@ Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" ta
 				<fieldset>
 				<li>
 					<label>{'MAPQUEST_APIKEY'|@translate} : </label>
-					<input type="text" value="{$map.mapquest_apikey}" name="osm_mapquest_apikey" id="osm_mapquest_apikey" size="40"/>
+					<input type="text" value="{$map.mapquest_apikey}" name="osm_mapquestapi" id="osm_mapquestapi" size="40"/>
 					<br/><small>{'MAPQUEST_APIKEY_DESC'|@translate} Check out <a href="http://www.mapquestapi.com/" target="_blank">MapQuest API</a></small>
 				</li>
 				</fieldset>
