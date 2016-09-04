@@ -165,7 +165,7 @@ SELECT id, name, latitude, longitude
 // JS for the template
   while ($row = pwg_db_fetch_assoc($result))
   {
-    $list_of_places[$row['id']] = [$row['name'], $row['latitude'], $row['longitude'] ];
+    $list_of_places[$row['id']] = array($row['name'], $row['latitude'], $row['longitude']);
     $available_places[$row['id']] =  $row['name'];
   }
 
