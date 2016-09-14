@@ -36,8 +36,8 @@
 		<div style="float: left;">
 			<img src="{$TN_SRC}" alt="{'Thumbnail'|@translate}" style="border: 2px solid rgb(221, 221, 221);">
 		</div>
-		<div style="float: left; margin: auto;">
-			<ul>
+		<div style="float: left; margin: auto; padding-left:20px; vertical-align:top;">
+                        <ul style="margin:0;">
 				<li>
 					<label><input type="text" size="9" id="osmlat" name="osmlat" value="{$LAT}"> {'LATITUDE'|@translate} (-90=S to 90=N)</label>
 				</li>
@@ -56,6 +56,14 @@
 				</li>
 			</ul>
 		</div>
+                <div style="float: left; margin: auto; padding-left:20px; vertical-align:top;" class="photoLinks">
+                        <ul style="margin:0;">
+                                <li>{'Empty values will erase coordinates'|@translate}</a></li>
+                                <li><a class="icon-trash" href="{$DELETE_URL}" onclick="return confirm('{'Are you sure?
+Latitude and Longitude will be delete.'|@translate|@escape:javascript}');">{'Erase coordinates'|@translate}</a></li>
+                        </ul>
+                </div>
+
 	</fieldset>
 
 	<fieldset>
