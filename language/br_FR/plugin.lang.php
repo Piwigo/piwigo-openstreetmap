@@ -50,3 +50,5 @@ $lang['WIDTH'] = 'Ledander ar gartenn';
 $lang['SHOW_COORD'] = 'Diskouez ar c\'henvuzulioù';
 $lang['DISPLAY_ON_MAP'] = 'Diskwel %s war ur gartenn';
 $lang['DISPLAY'] = 'Diskwel ar c\'hefluniadur';
+$lang['ATTRPLUGIN'] = 'Diskouez notennoù an aozer';
+$lang['ATTRLEAFLET'] = 'Diskouez notennoù al levraoueg';
