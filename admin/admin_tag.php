@@ -63,6 +63,7 @@ if ($tag_groups != 1) {
 if ( $tag_groups == 1 and isset($_POST['osm_tag_submit']) )
 {
 	// Override default value from the form
+	$tmp = preg_split("/_/",$_POST['language']);
 	$sync_options = array(
 		'overwrite' => isset($_POST['overwrite']),
 		'simulate' => isset($_POST['simulate']),
@@ -77,7 +78,7 @@ if ( $tag_groups == 1 and isset($_POST['osm_tag_submit']) )
 		'osm_tag_address_country' => isset($_POST['osm_tag_address_country']),
 		'osm_tag_address_postcode' => isset($_POST['osm_tag_address_postcode']),
 		'osm_tag_address_country_code' => isset($_POST['osm_tag_address_country_code']),
-		'language' => preg_split("/_/",$_POST['language'])[0]
+		'language' => $tmp[0],
 	);
 
 	// TODO allow to filter on overwrite
@@ -211,7 +212,7 @@ if ( $tag_groups == 1 and isset($_POST['osm_tag_submit']) )
 					//print_r($tag_ids);
 					if (!empty($tag_ids))
 					{
-						add_tags($tag_ids, [$image['id']]);
+						add_tags($tag_ids, array($image['id']));
 					}
 				}
 				$datas[] = $image['id'];

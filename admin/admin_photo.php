@@ -155,8 +155,8 @@ global $prefixeTable;
 // Easy access
 define('osm_place_table', $prefixeTable.'osm_places');
 // Save location, eg Place
-$list_of_places = [];
-$available_places = [];
+$list_of_places = array();
+$available_places = array();
   $query = '
 SELECT id, name, latitude, longitude
   FROM '.osm_place_table.'
@@ -165,7 +165,7 @@ SELECT id, name, latitude, longitude
 // JS for the template
   while ($row = pwg_db_fetch_assoc($result))
   {
-    $list_of_places[$row['id']] = [$row['name'], $row['latitude'], $row['longitude'] ];
+    $list_of_places[$row['id']] = array($row['name'], $row['latitude'], $row['longitude']);
     $available_places[$row['id']] =  $row['name'];
   }
 
