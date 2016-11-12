@@ -1,3 +1,7 @@
+Changes from v2.8.b to v2.8.c
+- Fix PHP 5.0 syntax
+- Update language, thanks to the contributors
+
 Changes from v2.8.a to v2.8.b
 - Improve tag management from reverse geo address
 - Fix Undefined variable on photo admin page
