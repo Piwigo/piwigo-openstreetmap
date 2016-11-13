@@ -198,9 +198,9 @@ if (isset($_POST['submit']) && !empty($_POST['osm_height']))
             'attrleaflet'        => get_boolean($_POST['osm_attrleaflet']),
             'attrimagery'        => get_boolean($_POST['osm_attrimagery']),
             'attrplugin'         => get_boolean($_POST['osm_attrplugin']),
-            'mapquestapi'         => $_POST['osm_mapquestapi']),
-			),
-		'pin' => array(
+            'mapquestapi'        => $_POST['osm_mapquestapi'],
+            ),
+	'pin' => array(
             'pin'            => $_POST['osm_pin'],
             'pinpath'        => $_POST['osm_pinpath'],
             'pinsize'        => $_POST['osm_pinsize'],
@@ -208,7 +208,7 @@ if (isset($_POST['submit']) && !empty($_POST['osm_height']))
             'pinshadowsize'  => $_POST['osm_pinshadowsize'],
             'pinoffset'      => $_POST['osm_pinoffset'],
             'pinpopupoffset' => $_POST['osm_pinpopupoffset'],
-			),
+	    ),
 	);
 
     // Update config to DB

@@ -140,10 +140,10 @@ function osm_get_items($page)
         $LIMIT_SEARCH="";
         $INNER_JOIN="";
 
-	foreach (array('min_lat', 'min_lng', 'max_lat', 'max_lng') as $get_key)
-	{
-		check_input_parameter($get_key, $_GET, false, '/^\d+(\.\d+)?$/');
-	}
+        foreach (array('min_lat', 'min_lng', 'max_lat', 'max_lng') as $get_key)
+        {
+                check_input_parameter($get_key, $_GET, false, '/^\d+(\.\d+)?$/');
+        }
 
         /* Delete all previous album */
         $query="SELECT `id` FROM ".CATEGORIES_TABLE." WHERE `name` = 'Locations' AND `comment` LIKE '%OSM plugin%';";
