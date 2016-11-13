@@ -1,3 +1,6 @@
+Changes from v2.8.c to v2.8.d
+- Fix PHP syntax
+
 Changes from v2.8.b to v2.8.c
 - Fix PHP 5.0 syntax
 - Update language, thanks to the contributors
