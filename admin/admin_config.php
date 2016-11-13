@@ -198,7 +198,7 @@ if (isset($_POST['submit']) && !empty($_POST['osm_height']))
             'attrleaflet'        => get_boolean($_POST['osm_attrleaflet']),
             'attrimagery'        => get_boolean($_POST['osm_attrimagery']),
             'attrplugin'         => get_boolean($_POST['osm_attrplugin']),
-            'mapquestapi'        => $_POST(['osm_mapquestapi']),
+            'mapquestapi'        => $_POST['osm_mapquestapi'],
 	    ),
 	'pin' => array(
             'pin'            => $_POST['osm_pin'],
