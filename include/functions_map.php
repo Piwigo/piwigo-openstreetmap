@@ -196,9 +196,8 @@ function osm_get_items($page)
 
     $query="SELECT i.latitude, i.longitude,
     IFNULL(i.name, '') AS `name`,
-    IF(i.representative_ext IS NULL,
-        CONCAT(SUBSTRING_INDEX(TRIM(LEADING '.' FROM i.path), '.', 1 ), '-sq.', SUBSTRING_INDEX(TRIM(LEADING '.' FROM i.path), '.', -1 )),
-        TRIM(LEADING '.' FROM
+    TRIM(LEADING '.' FROM IF(i.representative_ext IS NULL,
+        CONCAT(LEFT(i.path,LENGTH(i.path)-1-LENGTH(SUBSTRING_INDEX(i.path, '.', -1 ))), '-sq.', SUBSTRING_INDEX(i.path, '.', -1 )),
             REPLACE(i.path, TRIM(TRAILING '.' FROM SUBSTRING_INDEX(i.path, '/', -1 )),
                 CONCAT('pwg_representative/',
                     CONCAT(
@@ -207,8 +206,7 @@ function osm_get_items($page)
                     )
                 )
             )
-        )
-    ) AS `pathurl`,
+    )) AS `pathurl`,
     TRIM(TRAILING '/' FROM CONCAT( i.id, '/category/', IFNULL(ic.category_id, '') ) ) AS `imgurl`,
     IFNULL(i.comment, '') AS `comment`,
     IFNULL(i.author, '') AS `author`,
