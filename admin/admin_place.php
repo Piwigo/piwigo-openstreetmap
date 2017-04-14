@@ -41,7 +41,7 @@ define('osm_place_table', $prefixeTable.'osm_places');
 $q = 'CREATE TABLE IF NOT EXISTS `'.osm_place_table.'` (
                 `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
                 `latitude` double(8,6) NOT NULL,
-                `longitude` double(8,6) NOT NULL,
+                `longitude` double(9,6) NOT NULL,
                 `name` varchar(255) DEFAULT NULL,
                 `parentId` mediumint(8),
                 PRIMARY KEY (id)
