@@ -61,28 +61,71 @@ function osm_perform_batch_manager_prefilters($filter_sets, $prefilter)
 add_event_handler('loc_end_element_set_global', 'osm_loc_end_element_set_global');
 function osm_loc_end_element_set_global()
 {
-	global $template, $conf;
+	global $template, $conf, $prefixeTable;
+	define('osm_place_table', $prefixeTable.'osm_places');
+	// Save location, eg Place
+	$list_of_places = array();
+	$available_places = array();
+	$place_options = array();
+	$query = '
+	SELECT id, name, latitude, longitude
+	  FROM '.osm_place_table.'
+	;';
+	$result = pwg_query($query);
+	// JS for the template
+	while ($row = pwg_db_fetch_assoc($result))
+	{
+	$list_of_places[$row['id']] = array($row['name'], $row['latitude'], $row['longitude']);
+		$available_places[$row['id']] =  $row['name'];
+		$place_options[] = '<option value="' . $row['id'] . '">' . $row['name'] . '</options>';
+	}
+	$jsplaces = "\nvar arr_places = ". json_encode($list_of_places) .";\n";
 
 	$batch_global_height = isset($conf['osm_conf']['batch']['global_height']) ? $conf['osm_conf']['batch']['global_height'] : '200';
 	$template->append('element_set_global_plugins_actions',
 		array('ID' => 'openstreetmap', 'NAME'=>l10n('OSM GeoTag'), 'CONTENT' => '
   <label>'.l10n('Latitude').' (-90=S to 90=N)
-    <input type="text" size="8" name="osmlat">
+    <input type="text" size="8" id="osmlat" name="osmlat">
   </label>
   <label>'.l10n('Longitude').' (-180=W to 180=E)
-    <input type="text" size="9" name="osmlon">
+    <input type="text" size="9" id="osmlon" name="osmlon">
+  </label>
   </label> (Empty values will erase coordinates)
+  <label>Saved Places: 
+    <select id="osmplaces" name="osmplaces" >
+      <option value="NULL">--</option>
+      '. implode("\n", $place_options) . '
+    </select> 
   <style type="text/css"> .map1 { height: '. $batch_global_height .'px !important; width:100% !important; margin: 5px; } </style>
   <script src="plugins/piwigo-openstreetmap/leaflet/qleaflet.jquery.js"></script>
   <div class="osm-map1 map1"></div>
   <script>
-    $(document).ready(function() {
+    $(document).ready(function() {' . $jsplaces . '
+	 var map;
          $("#permitAction").on("change", function (e) {
             var optionSelected = $("option:selected", this);
             if ("openstreetmap" == optionSelected.val()) {
-              $(".osm-map1").qleaflet();
+              map = $(".osm-map1").qleaflet();
+	      map.click(function(a,b,c) {
+	      $("#osmplaces").val("NULL");
+	      });
             }
          });
+	 $("#osmplaces").change(function(){
+	   var select = $("#osmplaces").val();
+	   var lat_elem = $("#osmlat");
+	   var lon_elem = $("#osmlon");
+	   if (select == "NULL")
+	   {
+	     lat_elem.val(0);
+	     lon_elem.val(0);
+	   }
+	     else
+	   {
+	     lat_elem.val(arr_places[select][1]);
+	     lon_elem.val(arr_places[select][2]);
+	   }
+	 });
     });
   </script>
 '));
