@@ -128,13 +128,30 @@ function plugin_install()
 	$q = 'CREATE TABLE IF NOT EXISTS `'.osm_place_table.'` (
                 `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
                 `latitude` double(8,6) NOT NULL,
-                `longitude` double(8,6) NOT NULL,
+                `longitude` double(9,6) NOT NULL,
                 `name` varchar(255) DEFAULT NULL,
                 `parentId` mediumint(8),
                 PRIMARY KEY (id)
         ) ENGINE=MyISAM DEFAULT CHARSET=utf8
         ;';
 	pwg_query($q);
+
+  // Increase size of longitude column from double(8,6) to double(9,6). GH#153.
+  foreach(pwg_query('DESCRIBE '.osm_place_table) as $col_info)
+  {
+    $is_longitude = isset($col_info['Field'])
+      && $col_info['Field'] === 'longitude';
+    $is_old_size = isset($col_info['Type'])
+      && $col_info['Type'] === 'double(8,6)';
+    if ($is_longitude && $is_old_size)
+    {
+      $alter_longitude = 'ALTER TABLE `'.osm_place_table.'`'
+        .' CHANGE `longitude` `longitude` double(9,6) NOT NULL';
+      pwg_query($alter_longitude);
+      // This is the only column to change, so we can leave the loop now.
+      break;
+    }
+  }
 
 	// Create world map link
 	$dir_name = basename( dirname(__FILE__) );
