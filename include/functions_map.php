@@ -308,7 +308,7 @@ function osm_get_js($conf, $local_conf, $js_data)
         : 0;
     
     // When gallery is SSL and when switching baselayerURL to https is possible
-    $httpx = $_SERVER['REQUEST_SCHEME'];
+    $httpx = (!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off')?'https':'http';
 
     // Load baselayerURL
     if     ($baselayer == 'mapnik')     $baselayerurl = $httpx.'://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
