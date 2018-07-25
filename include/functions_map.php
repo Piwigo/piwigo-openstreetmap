@@ -306,18 +306,21 @@ function osm_get_js($conf, $local_conf, $js_data)
     $autocenter = isset($local_conf['autocenter'])
         ? $local_conf['autocenter']
         : 0;
+    
+    // When gallery is SSL and when switching baselayerURL to https is possible
+    $httpx = $_SERVER['REQUEST_SCHEME'];
 
     // Load baselayerURL
-    if     ($baselayer == 'mapnik')     $baselayerurl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+    if     ($baselayer == 'mapnik')     $baselayerurl = $httpx.'://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
     else if($baselayer == 'mapquest')   $baselayerurl = 'http://otile1.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png';
-    else if($baselayer == 'mapnikde')   $baselayerurl = 'https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png';
-    else if($baselayer == 'mapnikfr')   $baselayerurl = 'https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png';
+    else if($baselayer == 'mapnikde')   $baselayerurl = $httpx.'://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png';
+    else if($baselayer == 'mapnikfr')   $baselayerurl = $httpx.'://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png';
     else if($baselayer == 'blackandwhite')  $baselayerurl = 'http://{s}.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png';
-    else if($baselayer == 'mapnikhot')  $baselayerurl = 'https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png';
+    else if($baselayer == 'mapnikhot')  $baselayerurl = $httpx.'://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png';
     else if($baselayer == 'mapquestaerial') $baselayerurl = 'http://otile1.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.png';
-    else if($baselayer == 'toner') $baselayerurl = 'https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.png';
+    else if($baselayer == 'toner') $baselayerurl = $httpx.'://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.png';
     else if($baselayer == 'custom') $baselayerurl = $custombaselayerurl;
-    else if($baselayer == 'esri') $baselayerurl = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
+    else if($baselayer == 'esri') $baselayerurl = $httpx.'://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
 
     $attribution = osmcopyright($attrleaflet, $attrimagery, $attrmodule, $baselayer, $custombaselayer);
 
