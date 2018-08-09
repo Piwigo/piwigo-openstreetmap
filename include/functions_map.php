@@ -66,7 +66,7 @@ function osm_get_gps($page)
         }
         if ($page['section'] === 'tags' and isset($page['tags']) and isset($page['tags'][0]['id']) )
         {
-            $items = get_image_ids_for_tags( array($page['tags'][0]['id']) );
+            $items = get_image_ids_for_tags( array_reduce( $page['tags'], 'osm_get_page_tag_id' ) );
             if ( !empty($items) )
             {
                 $LIMIT_SEARCH = "ic.image_id IN (".implode(',', $items).") AND ";
@@ -111,7 +111,7 @@ function osm_get_items($page)
         }
         if ($page['section'] === 'tags' and isset($page['tags']) and isset($page['tags'][0]['id']) )
         {
-            $items = get_image_ids_for_tags( array($page['tags'][0]['id']) );
+            $items = get_image_ids_for_tags( array_reduce( $page['tags'], 'osm_get_page_tag_id' ) );
             if ( !empty($items) )
             {
                 $LIMIT_SEARCH = "ic.image_id IN (".implode(',', $items).") AND ";
@@ -603,6 +603,20 @@ function osm_bounds_from_url($str)
     'e' => $r[3],
   );
   return $b;
+}
+
+/**
+ * What is the id of this page tag ?
+ *
+ * Note : this function is called to grab every tags in a page
+ *
+ * @param array basket to collect id
+ * @param array page tag 
+ * @return basket
+ */
+function osm_get_page_tag_id($basket, $page_tag) {
+	$basket[] = $page_tag['id']; 
+	return $basket;
 }
 
 ?>
