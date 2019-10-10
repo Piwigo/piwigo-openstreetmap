@@ -104,18 +104,18 @@ $("#searchInput").on("keydown", function(e) {
   {/if}
 
   <fieldset>
-    <legend>{'Add a place'|@translate}</legend>
+    <legend>{'OSM_ADD_PLACE'|@translate}</legend>
     <ul>
 	<li>
-		<label>{'New place'|@translate} : </label>
+		<label>{'OSM_NEW_PLACE'|@translate} : </label>
 		<input type="text" name="add_place" size="50" require="" placeholder="Home">
 	</li>
 	<li>
-		<label>{'Latitude'|@translate} : </label>
+		<label>{'LATITUDE'|@translate} : </label>
 		<input type="text" name="add_lat" size="40" require="" placeholder="48.858">
 	</li>
 	<li>
-		<label>{'Longitude'|@translate} : </label>
+		<label>{'LONGITUDE'|@translate} : </label>
 		<input type="text" name="add_lon" size="40" require="" placeholder="2.2942">
 	</li>
     </ul>
@@ -124,7 +124,7 @@ $("#searchInput").on("keydown", function(e) {
   </fieldset>
 
   <fieldset>
-    <legend>{'Place selection'|@translate}</legend>
+    <legend>{'PLACE_SELECTION'|@translate}</legend>
 
     {if count($all_places)}
     <div><label><span class="icon-filter" style="visibility:hidden" id="filterIcon"></span>{'Search'|@translate}: <input id="searchInput" type="text" size="12"></label></div>
@@ -146,8 +146,8 @@ $("#searchInput").on("keydown", function(e) {
 
     <p>
       <input type="hidden" name="pwg_token" value="{$PWG_TOKEN}">
-      <input type="submit" name="edit" value="{'Edit selected places'|@translate}">
-      <input type="submit" name="delete" value="{'Delete selected places'|@translate}" onclick="return confirm('{'Are you sure?'|@translate}');">
+      <input type="submit" name="edit" value="{'EDIT_PLACES'|@translate}">
+      <input type="submit" name="delete" value="{'DELETE_PLACES'|@translate}" onclick="return confirm('{'Are you sure?'|@translate}');">
     </p>
   </fieldset>
 
