@@ -229,6 +229,19 @@ html, body {
  * Here because of the icon path
  */
 
+var provider_mapping = {
+    'mapnik'         : 'OpenStreetMap_Mapnik',
+    'blackandwhite'  : 'OpenStreetMap_BlackAndWhite',
+    'mapnikfr'       : 'OpenStreetMap_France',
+    'mapnikde'       : 'OpenStreetMap_DE',
+    'mapnikhot'      : 'OpenStreetMap_HOT',
+    'mapquest'       : 'MapQuestOpen_OSM',
+    'mapquestaerial' : 'MapQuestOpen_Aerial',
+    'cloudmade'      : 'CloudMade',
+    'toner'          : 'Stamen_Toner',
+    'custom'         : 'Custom',
+};
+
 var providers = {};
 
 providers['OpenStreetMap_Mapnik'] = {
@@ -249,12 +262,49 @@ providers['OpenStreetMap_BlackAndWhite'] = {
     })
 };
 
+providers['OpenStreetMap_France'] = {
+    title: 'osm fr',
+    icon: 'https://a.tile.openstreetmap.fr/osmfr/5/15/11.png',
+    layer: L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; Openstreetmap France | &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    })
+}
+
 providers['OpenStreetMap_DE'] = {
     title: 'osm de',
     icon: '{/literal}{$OSM_PATH}{literal}leaflet/icons/openstreetmap_de.png',
     layer: L.tileLayer('https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', {
         maxZoom: 18,
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    })
+}
+
+providers['OpenStreetMap_HOT'] = {
+    title: 'osm HOT',
+    icon: 'http://a.tile.openstreetmap.fr/hot/5/15/11.png',
+    layer: L.tileLayer('http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, Tiles courtesy of <a href="http://hot.openstreetmap.org/" target="_blank">Humanitarian OpenStreetMap Team</a>'
+    })
+}
+
+providers['MapQuestOpen_OSM'] = {
+    title: 'MapQuest',
+    icon: 'http://otile1.mqcdn.com/tiles/1.0.0/map/5/15/11.png',
+    layer: L.tileLayer('http://otile{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: 'Tiles Courtesy of <a href="http://www.mapquest.com/">MapQuest</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+        subdomains: '1234'
+    })
+}
+
+providers['MapQuestOpen_Aerial'] = {
+    title: 'MapQuest Aerial',
+    icon: 'http://otile1.mqcdn.com/tiles/1.0.0/sat/5/15/11.png',
+    layer: L.tileLayer('http://otile{s}.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.png', {
+        attribution: 'Tiles Courtesy of <a href="http://www.mapquest.com/">MapQuest</a> &mdash; Portions Courtesy NASA/JPL-Caltech and U.S. Depart. of Agriculture, Farm Service Agency',
+        subdomains: '1234'
     })
 }
 
@@ -340,12 +390,32 @@ providers['CartoDB_Positron'] = {
     })
 };
 
+{/literal}
+{if $default_baselayer == 'custom'}
+{literal}
+    providers['Custom'] = {
+        title: '{/literal}{$custombaselayer}{literal}',
+        icon: '{/literal}{$iconbaselayer}{literal}',
+        layer: L.tileLayer('{/literal}{$custombaselayerurl}{literal}', {
+            // The following attribution might be wrong
+            // Please refer to https://leaflet-extras.github.io/leaflet-providers/preview/
+            // to get the correct attribution notice.
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+            maxZoom: 19
+        })
+    };
+{/literal}
+{/if}
+{literal}
+
 	/* BEGIN Leaflet-IconLayers https://github.com/ScanEx/Leaflet-IconLayers */
 	var layers = [];
 	for (var providerId in providers) {
 		layers.push(providers[providerId]); // Providers from providers.js
 	}
-	var ctrl = L.control.iconLayers(layers).addTo(map);
+    var il = L.control.iconLayers(layers);
+    il.setActiveLayer(providers[provider_mapping['{/literal}{$default_baselayer}{literal}']].layer);
+    var ctrl = il.addTo(map);
 	/* END Leaflet-IconLayers */
 
 

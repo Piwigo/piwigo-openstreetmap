@@ -6,7 +6,7 @@
 *
 * Created   :   01.11.2014
 *
-* Copyright 2013-2015 <xbgmsharp@gmail.com>
+* Copyright 2013-2016 <xbgmsharp@gmail.com>
 *
 * This program is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -68,7 +68,8 @@ function osm_render_media($content, $picture)
 
 	$js = osm_get_js($conf, $local_conf, $js_data);
 
-	// Select the template based on the extension
+	// Select the template
+	// TF, 22.10.2015: handle kml as well!
 	if (strpos($picture['current']['path'],".gpx") === false)
 	{
 		$template->set_filenames(
@@ -79,7 +80,6 @@ function osm_render_media($content, $picture)
 				array('osm_content' => dirname(__FILE__)."/template/osm-gpx.tpl")
 		);
 	}
-
 	// Assign the template variables
 	$template->assign(
         array(
@@ -100,6 +100,7 @@ function osm_render_media($content, $picture)
 add_event_handler('get_mimetype_location', 'osm_get_mimetype_icon');
 function osm_get_mimetype_icon($location, $element_info)
 {
+	// TF, 22.10.2015: handle kml as well!
 	if ($element_info == 'gpx' || $element_info == 'kml')
 	{
 		$location = 'plugins/'

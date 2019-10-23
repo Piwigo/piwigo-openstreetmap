@@ -1,10 +1,10 @@
 <?php
 /***********************************************
-* File      :   osmmap2.php
+* File      :   osmmap4.php
 * Project   :   piwigo-openstreetmap
-* Descr     :   Display a world map v2
+* Descr     :   Display a world map v4
 *
-* Created   :   18.01.2014
+* Created   :   10.07.2015
 *
 * Copyright 2013-2016 <xbgmsharp@gmail.com>
 *
@@ -86,12 +86,10 @@ $local_conf['center_lng'] = $center_lng;
 $local_conf['contextmenu'] = 'true';
 $local_conf['control'] = true;
 $local_conf['img_popup'] = false;
-// TF, 20160102: pass config as parameter
-$local_conf['paths'] = osm_get_gps($conf, $page);
+$local_conf['paths'] = osm_get_gps($page);
 $local_conf = $local_conf + $conf['osm_conf']['map'] + $conf['osm_conf']['left_menu'];
 
-// TF, 20160102: pass config as parameter
-$js_data = osm_get_items($conf, $page);
+$js_data = osm_get_items($page);
 $js = osm_get_js($conf, $local_conf, $js_data);
-osm_gen_template($conf, $js, $js_data, 'osm-map2.tpl', $template);
+osm_gen_template($conf, $js, $js_data, 'osm-map4.tpl', $template);
 ?>

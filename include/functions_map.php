@@ -40,11 +40,11 @@ function osmcopyright($attrleaflet, $attrimagery, $attrmodule, $bl, $custombasel
         else if($bl == 'mapnikde')	$return .= "Tiles Courtesy of Openstreetmap.de (CC BY-SA)";
         else if($bl == 'blackandwhite')	$return .= "Tiles Courtesy of OSM.org (CC BY-SA)";
         else if($bl == 'mapnikhot')	$return .= 'Tiles Courtesy of &copy; <a href="http://hot.openstreetmap.org/" target="_blank">Humanitarian OpenStreetMap Team</a>';
-        else if($bl == 'cloudmade')	$return .= 'Tiles Courtesy of &copy; <a href="http://cloudmade.com">CloudMade</a> ';
         else if($bl == 'mapquest')	$return .= 'Tiles Courtesy of &copy; <a href="http://www.mapquest.com/">MapQuest</a>';
         else if($bl == 'mapquestaerial')	$return .= 'Tiles Courtesy of <a href="http://www.mapquest.com/">MapQuest</a> &mdash; Portions Courtesy NASA/JPL-Caltech and U.S. Depart. of Agriculture, Farm Service Agency';
         else if($bl == 'toner')		$return .= 'Tiles Courtesy of &copy; <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash;';
         else if($bl == 'custom')	$return .= $custombaselayer;
+        else if($bl == 'esri')		$return .= "Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community";
     }
     // Mandatory by http://www.openstreetmap.org/copyright
     $return .= ' &copy; ';
@@ -107,6 +107,41 @@ function osm_get_gps($conf, $page)
 	}
 	
     return $gpx_list;
+	if ($page['section'] === 'categories' and isset($page['category']) and isset($page['category']['id']) )
+	{
+		$LIMIT_SEARCH = "FIND_IN_SET(".$page['category']['id'].", c.uppercats) AND ";
+		$INNER_JOIN = "INNER JOIN ".CATEGORIES_TABLE." AS c ON ic.category_id = c.id";
+	}
+	if ($page['section'] === 'tags' and isset($page['tags']) and isset($page['tags'][0]['id']) )
+	{
+		$items = get_image_ids_for_tags( array($page['tags'][0]['id']) );
+		if ( !empty($items) )
+		{
+			$LIMIT_SEARCH = "ic.image_id IN (".implode(',', $items).") AND ";
+		}
+	}
+	if ($page['section'] === 'tags' and isset($page['category']) and isset($page['category']['id']) )
+	{
+		$LIMIT_SEARCH = "FIND_IN_SET(".$page['category']['id'].", c.uppercats) AND ";
+		$INNER_JOIN = "INNER JOIN ".CATEGORIES_TABLE." AS c ON ic.category_id = c.id";
+	}
+
+    $forbidden = get_sql_condition_FandF(
+        array
+        (
+            'forbidden_categories' => 'ic.category_id',
+            'visible_categories' => 'ic.category_id',
+            'visible_images' => 'i.id'
+        ),
+        "\n AND"
+    );
+
+    /* Get all GPX tracks */
+    $query="SELECT i.path FROM ".IMAGES_TABLE." AS i
+            INNER JOIN (".IMAGE_CATEGORY_TABLE." AS ic ".$INNER_JOIN.") ON i.id = ic.image_id
+            WHERE ".$LIMIT_SEARCH." `path` LIKE '%.gpx' ".$forbidden." ";
+
+    return array_from_query($query, 'path');
 }
 
 function osm_get_items($conf, $page)
@@ -138,7 +173,7 @@ function osm_get_items($conf, $page)
             $INNER_JOIN = "INNER JOIN ".CATEGORIES_TABLE." AS c ON ic.category_id = c.id";
         }
     }
-	
+
     $forbidden = get_sql_condition_FandF(
         array
         (
@@ -149,11 +184,16 @@ function osm_get_items($conf, $page)
         "\n AND"
     );
 
-    /* We have lat and lng coordinate for virtual album */
+    /* We have lat and lng coordonate for virtual album */
     if (isset($_GET['min_lat']) and isset($_GET['max_lat']) and isset($_GET['min_lng']) and isset($_GET['max_lng']))
     {
         $LIMIT_SEARCH="";
         $INNER_JOIN="";
+
+	foreach (array('min_lat', 'min_lng', 'max_lat', 'max_lng') as $get_key)
+	{
+		check_input_parameter($get_key, $_GET, false, '/^\d+(\.\d+)?$/');
+	}
 
         /* Delete all previous album */
         $query="SELECT `id` FROM ".CATEGORIES_TABLE." WHERE `name` = 'Locations' AND `comment` LIKE '%OSM plugin%';";
@@ -227,7 +267,8 @@ function osm_get_items($conf, $page)
 
 	// TF, 20160102
 	// add ORDER BY to always show the first image in a category
-	if (isset($page['image_id'])) $LIMIT_SEARCH .= 'i.id = ' . $page['image_id'] . ' AND ';
+    if (isset($page['image_id'])) $LIMIT_SEARCH .= 'i.id = ' . $page['image_id'] . ' AND ';
+
     $query="SELECT i.latitude, i.longitude,
     IFNULL(i.name, '') AS `name`,
     IF(i.representative_ext IS NULL,
@@ -252,17 +293,17 @@ function osm_get_items($conf, $page)
             INNER JOIN (".IMAGE_CATEGORY_TABLE." AS ic ".$INNER_JOIN.") ON i.id = ic.image_id
             WHERE ".$LIMIT_SEARCH." i.latitude IS NOT NULL AND i.longitude IS NOT NULL ".$forbidden." GROUP BY i.id
 		ORDER BY ic.category_id, ic.rank";
-    // echo $query;
-
+    //echo $query;
+	
     $php_data = array_from_query($query);
     //print_r($php_data);
-
+	
     $js_data = array();
 	$cur_category = "";
     foreach($php_data as $array)
     {
         // MySQL did all the job
-        // print_r($array);
+        //print_r($array);
 		// echo '<br/>';
 		if (!$only_first_item || $array['imgcategory'] != $cur_category)
 		{
@@ -310,7 +351,6 @@ function osm_get_items($conf, $page)
                    );
     }
     END Debug generate dummy data */
-
     return $js_data;
 }
 
@@ -345,7 +385,6 @@ function osm_get_js($conf, $local_conf, $js_data)
     $divname = isset($local_conf['divname']) ? $local_conf['divname'] : 'map';
 
     /* If the config include parameters get them */
-
     $center = isset($conf['osm_conf']['left_menu']['center']) ? $conf['osm_conf']['left_menu']['center'] : '0,0';
     $center_arr = preg_split('/,/', $center);
     $center_lat = isset($center_arr) ? $center_arr[0] : 0;
@@ -362,15 +401,13 @@ function osm_get_js($conf, $local_conf, $js_data)
     $center_lat = isset($_GET['center_lat']) ? $_GET['center_lat'] : $center_lat;
     $center_lng = isset($_GET['center_lng']) ? $_GET['center_lng'] : $center_lng;
 
-    //print_r($conf);
-    $autocenter = isset($conf['osm_conf']['left_menu']['autocenter'])
-        ? $conf['osm_conf']['left_menu']['autocenter']
+    $autocenter = isset($local_conf['autocenter'])
+        ? $local_conf['autocenter']
         : 0;
+
     // Load baselayerURL
-	// TF, 20160102: fix for broken mapquest links
     if     ($baselayer == 'mapnik')     $baselayerurl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-    else if($baselayer == 'mapquest')   $baselayerurl = 'http://otile1.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.png';
-    else if($baselayer == 'cloudmade')  $baselayerurl = 'http://{s}.tile.cloudmade.com/7807cc60c1354628aab5156cfc1d4b3b/997/256/{z}/{x}/{y}.png';
+    else if($baselayer == 'mapquest')   $baselayerurl = 'http://otile1.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png';
     else if($baselayer == 'mapnikde')   $baselayerurl = 'http://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png';
     else if($baselayer == 'mapnikfr')   $baselayerurl = 'http://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png';
     else if($baselayer == 'blackandwhite')  $baselayerurl = 'http://{s}.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png';
@@ -378,6 +415,7 @@ function osm_get_js($conf, $local_conf, $js_data)
     else if($baselayer == 'mapquestaerial') $baselayerurl = 'http://otile1.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.png';
     else if($baselayer == 'toner') $baselayerurl = 'https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.png';
     else if($baselayer == 'custom') $baselayerurl = $custombaselayerurl;
+    else if($baselayer == 'esri') $baselayerurl = 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
 
     $attribution = osmcopyright($attrleaflet, $attrimagery, $attrmodule, $baselayer, $custombaselayer);
 
@@ -602,7 +640,7 @@ function osm_get_js($conf, $local_conf, $js_data)
     }
     $js .= "\nif (typeof L.MarkerClusterGroup === 'function')\n";
     $js .= "    " . $divname . ".addLayer(markers);\n";
-    if ( $autocenter ) {
+    if ( $autocenter and !isset($_GET['center_lat']) and !isset($_GET['center_lng']) and !isset($_GET['zoom']) ) {
         $js .= "var group = new L.featureGroup(MarkerClusterList);";
         $js .= "this." . $divname . ".whenReady(function () {
         window.setTimeout(function () {
@@ -610,7 +648,6 @@ function osm_get_js($conf, $local_conf, $js_data)
         }.bind(this), 200);
     }, this);";
     }
-
     return $js;
 }
 
@@ -649,6 +686,8 @@ function osm_gen_template($conf, $js, $js_data, $tmpl, $template)
             )
         );
     }
+
+
     $template->pparse('map');
     $template->p();
 }

@@ -6,7 +6,7 @@
 *
 * Created   :   06.07.2015
 *
-* Copyright 2013-2015 <xbgmsharp@gmail.com>
+* Copyright 2013-2016 <xbgmsharp@gmail.com>
 *
 * This program is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -52,9 +52,18 @@ $sync_options = array(
 	'osm_tag_address_country_code' => false,
 );
 
-if ( isset($_POST['osm_tag_submit']) )
+// Check if tag_groups is present and active
+$query="SELECT COUNT(*) FROM ".PLUGINS_TABLE." WHERE `id`='tag_groups' AND `state`='active';";
+list($tag_groups) = pwg_db_fetch_array( pwg_query($query) );
+if ($tag_groups != 1) {
+        $page['warnings'][] = "To use this feature you need the <a href='http://piwigo.org/ext/extension_view.php?eid=781' target='_blank'>tag_groups plugin</a> to be activate";
+}
+
+// On submit
+if ( $tag_groups == 1 and isset($_POST['osm_tag_submit']) )
 {
 	// Override default value from the form
+	$tmp = preg_split("/_/",$_POST['language']);
 	$sync_options = array(
 		'overwrite' => isset($_POST['overwrite']),
 		'simulate' => isset($_POST['simulate']),
@@ -68,11 +77,12 @@ if ( isset($_POST['osm_tag_submit']) )
 		'osm_tag_address_state' => isset($_POST['osm_tag_address_state']),
 		'osm_tag_address_country' => isset($_POST['osm_tag_address_country']),
 		'osm_tag_address_postcode' => isset($_POST['osm_tag_address_postcode']),
-		'osm_tag_address_country_code' => isset($_POST['osm_tag_address_country_code'])
+		'osm_tag_address_country_code' => isset($_POST['osm_tag_address_country_code']),
+		'language' => $tmp[0],
 	);
 
 	// TODO allow to filter on overwrite
-	// Define files which lat and long avaiable
+	// Define files with lat and lon available
 	define('SQL_EXIF', "`latitude` IS NOT NULL AND `longitude` is NOT NULL");
 	if ( $sync_options['cat_id']!=0 )
 	{
@@ -101,18 +111,21 @@ if ( isset($_POST['osm_tag_submit']) )
 	foreach ($images as $image)
 	{
 		// Fech reverse location from API
+		// http://wiki.openstreetmap.org/wiki/Nominatim
 		// https://nominatim.openstreetmap.org/reverse?format=xml&lat=51.082333&lon=10.366229&zoom=12
 		// https://open.mapquestapi.com/nominatim/v1/reverse.php?format=xml&lat=48.858366666667&lon=2.2942166666667&zoom=12
-		// http://wiki.openstreetmap.org/wiki/Nominatim
 		//$osm_url = "https://nominatim.openstreetmap.org/reverse?format=json&addressdetails=1&zoom=12&lat=". $image['latitude'] ."&lon=". $image['longitude'];
-		$osm_url = "https://open.mapquestapi.com/nominatim/v1/reverse.php?format=json&addressdetails=1&zoom=12&lat=". $image['latitude'] ."&lon=". $image['longitude'];
+		//  As of Sept 2015 require a API KEY
+		//$osm_url = "https://open.mapquestapi.com/nominatim/v1/reverse.php?format=json&addressdetails=1&zoom=12&lat=". $image['latitude'] ."&lon=". $image['longitude'];
+		//$osm_url = "http://localhost:8443/api/". $image['latitude'] ."/". $image['longitude'];
+		$osm_url = "https://nominatim-xbgmsharp.rhcloud.com/api/". $image['latitude'] ."/". $image['longitude'] ."/". $sync_options['language'];
 		//print $osm_url ."<br/>";
 
 		// Ensure we do have PHP curl install
 		// Or should fallback to fopen
 		if (function_exists('curl_init'))
 		{
-			// Get cURL resource
+			// Get Curl resource
 			$curl = curl_init();
 			// Set some options http://wiki.openstreetmap.org/wiki/Nominatim_usage_policy
 			curl_setopt_array($curl, array(
@@ -127,7 +140,7 @@ if ( isset($_POST['osm_tag_submit']) )
 			curl_close($curl);
 
 		} else {
-			// Curl module un available, use fopen
+			// Curl module unavailable, use fopen
 			$opts = array(
 				'http'=>array(
 					'method'=>"GET",
@@ -153,51 +166,54 @@ if ( isset($_POST['osm_tag_submit']) )
 			//print_r($response);
 
 		// If reponse include [address]
-		if (isset($response) and isset($response['address']) and is_array($response['address']))
+		if (isset($response) and isset($response['success']) and isset($response['success'][0]) and isset($response['success'][0]['result'])
+			and isset($response['success'][0]['result']['address']) and is_array($response['success'][0]['result']['address']))
 		{
+			$response['address'] = $response['success'][0]['result']['address'];
 			//print_r($response['address']);
 			//print_r($sync_options);
-			$tag_ids = array();
 			$tag_names = array();
 			if (isset($response['address']['suburb']) and $sync_options['osm_tag_address_suburb']) {
-				array_push( $tag_ids, tag_id_from_tag_name($sync_options['osm_tag_group'].":".$response['address']['suburb']) );
 				array_push( $tag_names, $response['address']['suburb'] );
 			}
 			if (isset($response['address']['city_district']) and $sync_options['osm_tag_address_city_district']) {
-				array_push( $tag_ids, tag_id_from_tag_name($sync_options['osm_tag_group'].":".$response['address']['city_district']) );
 				array_push( $tag_names, $response['address']['city_district'] );
 			}
 			if (isset($response['address']['city']) and $sync_options['osm_tag_address_city']) {
-				array_push( $tag_ids, tag_id_from_tag_name($sync_options['osm_tag_group'].":".$response['address']['city']) );
 				array_push( $tag_names, $response['address']['city'] );
 			}
 			if (isset($response['address']['county']) and $sync_options['osm_tag_address_county']) {
-				array_push( $tag_ids, tag_id_from_tag_name($sync_options['osm_tag_group'].":".$response['address']['county']) );
 				array_push( $tag_names, $response['address']['county'] );
 			}
 			if (isset($response['address']['state']) and $sync_options['osm_tag_address_state']) {
-				array_push( $tag_ids, tag_id_from_tag_name($sync_options['osm_tag_group'].":".$response['address']['state']) );
 				array_push( $tag_names, $response['address']['state'] );
 			}
 			if (isset($response['address']['country']) and $sync_options['osm_tag_address_country']) {
-				array_push( $tag_ids, tag_id_from_tag_name($sync_options['osm_tag_group'].":".$response['address']['country']) );
 				array_push( $tag_names, $response['address']['country'] );
 			}
 			if (isset($response['address']['postcode']) and $sync_options['osm_tag_address_postcode']) {
-				array_push( $tag_ids, tag_id_from_tag_name($sync_options['osm_tag_group'].":".$response['address']['postcode']) );
 				array_push( $tag_names, $response['address']['postcode'] );
 			}
 			if (isset($response['address']['country_code']) and $sync_options['osm_tag_address_country_code']) {
-				array_push( $tag_ids, tag_id_from_tag_name($sync_options['osm_tag_group'].":".$response['address']['country_code']) );
 				array_push( $tag_names, $response['address']['country_code'] );
 			}
-			//print_r($tag_ids);
 			//print_r($tag_names);
-			if (!empty($tag_ids) and !empty($tag_names))
+			if (!empty($tag_names))
 			{
 				if (!$sync_options['simulate'])
 				{
-					add_tags($tag_ids, [$image['id']]);
+					/* Create tag */
+					$tag_ids = array();
+					foreach ($tag_names as $tag_name)
+					{
+						array_push( $tag_ids, tag_id_from_tag_name($sync_options['osm_tag_group'].":".$tag_name) );
+					}
+					/* Assign tags to image */
+					//print_r($tag_ids);
+					if (!empty($tag_ids))
+					{
+						add_tags($tag_ids, array($image['id']));
+					}
 				}
 				$datas[] = $image['id'];
 				$infos[] = "Set tags '". osm_pprint_r($tag_names) ."' for ". $image['name'];
@@ -227,13 +243,6 @@ if ( isset($_POST['osm_tag_submit']) )
 	);
 }
 
-// Check if tag_groups is present and active
-$query="SELECT COUNT(*) FROM ".PLUGINS_TABLE." WHERE `id`='tag_groups' AND `state`='active';";
-list($tag_groups) = pwg_db_fetch_array( pwg_query($query) );
-if ($tag_groups != 1) {
-        $page['warnings'][] = "To use this feature you need the <a href='http://piwigo.org/ext/extension_view.php?eid=781' target='_blank'>tag_groups plugin</a> to be activate";
-}
-
 $query = 'SELECT COUNT(*) FROM '.IMAGES_TABLE.' WHERE `latitude` IS NOT NULL and `longitude` IS NOT NULL ';
 list($nb_geotagged) = pwg_db_fetch_array( pwg_query($query) );
 
@@ -249,6 +258,9 @@ $template->assign(
 		'SUBCATS_INCLUDED_CHECKED' 	=> $sync_options['subcats_included'] ? 'checked="checked"' : '',
 		'NB_GEOTAGGED' 			=> $nb_geotagged,
 		'OSM_PATH'			=> OSM_PATH,
+		'sync_options'			=> $sync_options,
+		'language_options' 		=> get_languages(),
+		'language_selected'		=> get_default_language(),
 	)
 );
 

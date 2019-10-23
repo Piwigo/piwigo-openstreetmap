@@ -6,7 +6,7 @@
 *
 * Created   :   28.05.2013
 *
-* Copyright 2013-2015 <xbgmsharp@gmail.com>
+* Copyright 2013-2016 <xbgmsharp@gmail.com>
 *
 * This program is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -120,6 +120,22 @@ function plugin_install()
 	if (file_exists($gpx_dir) and is_dir($gpx_dir))
 		osm_deltree($gpx_dir);
 
+	// Easy access
+	if (!defined('osm_place_table'))
+		define('osm_place_table', $prefixeTable.'osm_places');
+
+	/* Table to hold osm places details */
+	$q = 'CREATE TABLE IF NOT EXISTS `'.osm_place_table.'` (
+                `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+                `latitude` double(8,6) NOT NULL,
+                `longitude` double(8,6) NOT NULL,
+                `name` varchar(255) DEFAULT NULL,
+                `parentId` mediumint(8),
+                PRIMARY KEY (id)
+        ) ENGINE=MyISAM DEFAULT CHARSET=utf8
+        ;';
+	pwg_query($q);
+
 	// Create world map link
 	$dir_name = basename( dirname(__FILE__) );
 	$c = <<<EOF
@@ -131,8 +147,10 @@ else if (isset(\$_GET['v']) and \$_GET['v'] == 2)
 	include_once( PHPWG_ROOT_PATH. 'plugins/piwigo-openstreetmap/osmmap2.php');
 else if (isset(\$_GET['v']) and \$_GET['v'] == 3)
 	include_once( PHPWG_ROOT_PATH. 'plugins/piwigo-openstreetmap/osmmap3.php');
+else if (isset(\$_GET['v']) and \$_GET['v'] == 4)
+	include_once( PHPWG_ROOT_PATH. 'plugins/piwigo-openstreetmap/osmmap4.php');
 else
-	include_once( PHPWG_ROOT_PATH. 'plugins/piwigo-openstreetmap/osmmap2.php');
+	include_once( PHPWG_ROOT_PATH. 'plugins/piwigo-openstreetmap/osmmap3.php');
 ?>
 EOF;
 	$fp = fopen( PHPWG_ROOT_PATH.'osmmap.php', 'w' );

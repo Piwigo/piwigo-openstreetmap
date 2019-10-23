@@ -6,7 +6,7 @@
 *
 * Created   :   10.10.2014
 *
-* Copyright 2013-2015 <xbgmsharp@gmail.com>
+* Copyright 2013-2016 <xbgmsharp@gmail.com>
 *
 * This program is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -56,7 +56,7 @@ function osm_render_category()
             $local_conf['center_lat'] = 0;
             $local_conf['center_lng'] = 0;
             $local_conf['zoom'] = 2;
-            $local_conf['auto_center'] = 1;
+            $local_conf['autocenter'] = 1;
 			// TF, 20160102: pass config as parameter
             $local_conf['paths'] = osm_get_gps($conf, $page);
             $height = isset($conf['osm_conf']['category_description']['height']) ? $conf['osm_conf']['category_description']['height'] : '200';

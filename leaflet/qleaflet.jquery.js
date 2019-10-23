@@ -97,7 +97,9 @@
 
         this.map.on('click', onMapClick, this);
 
+	/* Disable search require AppKey from mapquest */
         /* BEGIN leaflet-search */
+	/*
          var jsonpurl = 'https://open.mapquestapi.com/nominatim/v1/search.php?q={s}'+
                                    '&format=json&osm_type=N&limit=100&addressdetails=0',
                 jsonpName = 'json_callback';
@@ -131,6 +133,7 @@
                 };
 
         window.L.control.search(searchOpts).addTo(this.map);
+	*/
         /* END leaflet-search */
 
       },

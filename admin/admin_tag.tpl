@@ -76,24 +76,36 @@ Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" ta
 	<ul>
 		<li>
 			<label>
-				<input type="text" name="osm_taggroup" value="location" placeholder="location" required="" /> {'Name of the tag group'|@translate}
+				{'Name of the tag group'|@translate}:
+				<input type="text" name="osm_taggroup" value="{$sync_options.osm_tag_group}" placeholder="location" required="" size="30"/>
 			</label>
 		</li>
 		<li>
 			<label>{'Use as tag'|@translate} : </label><br/>
 			<div style="padding-left: 25px">
-				<input type="checkbox" name="osm_tag_address_suburb" value="true" {if $osm_tag_address_suburb}checked="checked"{/if}/> {'suburb'|@translate}<br />
-				<input type="checkbox" name="osm_tag_address_city_district" value="true" {if $osm_tag_address_city_district}checked="checked"{/if}/> {'city_district'|@translate}<br />
-				<input type="checkbox" name="osm_tag_address_city" value="true" checked="checked"/> {'city'|@translate}<br />
-				<input type="checkbox" name="osm_tag_address_county" value="true" {if $osm_tag_address_county}checked="checked"{/if}/> {'county'|@translate}<br />
-				<input type="checkbox" name="osm_tag_address_state" value="true" {if $osm_tag_address_state}checked="checked"{/if}/> {'state'|@translate}<br />
-				<input type="checkbox" name="osm_tag_address_country" value="true" {if $osm_tag_address_country}checked="checked"{/if}/> {'country'|@translate}<br />
-				<input type="checkbox" name="osm_tag_address_postcode" value="true" {if $osm_tag_address_postcode}checked="checked"{/if}/> {'postcode'|@translate}<br />
-				<input type="checkbox" name="osm_tag_address_country_code" value="true" {if $osm_tag_address_country_code}checked="checked"{/if}/> {'country_code'|@translate}<br />
+				<input type="checkbox" name="osm_tag_address_suburb" value="true" {if $sync_options.osm_tag_address_suburb}checked="checked"{/if}/> {'suburb'|@translate}<br />
+				<input type="checkbox" name="osm_tag_address_city_district" value="true" {if $sync_options.osm_tag_address_city_district}checked="checked"{/if}/> {'city_district'|@translate}<br />
+				<input type="checkbox" name="osm_tag_address_city" value="true" {if $sync_options.osm_tag_address_city}checked="checked"{/if}/> {'city'|@translate}<br />
+				<input type="checkbox" name="osm_tag_address_county" value="true" {if $sync_options.osm_tag_address_county}checked="checked"{/if}/> {'county'|@translate}<br />
+				<input type="checkbox" name="osm_tag_address_state" value="true" {if $sync_options.osm_tag_address_state}checked="checked"{/if}/> {'state'|@translate}<br />
+				<input type="checkbox" name="osm_tag_address_country" value="true" {if $sync_options.osm_tag_address_country}checked="checked"{/if}/> {'country'|@translate}<br />
+				<input type="checkbox" name="osm_tag_address_postcode" value="true" {if $sync_options.osm_tag_address_postcode}checked="checked"{/if}/> {'postcode'|@translate}<br />
+				<input type="checkbox" name="osm_tag_address_country_code" value="true" {if $sync_options.osm_tag_address_country_code}checked="checked"{/if}/> {'country_code'|@translate}<br />
 			</div>
-			<small>{'Create tag using one or multiple value from the adress part'|@translate}</small>
+			<small>{'Create tag using one or multiple value from the address part'|@translate}</small>
+		</li>
+
+		<li>
+			<label>{'Language'|@translate} :</label><br/>
+			<div id="action_language" class="bulkAction">
+			      <select name="language" size="1">
+			        {html_options options=$language_options selected=$language_selected}
+			      </select>
+			</div>
+			<small>{'Fetch the result in a specific language, mostly for the country and city fields, eg: (EN:Japan, ES:Japón, FR:Japon, JP:日本)'|@translate}</small>
 		</li>
 	</ul>
+
    </fieldset>
 
   <fieldset id="syncSimulation">

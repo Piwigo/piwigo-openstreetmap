@@ -47,7 +47,7 @@ function osm_perform_batch_manager_prefilters($filter_sets, $prefilter)
 	else if ($prefilter==="osm1")
 		$filter = "`latitude` IS NULL OR `longitude` IS NULL";
 	else if ($prefilter==="osm2")
-		$filter = "`path` LIKE '%gpx%'";
+		$filter = "`path` LIKE '%.gpx%'";
 
 	if ( isset($filter) )
 	{

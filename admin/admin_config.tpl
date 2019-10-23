@@ -122,14 +122,14 @@ Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" ta
 				</select>
 				<br/><small>{'LEFTPOPUPCLICKTARGET_DESC'|@translate}</small>
 			</li>
-			<li>
+			<li id="osm_left_zoom_block">
 				<label>{'ZOOM'|@translate} : </label>
 				<select name="osm_left_zoom">
 					{html_options options=$AVAILABLE_ZOOM selected=$left_menu.zoom}
 				</select>
 				<br/><small>{'ZOOM_DESC'|@translate}</small>
 			</li>
-			<li>
+			<li id="osm_left_center_block">
 				<label>{'CENTER_MAP'|@translate} : </label>
 				<input type="text" value="{$left_menu.center}" name="osm_left_center" size="30" placeholder="0,0"/>
 				<br/><small>{'CENTER_MAP_DESC'|@translate}</small>
@@ -235,16 +235,27 @@ Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" ta
 				<small>Check out <a href="http://leaflet-extras.github.io/leaflet-providers/preview/" target="_blank">this example</a> with half a hundred different layers to choose from.</small>
 			</li>
 			<div id="custom-tile-toggle" style="visibility:hidden; width:0px; height:0px; display:none;">
+				<fieldset>
 				<li>
 					<label>{'CUSTOMBASELAYER'|@translate} : </label>
-					<input type="text" value="{$map.custombaselayer}" name="osm_custombaselayer" size="40"/>
+					<input type="text" value="{$map.custombaselayer}" name="osm_custombaselayer" id="osm_custombaselayer" size="40"/>
 					<br/><small>{'CUSTOMBASELAYER_DESC'|@translate}</small>
 				</li>
 				<li>
 					<label>{'CUSTOMBASELAYERURL'|@translate} : </label>
-					<input type="text" value="{$map.custombaselayerurl}" name="osm_custombaselayerurl" size="40"/>
+					<input type="text" value="{$map.custombaselayerurl}" name="osm_custombaselayerurl" id="osm_custombaselayerurl" onchange="tile_toggle(this)" size="40"/>
 					<br/><small>{'CUSTOMBASELAYERURL_DESC'|@translate}</small>
 				</li>
+				</fieldset>
+			</div>
+			<div id="mapquest-tile-toggle" style="visibility:hidden; width:0px; height:0px; display:none;">
+				<fieldset>
+				<li>
+					<label>{'MAPQUEST_APIKEY'|@translate} : </label>
+					<input type="text" value="{$map.mapquest_apikey}" name="osm_mapquestapi" id="osm_mapquestapi" size="40"/>
+					<br/><small>{'MAPQUEST_APIKEY_DESC'|@translate} Check out <a href="http://www.mapquestapi.com/" target="_blank">MapQuest API</a></small>
+				</li>
+				</fieldset>
 			</div>
 			<li>
 				<label>{'NOWORLDWARP'|@translate} : </label>
@@ -328,14 +339,21 @@ Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" ta
 <script type="text/javascript">
 function tile_toggle()
 {
-	var div = document.getElementById("custom-tile-toggle");
+	var div_custom = document.getElementById("custom-tile-toggle");
+	var div_mapquest = document.getElementById("mapquest-tile-toggle");
 	var select = document.getElementById("osm_baselayer").value;
 	//alert(select.selectedIndex);
 	if (select == "custom") // If custom
 	{
-		div.removeAttribute("style");
+		div_custom.removeAttribute("style");
+		div_mapquest.setAttribute("style","visibility:hidden; width:0px; height:0px; display:none;");
+	} else if (select.startsWith("mapquest")) // If mapquest
+	{
+		div_mapquest.removeAttribute("style");
+		div_custom.setAttribute("style","visibility:hidden; width:0px; height:0px; display:none;");
 	} else {
-		div.setAttribute("style","visibility:hidden; width:0px; height:0px; display:none;");
+		div_custom.setAttribute("style","visibility:hidden; width:0px; height:0px; display:none;");
+		div_mapquest.setAttribute("style","visibility:hidden; width:0px; height:0px; display:none;");
 	}
 	tile_preview();
 }
@@ -354,9 +372,30 @@ function pin_toggle()
 	pin_preview();
 }
 
+function autocenter_toggle()
+{
+	var radio = document.getElementById("autocenter_enabled");
+	var zoom_block = document.getElementById("osm_left_zoom_block");
+	var center_block = document.getElementById("osm_left_center_block");
+	if (radio.checked) // If autocenter
+	{
+		zoom_block.setAttribute("style", "display:none;");
+		center_block.setAttribute("style", "display:none;");
+	} else {
+		zoom_block.removeAttribute("style");
+		center_block.removeAttribute("style");
+	}
+}
+
 function tile_preview()
 {
 	var select = document.getElementById("osm_baselayer");
+	var custom_url = document.getElementById("osm_custombaselayerurl").value;
+	if ( custom_url ) {
+		custom_url = custom_url.replace('{z}', '5').replace('{x}', '15').replace('{y}', '11');
+	} else {
+		custom_url = 'NULL';
+	}
 	baselayer = new Array(
 		'{/literal}{$OSM_PATH}{literal}leaflet/icons/preview_openstreetmap_mapnik.png',
 		'{/literal}{$OSM_PATH}{literal}leaflet/icons/preview_openstreetmap_blackandwhite.png',
@@ -365,9 +404,9 @@ function tile_preview()
 		'{/literal}{$OSM_PATH}{literal}leaflet/icons/preview_openstreetmap_fr.png',
 		'{/literal}{$OSM_PATH}{literal}leaflet/icons/preview_mapquest.png',
 		'{/literal}{$OSM_PATH}{literal}leaflet/icons/preview_mapquest_aerial.png',
-		'https://a.tile.cloudmade.com/7807cc60c1354628aab5156cfc1d4b3b/997/256/5/15/11.png',
 		'{/literal}{$OSM_PATH}{literal}leaflet/icons/preview_toner.png',
-		'NULL'
+		custom_url,
+		'{/literal}{$OSM_PATH}{literal}leaflet/icons/preview_Esri.WorldTopoMap.png'
 	);
 	//alert(baselayer[select.selectedIndex]);
 	var img_elem = document.getElementById("tile_preview");
@@ -410,6 +449,7 @@ function pin_preview()
 
 window.onload = pin_preview();
 window.onload = tile_preview();
+window.onload = autocenter_toggle()
 
 </script>
 {/literal}
