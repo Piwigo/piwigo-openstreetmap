@@ -18,7 +18,7 @@ $lang['SHOWOSM_DESC'] = 'Ajoute un lien après la carte pour être visualiser su
 
 $lang['L_MAP'] = 'Configuration du menu de gauche';
 $lang['SHOWWORLDMAPLEFT'] = 'Ajoute un menu "carte mondiale" sur la gauche';
-$lang['SHOWWORLDMAPLEFT_DESC'] = 'Afficher un menu "carte mondiale" dans le menu de gauche, affiche toutes les images dans la galerie.';
+$lang['SHOWWORLDMAPLEFT_DESC'] = 'Afficher un menu "carte mondiale" dans le menu de gauche, affiche toutes les images dans l\'album.';
 $lang['LEFTLINK'] = 'Nom du menu de la carte mondiale';
 $lang['LEFTLINK_DESC'] = 'Tapez le nom du lien à afficher sur le menu de gauche.';
 $lang['LEFTPOPUP'] = "Affiche le popup";
@@ -80,7 +80,7 @@ $lang['LONGITUDE'] = 'Longitude';
 $lang['EDIT_MAP'] = 'Carte';
 $lang['PLUGIN_BY'] = 'Plugin créé par <a href="https://github.com/xbgmsharp/piwigo-openstreetmap" target="_blank">xbgmsharp</a>';
 $lang['SHOWCMAP'] = 'Ajoute une carte dans la catégorie "Description"';
-$lang['SHOWCMAP_DESC'] = 'Affiche une carte mondiale de la catégorie "description", affichera toutes les images dans la galerie.';
+$lang['SHOWCMAP_DESC'] = 'Affiche une carte mondiale de l\'album "description", affichera toutes les images dans l\'album.';
 $lang['ZOOM_IN'] = 'Zoom avant';
 $lang['ZOOM_OUT'] = 'Zoom arrière';
 $lang['METERS_FROM_POINT'] = 'Vous êtes à %s mètres de ce point';
@@ -88,14 +88,14 @@ $lang['MOUSE_OVER'] = 'Passez la souris sur un groupe pour voir les limites de s
 $lang['M_MAP'] = 'Menu principal';
 $lang['OSM_CONTRIBUTORS'] = '<a href="http://www.openstreetmap.org" target="_blank">OpenStreetMap</a> contributeurs, (<a href="http://www.openstreetmap.org/copyright" target="_blank">ODbL</a>)';
 $lang['OSWORLDMAP'] = 'Carte mondiale OS';
-$lang['PIWIGO_GALLERY'] = 'Allez à la galerie Piwigo';
+$lang['PIWIGO_GALLERY'] = 'Allez à l\'album Piwigo';
 $lang['SEARCH_MY_POSITION'] = 'Chercher ma position sur la carte';
 $lang['SHARE'] = 'Partager cette vue';
 $lang['SHOWMMAP'] = 'Ajout d\'une carte dans le menu principal';
-$lang['SHOWMMAP_DESC'] = 'Afficher une carte mondiale dans le menu principal, permet d\'afficher toutes les images de la galerie.';
+$lang['SHOWMMAP_DESC'] = 'Afficher une carte mondiale dans le menu principal, permet d\'afficher toutes les images de l\'album.';
 $lang['SHOW_ALL'] = 'Tout montrer';
 $lang['SHOW_ALL_ITEMS'] = 'Montre tous les éléments';
-$lang['SHOW_ALL_PIWIGO'] = 'Montre tous les éléments dans la galerie Piwigo';
+$lang['SHOW_ALL_PIWIGO'] = 'Montre tous les éléments dans la l\'album Piwigo';
 $lang['SHOW_COORD'] = 'Montre les coordonnées';
 $lang['VIEW_OSM'] = 'Voir dans OpenStreetMap';
 $lang['WIDTH'] = 'Largeur de la carte';
