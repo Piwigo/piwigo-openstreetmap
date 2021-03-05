@@ -1,1 +1,1 @@
-Integració d'OpenStreetMap per al Piwigo
+Integració de l'OpenStreetMap al Piwigo.
