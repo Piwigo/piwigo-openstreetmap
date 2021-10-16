@@ -313,7 +313,8 @@ function osm_get_js($conf, $local_conf, $js_data)
     else if($baselayer == 'mapquest')   $baselayerurl = 'http://otile1.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png';
     else if($baselayer == 'mapnikde')   $baselayerurl = $httpx.'://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png';
     else if($baselayer == 'mapnikfr')   $baselayerurl = $httpx.'://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png';
-    else if($baselayer == 'blackandwhite')  $baselayerurl = 'http://{s}.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png';
+//     else if($baselayer == 'blackandwhite')  $baselayerurl = 'http://{s}.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png';
+    else if($baselayer == 'blackandwhite')  $baselayerurl = 'https://tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png';
     else if($baselayer == 'mapnikhot')  $baselayerurl = $httpx.'://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png';
     else if($baselayer == 'mapquestaerial') $baselayerurl = 'http://otile1.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.png';
     else if($baselayer == 'toner') $baselayerurl = $httpx.'://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.png';
