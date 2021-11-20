@@ -86,10 +86,12 @@ $local_conf['center_lng'] = $center_lng;
 $local_conf['contextmenu'] = 'true';
 $local_conf['control'] = true;
 $local_conf['img_popup'] = false;
-$local_conf['paths'] = osm_get_gps($page);
+// TF, 20160102: pass config as parameter
+$local_conf['paths'] = osm_get_gps($conf, $page);
 $local_conf = $local_conf + $conf['osm_conf']['map'] + $conf['osm_conf']['left_menu'];
 
-$js_data = osm_get_items($page);
+// TF, 20160102: pass config as parameter
+$js_data = osm_get_items($conf, $page);
 $js = osm_get_js($conf, $local_conf, $js_data);
 osm_gen_template($conf, $js, $js_data, 'osm-map3.tpl', $template);
 ?>

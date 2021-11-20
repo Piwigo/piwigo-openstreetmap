@@ -128,7 +128,11 @@ function plugin_install()
 	$q = 'CREATE TABLE IF NOT EXISTS `'.osm_place_table.'` (
                 `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
                 `latitude` double(8,6) NOT NULL,
+<<<<<<< HEAD
+                `longitude` double(8,6) NOT NULL,
+=======
                 `longitude` double(9,6) NOT NULL,
+>>>>>>> refs/remotes/Piwigo/master
                 `name` varchar(255) DEFAULT NULL,
                 `parentId` mediumint(8),
                 PRIMARY KEY (id)
@@ -136,6 +140,8 @@ function plugin_install()
         ;';
 	pwg_query($q);
 
+<<<<<<< HEAD
+=======
   // Increase size of longitude column from double(8,6) to double(9,6). GH#153.
   foreach(pwg_query('DESCRIBE '.osm_place_table) as $col_info)
   {
@@ -153,6 +159,7 @@ function plugin_install()
     }
   }
 
+>>>>>>> refs/remotes/Piwigo/master
 	// Create world map link
 	$dir_name = basename( dirname(__FILE__) );
 	$c = <<<EOF

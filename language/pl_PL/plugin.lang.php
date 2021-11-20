@@ -52,8 +52,13 @@ $lang['PINSHADOWSIZE'] = 'Rozmiar cienia';
 $lang['PINSHADOWSIZE_DESC'] = 'Wymiary obrazka w pixelach. Znakiem podziału jest \'x\'. Np: \'24x24\'';
 $lang['PINSIZE'] = 'Rozmiar pinezki';
 $lang['PINSIZE_DESC'] = 'Wymiary obrazka w pixelach. Znakiem podziału jest \'x\'. Np: \'24x24\'';
+<<<<<<< HEAD
+$lang['PIN_DESC'] = 'Wybierz ostatnią opcję jeśli chcesz używać własnej.';
+$lang['PLUGINBY'] = 'Wtyczka';
+=======
 $lang['PIN_DESC'] = 'Wybierz ikoną pinezki, podgląd pojawi się po prawej stronie';
 $lang['PLUGINBY'] = 'Wtyczka utworzona przez';
+>>>>>>> refs/remotes/Piwigo/master
 $lang['POPUPAUTHOR'] = 'Autor obrazka';
 $lang['ATTRPLUGIN'] = 'Pokaż adnotację od autora';
 $lang['DEFAULTPIN'] = 'Domyślny niebieski \'Leaflet\'';
@@ -79,8 +84,13 @@ $lang['ALWAYS'] = 'Pokaż natychmiast';
 $lang['ATTRIMAGERY'] = 'Pokaż styl mapy';
 $lang['ATTRIMAGERY_DESC'] = 'Pokazuje użyty styl mapy';
 $lang['ATTRLEAFLET'] = 'Pokaż \'Powered by Leaflet\'';
+<<<<<<< HEAD
+$lang['ATTRLEAFLET_DESC'] = 'Pokazuje a';
+$lang['ATTRPLUGIN_DESC'] = 'Ja stworzylem tą wtyczkę. :)';
+=======
 $lang['ATTRLEAFLET_DESC'] = 'Pokazuje, że użyto biblioteki JavaScript \'Leaflet\'';
 $lang['ATTRPLUGIN_DESC'] = 'Ja stworzyłem tę wtyczkę. :)';
+>>>>>>> refs/remotes/Piwigo/master
 $lang['BASELAYER'] = 'Styl mapy';
 $lang['BASELAYER_DESC'] = 'Mapnik jest domyślnym stylem OpenStreetMap';
 $lang['CLICK'] = 'pokaż po kliknięciu';
@@ -106,9 +116,15 @@ $lang['WIDTH_DESC'] = 'w pikselach lub auto';
 $lang['ZOOM_IN'] = 'Zoom +';
 $lang['ZOOM_OUT'] = 'Zoom -';
 $lang['BROWSER_JAVASCRIPT'] = 'Twoja przeglądarka musi obsługiwać JavaScript';
+<<<<<<< HEAD
+$lang['CENTER_MAP'] = 'Wyśrodkuj mapę tutaj';
+$lang['CLICKED_MAP'] = 'Klinknąłeś mapę na';
+$lang['COPY_PASTE_URL'] = 'Skopiuj i wklej poniższy adres';
+=======
 $lang['CENTER_MAP'] = 'Wyśrodkuj mapę na: ';
 $lang['CLICKED_MAP'] = 'Klinknąłeś mapę na';
 $lang['COPY_PASTE_URL'] = 'Skopiuj i wklej poniższy adres:';
+>>>>>>> refs/remotes/Piwigo/master
 $lang['C_MAP'] = 'Opis kategorii';
 $lang['FIND_POSITION'] = 'Znajdź moją pozycję';
 $lang['IMAGE'] = 'Użyj kwadratowej miniaturki zdjęcia';
@@ -118,6 +134,9 @@ $lang['M_MAP'] = 'Menu główne';
 $lang['PIWIGO_GALLERY'] = 'Idź do galerii Piwigo';
 $lang['SEARCH_MY_POSITION'] = 'Znajdź moją pozycję na mapie';
 $lang['SHOWCMAP'] = 'Dodaj mapę w opisie kategorii';
+<<<<<<< HEAD
+$lang['SHOWMMAP'] = 'Dodaj mapę w menu głównym';
+=======
 $lang['SHOWMMAP'] = 'Dodaj mapę w menu głównym';
 $lang['SHARE'] = 'Udostępnij ten widok';
 $lang['SHOWCMAP_DESC'] = 'Pokazuje mapę świata w opisie kategorii, wyświetli wszystkie zdjęcia z galerii.';
@@ -148,3 +167,4 @@ $lang['OSM_NEW_PLACE'] = 'Nowe miejsce';
 $lang['OSM_PLACES'] = 'Miejsca';
 $lang['OSWORLDMAP'] = 'OS - Mapa Świata';
 $lang['PLACE_SELECTION'] = 'Wybór miejsca';
+>>>>>>> refs/remotes/Piwigo/master

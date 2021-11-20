@@ -52,7 +52,11 @@ $lang['DISPLAY_ON_MAP'] = 'Diskwel %s war ur gartenn';
 $lang['DISPLAY'] = 'Diskwel ar c\'hefluniadur';
 $lang['ATTRPLUGIN'] = 'Diskouez notennoù an aozer';
 $lang['ATTRLEAFLET'] = 'Diskouez notennoù al levraoueg';
+<<<<<<< HEAD
+$lang['LEFTPOPUP_DESC'] = 'Diskouez ur brenestr dizalc\'h pa gliker war ar c\'hros';
+=======
 $lang['LEFTPOPUP_DESC'] = 'Diskouez ur brenestr dizalc\'h pa gliker war ar spilhenn';
+>>>>>>> refs/remotes/Piwigo/master
 $lang['NEVER'] = 'Prenestr dizalc\'h ebet';
 $lang['PINPOPUPOFFSET'] = 'Linkad ar brenestr dizalc\'h';
 $lang['CLICK'] = 'Diskouez pa vez kliket';
@@ -72,8 +76,13 @@ $lang['CUSTOMBASELAYERURL'] = 'URL ar servijer bloc\'hoù';
 $lang['COPY_PASTE_URL'] = 'Eilañ ha pegañ an URL amañ dindan:';
 $lang['CUSTOMBASELAYER'] = 'Giz kartenn personelaet';
 $lang['CENTER_MAP_DESC'] = 'Kreizañ ar planisfer war ul lec\'h (daveennoù GPS). Ledred hag hedred distaget gant ur skej, dre ziouer eo 0,0';
+<<<<<<< HEAD
+$lang['PINSIZE'] = 'Ment ar c\'hros';
+$lang['H_PIN'] = 'Kefluniadur ar c\'hros';
+=======
 $lang['PINSIZE'] = 'Ment ar spilhenn';
 $lang['H_PIN'] = 'Kefluniadur ar spilhenn';
+>>>>>>> refs/remotes/Piwigo/master
 $lang['GPX_WIDTH'] = 'Ledander ar banell uheladur';
 $lang['DEFAULTPIN'] = 'Leaflet glaz dre ziouer';
 $lang['DEFAULTPINGREEN'] = 'Leaflet gwer dre ziouer';
@@ -90,6 +99,9 @@ $lang['SHOW_ALL_PIWIGO'] = 'Diskouez an holl ergorennoù e palier Piwigo';
 $lang['PINSHADOWSIZE_DESC'] = 'Ment ar skeudenn e piksel, distaget gant \'x\'. Dre skouer: \'24x24\'';
 $lang['PINSIZE_DESC'] = 'Ment ar skeudenn e piksel, distaget gant \'x\'. Dre skouer: \'24x24\'';
 $lang['HEIGHT_DESC'] = 'e piksel';
+<<<<<<< HEAD
+$lang['WIDTH_DESC'] = 'e piksel pe emgefreek';
+=======
 $lang['WIDTH_DESC'] = 'e piksel pe emgefreek';
 $lang['LAYOUT_MAP_DESC'] = 'Dibabit giz planisfer e kavit ar gwellañ.';
 $lang['LAYOUT_MAP'] = 'Aozadur ar planisfer';
@@ -148,3 +160,4 @@ $lang['OSM_ADD_PLACE'] = 'Ouzhpennañ ul lec\'h';
 $lang['OSM_NEW_PLACE'] = 'Lec\'h nevez';
 $lang['OSM_PLACES'] = 'Lec\'hioù';
 $lang['PLACE_SELECTION'] = 'Diuz al lec\'h';
+>>>>>>> refs/remotes/Piwigo/master

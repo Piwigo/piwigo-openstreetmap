@@ -1,9 +1,12 @@
+<<<<<<< HEAD
+=======
 Changes from v2.8.d to v2.9.a
 - Added "Select Place" functionality to batchmanagement
 - Allow more SSL geo providers
 - Fix logitude column
 - Update language, thanks to the contributors
 
+>>>>>>> refs/remotes/Piwigo/master
 Changes from v2.8.c to v2.8.d
 - Fix PHP syntax
 

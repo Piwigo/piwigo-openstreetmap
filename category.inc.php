@@ -44,7 +44,8 @@ function osm_render_category()
         osm_load_language();
         load_language('plugin.lang', OSM_PATH);
 
-        $js_data = osm_get_items($page);
+		// TF, 20160102: pass config as parameter
+        $js_data = osm_get_items($conf, $page);
         if ($js_data != array())
         {
             $local_conf = array();
@@ -56,7 +57,12 @@ function osm_render_category()
             $local_conf['center_lng'] = 0;
             $local_conf['zoom'] = 2;
             $local_conf['autocenter'] = 1;
+<<<<<<< HEAD
+			// TF, 20160102: pass config as parameter
+            $local_conf['paths'] = osm_get_gps($conf, $page);
+=======
             $local_conf['paths'] = osm_get_gps($page);
+>>>>>>> refs/remotes/Piwigo/master
             $height = isset($conf['osm_conf']['category_description']['height']) ? $conf['osm_conf']['category_description']['height'] : '200';
             $width = isset($conf['osm_conf']['category_description']['width']) ? $conf['osm_conf']['category_description']['width'] : 'auto';
             $js = osm_get_js($conf, $local_conf, $js_data);
