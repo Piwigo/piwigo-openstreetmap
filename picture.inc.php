@@ -40,7 +40,7 @@ function osm_loc_begin_picture()
     $template->set_prefilter('picture', 'osm_insert_map');
 }
 
-function osm_insert_map($content, &$smarty)
+function osm_insert_map($content)
 {
     global $conf;
     load_language('plugin.lang', OSM_PATH);
@@ -126,8 +126,7 @@ function osm_render_element_content()
     $local_conf['center_lng'] = $lon;
     $local_conf['zoom'] = $zoom;
 
-	// TF, 20160102: pass config as parameter
-    $js_data = osm_get_items($conf, $page);
+    $js_data = osm_get_items($page);
 
     $js = osm_get_js($conf, $local_conf, $js_data);
 
