@@ -38,25 +38,30 @@ $lang['SHOWWORLDMAPLEFT'] = 'Dodaj menu mapy po lewej stronie';
 $lang['SHOWWORLDMAPLEFT_DESC'] = 'Pokazuje menu mapy na lewym menu, będzie wyswietlał wszystkie zdjęcia w galerii.';
 $lang['ZOOM'] = 'Poziom Zoomu';
 $lang['ZOOM_DESC'] = '1: bardzo daleko, 18: bardzo blisko';
-$lang['OWNPIN'] = 'własny (osobisty styl)';
+$lang['OWNPIN'] = 'własna pinezka (osobisty styl)';
 $lang['PIN'] = 'Wybierz pinezkę';
-$lang['PINOFFSET'] = 'Tło punktu pinezki';
-$lang['PINOFFSET_DESC'] = 'Pozycja obrazka pinezki, miejsce gdzie pinezka jest wbita w mapę.';
+$lang['PINOFFSET'] = 'Punkt wbicia pinezki';
+$lang['PINOFFSET_DESC'] = 'Pozycja na obrazie pinezki, gdzie wbija się ona w mapę. Przykład: krzyżyk = środek obrazu';
 $lang['PINPATH'] = 'Własna pinezka (osobisty styl)';
 $lang['PINPATH_DESC'] = 'Ściezka do pinezki (tylko jeśli wybrany jest \'własny\')';
-$lang['PINPOPUPOFFSET'] = 'Tło popup';
-$lang['PINPOPUPOFFSET_DESC'] = 'Pozycja na obrazku pinezki gdzie popup dotyka pinezki.';
+$lang['PINPOPUPOFFSET'] = 'Przesunięcie popup\'u';
+$lang['PINPOPUPOFFSET_DESC'] = 'Pozycja na obrazie pinezki gdzie popup dotyka pinezki.';
 $lang['PINSHADOWPATH'] = 'Cień';
 $lang['PINSHADOWPATH_DESC'] = 'Ścieżka do obrazka z cieniem Twojej pinezki';
 $lang['PINSHADOWSIZE'] = 'Rozmiar cienia';
 $lang['PINSHADOWSIZE_DESC'] = 'Wymiary obrazka w pixelach. Znakiem podziału jest \'x\'. Np: \'24x24\'';
 $lang['PINSIZE'] = 'Rozmiar pinezki';
 $lang['PINSIZE_DESC'] = 'Wymiary obrazka w pixelach. Znakiem podziału jest \'x\'. Np: \'24x24\'';
+<<<<<<< HEAD
 $lang['PIN_DESC'] = 'Wybierz ostatnią opcję jeśli chcesz używać własnej.';
 $lang['PLUGINBY'] = 'Wtyczka';
+=======
+$lang['PIN_DESC'] = 'Wybierz ikoną pinezki, podgląd pojawi się po prawej stronie';
+$lang['PLUGINBY'] = 'Wtyczka utworzona przez';
+>>>>>>> refs/remotes/Piwigo/master
 $lang['POPUPAUTHOR'] = 'Autor obrazka';
 $lang['ATTRPLUGIN'] = 'Pokaż adnotację od autora';
-$lang['DEFAULTPIN'] = 'domyślne';
+$lang['DEFAULTPIN'] = 'Domyślny niebieski \'Leaflet\'';
 $lang['DISPLAY'] = 'Wyświetl konfigurację';
 $lang['G_MAP'] = 'Mapa konfiguracji';
 $lang['HEIGHT'] = 'Wysokość mapy';
@@ -71,23 +76,28 @@ $lang['LEFTPOPUP_DESC'] = 'Pokaż okno popup po kliknięciu na pinezkę.';
 $lang['L_MAP'] = 'Konfiguracja lewego menu';
 $lang['NEVER'] = 'brak popup\'u';
 $lang['NOPIN'] = 'brak pinezki';
-$lang['NOWORLDWARP'] = 'Brak Worldwarp';
-$lang['NOWORLDWARP_DESC'] = 'Zwykle świat będzie wyświetlany od lewa do prawa. Ta opcja pozwala na wyświetlanie tylko \'jednego świata\'';
-$lang['ADD_BEFORE'] = 'Wcześniej dodaj lokalizację';
+$lang['NOWORLDWARP'] = 'Wyłącz Worldwarp (zapętlanie świata)';
+$lang['NOWORLDWARP_DESC'] = 'Zwykle świat będzie wyświetlany zapętlony od lewa do prawa. Ta opcja pozwala na wyświetlanie tylko \'jednego świata\'';
+$lang['ADD_BEFORE'] = 'Dodaj lokalizację przed';
 $lang['ADD_BEFORE_DESC'] = 'Gdzie wyświetlać informację o lokalizacji';
 $lang['ALWAYS'] = 'Pokaż natychmiast';
 $lang['ATTRIMAGERY'] = 'Pokaż styl mapy';
-$lang['ATTRIMAGERY_DESC'] = 'Pokazuje użyte style mapy';
+$lang['ATTRIMAGERY_DESC'] = 'Pokazuje użyty styl mapy';
 $lang['ATTRLEAFLET'] = 'Pokaż \'Powered by Leaflet\'';
+<<<<<<< HEAD
 $lang['ATTRLEAFLET_DESC'] = 'Pokazuje a';
 $lang['ATTRPLUGIN_DESC'] = 'Ja stworzylem tą wtyczkę. :)';
+=======
+$lang['ATTRLEAFLET_DESC'] = 'Pokazuje, że użyto biblioteki JavaScript \'Leaflet\'';
+$lang['ATTRPLUGIN_DESC'] = 'Ja stworzyłem tę wtyczkę. :)';
+>>>>>>> refs/remotes/Piwigo/master
 $lang['BASELAYER'] = 'Styl mapy';
 $lang['BASELAYER_DESC'] = 'Mapnik jest domyślnym stylem OpenStreetMap';
 $lang['CLICK'] = 'pokaż po kliknięciu';
-$lang['CUSTOMBASELAYER'] = 'Osobisty styl mapy';
+$lang['CUSTOMBASELAYER'] = 'Własny styl mapy';
 $lang['CUSTOMBASELAYERURL'] = 'URL serwera tile';
-$lang['CUSTOMBASELAYERURL_DESC'] = 'Tylko jeśli jest wybrany \'osobisty\' styl mapy. Np: http://tile.openstreetmap.org/{z}/{x}/{y}.png';
-$lang['CUSTOMBASELAYER_DESC'] = 'Tylko jeśli jest wybrany \'osobisty\' styl mapy. Kto dostarczył styl mapy?';
+$lang['CUSTOMBASELAYERURL_DESC'] = 'Tylko jeśli jest wybrany \'własny\' styl mapy. Np: http://tile.openstreetmap.org/{z}/{x}/{y}.png';
+$lang['CUSTOMBASELAYER_DESC'] = 'Tylko jeśli jest wybrany \'własny\' styl mapy. Kto dostarczył styl mapy?';
 $lang['SHOWOSM_DESC'] = 'Dodaj pod mapą odnośnik do wyświetlenia w OpenStreetMap.';
 $lang['EDIT_MAP'] = 'Mapa';
 $lang['EDIT_UPDATE_LOCATION_DESC'] = 'Kliknij na mapie, aby zaktualizować położenie';
@@ -106,9 +116,15 @@ $lang['WIDTH_DESC'] = 'w pikselach lub auto';
 $lang['ZOOM_IN'] = 'Zoom +';
 $lang['ZOOM_OUT'] = 'Zoom -';
 $lang['BROWSER_JAVASCRIPT'] = 'Twoja przeglądarka musi obsługiwać JavaScript';
+<<<<<<< HEAD
 $lang['CENTER_MAP'] = 'Wyśrodkuj mapę tutaj';
 $lang['CLICKED_MAP'] = 'Klinknąłeś mapę na';
 $lang['COPY_PASTE_URL'] = 'Skopiuj i wklej poniższy adres';
+=======
+$lang['CENTER_MAP'] = 'Wyśrodkuj mapę na: ';
+$lang['CLICKED_MAP'] = 'Klinknąłeś mapę na';
+$lang['COPY_PASTE_URL'] = 'Skopiuj i wklej poniższy adres:';
+>>>>>>> refs/remotes/Piwigo/master
 $lang['C_MAP'] = 'Opis kategorii';
 $lang['FIND_POSITION'] = 'Znajdź moją pozycję';
 $lang['IMAGE'] = 'Użyj kwadratowej miniaturki zdjęcia';
@@ -118,4 +134,37 @@ $lang['M_MAP'] = 'Menu główne';
 $lang['PIWIGO_GALLERY'] = 'Idź do galerii Piwigo';
 $lang['SEARCH_MY_POSITION'] = 'Znajdź moją pozycję na mapie';
 $lang['SHOWCMAP'] = 'Dodaj mapę w opisie kategorii';
+<<<<<<< HEAD
 $lang['SHOWMMAP'] = 'Dodaj mapę w menu głównym';
+=======
+$lang['SHOWMMAP'] = 'Dodaj mapę w menu głównym';
+$lang['SHARE'] = 'Udostępnij ten widok';
+$lang['SHOWCMAP_DESC'] = 'Pokazuje mapę świata w opisie kategorii, wyświetli wszystkie zdjęcia z galerii.';
+$lang['SHOWMMAP_DESC'] = 'Pokazuje mapę świata w głównym menu, wyświetli wszystkie zdjęcia z galerii.';
+$lang['PLUGIN_BY'] = 'Wtyczka utworzona przez <a href="https://github.com/xbgmsharp/piwigo-openstreetmap" target="_blank">xbgmsharp</a>';
+$lang['POSITION_INDEX_CMAP'] = 'Pokaż mapę w ';
+$lang['POSITION_INDEX_CMAP_DESC'] = 'Wyświetli mapę w wybranym miejscu';
+$lang['MAPICONSGREEN'] = 'Zielona \'MapsIcons\'';
+$lang['MOUSE_OVER'] = 'Przejedź myszą nad obszar żeby zobaczyć jego granice i kliknij na nim by powiększyć mapę do tego obszaru';
+$lang['MAPICONSBLEU'] = 'Niebieska \'MapsIcons\'';
+$lang['DEFAULTPINGREEN'] = 'Domyślny zielony \'Leaflet\'';
+$lang['DEFAULTPINRED'] = 'Domyślny czerwony \'Leaflet\'';
+$lang['ITEMS_SCREEN'] = 'Pokaż elementy z tej strony';
+$lang['LAYOUT_MAP'] = 'Układ WorldMap';
+$lang['LAYOUT_MAP_DESC'] = 'Wybierz styl WorldMap.';
+$lang['LEAFPINGREEN'] = 'Alternatywny zielony \'Leaflet\'';
+$lang['LEAFPINORANGE'] = 'Alternatywny pomarańczowy \'Leaflet\'';
+$lang['LEAFPINRED'] = 'Alternatywny czerwony \'Leaflet\'';
+$lang['DISPLAY_ON_MAP'] = 'wyświetla %s na mapie';
+$lang['GPX_MAP'] = 'Mapa GPX';
+$lang['GPX_WIDTH'] = 'Szerokość mapy';
+$lang['BACK_ON_PAGE'] = 'Cofnij';
+$lang['CENTER_MAP_DESC'] = 'Wyśrodkowuje mapę na podanych współrzędnych GPS: Szerokość, długość geograficzna. Domyślnie 0,0';
+$lang['OSM_ADD_PLACE'] = 'Dodaj miejsce';
+$lang['DELETE_PLACES'] = 'Usuń wybrane miejsce';
+$lang['EDIT_PLACES'] = 'Zmień wybrane miejsca';
+$lang['OSM_NEW_PLACE'] = 'Nowe miejsce';
+$lang['OSM_PLACES'] = 'Miejsca';
+$lang['OSWORLDMAP'] = 'OS - Mapa Świata';
+$lang['PLACE_SELECTION'] = 'Wybór miejsca';
+>>>>>>> refs/remotes/Piwigo/master

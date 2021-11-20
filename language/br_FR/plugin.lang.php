@@ -52,7 +52,11 @@ $lang['DISPLAY_ON_MAP'] = 'Diskwel %s war ur gartenn';
 $lang['DISPLAY'] = 'Diskwel ar c\'hefluniadur';
 $lang['ATTRPLUGIN'] = 'Diskouez notennoù an aozer';
 $lang['ATTRLEAFLET'] = 'Diskouez notennoù al levraoueg';
+<<<<<<< HEAD
 $lang['LEFTPOPUP_DESC'] = 'Diskouez ur brenestr dizalc\'h pa gliker war ar c\'hros';
+=======
+$lang['LEFTPOPUP_DESC'] = 'Diskouez ur brenestr dizalc\'h pa gliker war ar spilhenn';
+>>>>>>> refs/remotes/Piwigo/master
 $lang['NEVER'] = 'Prenestr dizalc\'h ebet';
 $lang['PINPOPUPOFFSET'] = 'Linkad ar brenestr dizalc\'h';
 $lang['CLICK'] = 'Diskouez pa vez kliket';
@@ -72,8 +76,13 @@ $lang['CUSTOMBASELAYERURL'] = 'URL ar servijer bloc\'hoù';
 $lang['COPY_PASTE_URL'] = 'Eilañ ha pegañ an URL amañ dindan:';
 $lang['CUSTOMBASELAYER'] = 'Giz kartenn personelaet';
 $lang['CENTER_MAP_DESC'] = 'Kreizañ ar planisfer war ul lec\'h (daveennoù GPS). Ledred hag hedred distaget gant ur skej, dre ziouer eo 0,0';
+<<<<<<< HEAD
 $lang['PINSIZE'] = 'Ment ar c\'hros';
 $lang['H_PIN'] = 'Kefluniadur ar c\'hros';
+=======
+$lang['PINSIZE'] = 'Ment ar spilhenn';
+$lang['H_PIN'] = 'Kefluniadur ar spilhenn';
+>>>>>>> refs/remotes/Piwigo/master
 $lang['GPX_WIDTH'] = 'Ledander ar banell uheladur';
 $lang['DEFAULTPIN'] = 'Leaflet glaz dre ziouer';
 $lang['DEFAULTPINGREEN'] = 'Leaflet gwer dre ziouer';
@@ -90,4 +99,65 @@ $lang['SHOW_ALL_PIWIGO'] = 'Diskouez an holl ergorennoù e palier Piwigo';
 $lang['PINSHADOWSIZE_DESC'] = 'Ment ar skeudenn e piksel, distaget gant \'x\'. Dre skouer: \'24x24\'';
 $lang['PINSIZE_DESC'] = 'Ment ar skeudenn e piksel, distaget gant \'x\'. Dre skouer: \'24x24\'';
 $lang['HEIGHT_DESC'] = 'e piksel';
+<<<<<<< HEAD
 $lang['WIDTH_DESC'] = 'e piksel pe emgefreek';
+=======
+$lang['WIDTH_DESC'] = 'e piksel pe emgefreek';
+$lang['LAYOUT_MAP_DESC'] = 'Dibabit giz planisfer e kavit ar gwellañ.';
+$lang['LAYOUT_MAP'] = 'Aozadur ar planisfer';
+$lang['LEFTLINK'] = 'Anv al lañser planisfer';
+$lang['SHOWWORLDMAPLEFT'] = 'Lakaat ul lañser planisfer war an tu kleiz';
+$lang['IMAGERYBY'] = 'Skeudennaoueg';
+$lang['IMAGE'] = 'Implij skeudennig karrez al luc\'hskeudenn';
+$lang['L_MAP'] = 'Kefluniadur lañser an tu kleiz';
+$lang['LEFTLINK_DESC'] = 'Skrivit anv al liamm da ziskouez war lañser an tu kleiz.';
+$lang['M_MAP'] = 'Lañser pennañ';
+$lang['SHOWMMAP'] = 'Diskouez ur blanisfer war al lañser pennañ';
+$lang['SHOWWORLDMAPLEFT_DESC'] = 'Diskouez ul lañser planisfer war lañser an tu kleiz, a ziskouezo an holl skeudennoù er palier.';
+$lang['SHOWCMAP_DESC'] = 'Diskouez ul lañser planisfer gant deskrivadur ar rummad, a ziskouezo an holl skeudennoù er palier.';
+$lang['SHOWMMAP_DESC'] = 'Diskouez ul lañser planisfer war al lañser pennañ, a ziskouezo an holl skeudennoù er palier.';
+$lang['PINSHADOWPATH_DESC'] = 'Hent moned da skeudenn skeud ho spilhenn.';
+$lang['OWNPIN'] = 'Spilhenn personelaet';
+$lang['PIN'] = 'Diuzañ ar spilhenn';
+$lang['PINPATH'] = 'Spilhenn personelaet';
+$lang['PINPATH_DESC'] = 'Hent moned d\'ho spilhenn (ma vez \'personelaet\' diuzet)';
+$lang['NOPIN'] = 'Spilhenn ebet';
+$lang['PINOFFSET'] = 'Dilec\'hiadur kros ar spilhenn';
+$lang['PINOFFSET_DESC'] = 'Lec\'hiadur war skeudenn ar spilhenn, al lec\'h ma vo ar spilhenn war ar gartenn. 0x0 a zo ar c\'horn an uhelañ a gleiz. Dre skouer: buker = kreiz ar skeudenn.';
+$lang['PINPOPUPOFFSET_DESC'] = 'Lec\'hiadur war skeudenn ar spilhenn, al lec\'h ma stok ar brenestr dizalc\'h hag ar spilhenn. 0x0 a zo kros ar spilhenn.';
+$lang['LEFTPOPUPINFO_DESC'] = 'Dibabit ar pezh a vo diskwellet er brenestr dizalc\'h';
+$lang['LEFTPOPUPINFO'] = 'Dibabit endalc\'had ar brenestr dizalc\'h';
+$lang['MOUSE_OVER'] = 'Lakait biz al logodenn a-us d\'ur strollad evit gwellet harzoù e bugale, ha klikit war ur strollad evit zoumañ d\'an harzoù-se.';
+$lang['PIN_DESC'] = 'Diuzit an arlun a fell deoc\'h, diskouezet e vo war an tu dehoù.';
+$lang['POSITION_INDEX_CMAP_DESC'] = 'A ziskouezo ar gartenn d\'ar meneger spisaet';
+$lang['SEARCH_MY_POSITION'] = 'Diskouez va lec\'hiadur war ar gartenn';
+$lang['SHOWLOCATION_DESC'] = 'Diskouez ur gartenn war panell an tu dehoù e pajenn al luc\'hskeudenn';
+$lang['OSM_CONTRIBUTORS'] = 'Kenlabourerien <a href="http://www.openstreetmap.org" target="_blank">OpenStreetMap</a>, (<a href="http://www.openstreetmap.org/copyright" target="_blank">ODbL</a>)';
+$lang['MAPICONSBLEU'] = 'MapsIcons glaz';
+$lang['MAPICONSGREEN'] = 'MapsIcons gwer';
+$lang['SHARE'] = 'Lodañ ar gwel-se';
+$lang['SHOWOSM_DESC'] = 'Lakaat ul liamm goude ar gartenn evit gwellet anezhi war OpenStreetMap';
+$lang['SHOWOSM'] = 'Diskouez \'Gwellet war OpenStreetMap\'';
+$lang['VIEW_OSM'] = 'Gwellet war OpenStreetMap';
+$lang['R_MAP'] = 'Kefluniadur panell an tu dehoù';
+$lang['RIGHTLINK_DESC'] = 'Skrivit an anv da ziskouez a-us d\'ar gartenn';
+$lang['PLUGIN_BY'] = 'Lugant graet gant <a href="https://github.com/xbgmsharp/piwigo-openstreetmap" target="_blank">xbgmsharp</a>';
+$lang['METERS_FROM_POINT'] = 'Tostoc\'h eget %s metrad eus ar poent-se emaoc\'h';
+$lang['PIWIGO_GALLERY'] = 'Mont da palier Piwigo';
+$lang['PLUGINBY'] = 'Lugant graet gant';
+$lang['POWERBY'] = 'Graet gant';
+$lang['POPUPCOMMENT'] = 'Evezhiadenn al luc\'hskeudenn';
+$lang['POPUPTHUMB'] = 'Skeudennig al luc\'hskeudenn';
+$lang['RIGHTLINKCSS'] = 'CSS personelaet';
+$lang['RIGHTLINK'] = 'Anv an talbenn-lec\'h';
+$lang['RIGHTLINKCSS_DESC'] = 'Giz CSS personelaet da lakaat d\'an talbenn-lec\'h';
+$lang['SHOWLOCATION'] = 'Diskouez kartenn al lec\'h';
+$lang['PINSHADOWPATH'] = 'Skeud';
+$lang['PINSHADOWSIZE'] = 'Ment ar skeud';
+$lang['DELETE_PLACES'] = 'Dilemel al lec\'hioù diuzet';
+$lang['EDIT_PLACES'] = 'Aozañ al lec\'hioù diuzet';
+$lang['OSM_ADD_PLACE'] = 'Ouzhpennañ ul lec\'h';
+$lang['OSM_NEW_PLACE'] = 'Lec\'h nevez';
+$lang['OSM_PLACES'] = 'Lec\'hioù';
+$lang['PLACE_SELECTION'] = 'Diuz al lec\'h';
+>>>>>>> refs/remotes/Piwigo/master

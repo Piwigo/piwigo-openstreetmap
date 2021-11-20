@@ -63,6 +63,7 @@ function osm_get_gps($conf, $page)
 	// check if any items (= pictures) are on that page and show gpx tracks only IF items>0 OR nogpxforsubcat=FALSE
 	if (!($nogpxforsubcat) or (isset($page['items']) and isset($page['items'][0])))
     {
+<<<<<<< HEAD
 		// Limit search by category, by tag, by smartalbum
 		$LIMIT_SEARCH="";
 		$INNER_JOIN="";
@@ -125,6 +126,27 @@ function osm_get_gps($conf, $page)
 		$LIMIT_SEARCH = "FIND_IN_SET(".$page['category']['id'].", c.uppercats) AND ";
 		$INNER_JOIN = "INNER JOIN ".CATEGORIES_TABLE." AS c ON ic.category_id = c.id";
 	}
+=======
+        if ($page['section'] === 'categories' and isset($page['category']) and isset($page['category']['id']) )
+        {
+            $LIMIT_SEARCH = "FIND_IN_SET(".$page['category']['id'].", c.uppercats) AND ";
+            $INNER_JOIN = "INNER JOIN ".CATEGORIES_TABLE." AS c ON ic.category_id = c.id";
+        }
+        if ($page['section'] === 'tags' and isset($page['tags']) and isset($page['tags'][0]['id']) )
+        {
+            $items = get_image_ids_for_tags( array_reduce( $page['tags'], 'osm_get_page_tag_id' ) );
+            if ( !empty($items) )
+            {
+                $LIMIT_SEARCH = "ic.image_id IN (".implode(',', $items).") AND ";
+            }
+        }
+        if ($page['section'] === 'tags' and isset($page['category']) and isset($page['category']['id']) )
+        {
+            $LIMIT_SEARCH = "FIND_IN_SET(".$page['category']['id'].", c.uppercats) AND ";
+            $INNER_JOIN = "INNER JOIN ".CATEGORIES_TABLE." AS c ON ic.category_id = c.id";
+        }
+    }
+>>>>>>> refs/remotes/Piwigo/master
 
     $forbidden = get_sql_condition_FandF(
         array
@@ -161,7 +183,7 @@ function osm_get_items($conf, $page)
         }
         if ($page['section'] === 'tags' and isset($page['tags']) and isset($page['tags'][0]['id']) )
         {
-            $items = get_image_ids_for_tags( array($page['tags'][0]['id']) );
+            $items = get_image_ids_for_tags( array_reduce( $page['tags'], 'osm_get_page_tag_id' ) );
             if ( !empty($items) )
             {
                 $LIMIT_SEARCH = "ic.image_id IN (".implode(',', $items).") AND ";
@@ -190,10 +212,17 @@ function osm_get_items($conf, $page)
         $LIMIT_SEARCH="";
         $INNER_JOIN="";
 
+<<<<<<< HEAD
 	foreach (array('min_lat', 'min_lng', 'max_lat', 'max_lng') as $get_key)
 	{
 		check_input_parameter($get_key, $_GET, false, '/^\d+(\.\d+)?$/');
 	}
+=======
+        foreach (array('min_lat', 'min_lng', 'max_lat', 'max_lng') as $get_key)
+        {
+                check_input_parameter($get_key, $_GET, false, '/^-?\d+(\.\d+)?$/');
+        }
+>>>>>>> refs/remotes/Piwigo/master
 
         /* Delete all previous album */
         $query="SELECT `id` FROM ".CATEGORIES_TABLE." WHERE `name` = 'Locations' AND `comment` LIKE '%OSM plugin%';";
@@ -241,6 +270,7 @@ function osm_get_items($conf, $page)
     // SUBSTRING_INDEX(TRIM(LEADING '.' FROM `path`), '.', 1) full path without filename extension
     // SUBSTRING_INDEX(TRIM(LEADING '.' FROM `path`), '.', -1) full path with only filename extension
 
+<<<<<<< HEAD
 	// TF, 20160102
 	// check if any items (= pictures) are on that page
 	// if not => has only sub galleries but no pictures => show only first picture IF flag $firstimageforsubcat is set accordingly
@@ -267,13 +297,15 @@ function osm_get_items($conf, $page)
 
 	// TF, 20160102
 	// add ORDER BY to always show the first image in a category
+=======
+
+>>>>>>> refs/remotes/Piwigo/master
     if (isset($page['image_id'])) $LIMIT_SEARCH .= 'i.id = ' . $page['image_id'] . ' AND ';
 
     $query="SELECT i.latitude, i.longitude,
     IFNULL(i.name, '') AS `name`,
-    IF(i.representative_ext IS NULL,
-        CONCAT(SUBSTRING_INDEX(TRIM(LEADING '.' FROM i.path), '.', 1 ), '-sq.', SUBSTRING_INDEX(TRIM(LEADING '.' FROM i.path), '.', -1 )),
-        TRIM(LEADING '.' FROM
+    TRIM(LEADING '.' FROM IF(i.representative_ext IS NULL,
+        CONCAT(LEFT(i.path,CHAR_LENGTH(i.path)-1-CHAR_LENGTH(SUBSTRING_INDEX(i.path, '.', -1 ))), '-sq.', SUBSTRING_INDEX(i.path, '.', -1 )),
             REPLACE(i.path, TRIM(TRAILING '.' FROM SUBSTRING_INDEX(i.path, '/', -1 )),
                 CONCAT('pwg_representative/',
                     CONCAT(
@@ -282,9 +314,14 @@ function osm_get_items($conf, $page)
                     )
                 )
             )
+<<<<<<< HEAD
         )
     ) AS `pathurl`,
     TRIM(TRAILING '/' FROM CONCAT( ".$concat_for_url." ) ) AS `imgurl`,
+=======
+    )) AS `pathurl`,
+    TRIM(TRAILING '/' FROM CONCAT( i.id, '/category/', IFNULL(ic.category_id, '') ) ) AS `imgurl`,
+>>>>>>> refs/remotes/Piwigo/master
     IFNULL(i.comment, '') AS `comment`,
     IFNULL(i.author, '') AS `author`,
     i.width,
@@ -404,10 +441,17 @@ function osm_get_js($conf, $local_conf, $js_data)
     $autocenter = isset($local_conf['autocenter'])
         ? $local_conf['autocenter']
         : 0;
+<<<<<<< HEAD
+=======
+    
+    // When gallery is SSL and when switching to SSL baselayerURL is possible, use $httpx
+    $httpx = ((!empty($_SERVER['HTTPS'])) and (strtolower($_SERVER['HTTPS']) !== 'off')) ? 'https' : 'http';
+>>>>>>> refs/remotes/Piwigo/master
 
     // Load baselayerURL
-    if     ($baselayer == 'mapnik')     $baselayerurl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+    if     ($baselayer == 'mapnik')     $baselayerurl = $httpx.'://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
     else if($baselayer == 'mapquest')   $baselayerurl = 'http://otile1.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png';
+<<<<<<< HEAD
     else if($baselayer == 'mapnikde')   $baselayerurl = 'http://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png';
     else if($baselayer == 'mapnikfr')   $baselayerurl = 'http://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png';
     else if($baselayer == 'blackandwhite')  $baselayerurl = 'http://{s}.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png';
@@ -416,6 +460,17 @@ function osm_get_js($conf, $local_conf, $js_data)
     else if($baselayer == 'toner') $baselayerurl = 'https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.png';
     else if($baselayer == 'custom') $baselayerurl = $custombaselayerurl;
     else if($baselayer == 'esri') $baselayerurl = 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
+=======
+    else if($baselayer == 'mapnikde')   $baselayerurl = $httpx.'://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png';
+    else if($baselayer == 'mapnikfr')   $baselayerurl = $httpx.'://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png';
+//     else if($baselayer == 'blackandwhite')  $baselayerurl = 'http://{s}.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png';
+    else if($baselayer == 'blackandwhite')  $baselayerurl = 'https://tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png';
+    else if($baselayer == 'mapnikhot')  $baselayerurl = $httpx.'://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png';
+    else if($baselayer == 'mapquestaerial') $baselayerurl = 'http://otile1.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.png';
+    else if($baselayer == 'toner') $baselayerurl = $httpx.'://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.png';
+    else if($baselayer == 'custom') $baselayerurl = $custombaselayerurl;
+    else if($baselayer == 'esri') $baselayerurl = $httpx.'://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
+>>>>>>> refs/remotes/Piwigo/master
 
     $attribution = osmcopyright($attrleaflet, $attrimagery, $attrmodule, $baselayer, $custombaselayer);
 
@@ -687,7 +742,10 @@ function osm_gen_template($conf, $js, $js_data, $tmpl, $template)
         );
     }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> refs/remotes/Piwigo/master
     $template->pparse('map');
     $template->p();
 }
@@ -718,6 +776,20 @@ function osm_bounds_from_url($str)
     'e' => $r[3],
   );
   return $b;
+}
+
+/**
+ * What is the id of this page tag ?
+ *
+ * Note : this function is called to grab every tags in a page
+ *
+ * @param array basket to collect id
+ * @param array page tag 
+ * @return basket
+ */
+function osm_get_page_tag_id($basket, $page_tag) {
+	$basket[] = $page_tag['id']; 
+	return $basket;
 }
 
 ?>

@@ -213,7 +213,11 @@ if (isset($_POST['submit']) && !empty($_POST['osm_height']))
             'attrimagery'        => get_boolean($_POST['osm_attrimagery']),
             'attrplugin'         => get_boolean($_POST['osm_attrplugin']),
             'mapquestapi'        => $_POST['osm_mapquestapi'],
+<<<<<<< HEAD
 	    ),
+=======
+            ),
+>>>>>>> refs/remotes/Piwigo/master
 	'pin' => array(
             'pin'            => $_POST['osm_pin'],
             'pinpath'        => $_POST['osm_pinpath'],

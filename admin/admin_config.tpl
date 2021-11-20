@@ -115,6 +115,7 @@ Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" ta
 				<label><input type="radio" name="osm_left_autocenter" value="false" {if not $left_menu.autocenter}checked="checked"{/if} onchange="autocenter_toggle(this);"/> {'No'|@translate}</label>
 				<br/><small>{'The map will be automatically centered and zoomed to contain all infos.'|@translate}</small>
 			</li>
+<<<<<<< HEAD
 			<li>
 				<label>{'LEFTPOPUPCLICKTARGET'|@translate} : </label>
 				<select name="osm_left_popup_click_target">
@@ -122,6 +123,8 @@ Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" ta
 				</select>
 				<br/><small>{'LEFTPOPUPCLICKTARGET_DESC'|@translate}</small>
 			</li>
+=======
+>>>>>>> refs/remotes/Piwigo/master
 			<li id="osm_left_zoom_block">
 				<label>{'ZOOM'|@translate} : </label>
 				<select name="osm_left_zoom">

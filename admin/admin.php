@@ -50,7 +50,7 @@ $my_base_url = get_admin_plugin_menu_link(__FILE__);
 $tabsheet = new tabsheet();
 $tabsheet->add( 'config', '<span class="icon-cog"></span>' . l10n('Configuration'), add_url_params( $my_base_url, array('tab'=>'config') ) );
 $tabsheet->add( 'tag', '<span class="icon-tags"></span>' . l10n('Tags'), add_url_params( $my_base_url, array('tab'=>'tag') ) );
-$tabsheet->add( 'place', '<span class="osm-location"></span>' . l10n('Places'), add_url_params( $my_base_url, array('tab'=>'place') ) );
+$tabsheet->add( 'place', '<span class="osm-location"></span>' . l10n('OSM_PLACES'), add_url_params( $my_base_url, array('tab'=>'place') ) );
 $tabsheet->select($page['tab']);
 
 $tabsheet->assign();
