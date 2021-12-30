@@ -1,5 +1,6 @@
 ﻿<!DOCTYPE html>
-<html>{html_head}
+<html>
+{html_head}
 <meta http-equiv="content-type" content="text/html; charset={$CONTENT_ENCODING}" />
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 <meta name="robots" content="noindex,nofollow" />
@@ -214,7 +215,8 @@ a:hover.tooltips span {
 	text-align: center;
 	text-decoration: none;
 }
-{/literal}{/html_style}{/html_head}
+{/literal}{/html_style}
+{/html_head}
 </head>
 <body>
 <noscript>{'BROWSER_JAVASCRIPT'|@translate}</noscript> 

@@ -26,19 +26,6 @@
 // Check whether we are indeed included by Piwigo.
 if (!defined('PHPWG_ROOT_PATH')) die('Hacking attempt!');
 
-// Hook to a admin config page
-add_event_handler('get_admin_plugin_menu_links', 'osm_admin_menu');
-function osm_admin_menu($menu)
-{
-	array_push($menu,
-		array(
-			'NAME' => '<span class="osm-globe"></span>OpenStreetMap',
-			'URL'  => get_admin_plugin_menu_link(dirname(__FILE__).'/admin.php')
-		)
-	);
-	return $menu;
-}
-
 // Batch_manager support
 include_once(dirname(__FILE__).'/admin_batchmanager.php');
 

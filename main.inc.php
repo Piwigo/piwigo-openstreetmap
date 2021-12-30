@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: OpenStreetMap
-Version: 2.9.a
+Version: auto
 Description: OpenStreetMap integration for piwigo
 Plugin URI: http://piwigo.org/ext/extension_view.php?eid=701
 Author: xbmgsharp
@@ -18,7 +18,7 @@ define('OSM_PATH', PHPWG_PLUGINS_PATH . basename(dirname(__FILE__)).'/');
 global $conf;
 
 // Prepare configuration
-$conf['osm_conf'] = unserialize($conf['osm_conf']);
+$conf['osm_conf'] = safe_unserialize($conf['osm_conf']);
 
 // GPX support
 include_once(dirname(__FILE__).'/gpx.inc.php');
