@@ -75,6 +75,9 @@ function osm_insert_map($content)
         {if $SHOWOSM}
         <a href="{$OSMLINK}" target="_blank">{"VIEW_OSM"|@translate}</a>
         {/if}
+        {if $SHOWLATLON}
+        <br><span>{$OSMNAME} : {$LAT} {$LON}</span>
+        {/if}
     </dd>
 </div>
 {/if}
@@ -111,6 +114,7 @@ function osm_render_element_content()
     $osmname = isset($conf['osm_conf']['right_panel']['link']) ? $conf['osm_conf']['right_panel']['link'] : 'Location';
     $osmnamecss = isset($conf['osm_conf']['right_panel']['linkcss']) ? $conf['osm_conf']['right_panel']['linkcss'] : '';
     $showosm = isset($conf['osm_conf']['right_panel']['showosm']) ? $conf['osm_conf']['right_panel']['showosm'] : 'true';
+    $showlatlon = isset($conf['osm_conf']['right_panel']['showlatlon']) ? $conf['osm_conf']['right_panel']['showlatlon'] : 'true';
     if (strlen($osmnamecss) != 0)
     {
         $osmnamecss = "style='".$osmnamecss."'";
@@ -145,6 +149,9 @@ function osm_render_element_content()
             'OSMNAMECSS'	=> $osmnamecss,
             'SHOWOSM'		=> $showosm,
             'OSMLINK'		=> $osmlink,
+            'SHOWLATLON'	=> $showlatlon,
+            'LAT'			=> $lat,
+            'LON'			=> $lon,
         )
     );
 
