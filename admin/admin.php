@@ -45,12 +45,12 @@ if (!isset($_GET['tab']))
 else
   $page['tab'] = $_GET['tab'];
 
-$my_base_url = get_admin_plugin_menu_link(__FILE__);
+$my_base_url = get_root_url().'admin.php?page=plugin-piwigo_openstreetmap';
 
 $tabsheet = new tabsheet();
-$tabsheet->add( 'config', '<span class="icon-cog"></span>' . l10n('Configuration'), add_url_params( $my_base_url, array('tab'=>'config') ) );
-$tabsheet->add( 'tag', '<span class="icon-tags"></span>' . l10n('Tags'), add_url_params( $my_base_url, array('tab'=>'tag') ) );
-$tabsheet->add( 'place', '<span class="osm-location"></span>' . l10n('Places'), add_url_params( $my_base_url, array('tab'=>'place') ) );
+$tabsheet->add( 'config', '<span class="icon-cog"></span>' . l10n('Configuration'), $my_base_url.'-config');
+$tabsheet->add( 'tag', '<span class="icon-tags"></span>' . l10n('Tags'), $my_base_url.'-tag');
+$tabsheet->add( 'place', '<span class="osm-location"></span>' . l10n('OSM_PLACES'), $my_base_url.'-place');
 $tabsheet->select($page['tab']);
 
 $tabsheet->assign();

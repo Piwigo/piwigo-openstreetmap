@@ -40,7 +40,7 @@ function osm_loc_begin_picture()
     $template->set_prefilter('picture', 'osm_insert_map');
 }
 
-function osm_insert_map($content, &$smarty)
+function osm_insert_map($content)
 {
     global $conf;
     load_language('plugin.lang', OSM_PATH);

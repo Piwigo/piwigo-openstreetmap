@@ -196,9 +196,8 @@ function osm_get_items($page)
 
     $query="SELECT i.latitude, i.longitude,
     IFNULL(i.name, '') AS `name`,
-    IF(i.representative_ext IS NULL,
-        CONCAT(SUBSTRING_INDEX(TRIM(LEADING '.' FROM i.path), '.', 1 ), '-sq.', SUBSTRING_INDEX(TRIM(LEADING '.' FROM i.path), '.', -1 )),
-        TRIM(LEADING '.' FROM
+    TRIM(LEADING '.' FROM IF(i.representative_ext IS NULL,
+        CONCAT(LEFT(i.path,CHAR_LENGTH(i.path)-1-CHAR_LENGTH(SUBSTRING_INDEX(i.path, '.', -1 ))), '-sq.', SUBSTRING_INDEX(i.path, '.', -1 )),
             REPLACE(i.path, TRIM(TRAILING '.' FROM SUBSTRING_INDEX(i.path, '/', -1 )),
                 CONCAT('pwg_representative/',
                     CONCAT(
@@ -207,8 +206,7 @@ function osm_get_items($page)
                     )
                 )
             )
-        )
-    ) AS `pathurl`,
+    )) AS `pathurl`,
     TRIM(TRAILING '/' FROM CONCAT( i.id, '/category/', IFNULL(ic.category_id, '') ) ) AS `imgurl`,
     IFNULL(i.comment, '') AS `comment`,
     IFNULL(i.author, '') AS `author`,
@@ -307,15 +305,16 @@ function osm_get_js($conf, $local_conf, $js_data)
         ? $local_conf['autocenter']
         : 0;
     
-    // When gallery is SSL and when switching baselayerURL to https is possible
-    $httpx = (!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off')?'https':'http';
+    // When gallery is SSL and when switching to SSL baselayerURL is possible, use $httpx
+    $httpx = ((!empty($_SERVER['HTTPS'])) and (strtolower($_SERVER['HTTPS']) !== 'off')) ? 'https' : 'http';
 
     // Load baselayerURL
     if     ($baselayer == 'mapnik')     $baselayerurl = $httpx.'://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
     else if($baselayer == 'mapquest')   $baselayerurl = 'http://otile1.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png';
     else if($baselayer == 'mapnikde')   $baselayerurl = $httpx.'://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png';
     else if($baselayer == 'mapnikfr')   $baselayerurl = $httpx.'://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png';
-    else if($baselayer == 'blackandwhite')  $baselayerurl = 'http://{s}.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png';
+//     else if($baselayer == 'blackandwhite')  $baselayerurl = 'http://{s}.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png';
+    else if($baselayer == 'blackandwhite')  $baselayerurl = 'https://tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png';
     else if($baselayer == 'mapnikhot')  $baselayerurl = $httpx.'://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png';
     else if($baselayer == 'mapquestaerial') $baselayerurl = 'http://otile1.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.png';
     else if($baselayer == 'toner') $baselayerurl = $httpx.'://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.png';
