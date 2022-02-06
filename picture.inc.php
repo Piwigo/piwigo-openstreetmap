@@ -76,9 +76,7 @@ function osm_insert_map($content)
         <a href="{$OSMLINK}" target="_blank">{"VIEW_OSM"|@translate}</a>
         {/if}
         {if $SHOWLATLON}
-        <br><span class="h-geo">{$OSMNAME} : 
-            <span class="p-latitude">{$LAT}</span>, 
-            <span class="p-longitude">{$LON}</span>
+        <br><span class="h-geo">{$OSMNAME} : <span class="p-latitude">{$LAT}</span>, <span class="p-longitude">{$LON}</span>
         </span>
         {/if}
     </dd>
