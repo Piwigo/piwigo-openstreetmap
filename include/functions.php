@@ -47,7 +47,8 @@ function osm_items_have_latlon($items)
 {
   $query = '
 SELECT id FROM '.IMAGES_TABLE.'
-WHERE latitude IS NOT NULL
+WHERE latitude IS NOT NULL and latitude IS NOT NULL
+  AND latitude != 0 AND latitude != 0
   AND id IN ('.implode(',', $items).')
 ORDER BY NULL
 LIMIT 0,1';
