@@ -8,11 +8,38 @@
       padding: 1em;
       margin: 1em;
     }
+    .content h3{
+      text-align:left;
+      margin:15px;
+    }
+    .content .section-title:hover{
+      cursor:pointer;
+    }
+    #right_pannel,
+    #left_pannel,
+    #main_menu,
+    #gpx_map,
+    #batch_manager_map{
+      display:none;
+    }
+    label{
+      cursor:initial;
+    }
+    .content h3 ~ h3{
+      margin-top:20px;
+    }
+    FIELDSET{
+      padding:0;
+      margin:0 30px;
+    }
+    FORM.properties UL{
+      margin:0 15px;
+    }
   {/literal}
 </style>
 {/html_head}
 
-This plugin display geographical location in your gallery using <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a>.
+This plugin display geographical location in your gallery using<a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a>.
 <br/><br/>
 Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" target="_blanck">plugin documentation</a> for additional information. Create an <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/issues" target="_blanck">issue</a> for support, or feedback, or feature request.
 
@@ -24,9 +51,10 @@ Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" ta
 </div>
 
 <form method="post" action="" class="properties">
+<h3><i class="icon-picture"></i>Display map on picture page</h3>
 	<fieldset>
-		<legend>{'R_MAP'|@translate}</legend>
-		<ul>
+		<legend class="section-title" onclick="toggle_accordion(this)"><i class="icon-plus"></i>Configuration if the active theme has a right pannel</legend>
+		<ul id="right_pannel">
 			<li>
 				<label>{'SHOWLOCATION'|@translate} : </label>
 				<label><input type="radio" name="osm_right_panel" value="true" {if $right_panel.enabled}checked="checked"{/if}/> {'Yes'|@translate}</label>
@@ -77,8 +105,8 @@ Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" ta
 		</ul>
 	</fieldset>
 	<fieldset>
-		<legend>{'L_MAP'|@translate}</legend>
-		<ul>
+    <legend class="section-title" onclick="toggle_accordion(this)"><i class="icon-plus"></i>Configuration if the active theme has a left pannel</legend>
+		<ul id="left_pannel">
 			<li>
 				<label>{'SHOWWORLDMAPLEFT'|@translate} : </label>
 				<label><input type="radio" name="osm_left_menu" value="true" {if $left_menu.enabled}checked="checked"{/if}/> {'Yes'|@translate}</label>
@@ -135,8 +163,9 @@ Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" ta
 			</li>
 		</ul>
 	</fieldset>
+  <h3><i class="icon-sitemap"></i>Display map on category page</h3>
 	<fieldset>
-		<legend>{'C_MAP'|@translate}</legend>
+		<legend>This will display a map where the category description is</legend>
 		<ul>
 			<li>
 				<label>{'SHOWCMAP'|@translate} : </label>
@@ -144,6 +173,13 @@ Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" ta
 				<label><input type="radio" name="osm_category_description" value="false" {if not $category_description.enabled}checked="checked"{/if}/> {'No'|@translate}</label>
 				<br/><small>{'SHOWCMAP_DESC'|@translate}</small>
 			</li>
+      <li>
+				<label>Show the map on all pages of the category : </label>
+				<label><input type="radio" name="osm_category_description" value="true" {if $category_description.enabled}checked="checked"{/if}/> {'Yes'|@translate}</label>
+				<label><input type="radio" name="osm_category_description" value="false" {if not $category_description.enabled}checked="checked"{/if}/> {'No'|@translate}</label>
+				<br/><small>This will show a map on all pages of a category, not just in the category's description</small>
+			</li>
+
 			<li>
 				<label>{'POSITION_INDEX_CMAP'|@translate} : </label>
 				<select name="osm_cat_index">
@@ -163,9 +199,11 @@ Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" ta
 			</li>
 		</ul>
 	</fieldset>
+  <h3><i class="osm-globe"></i>Other places the map is displayed</h3>
 	<fieldset>
-		<legend>{'M_MAP'|@translate}</legend>
-		<ul>
+  
+		<legend class="section-title" onclick="toggle_accordion(this)"><i class="icon-plus"></i>{'M_MAP'|@translate}</legend>
+		<ul id="main_menu">
 			<li>
 				<label>{'SHOWMMAP'|@translate} : </label>
 				<label><input type="radio" name="osm_main_menu" value="true" {if $main_menu.enabled}checked="checked"{/if}/> {'Yes'|@translate}</label>
@@ -180,8 +218,8 @@ Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" ta
 		</ul>
 	</fieldset>
 	<fieldset>
-		<legend>{'GPX_MAP'|@translate}</legend>
-		<ul>
+		<legend class="section-title" onclick="toggle_accordion(this)"><i class="icon-plus"></i>{'GPX_MAP'|@translate}</legend>
+		<ul id="gpx_map">
 			<li>
 				<label>{'HEIGHT'|@translate} : </label>
 				<input type="text" value="{$gpx.height}" name="osm_gpx_height" size="4" required placeholder="500"/>
@@ -195,8 +233,8 @@ Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" ta
 		</ul>
 	</fieldset>
 	<fieldset>
-		<legend>{'Batch Manager'|@translate} {'MAP'|@translate}</legend>
-		<ul>
+		<legend class="section-title" onclick="toggle_accordion(this)"><i class="icon-plus"></i>{'Batch Manager'|@translate} {'MAP'|@translate}</legend>
+		<ul id="batch_manager_map">
 			<li>
 				<label>{'HEIGHT'|@translate} {$GLOBAL_MODE}: </label>
 				<input type="text" value="{$batch.global_height}" name="osm_batch_global_height" size="4" required placeholder="200"/>
@@ -209,8 +247,9 @@ Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" ta
 			</li>
 		</ul>
 	</fieldset>
+
+  <h3><i class="osm-map"></i>{'G_MAP'|@translate}</h3>
 	<fieldset>
-		<legend>{'G_MAP'|@translate}</legend>
 		<ul>
 			<li>
 				<img id="tile_preview" align="right" src="">
@@ -268,11 +307,12 @@ Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" ta
 				<label><input type="radio" name="osm_attrplugin" value="false" {if not $map.attrplugin}checked="checked"{/if}/> {'No'|@translate}</label>
 				<br/><small>{'ATTRPLUGIN_DESC'|@translate}</small>
 			</li>
-
 		</ul>
-           <fieldset>
-		  <legend>{'H_PIN'|@translate}</legend>
-		  <ul>
+	</fieldset>
+
+  <h3><i class="osm-pin"></i>{'H_PIN'|@translate}</h3>
+  <fieldset>
+		<ul>
 			<li>
 				<img id="pin_preview" align="left" src="">
 				<label >{'PIN'|@translate} : </label>
@@ -315,7 +355,6 @@ Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" ta
 			</div>
 		  </ul>
 		</fieldset>
-	</fieldset>
 
 	<p>
 		<input class="submit" type="submit" value="{'Save Settings'|@translate}" name="submit"/>
@@ -432,6 +471,14 @@ function pin_preview()
 		img_elem.setAttribute("style","padding-right: 5px;");
 		img_elem.src = pins[select.selectedIndex];
 	}
+}
+
+function toggle_accordion(clicked_element){
+  console.log($(clicked_element));
+  $(clicked_element).next().toggle();
+  var icon = $(clicked_element).children("i");
+  icon.toggleClass("icon-plus");
+  icon.toggleClass("osm-minus");
 }
 
 window.onload = pin_preview();
