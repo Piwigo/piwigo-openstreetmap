@@ -1,12 +1,12 @@
 @charset "UTF-8";
-
- @font-face {
+@font-face {
   font-family: 'osm';
-  src: url('../font/osm.eot?39632956');
-  src: url('../font/osm.eot?39632956#iefix') format('embedded-opentype'),
-       url('../font/osm.woff?39632956') format('woff'),
-       url('../font/osm.ttf?39632956') format('truetype'),
-       url('../font/osm.svg?39632956#osm') format('svg');
+  src: url('../font/osm.eot?19604412');
+  src: url('../font/osm.eot?19604412#iefix') format('embedded-opentype'),
+       url('../font/osm.woff2?19604412') format('woff2'),
+       url('../font/osm.woff?19604412') format('woff'),
+       url('../font/osm.ttf?19604412') format('truetype'),
+       url('../font/osm.svg?19604412#osm') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -16,54 +16,59 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'osm';
-    src: url('../font/osm.svg?39632956#osm') format('svg');
+    src: url('../font/osm.svg?19604412#osm') format('svg');
   }
 }
 */
- 
- [class^="osm-"]:before, [class*=" osm-"]:before {
+[class^="osm-"]:before, [class*=" osm-"]:before {
   font-family: "osm";
   font-style: normal;
   font-weight: normal;
-  speak: none;
- 
+  speak: never;
+
   display: inline-block;
   text-decoration: inherit;
   width: 1em;
   margin-right: .2em;
   text-align: center;
   /* opacity: .8; */
- 
+
   /* For safety - reset parent styles, that can break glyph codes*/
   font-variant: normal;
   text-transform: none;
-     
+
   /* fix buttons height, for twitter bootstrap */
   line-height: 1em;
- 
+
   /* Animation center compensation - margins should be symmetric */
   /* remove if not needed */
   margin-left: .2em;
- 
+
   /* you can be more comfortable with increased icons size */
   /* font-size: 120%; */
- 
+
+  /* Font smoothing. That was taken from TWBS */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
   /* Uncomment for 3D effect */
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
 }
- 
-.osm-user:before { content: '🔤'; } /* '\1f524' */
-.osm-globe:before { content: '🔘'; } /* '\1f518' */
-.osm-home:before { content: '🔠'; } /* '\1f520' */
-.osm-link:before { content: '🔙'; } /* '\1f519' */
+
+.osm-minus:before { content: '\e800'; } /* '' */
+.osm-map:before { content: '\f279'; } /* '' */
 .osm-link-ext:before { content: '🔐'; } /* '\1f510' */
 .osm-pin:before { content: '🔑'; } /* '\1f511' */
 .osm-location:before { content: '🔒'; } /* '\1f512' */
-.osm-info-circled:before { content: '🔡'; } /* '\1f521' */
+.osm-direction:before { content: '🔓'; } /* '\1f513' */
 .osm-cog:before { content: '🔔'; } /* '\1f514' */
 .osm-zoom-in:before { content: '🔕'; } /* '\1f515' */
 .osm-zoom-out:before { content: '🔖'; } /* '\1f516' */
-.osm-angle-double-up:before { content: '🔣'; } /* '\1f523' */
-.osm-angle-double-down:before { content: '🔢'; } /* '\1f522' */
 .osm-left-big:before { content: '🔗'; } /* '\1f517' */
-.osm-direction:before { content: '🔓'; } /* '\1f513' */
+.osm-globe:before { content: '🔘'; } /* '\1f518' */
+.osm-link:before { content: '🔙'; } /* '\1f519' */
+.osm-home:before { content: '🔠'; } /* '\1f520' */
+.osm-info-circled:before { content: '🔡'; } /* '\1f521' */
+.osm-angle-double-down:before { content: '🔢'; } /* '\1f522' */
+.osm-angle-double-up:before { content: '🔣'; } /* '\1f523' */
+.osm-user:before { content: '🔤'; } /* '\1f524' */

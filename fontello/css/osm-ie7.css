@@ -2,26 +2,28 @@
   font-family: 'osm';
   font-style: normal;
   font-weight: normal;
- 
+
   /* fix buttons height */
   line-height: 1em;
- 
+
   /* you can be more comfortable with increased icons size */
   /* font-size: 120%; */
 }
- 
-.osm-user { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#x1f524;&nbsp;'); }
-.osm-globe { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#x1f518;&nbsp;'); }
-.osm-home { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#x1f520;&nbsp;'); }
-.osm-link { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#x1f519;&nbsp;'); }
+
+.osm-minus { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe800;&nbsp;'); }
+.osm-map { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xf279;&nbsp;'); }
 .osm-link-ext { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#x1f510;&nbsp;'); }
 .osm-pin { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#x1f511;&nbsp;'); }
 .osm-location { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#x1f512;&nbsp;'); }
-.osm-info-circled { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#x1f521;&nbsp;'); }
+.osm-direction { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#x1f513;&nbsp;'); }
 .osm-cog { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#x1f514;&nbsp;'); }
 .osm-zoom-in { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#x1f515;&nbsp;'); }
 .osm-zoom-out { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#x1f516;&nbsp;'); }
-.osm-angle-double-up { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#x1f523;&nbsp;'); }
-.osm-angle-double-down { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#x1f522;&nbsp;'); }
 .osm-left-big { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#x1f517;&nbsp;'); }
-.osm-direction { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#x1f513;&nbsp;'); }
+.osm-globe { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#x1f518;&nbsp;'); }
+.osm-link { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#x1f519;&nbsp;'); }
+.osm-home { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#x1f520;&nbsp;'); }
+.osm-info-circled { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#x1f521;&nbsp;'); }
+.osm-angle-double-down { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#x1f522;&nbsp;'); }
+.osm-angle-double-up { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#x1f523;&nbsp;'); }
+.osm-user { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#x1f524;&nbsp;'); }
