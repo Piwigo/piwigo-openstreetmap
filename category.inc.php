@@ -84,7 +84,7 @@ function osm_render_category()
             if ($index <= 1)
             {
               // From index category comment at L300
-              if ($page['start']==0 and !isset($page['chronology_field']) )
+              if (($page['start']==0 or $conf['album_description_on_all_pages']) and !isset($page['chronology_field']) and !empty($page['comment']) )
               {
                 if (empty($page['comment']))
                    $page['comment'] = $osm_content;
