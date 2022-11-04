@@ -1,18 +1,19 @@
 @charset "UTF-8";
 
- 
-.osm-user:before { content: '🔤'; } /* '\1f524' */
-.osm-globe:before { content: '🔘'; } /* '\1f518' */
-.osm-home:before { content: '🔠'; } /* '\1f520' */
-.osm-link:before { content: '🔙'; } /* '\1f519' */
+.osm-minus:before { content: '\e800'; } /* '' */
+.osm-map:before { content: '\f279'; } /* '' */
 .osm-link-ext:before { content: '🔐'; } /* '\1f510' */
 .osm-pin:before { content: '🔑'; } /* '\1f511' */
 .osm-location:before { content: '🔒'; } /* '\1f512' */
-.osm-info-circled:before { content: '🔡'; } /* '\1f521' */
+.osm-direction:before { content: '🔓'; } /* '\1f513' */
 .osm-cog:before { content: '🔔'; } /* '\1f514' */
 .osm-zoom-in:before { content: '🔕'; } /* '\1f515' */
 .osm-zoom-out:before { content: '🔖'; } /* '\1f516' */
-.osm-angle-double-up:before { content: '🔣'; } /* '\1f523' */
-.osm-angle-double-down:before { content: '🔢'; } /* '\1f522' */
 .osm-left-big:before { content: '🔗'; } /* '\1f517' */
-.osm-direction:before { content: '🔓'; } /* '\1f513' */
+.osm-globe:before { content: '🔘'; } /* '\1f518' */
+.osm-link:before { content: '🔙'; } /* '\1f519' */
+.osm-home:before { content: '🔠'; } /* '\1f520' */
+.osm-info-circled:before { content: '🔡'; } /* '\1f521' */
+.osm-angle-double-down:before { content: '🔢'; } /* '\1f522' */
+.osm-angle-double-up:before { content: '🔣'; } /* '\1f523' */
+.osm-user:before { content: '🔤'; } /* '\1f524' */
