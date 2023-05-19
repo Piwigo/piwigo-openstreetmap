@@ -144,7 +144,7 @@ if (isset($_POST['add']) and !empty($_POST['add_place']))
 }
 
 // all places
-$query = 'SELECT * FROM `'.osm_place_table.'`;';
+$query = 'SELECT * FROM `'.osm_place_table.'` order by name;';
 $result = pwg_query($query);
 $all_places = array();
 while ($place = pwg_db_fetch_assoc($result))

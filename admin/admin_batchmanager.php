@@ -70,6 +70,7 @@ function osm_loc_end_element_set_global()
 	$query = '
 	SELECT id, name, latitude, longitude
 	  FROM '.osm_place_table.'
+          ORDER BY name
 	;';
 	$result = pwg_query($query);
 	// JS for the template
