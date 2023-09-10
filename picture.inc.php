@@ -59,7 +59,7 @@ function osm_insert_map($content)
 
     $search = '#<div id="'. $conf['osm_conf']['right_panel']['add_before'] .'" class="imageInfo">#';
     $replacement = '
-{if $OSMJS}
+{if isset($OSMJS)}
 <div id="map-info" class="imageInfo">
     <dt {$OSMNAMECSS}>{$OSMNAME}</dt>
     <dd>
