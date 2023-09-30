@@ -68,6 +68,12 @@ Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" ta
 				<label><input type="radio" name="osm_showosm" value="false" {if not $right_panel.showosm}checked="checked"{/if}/> {'No'|@translate}</label>
 				<br/><small>{'SHOWOSM_DESC'|@translate}</small>
 			</li>
+			<li>
+				<label>{'SHOWLATLON'|@translate} : </label>
+				<label><input type="radio" name="osm_showlatlon" value="true" {if $right_panel.showlatlon}checked="checked"{/if}/> {'Yes'|@translate}</label>
+				<label><input type="radio" name="osm_showlatlon" value="false" {if not $right_panel.showlatlon}checked="checked"{/if}/> {'No'|@translate}</label>
+				<br/><small>{'SHOWLATLON_DESC'|@translate}</small>
+			</li>
 		</ul>
 	</fieldset>
 	<fieldset>

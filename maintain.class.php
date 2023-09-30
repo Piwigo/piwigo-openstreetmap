@@ -17,6 +17,7 @@ class piwigo_openstreetmap_maintain extends PluginMaintain
       'link' => 'Location',
       'linkcss' => null,
       'showosm' => true,
+      'showlatlon'    => false,
       ),
     'left_menu' => array(
       'enabled' => true,

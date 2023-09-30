@@ -15,6 +15,8 @@ $lang['RIGHTLINKCSS'] = 'Custom CSS';
 $lang['RIGHTLINKCSS_DESC'] = 'Style de CSS à appliquer au titre.';
 $lang['SHOWOSM'] = 'Affiche \'Voir sur OpenStreetMap\'';
 $lang['SHOWOSM_DESC'] = 'Ajoute un lien après la carte pour être visualiser sur le site web OpenStreetMap.';
+$lang['SHOWLATLON'] = "Affiche la latitude et la longitude";
+$lang['SHOWLATLON_DESC'] = "Ajoute les valeurs de latitude et longitude à côté de la carte.";
 
 $lang['L_MAP'] = 'Configuration du menu de gauche';
 $lang['SHOWWORLDMAPLEFT'] = 'Ajoute un menu "carte mondiale" sur la gauche';
