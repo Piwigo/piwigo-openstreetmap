@@ -215,7 +215,7 @@ function osm_get_items($page)
     i.width
         FROM ".IMAGES_TABLE." AS i
             INNER JOIN (".IMAGE_CATEGORY_TABLE." AS ic ".$INNER_JOIN.") ON i.id = ic.image_id
-            WHERE ".$LIMIT_SEARCH." i.latitude IS NOT NULL AND i.longitude IS NOT NULL ".$forbidden." GROUP BY i.id;";
+            WHERE ".$LIMIT_SEARCH." i.latitude IS NOT NULL AND i.longitude IS NOT NULL AND latitude != 0 AND latitude != 0 ".$forbidden." GROUP BY i.id;";
     //echo $query;
     $php_data = array_from_query($query);
     //print_r($php_data);
