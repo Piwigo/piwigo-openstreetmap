@@ -204,7 +204,7 @@ if ( $tag_groups == 1 and isset($_POST['osm_tag_submit']) )
 					$tag_ids = array();
 					foreach ($tag_names as $tag_name)
 					{
-						array_push( $tag_ids, tag_id_from_tag_name($sync_options['osm_tag_group'].":".$tag_name) );
+						array_push( $tag_ids, tag_id_from_tag_name($sync_options['osm_tag_group'].":".pwg_db_real_escape_string($tag_name)) );
 					}
 					/* Assign tags to image */
 					//print_r($tag_ids);
