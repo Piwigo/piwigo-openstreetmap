@@ -152,3 +152,26 @@ $lang['OSM_PLACES'] = '
 Lugares';
 $lang['PLACE_SELECTION'] = '
 Seleção de lugar';
+$lang['SUBURB'] = 'Subúrbio';
+$lang['USE_AS_TAG'] = 'Usar como etiqueta';
+$lang['USE_AS_TAG_HELP'] = 'Crie uma tag usando um ou vários valores da parte do endereço';
+$lang['AUTO_CENTER'] = 'Centro automático';
+$lang['AUTO_CENTER_HELP'] = 'O mapa será automaticamente centralizado e ampliado para conter todas as informações.';
+$lang['CITY'] = 'Cidade';
+$lang['CITY_DISTRICT'] = 'Distrito da cidade';
+$lang['COORDS_ERASED'] = 'Coordenadas apagadas';
+$lang['COUNTRY'] = 'País';
+$lang['COUNTRY_CODE'] = 'Código do país';
+$lang['COUNTY'] = 'Condado';
+$lang['DELETE_COORDS_CONFIRMATION'] = 'Tem certeza? Latitude e longitude serão excluídas.';
+$lang['EDIT_PLACES_LEGEND'] = 'Editar lugares';
+$lang['EDIT_PLACE_CURRENT'] = 'Atual';
+$lang['EDIT_PLACE_NEW'] = 'Novo';
+$lang['EMPTY_COORD_VAL_WARNING'] = 'Valores vazios apagarão as coordenadas';
+$lang['ERASE_COORDS'] = 'Apagar coordenadas';
+$lang['LANGUAGE_HELP'] = 'Obtenha o resultado em um idioma específico, principalmente para os campos país e cidade, por exemplo: (EN:Japão, ES:Japón, FR:Japon, JP:日本)';
+$lang['NAME_OF_TAG_GROUP'] = 'Nome do grupo de tags';
+$lang['POSTCODE'] = 'Código postal';
+$lang['SHOWLATLON'] = 'Exibir latitude e longitude';
+$lang['SHOWLATLON_DESC'] = 'Adicione valores de latitude e longitude ao lado do mapa.';
+$lang['STATE'] = 'Estado';
