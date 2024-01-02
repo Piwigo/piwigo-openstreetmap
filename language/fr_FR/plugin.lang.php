@@ -156,3 +156,4 @@ $lang['STATE'] = 'État';
 $lang['SUBURB'] = 'Faubourg';
 $lang['USE_AS_TAG'] = 'Utiliser comme étiquette';
 $lang['USE_AS_TAG_HELP'] = 'Créer une étiquette en utilisant une ou plusieurs valeurs de la partie adresse';
+$lang['DISPLAY_GPX_FILE'] = 'Sélectionnez un fichier GPX à afficher sur toutes les cartes de description des catégorie';

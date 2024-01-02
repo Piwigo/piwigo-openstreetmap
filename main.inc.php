@@ -47,6 +47,9 @@ add_event_handler('loc_begin_index_category_thumbnails', 'osm_index_cat_thumbs_d
 // Hook to add worldmap link on the index thumbnails page
 add_event_handler('loc_end_index', 'osm_end_index' );
 
+// Hook to watch if GPX file selected to be displayed on map is deleted
+add_event_handler('begin_delete_elements', 'osm_begin_delete_elements' );
+
 function osm_index_cat_thumbs_displayed()
 {
 	global $page;
@@ -124,6 +127,20 @@ function osm_blockmanager_apply($mb_arr)
 function osm_strbool($value)
 {
 	return $value ? 'true' : 'false';
+}
+
+function osm_begin_delete_elements($ids)
+{
+  global $conf;
+
+  $osm_gpx_file_to_display = $conf['osm_conf']['category_description']['display_gpx'];
+
+  if(in_array($osm_gpx_file_to_display, $ids))
+  {
+    $conf['osm_conf']['category_description']['display_gpx'] = null;
+    conf_update_param('osm_conf', serialize($conf['osm_conf']));
+  }
+
 }
 
 ?>

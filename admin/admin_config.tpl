@@ -161,6 +161,15 @@ Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" ta
 				<input type="text" value="{$category_description.width}" name="osm_cat_width" size="4" required placeholder="auto"/>
 				<br/><small>{'WIDTH_DESC'|@translate}</small>
 			</li>
+      <li>
+        <label>{'DISPLAY_GPX_FILE'|@translate}</label>
+        <select name="osm_display_gpx">
+          <option value="">--</option>
+{foreach from=$AVAILABLE_GPX item=GPX_FILE}
+          <option value="{$GPX_FILE.id}" {if $category_description.display_gpx == $GPX_FILE.id} selected {/if}>{$GPX_FILE.name}</option>
+{/foreach}
+				</select><br>
+      </li>
 		</ul>
 	</fieldset>
 	<fieldset>

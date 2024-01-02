@@ -127,6 +127,34 @@ $available_layout = array(
 //    '4' => 'osm-map4.tpl',
 );
 
+// $available_gpx = array();
+$forbidden = get_sql_condition_FandF(
+  array
+  (
+      'forbidden_categories' => 'ic.category_id',
+      'visible_categories' => 'ic.category_id',
+      'visible_images' => 'i.id'
+  ),
+  "\n AND"
+);
+
+$INNER_JOIN = "INNER JOIN ".CATEGORIES_TABLE." AS c ON ic.category_id = c.id";
+
+$query="SELECT i.path, i.name, i.id FROM ".IMAGES_TABLE." AS i
+INNER JOIN (".IMAGE_CATEGORY_TABLE." AS ic ".$INNER_JOIN.") ON i.id = ic.image_id
+WHERE `path` LIKE '%.gpx' ".$forbidden." ";
+
+$available_gpx = array();
+
+$result = pwg_query($query);
+while ($row = pwg_db_fetch_array($result))
+{
+  $available_gpx[ $row['id'] ] = array(
+    "id" => $row['id'],
+    "name" => $row['name'],
+  );
+}
+
 $query = 'SELECT COUNT(*) FROM '.IMAGES_TABLE.' WHERE `latitude` IS NOT NULL and `longitude` IS NOT NULL ';
 list($nb_geotagged) = pwg_db_fetch_array( pwg_query($query) );
 
@@ -173,24 +201,25 @@ if (isset($_POST['submit']) && !empty($_POST['osm_height']))
             'autocenter'        => get_boolean($_POST['osm_left_autocenter']),
             'layout'            => $_POST['osm_left_layout'],
 			),
-        'category_description' => array(
-            'enabled' => get_boolean($_POST['osm_category_description']),
-            'height'  => $_POST['osm_cat_height'],
-            'width'   => $_POST['osm_cat_width'],
-            'index'   => $_POST['osm_cat_index'],
-            ),
+  'category_description' => array(
+            'enabled'     => get_boolean($_POST['osm_category_description']),
+            'height'      => $_POST['osm_cat_height'],
+            'width'       => $_POST['osm_cat_width'],
+            'index'       => $_POST['osm_cat_index'],
+            'display_gpx' => $_POST['osm_display_gpx'],
+      ),
 	'main_menu' => array(
             'enabled' => get_boolean($_POST['osm_main_menu']),
             'height'  => $_POST['osm_menu_height'],
-            ),
-        'gpx' => array(
+      ),
+  'gpx' => array(
             'height' => $_POST['osm_gpx_height'],
             'width'  => $_POST['osm_gpx_width'],
-            ),
-        'batch' => array(
+      ),
+  'batch' => array(
             'global_height' => $_POST['osm_batch_global_height'],
             'unit_height'  => $_POST['osm_batch_unit_height'],
-            ),
+      ),
 	'map' => array(
             'baselayer'          => $_POST['osm_baselayer'],
             'custombaselayer'    => $_POST['osm_custombaselayer'],
@@ -199,8 +228,8 @@ if (isset($_POST['submit']) && !empty($_POST['osm_height']))
             'attrleaflet'        => get_boolean($_POST['osm_attrleaflet']),
             'attrimagery'        => get_boolean($_POST['osm_attrimagery']),
             'attrplugin'         => get_boolean($_POST['osm_attrplugin']),
-            'mapquestapi'        => $_POST['osm_mapquestapi'],
-            ),
+            'mapquestapi'        => isset($_POST['osm_mapquestapi']) ? $_POST['osm_mapquestapi'] : '',
+      ),
 	'pin' => array(
             'pin'            => $_POST['osm_pin'],
             'pinpath'        => $_POST['osm_pinpath'],
@@ -231,6 +260,7 @@ $template->assign(
         'AVAILABLE_PIN'        => $available_pin,
         'AVAILABLE_POPUP'      => $available_popup,
         'AVAILABLE_LAYOUT'     => $available_layout,
+        'AVAILABLE_GPX'        => $available_gpx,
         'NB_GEOTAGGED'         => $nb_geotagged,
         'OSM_PATH'             => OSM_PATH,
         'GLOBAL_MODE'          => l10n('global mode'),

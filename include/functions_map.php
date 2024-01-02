@@ -55,6 +55,8 @@ function osmcopyright($attrleaflet, $attrimagery, $attrmodule, $bl, $custombasel
 
 function osm_get_gps($page)
 {
+  global $conf;
+
     // Limit search by category, by tag, by smartalbum
     $LIMIT_SEARCH="";
     $INNER_JOIN="";
@@ -90,11 +92,23 @@ function osm_get_gps($page)
         "\n AND"
     );
 
-    /* Get all GPX tracks */
-    $query="SELECT i.path FROM ".IMAGES_TABLE." AS i
-            INNER JOIN (".IMAGE_CATEGORY_TABLE." AS ic ".$INNER_JOIN.") ON i.id = ic.image_id
-            WHERE ".$LIMIT_SEARCH." `path` LIKE '%.gpx' ".$forbidden." ";
+    // Get id of gpx file set in osm settings
+    $osm_gpx_file_to_display = $conf['osm_conf']['category_description']['display_gpx'];
 
+    if(empty($osm_gpx_file_to_display))
+    {
+        /* Display GPX tracks only where GPX file is and in parent categories, default usage*/
+        $query = "SELECT i.path FROM ".IMAGES_TABLE." AS i
+          INNER JOIN (".IMAGE_CATEGORY_TABLE." AS ic ".$INNER_JOIN.") ON i.id = ic.image_id
+          WHERE ".$LIMIT_SEARCH." `path` LIKE '%.gpx' ".$forbidden." ;";;
+    }
+    else if (!empty($osm_gpx_file_to_display))
+    {
+        /* Display one GPX track everywhere no matter what album it is in*/
+        $query="SELECT i.path, i.id FROM ".IMAGES_TABLE." AS i
+        WHERE `path` LIKE '%.gpx' AND (`id` = ".$osm_gpx_file_to_display.");";
+    }
+    
     return array_from_query($query, 'path');
 }
 
@@ -217,7 +231,6 @@ function osm_get_items($page)
         FROM ".IMAGES_TABLE." AS i
             INNER JOIN (".IMAGE_CATEGORY_TABLE." AS ic ".$INNER_JOIN.") ON i.id = ic.image_id
             WHERE ".$LIMIT_SEARCH." i.latitude IS NOT NULL AND i.longitude IS NOT NULL AND latitude != 0 AND latitude != 0 ".$forbidden." GROUP BY i.id;";
-    //echo $query;
     $php_data = array_from_query($query);
     //print_r($php_data);
     $js_data = array();
