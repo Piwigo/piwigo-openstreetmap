@@ -150,3 +150,4 @@ $lang['USE_AS_TAG_HELP'] = 'Create tag using one or multiple value from the addr
 $lang['LANGUAGE_HELP'] = 'Fetch the result in a specific language, mostly for the country and city fields, eg: (EN:Japan, ES:Japón, FR:Japon, JP:日本)';
 $lang['AUTO_CENTER'] = 'Auto center';
 $lang['AUTO_CENTER_HELP'] = 'The map will be automatically centered and zoomed to contain all information.';
+$lang['DISPLAY_GPX_FILE'] = 'Select a GPX file to display on all category description maps';
