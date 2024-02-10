@@ -171,3 +171,4 @@ $lang['POSTCODE'] = 'Postkod';
 $lang['SHOWLATLON'] = 'Visa latitud och longitud';
 $lang['SHOWLATLON_DESC'] = 'Lägg till latitud- och longitudvärden bredvid kartan.';
 $lang['STATE'] = 'Län';
+$lang['DISPLAY_GPX_FILE'] = 'Välj en GPX-fil att visa på alla kategoribeskrivningskartor';
