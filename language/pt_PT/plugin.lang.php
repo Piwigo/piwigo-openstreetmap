@@ -171,3 +171,4 @@ $lang['STATE'] = 'Estado';
 $lang['SUBURB'] = 'Subúrbio';
 $lang['USE_AS_TAG'] = 'Usar como etiqueta';
 $lang['USE_AS_TAG_HELP'] = 'Crie uma etiqueta usando um ou vários valores da parte do endereço';
+$lang['DISPLAY_GPX_FILE'] = 'Selecione um arquivo GPX para exibir em todos os mapas de descrição de categoria';
