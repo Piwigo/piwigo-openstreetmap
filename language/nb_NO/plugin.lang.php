@@ -90,7 +90,6 @@ $lang['MAP'] = 'Kart';
 $lang['MAPICONSBLEU'] = 'Kart ikon blå';
 $lang['MAPICONSGREEN'] = 'Kart ikon grønn';
 $lang['METERS_FROM_POINT'] = 'Du er innenfor %s meter fra dette punktet';
-Du er innenfor %s meter fra dette punktet';
 $lang['MOUSE_OVER'] = 'Mus over en sektor for å se grensene, og klikke på en sektor for å zoome til disse grensene';
 $lang['M_MAP'] = 'Hoved meny';
 $lang['NEVER'] = 'ingen sprettopp';
