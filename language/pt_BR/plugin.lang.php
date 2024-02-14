@@ -175,3 +175,4 @@ $lang['POSTCODE'] = 'Código postal';
 $lang['SHOWLATLON'] = 'Exibir latitude e longitude';
 $lang['SHOWLATLON_DESC'] = 'Adicione valores de latitude e longitude ao lado do mapa.';
 $lang['STATE'] = 'Estado';
+$lang['DISPLAY_GPX_FILE'] = 'Selecione um arquivo GPX para exibir em todos os mapas de descrição de categoria';
