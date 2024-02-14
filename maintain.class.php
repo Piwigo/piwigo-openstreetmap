@@ -37,6 +37,7 @@ class piwigo_openstreetmap_maintain extends PluginMaintain
       'index' => 0,
       'height' => '200',
       'width' => 'auto',
+      'display_gpx' => null,
       ),
     'main_menu' => array(
       'enabled' => false,
