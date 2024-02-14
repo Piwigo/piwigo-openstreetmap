@@ -194,5 +194,8 @@ SELECT id, name, latitude, longitude
   }
 }
 
+$template->assign(array(
+	'PWG_TOKEN' => get_pwg_token(),
+));
 
 ?>
