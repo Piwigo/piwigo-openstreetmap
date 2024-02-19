@@ -171,3 +171,4 @@ $lang['POSTCODE'] = 'Postnummer';
 $lang['SHOWLATLON'] = 'Vis bredde- og lengdegrad';
 $lang['SHOWLATLON_DESC'] = 'Legg til bredde- og lengdegradsverdier ved siden av kartet.';
 $lang['STATE'] = 'Stat';
+$lang['DISPLAY_GPX_FILE'] = 'Velg en GPX-fil som skal vises på alle kategoribeskrivelseskart';
