@@ -156,3 +156,4 @@ $lang['POSTCODE'] = 'Póstnúmer';
 $lang['SHOWLATLON'] = 'Birta breiddar- og lengdargráðu';
 $lang['SHOWLATLON_DESC'] = 'Bættu við breiddar- og lengdargráðugildum við hliðina á kortinu.';
 $lang['STATE'] = 'Landsvæði';
+$lang['DISPLAY_GPX_FILE'] = 'Veldu GPX skrá til að birta í öllum flokkum lýsingarkorta';
