@@ -171,3 +171,4 @@ $lang['POSTCODE'] = 'PSČ';
 $lang['SHOWLATLON'] = 'Zobrazte zemepisnú šírku a dĺžku';
 $lang['SHOWLATLON_DESC'] = 'Pridajte hodnoty zemepisnej šírky a dĺžky vedľa mapy.';
 $lang['STATE'] = 'Štát';
+$lang['DISPLAY_GPX_FILE'] = 'Vyberte súbor GPX, ktorý sa má zobraziť na všetkých mapách s popisom kategórie';
