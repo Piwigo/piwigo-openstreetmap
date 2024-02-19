@@ -171,3 +171,4 @@ $lang['POSTCODE'] = 'Posta kodu';
 $lang['SHOWLATLON'] = 'Enlem ve boylamı göster';
 $lang['SHOWLATLON_DESC'] = 'Haritanın yanına enlem ve boylam değerlerini eklenecek.';
 $lang['STATE'] = 'Eyalet';
+$lang['DISPLAY_GPX_FILE'] = 'Tüm kategori tanıtma haritalarında görüntülenecek bir GPX dosyası seçin';
