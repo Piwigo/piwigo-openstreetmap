@@ -171,3 +171,4 @@ $lang['USE_AS_TAG'] = 'Utilizzare come tag';
 $lang['USE_AS_TAG_HELP'] = 'Crea tag utilizzando uno o più valori dalla parte dell\'indirizzo';
 $lang['SHOWLATLON'] = 'Mostra latitudine e longitudine';
 $lang['SHOWLATLON_DESC'] = 'Aggiunge i valori di latitudine e longitudine accanto alla mappa.';
+$lang['DISPLAY_GPX_FILE'] = 'Seleziona un file GPX da visualizzare su tutte le mappe descrittive delle categorie.';
