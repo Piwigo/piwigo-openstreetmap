@@ -156,3 +156,4 @@ $lang['EDIT_PLACE_CURRENT'] = 'Aktuální';
 $lang['EDIT_PLACE_NEW'] = 'Nový';
 $lang['EMPTY_COORD_VAL_WARNING'] = 'Prázdné hodnoty smažou souřadnice';
 $lang['ERASE_COORDS'] = 'Smazat souřadnice';
+$lang['DISPLAY_GPX_FILE'] = 'Vyberte soubor GPX, který se má zobrazit na všech mapách v popisech kategorií.';
