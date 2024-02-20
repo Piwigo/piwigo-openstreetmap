@@ -171,3 +171,4 @@ $lang['EDIT_PLACE_CURRENT'] = 'Huidige';
 $lang['EDIT_PLACES_LEGEND'] = 'Plaatsen bewerken';
 $lang['DELETE_COORDS_CONFIRMATION'] = 'Weet je het zeker? Lengte- en breedtegraad worden verwijderd.';
 $lang['COUNTY'] = 'Provincie';
+$lang['DISPLAY_GPX_FILE'] = 'Selecteer een GPX-bestand om op alle categoriebeschrijvingskaarten weer te geven';
