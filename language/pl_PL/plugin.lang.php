@@ -171,3 +171,4 @@ $lang['COUNTRY_CODE'] = 'Kod państwa';
 $lang['AUTO_CENTER'] = 'Automatyczne wyśrodkowanie';
 $lang['AUTO_CENTER_HELP'] = 'Mapa zostanie automatycznie wyśrodkowana, a powiększenie dopasowane, aby uwzględnić wszystkie informacje.';
 $lang['CITY'] = 'Miasto';
+$lang['DISPLAY_GPX_FILE'] = 'Wybierz plik GPX do wyświetlenia na mapach opisów wszystkich kategorii';
