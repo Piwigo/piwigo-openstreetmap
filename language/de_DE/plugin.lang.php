@@ -171,3 +171,4 @@ $lang['DELETE_COORDS_CONFIRMATION'] = 'Sind Sie sicher? Breitengrad und Längeng
 $lang['EDIT_PLACES_LEGEND'] = 'Orte bearbeiten';
 $lang['EDIT_PLACE_CURRENT'] = 'Aktuell';
 $lang['EDIT_PLACE_NEW'] = 'Neu';
+$lang['DISPLAY_GPX_FILE'] = 'Wählen Sie eine GPX-Datei aus, die auf allen Karten mit Kategoriebeschreibung angezeigt werden soll.';
