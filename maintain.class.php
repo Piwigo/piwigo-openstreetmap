@@ -159,7 +159,7 @@ else
   include_once( PHPWG_ROOT_PATH. 'plugins/piwigo-openstreetmap/osmmap3.php');
 ?>
 EOF;
-      if (!file_put_contents(PHPWG_ROOT_PATH.'osmmap.php', $c)) {
+      if (!file_put_contents(PHPWG_ROOT_PATH."/".$conf['data_location'].'osmmap.php', $c)) {
         error_reporting($_error_reporting);
         throw new SmartyException("unable to write file {$PHPWG_ROOT_PATH}osmmap.php");
       }      

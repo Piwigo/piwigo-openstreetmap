@@ -575,6 +575,7 @@ function osm_gen_template($conf, $js, $js_data, $tmpl, $template)
             'TOTAL'             => sprintf( l10n('ITEMS'), count($js_data) ),
             'OSMJS'				=> $js,
             'MYROOT_URL'		=> get_absolute_root_url(),
+            'DATA_URL'          => get_absolute_root_url().$conf['data_location'],
             'default_baselayer' => $conf['osm_conf']['map']['baselayer'],
         )
     );
