@@ -39,21 +39,21 @@
 </style>
 {/html_head}
 
-This plugin display geographical location in your gallery using<a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a>.
+{'This plugin display geographical location in your gallery using <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a>.'|translate}
 <br/><br/>
-Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" target="_blanck">plugin documentation</a> for additional information. Create an <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/issues" target="_blanck">issue</a> for support, or feedback, or feature request.
+{'Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" target="_blanck">plugin documentation</a> for additional information. Create an <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/issues" target="_blanck">issue</a> for support, or feedback, or feature request.'|translate}
 
 <div class="osm_layout">
   <legend>{'Statistics'|@translate}</legend>
   <ul>
-    <li class="update_summary_new">{$NB_GEOTAGGED} geotagged items in your gallery</li>
+    <li class="update_summary_new">{'%d geotagged items in your gallery'|translate:$NB_GEOTAGGED}</li>
   </ul>
 </div>
 
 <form method="post" action="" class="properties">
-<h3><i class="icon-picture"></i>Display map on picture page</h3>
+<h3><i class="icon-picture"></i>{'Display map on picture page'|translate}</h3>
 	<fieldset>
-		<legend class="section-title" onclick="toggle_accordion(this)"><i class="icon-plus"></i>Configuration if the active theme has a right pannel</legend>
+		<legend class="section-title" onclick="toggle_accordion(this)"><i class="icon-plus"></i>{'Configuration if the active theme has a right pannel'|translate}</legend>
 		<ul id="right_pannel">
 			<li>
 				<label>{'SHOWLOCATION'|@translate} : </label>
@@ -105,7 +105,7 @@ Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" ta
 		</ul>
 	</fieldset>
 	<fieldset>
-    <legend class="section-title" onclick="toggle_accordion(this)"><i class="icon-plus"></i>Configuration if the active theme has a left pannel</legend>
+    <legend class="section-title" onclick="toggle_accordion(this)"><i class="icon-plus"></i>{'Configuration if the active theme has a left pannel'|translate}</legend>
 		<ul id="left_pannel">
 			<li>
 				<label>{'SHOWWORLDMAPLEFT'|@translate} : </label>
@@ -163,9 +163,9 @@ Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" ta
 			</li>
 		</ul>
 	</fieldset>
-  <h3><i class="icon-sitemap"></i>Display map on category page</h3>
+  <h3><i class="icon-sitemap"></i>{'Display map on category page'|translate}</h3>
 	<fieldset>
-		<legend>This will display a map where the category description is</legend>
+		<legend>{'This will display a map where the category description is'|translate}</legend>
 		<ul>
 			<li>
 				<label>{'SHOWCMAP'|@translate} : </label>
@@ -174,10 +174,10 @@ Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" ta
 				<br/><small>{'SHOWCMAP_DESC'|@translate}</small>
 			</li>
       <li>
-				<label>Show the map on all pages of the category : </label>
+				<label>{'Show the map on all pages of the category : '|translate}</label>
 				<label><input type="radio" name="osm_category_description" value="true" {if $category_description.enabled}checked="checked"{/if}/> {'Yes'|@translate}</label>
 				<label><input type="radio" name="osm_category_description" value="false" {if not $category_description.enabled}checked="checked"{/if}/> {'No'|@translate}</label>
-				<br/><small>This will show a map on all pages of a category, not just in the category's description</small>
+				<br/><small>{'This will show a map on all pages of a category, not just in the category\'s description'|translate}</small>
 			</li>
 
 			<li>
@@ -208,7 +208,7 @@ Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" ta
       </li>
 		</ul>
 	</fieldset>
-  <h3><i class="osm-globe"></i>Other places the map is displayed</h3>
+  <h3><i class="osm-globe"></i>{'Other places the map is displayed'|translate}</h3>
 	<fieldset>
   
 		<legend class="section-title" onclick="toggle_accordion(this)"><i class="icon-plus"></i>{'M_MAP'|@translate}</legend>

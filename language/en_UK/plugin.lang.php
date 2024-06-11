@@ -151,3 +151,15 @@ $lang['LANGUAGE_HELP'] = 'Fetch the result in a specific language, mostly for th
 $lang['AUTO_CENTER'] = 'Auto center';
 $lang['AUTO_CENTER_HELP'] = 'The map will be automatically centered and zoomed to contain all information.';
 $lang['DISPLAY_GPX_FILE'] = 'Select a GPX file to display on all category description maps';
+
+$lang['This plugin display geographical location in your gallery using <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a>.'] = 'This plugin display geographical location in your gallery using <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a>.';
+$lang['Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" target="_blanck">plugin documentation</a> for additional information. Create an <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/issues" target="_blanck">issue</a> for support, or feedback, or feature request.'] = 'Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" target="_blanck">plugin documentation</a> for additional information. Create an <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/issues" target="_blanck">issue</a> for support, or feedback, or feature request.';
+$lang['%d geotagged items in your gallery'] = '%d geotagged items in your gallery';
+$lang['Display map on picture page'] = 'Display map on picture page';
+$lang['Configuration if the active theme has a right pannel'] = 'Configuration if the active theme has a right pannel';
+$lang['Configuration if the active theme has a left pannel'] = 'Configuration if the active theme has a left pannel';
+$lang['Display map on category page'] = 'Display map on category page';
+$lang['This will display a map where the category description is'] = 'This will display a map where the category description is';
+$lang['Show the map on all pages of the category : '] = 'Show the map on all pages of the category : ';
+$lang['This will show a map on all pages of a category, not just in the category\'s description'] = 'This will show a map on all pages of a category, not just in the category\'s description';
+$lang['Other places the map is displayed'] = 'Other places the map is displayed';

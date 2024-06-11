@@ -157,3 +157,15 @@ $lang['SUBURB'] = 'Faubourg';
 $lang['USE_AS_TAG'] = 'Utiliser comme étiquette';
 $lang['USE_AS_TAG_HELP'] = 'Créer une étiquette en utilisant une ou plusieurs valeurs de la partie adresse';
 $lang['DISPLAY_GPX_FILE'] = 'Sélectionnez un fichier GPX à afficher sur toutes les cartes de description des catégorie';
+
+$lang['This plugin display geographical location in your gallery using <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a>.'] = 'Ce plugin affiche la localisation géographique dans votre galerie en utilisant <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a>.';
+$lang['Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" target="_blanck">plugin documentation</a> for additional information. Create an <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/issues" target="_blanck">issue</a> for support, or feedback, or feature request.'] = 'Reportez-vous à la <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" target="_blanck">documentation du plug-in</a> pour plus d\'informations. Créez un <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/issues" target="_blanck">problème</a> pour obtenir de l\'aide, des commentaires ou une demande de fonctionnalité.';
+$lang['%d geotagged items in your gallery'] = '%d éléments géolocalisés dans votre galerie';
+$lang['Display map on picture page'] = 'Afficher la carte sur la page photo';
+$lang['Configuration if the active theme has a right pannel'] = 'Configuration si le thème actif a un panneau de droite';
+$lang['Configuration if the active theme has a left pannel'] = 'Configuration si le thème actif a un panneau de gauche';
+$lang['Display map on category page'] = 'Afficher la carte sur la page de catégorie';
+$lang['This will display a map where the category description is'] = 'Cela affichera une carte où la description de la catégorie est';
+$lang['Show the map on all pages of the category : '] = 'Afficher la carte sur toutes les pages de la catégorie :';
+$lang['This will show a map on all pages of a category, not just in the category\'s description'] = 'Cela affichera une carte sur toutes les pages d\'une catégorie, pas seulement dans la description de la catégorie.';
+$lang['Other places the map is displayed'] = 'Autres endroits où la carte est affichée';
