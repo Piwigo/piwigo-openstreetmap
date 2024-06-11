@@ -93,7 +93,10 @@ function osm_get_gps($page)
     );
 
     // Get id of gpx file set in osm settings
-    $osm_gpx_file_to_display = $conf['osm_conf']['category_description']['display_gpx'];
+    if (isset($conf['osm_conf']['category_description']['display_gpx']))
+    {
+      $osm_gpx_file_to_display = $conf['osm_conf']['category_description']['display_gpx'] ;
+    }
 
     if(empty($osm_gpx_file_to_display))
     {
