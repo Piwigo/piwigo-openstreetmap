@@ -267,7 +267,7 @@
 					{html_options options=$AVAILABLE_BASELAYER selected=$map.baselayer}
 				</select>
 				<br/><small>{'BASELAYER_DESC'|@translate}</small><br/>
-				<small>Check out <a href="http://leaflet-extras.github.io/leaflet-providers/preview/" target="_blank">this example</a> with half a hundred different layers to choose from.</small>
+				<small>{'Check out <a href="http://leaflet-extras.github.io/leaflet-providers/preview/" target="_blank">this example</a> with half a hundred different layers to choose from.'|translate}</small>
 			</li>
 			<div id="custom-tile-toggle" style="visibility:hidden; width:0px; height:0px; display:none;">
 				<fieldset>

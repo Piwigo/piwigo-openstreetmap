@@ -163,3 +163,4 @@ $lang['This will display a map where the category description is'] = 'This will 
 $lang['Show the map on all pages of the category : '] = 'Show the map on all pages of the category : ';
 $lang['This will show a map on all pages of a category, not just in the category\'s description'] = 'This will show a map on all pages of a category, not just in the category\'s description';
 $lang['Other places the map is displayed'] = 'Other places the map is displayed';
+$lang['Check out <a href="http://leaflet-extras.github.io/leaflet-providers/preview/" target="_blank">this example</a> with half a hundred different layers to choose from.'] = 'Check out <a href="http://leaflet-extras.github.io/leaflet-providers/preview/" target="_blank">this example</a> with half a hundred different layers to choose from.';
