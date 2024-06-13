@@ -172,3 +172,16 @@ $lang['SHOWLATLON'] = 'Vis bredde- og lengdegrad';
 $lang['SHOWLATLON_DESC'] = 'Legg til bredde- og lengdegradsverdier ved siden av kartet.';
 $lang['STATE'] = 'Stat';
 $lang['DISPLAY_GPX_FILE'] = 'Velg en GPX-fil som skal vises på alle kategoribeskrivelseskart';
+$lang['%d geotagged items in your gallery'] = '%d geotaggede elementer i galleriet ditt';
+$lang['Check out <a href="http://leaflet-extras.github.io/leaflet-providers/preview/" target="_blank">this example</a> with half a hundred different layers to choose from.'] = 'Sjekk ut <a href="http://leaflet-extras.github.io/leaflet-providers/preview/" target="_blank">dette eksempelet</a> med et halvt hundre forskjellige lag å velge mellom.';
+$lang['Configuration if the active theme has a left pannel'] = 'Konfigurasjon av det aktive temaet med et venstre panel';
+$lang['Configuration if the active theme has a right pannel'] = 'Konfigurasjon av det aktive temaet med et høyre panel';
+$lang['Display map on category page'] = 'Vis kart på kategorisiden';
+$lang['Display map on picture page'] = 'Vis kart på bildesiden';
+$lang['Other places the map is displayed'] = 'Andre steder kartet vises';
+$lang['Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" target="_blanck">plugin documentation</a> for additional information. Create an <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/issues" target="_blanck">issue</a> for support, or feedback, or feature request.'] = 'Se <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" target="_blanck">programtillegsdokumentasjonen</a> for mer informasjon. Opprett et <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/issues" target="_blanck">problem</a> for støtte, tilbakemelding eller funksjonsforespørsel.
+';
+$lang['Show the map on all pages of the category : '] = 'Vis kartet på alle sidene i kategorien:';
+$lang['This plugin display geographical location in your gallery using <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a>.'] = 'Dette programtillegget viser geografisk plassering i galleriet ditt ved å bruke <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a>.';
+$lang['This will display a map where the category description is'] = 'Dette vil vise et kart der kategoribeskrivelsen er';
+$lang['This will show a map on all pages of a category, not just in the category\'s description'] = 'Dette vil vise et kart på alle sidene i en kategori, ikke bare i kategoriens beskrivelse';
