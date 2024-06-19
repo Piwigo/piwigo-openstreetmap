@@ -172,3 +172,15 @@ $lang['USE_AS_TAG_HELP'] = 'Crea tag utilizzando uno o più valori dalla parte d
 $lang['SHOWLATLON'] = 'Mostra latitudine e longitudine';
 $lang['SHOWLATLON_DESC'] = 'Aggiunge i valori di latitudine e longitudine accanto alla mappa.';
 $lang['DISPLAY_GPX_FILE'] = 'Seleziona un file GPX da visualizzare su tutte le mappe descrittive delle categorie.';
+$lang['This will display a map where the category description is'] = 'Verrà visualizzata una mappa relativa alla posizione della descrizione della categoria';
+$lang['This will show a map on all pages of a category, not just in the category\'s description'] = 'Verrà mostrata una mappa su tutte le pagine di una categoria, non solo in quella della descrizione categoria';
+$lang['This plugin display geographical location in your gallery using <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a>.'] = 'Questo lugin mostra la localizzazione geografica nella tua galleria utilizzando <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a>.';
+$lang['Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" target="_blanck">plugin documentation</a> for additional information. Create an <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/issues" target="_blanck">issue</a> for support, or feedback, or feature request.'] = 'Fai riferimento alla <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" target="_blanck">documentazione plugin</a> per ulteriori informazioni. Crea un <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/issues" target="_blanck">ticket</a> per supporto, o riscontri, o richiesta di nuove caratteristiche.';
+$lang['Display map on category page'] = 'Mostra la mappa sulla pagina della categoria';
+$lang['Display map on picture page'] = 'Mostra la mappa sulla pagina dell\'immagine';
+$lang['Other places the map is displayed'] = 'Altri luoghi ove la mappa viene mostrata';
+$lang['Show the map on all pages of the category : '] = 'Mostra la mappa su tutte le pagine della categoria:';
+$lang['Check out <a href="http://leaflet-extras.github.io/leaflet-providers/preview/" target="_blank">this example</a> with half a hundred different layers to choose from.'] = 'Controlla <a href="http://leaflet-extras.github.io/leaflet-provideCheck out <a href="http://leaflet-extras.github.io/leaflet-providers/preview/" target="_blank">questo esempio</a> con circa 50 diversi livelli di mappa fra cui scegliere.';
+$lang['Configuration if the active theme has a left pannel'] = 'Configurazione se il tema attivo ha un pannello a sinistra';
+$lang['Configuration if the active theme has a right pannel'] = 'Configurazione se il tema attivo ha un pannello a destra';
+$lang['%d geotagged items in your gallery'] = '%d oggetti geotaggati nella tua galleria';
