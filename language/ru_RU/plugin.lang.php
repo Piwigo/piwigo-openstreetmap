@@ -172,3 +172,17 @@ $lang['NAME_OF_TAG_GROUP'] = 'Название группы тегов';
 $lang['POSTCODE'] = 'Почтовый индекс';
 $lang['SHOWLATLON'] = 'Отображение широты и долготы';
 $lang['SHOWLATLON_DESC'] = 'Добавьте значения широты и долготы рядом с картой.';
+$lang['%d geotagged items in your gallery'] = '%d элементов с геотегами в вашей галерее';
+$lang['Check out <a href="http://leaflet-extras.github.io/leaflet-providers/preview/" target="_blank">this example</a> with half a hundred different layers to choose from.'] = 'Посмотрите <a href="http://leaflet-extras.github.io/leaflet-providers/preview/" target="_blank">этот пример</a> с полусотней различных слоев на выбор.';
+$lang['Configuration if the active theme has a left pannel'] = 'Конфигурация, если активная тема имеет левый канал';
+$lang['Configuration if the active theme has a right pannel'] = 'Конфигурация, если активная тема имеет правый канал';
+$lang['Display map on category page'] = 'Отображение карты на странице категории';
+$lang['Display map on picture page'] = 'Отображение карты на странице с изображением';
+$lang['Other places the map is displayed'] = 'Другие места отображения карты';
+$lang['Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" target="_blanck">plugin documentation</a> for additional information. Create an <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/issues" target="_blanck">issue</a> for support, or feedback, or feature request.'] = 'Для получения дополнительной информации обратитесь к 
+<a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" target="_blanck">plugin documentation</a>. 
+Создайте <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/issues" target="_blanck">проблему</a> для поддержки, или обратной связи, или запроса функции.';
+$lang['Show the map on all pages of the category : '] = 'Показывайте карту на всех страницах категории: ';
+$lang['This plugin display geographical location in your gallery using <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a>.'] = 'Этот плагин отображает географическое положение в вашей галерее с помощью <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a>.';
+$lang['This will display a map where the category description is'] = 'Это отобразит карту, на которой находится описание категории';
+$lang['This will show a map on all pages of a category, not just in the category\'s description'] = 'Это позволит отображать карту на всех страницах категории, а не только в ее описании.';
