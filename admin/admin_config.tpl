@@ -145,8 +145,8 @@
 			</li>
 			<li>
 				<label>{'AUTO_CENTER'|@translate} : </label>
-				<label><input id="autocenter_enabled" type="radio" name="osm_left_autocenter" value="true" {if $left_menu.autocenter}checked="checked"{/if} onchange="autocenter_toggle(this);"/> {'Yes'|@translate}</label>
-				<label><input type="radio" name="osm_left_autocenter" value="false" {if not $left_menu.autocenter}checked="checked"{/if} onchange="autocenter_toggle(this);"/> {'No'|@translate}</label>
+				<label><input id="autocenter_enabled" type="radio" name="osm_left_autocenter" value="true" {if isset($left_menu.autocenter)}checked="checked"{/if} onchange="autocenter_toggle(this);"/> {'Yes'|@translate}</label>
+				<label><input type="radio" name="osm_left_autocenter" value="false" {if !isset($left_menu.autocenter)}checked="checked"{/if} onchange="autocenter_toggle(this);"/> {'No'|@translate}</label>
 				<br/><small>{'AUTO_CENTER_HELP'|@translate}</small>
 			</li>
 			<li id="osm_left_zoom_block">
