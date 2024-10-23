@@ -1,3 +1,11 @@
+Changes from v2.9.a to 15.a
+- Fix #263 : resolve naming conflict by prefixing height and width
+- Fix #262 : file put content in root and change url in tpl
+- Display a message instead of an error when plugin is inactive on osmmap.php
+- Compatibility PHP8
+- Batch Manager Unit : plugin doesn't work in batch_manager_unit mode (in progress),
+  still work in batch_manager_global action
+
 Changes from v2.8.d to v2.9.a
 - Added "Select Place" functionality to batchmanagement
 - Allow more SSL geo providers
