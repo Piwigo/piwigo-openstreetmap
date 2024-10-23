@@ -31,6 +31,13 @@ include_once( PHPWG_ROOT_PATH.'admin/include/functions.php' );
 include_once( dirname(__FILE__) .'/include/functions.php');
 include_once( dirname(__FILE__) .'/include/functions_map.php');
 
+$osm_is_active = osm_check_activated();
+if ('active' !== $osm_is_active)
+{
+  echo 'OpeenStreetMap need to be activated!';
+	return;
+}
+
 check_status(ACCESS_GUEST);
 
 osm_load_language();

@@ -119,4 +119,15 @@ function osm_make_kml_index_url($params)
 	$url = add_url_params($url, $get_params );
 	return $url;
 }
+
+function osm_check_activated()
+{
+	global $pwg_loaded_plugins;
+
+	if (!isset($pwg_loaded_plugins['piwigo-openstreetmap']))
+	{
+		return null;
+	}
+	return $pwg_loaded_plugins['piwigo-openstreetmap']['state'];
+}
 ?>
