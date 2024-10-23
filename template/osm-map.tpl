@@ -51,7 +51,7 @@ html, body {
 		var min = bounds.getSouthWest().wrap();
 		var max = bounds.getNorthEast().wrap();
 
-		var root_url = '{/literal}{$DATA_URL}{literal}';
+		var root_url = '{/literal}{$MYROOT_URL}{literal}';
 		var myurl = root_url+"osmmap.php?min_lat="+min.lat+"&min_lng="+min.lng+"&max_lat="+max.lat+"&max_lng="+max.lng;
 		//console.log(myurl);
 		document.getElementById("showall").setAttribute('href',myurl);

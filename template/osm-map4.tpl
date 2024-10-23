@@ -319,7 +319,7 @@ html, body {
 		var max = bounds.getNorthEast().wrap();
 
 		/* Update ShowAll link */
-		var root_url = '{/literal}{$DATA_URL}{literal}';
+		var root_url = '{/literal}{$MYROOT_URL}{literal}';
 		var myurl = root_url+"osmmap.php?min_lat="+min.lat+"&min_lng="+min.lng+"&max_lat="+max.lat+"&max_lng="+max.lng;
 		//console.log("ShowAll:"+myurl);
 		window.open(myurl,'_blank');
@@ -332,7 +332,7 @@ html, body {
 		var centerlat = center.lat;
 		var centerlng = center.lng;
 
-		var root_url = '{/literal}{$DATA_URL}{literal}';
+		var root_url = '{/literal}{$MYROOT_URL}{literal}';
 		var myurl = root_url+"osmmap.php?zoom="+zoom+"&center_lat="+centerlat+"&center_lng="+centerlng;
 		//console.log(myurl);
 		document.getElementById('textfield').value = myurl;
