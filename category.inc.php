@@ -70,8 +70,8 @@ function osm_render_category()
                     'HOME_NAME'        => l10n("Home"),
                     'HOME_PREV_NAME'   => l10n("Previous"),
                     'OSMJS'            => $js,
-                    'HEIGHT'           => $height,
-                    'WIDTH'            => $width,
+                    'OSM_HEIGHT'           => $height,
+                    'OSM_WIDTH'            => $width,
                 )
             );
 

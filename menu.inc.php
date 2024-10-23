@@ -75,7 +75,7 @@ function osm_apply_menu($menu_ref_arr)
                     array(
                         'OSM_PATH' => embellish_url(get_gallery_home_url().OSM_PATH),
                         'OSMJS'    => $js,
-                        'HEIGHT'   => $height,
+                        'OSM_HEIGHT'   => $height,
                     )
                 );
                 $block->template = 'osm-menu.tpl';

@@ -74,8 +74,8 @@ function osm_render_media($content, $picture)
 	// Assign the template variables
 	$template->assign(
         array(
-			'HEIGHT'   => $height,
-			'WIDTH'    => $width,
+			'OSM_HEIGHT'   => $height,
+			'OSM_WIDTH'    => $width,
 			'FILENAME' => $filename,
 			'OSM_PATH' => embellish_url(get_gallery_home_url().OSM_PATH),
 			'OSMGPX'   => $js,

@@ -10,7 +10,7 @@
 {html_style}
 {literal}
 #mapgpx {
- height: {/literal}{$HEIGHT}{literal}px;
+ height: {/literal}{$OSM_HEIGHT}{literal}px;
  width: 90%;
  max-width: 1280px;
  margin: 0px auto;
@@ -28,7 +28,7 @@
 			attr ='Leaflet Plugin by xbgmsharp Tiles Courtesy of OSM.org (CC BY-SA) © OpenStreetMap contributors, (ODbL)',
 			service = new L.TileLayer(url, {attribution: attr});
 */
-		var el = L.control.elevation({theme: 'steelblue-theme', width: {/literal}{$WIDTH}{literal}});
+		var el = L.control.elevation({theme: 'steelblue-theme', width: {/literal}{$OSM_WIDTH}{literal}});
 		el.addTo(mapgpx);
 		var g=new L.GPX("{/literal}{$FILENAME}{literal}", {
 			async: true,

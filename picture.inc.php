@@ -143,7 +143,7 @@ function osm_render_element_content()
     // Assign the template variables
     $template->assign(
         array(
-            'HEIGHT'		=> $height,
+            'OSM_HEIGHT'		=> $height,
             'OSMJS' 		=> $js,
             'OSM_PATH'		=> embellish_url(get_gallery_home_url().OSM_PATH),
             'OSMNAME'		=> $osmname,

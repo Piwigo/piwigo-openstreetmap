@@ -5,6 +5,6 @@
 
 {html_style}
 {literal}
-#map { height: {/literal}{$HEIGHT}{literal}px;}
+#map { height: {/literal}{$OSM_HEIGHT}{literal}px;}
 {/literal}
 {/html_style}

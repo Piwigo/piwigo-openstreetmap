@@ -10,9 +10,9 @@
 {html_style}
 {literal}
 #map {
-    height: {/literal}{$HEIGHT}{literal}px;
-    width: {/literal}{$WIDTH}{literal}px;
-    {/literal}{if $WIDTH != 'auto'}width: {$WIDTH}px;
+    height: {/literal}{$OSM_HEIGHT}{literal}px;
+    width: {/literal}{$OSM_WIDTH}{literal}px;
+    {/literal}{if $OSM_WIDTH != 'auto'}width: {$OSM_WIDTH}px;
     float: left;{/if}{literal}
 
 }

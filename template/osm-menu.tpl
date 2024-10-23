@@ -10,7 +10,7 @@
 {html_style}
 {literal}
 #mapmenu {
-    height: {/literal}{$HEIGHT}{literal}px;
+    height: {/literal}{$OSM_HEIGHT}{literal}px;
 
 }
 {/literal}
