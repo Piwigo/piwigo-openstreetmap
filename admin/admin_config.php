@@ -313,6 +313,9 @@ if (isset($_POST['submit']) && !empty($_POST['osm_height']))
             'pinoffset'      => $_POST['osm_pinoffset'],
             'pinpopupoffset' => $_POST['osm_pinpopupoffset'],
 	    ),
+  'community_bm' => array(
+    'enabled' => get_boolean($_POST['osm_community_bm']),
+    ),
 	);
 
     // Update config to DB
@@ -325,6 +328,7 @@ if (isset($_POST['submit']) && !empty($_POST['osm_height']))
 
 // send value to template
 $template->assign($conf['osm_conf']);
+
 $template->assign(
     array(
         'AVAILABLE_ADD_BEFORE' => $available_add_before,
@@ -341,5 +345,13 @@ $template->assign(
         'SINGLE_MODE'          => l10n('unit mode'),
     )
 );
+
+
+$template->assign(
+  array(
+    'COMMUNITY_CONF' => $pwg_loaded_plugins['community'] ? $pwg_loaded_plugins['community'] : false,
+  )
+);
+
 
 ?>

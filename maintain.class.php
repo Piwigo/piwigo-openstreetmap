@@ -69,6 +69,9 @@ class piwigo_openstreetmap_maintain extends PluginMaintain
       'pinoffset' => '',
       'pinpopupoffset' => '',
       ),
+    'community_bm' => array(
+      'enabled' => false,
+    )
   );
 
   private $table;

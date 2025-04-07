@@ -61,6 +61,7 @@ function osm_perform_batch_manager_prefilters($filter_sets, $prefilter)
 
 // Hook to show action when selected
 add_event_handler('loc_end_element_set_global', 'osm_loc_end_element_set_global');
+
 function osm_loc_end_element_set_global()
 {
   global $template, $conf;
@@ -83,53 +84,38 @@ function osm_loc_end_element_set_global()
 	$jsplaces = "\nvar arr_places = ". json_encode(get_list_of_places()) .";\n";
 
 	$batch_global_height = isset($conf['osm_conf']['batch']['global_height']) ? $conf['osm_conf']['batch']['global_height'] : '200';
-	$template->append('element_set_global_plugins_actions',
-		array('ID' => 'openstreetmap', 'NAME'=>l10n('OSM GeoTag'), 'CONTENT' => '
-  <label>'.l10n('Latitude').' (-90=S to 90=N)
-    <input type="text" size="8" id="osmlat" name="osmlat">
-  </label>
-  <label>'.l10n('Longitude').' (-180=W to 180=E)
-    <input type="text" size="9" id="osmlon" name="osmlon">
-  </label>
-  </label> '.l10n( 'EMPTY_COORD_VAL_WARNING').'
-  <label>Saved Places:
-    <select id="osmplaces" name="osmplaces" >
-      <option value="NULL">--</option>
-      '. implode("\n", $place_options) . '
-    </select>
-  <style type="text/css"> .map1 { height: '. $batch_global_height .'px !important; width:100% !important; margin: 5px; } </style>
-  <script src="plugins/piwigo-openstreetmap/leaflet/qleaflet.jquery.js"></script>
-  <div class="osm-map1 map1"></div>
-  <script>
-    $(document).ready(function() {' . $jsplaces . '
-	 var map;
-         $("#permitAction").on("change", function (e) {
-            var optionSelected = $("option:selected", this);
-            if ("openstreetmap" == optionSelected.val()) {
-              map = $(".osm-map1").qleaflet();
-	      map.click(function(a,b,c) {
-	      $("#osmplaces").val("NULL");
-	      });
-            }
-         });
-	 $("#osmplaces").change(function(){
-	   var select = $("#osmplaces").val();
-	   var lat_elem = $("#osmlat");
-	   var lon_elem = $("#osmlon");
-	   if (select == "NULL")
-	   {
-	     lat_elem.val(0);
-	     lon_elem.val(0);
-	   }
-	     else
-	   {
-	     lat_elem.val(arr_places[select][1]);
-	     lon_elem.val(arr_places[select][2]);
-	   }
-	 });
-    });
-  </script>
-'));
+	
+  $template -> assign(
+    array(
+      'jsplaces' => $jsplaces,
+      'place_options' => $place_options,
+      'batch_global_height' => $batch_global_height,
+    )
+  );
+
+  $template->set_filename('OSM_batch_global', OSM_PATH.'admin/batch_global.tpl');
+  
+  $template->append('element_set_global_plugins_actions',
+		array(
+      'ID' => 'openstreetmap', 
+      'NAME'=>l10n('OSM GeoTag'), 
+      'CONTENT' => $template->parse('OSM_batch_global', true)
+    )
+  );
+
+  if($conf['osm_conf']['community_bm']['enabled'])
+  {
+    //Used in community
+    $template->append('community_element_set_global_plugins_actions',
+      array(
+        'ID' => 'openstreetmap', 
+        'NAME'=>l10n('OSM GeoTag'), 
+        'CONTENT' => $template->parse('OSM_batch_global', true)
+      )
+    );
+  }
+
+
 }
 
 // Hook to perform the action on in global mode

@@ -16,6 +16,11 @@
     float: left;{/if}{literal}
 
 }
+
+#community_edit_photos #map,
+#community_add_photos #map{
+  display:none;
+}
 {/literal}
 {/html_style}
 

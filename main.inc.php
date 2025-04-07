@@ -104,6 +104,17 @@ if (defined('IN_ADMIN')) {
 	include_once(OSM_PATH.'/admin/admin_boot.php');
 }
 
+//if community active
+if (isset($pwg_loaded_plugins['community']))
+{
+
+  include_once(OSM_PATH.'admin/admin_batchmanager.php');
+
+  add_event_handler('community_loc_end_element_set_global', 'osm_loc_end_element_set_global');
+  
+  add_event_handler('community_element_set_global_action', 'osm_element_set_global_action');
+  
+}
 
 function osm_blockmanager_apply($mb_arr)
 {

@@ -19,7 +19,8 @@
     #left_pannel,
     #main_menu,
     #gpx_map,
-    #batch_manager_map{
+    #batch_manager_map,
+    #community_manager_map{
       display:none;
     }
     label{
@@ -256,6 +257,19 @@
 			</li>
 		</ul>
 	</fieldset>
+{if $COMMUNITY_CONF}
+  <fieldset>
+    <legend class="section-title" onclick="toggle_accordion(this)"><i class="icon-plus"></i>{'Community'|@translate} {'MAP'|@translate}</legend>
+    <ul id="community_manager_map">
+      <li>
+        <label>Add map to community batch manager : </label>
+        <label><input type="radio" name="osm_community_bm" value="true" {if $community_bm.enabled}checked="checked"{/if}/> {'Yes'|@translate}</label>
+        <label><input type="radio" name="osm_community_bm" value="false" {if not $community_bm.enabled}checked="checked"{/if}/> {'No'|@translate}</label>
+        <br/><small>If the community plugin is active you can choose to let users GeoTag their uploaded images</small>
+      </li>
+    </ul>
+  </fieldset> 
+{/if}
 
   <h3><i class="osm-map"></i>{'G_MAP'|@translate}</h3>
 	<fieldset>
