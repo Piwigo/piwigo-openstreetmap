@@ -130,4 +130,24 @@ function osm_check_activated()
 	}
 	return $pwg_loaded_plugins['piwigo-openstreetmap']['state'];
 }
+
+function get_list_of_places()
+{
+  $list_of_places = array();
+
+  $query = '
+	SELECT id, name, latitude, longitude
+	  FROM '.osm_place_table.'
+          ORDER BY name
+	;';
+
+  $result = pwg_query($query);
+
+  while ($row = pwg_db_fetch_assoc($result))
+	{
+	  $list_of_places[$row['id']] = array($row['name'], $row['latitude'], $row['longitude']);
+	}
+
+  return $list_of_places;
+}
 ?>

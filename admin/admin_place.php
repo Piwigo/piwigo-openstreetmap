@@ -33,9 +33,7 @@ check_status(ACCESS_ADMINISTRATOR);
 load_language('plugin.lang', OSM_PATH);
 
 // Fetch the template.
-global $template, $conf, $lang, $prefixeTable;
-// Easy access
-define('osm_place_table', $prefixeTable.'osm_places');
+global $template, $conf, $lang;
 
 /* Table to hold osm places details */
 $q = 'CREATE TABLE IF NOT EXISTS `'.osm_place_table.'` (

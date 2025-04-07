@@ -37,6 +37,8 @@ if (!isset($_GET['image_id']) or !isset($_GET['section']))
 
 check_input_parameter('image_id', $_GET, false, PATTERN_ID);
 
+include_once( OSM_PATH .'/include/functions.php');
+
 $admin_photo_base_url = get_root_url().'admin.php?page=photo-'.$_GET['image_id'];
 $self_url = get_root_url().'admin.php?page=plugin&amp;section=piwigo-openstreetmap/admin/admin_photo.php&amp;image_id='.$_GET['image_id'];
 $delete_url = get_root_url().'admin.php?page=plugin&amp;section=piwigo-openstreetmap/admin/admin_photo.php&amp;delete_coords=1&amp;image_id='.$_GET['image_id'].'&amp;pwg_token='.get_pwg_token();
@@ -150,12 +152,7 @@ $js_data = array(array($lat, $lon, null, $pathurl, null, null, null, null));
 
 $js = osm_get_js($conf, $local_conf, $js_data);
 
-// Fetch the template.
-global $prefixeTable;
-// Easy access
-define('osm_place_table', $prefixeTable.'osm_places');
 // Save location, eg Place
-$list_of_places = array();
 $available_places = array();
   $query = '
 SELECT id, name, latitude, longitude
@@ -165,11 +162,10 @@ SELECT id, name, latitude, longitude
 // JS for the template
   while ($row = pwg_db_fetch_assoc($result))
   {
-    $list_of_places[$row['id']] = array($row['name'], $row['latitude'], $row['longitude']);
     $available_places[$row['id']] =  $row['name'];
   }
 
-$jsplaces = "\nvar arr_places = ". json_encode($list_of_places) .";\n";
+$jsplaces = "\nvar arr_places = ". json_encode(get_list_of_places()) .";\n";
 
 $template->assign(array(
 	'PWG_TOKEN'		=> get_pwg_token(),

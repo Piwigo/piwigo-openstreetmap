@@ -28,6 +28,8 @@
 // Check whether we are indeed included by Piwigo.
 if (!defined('PHPWG_ROOT_PATH')) die('Hacking attempt!');
 
+include_once( OSM_PATH .'/include/functions.php');
+
 // Hook to add a new filter in the batch mode
 add_event_handler('get_batch_manager_prefilters', 'osm_get_batch_manager_prefilters');
 function osm_get_batch_manager_prefilters($prefilters)
@@ -61,10 +63,9 @@ function osm_perform_batch_manager_prefilters($filter_sets, $prefilter)
 add_event_handler('loc_end_element_set_global', 'osm_loc_end_element_set_global');
 function osm_loc_end_element_set_global()
 {
-	global $template, $conf, $prefixeTable;
-	define('osm_place_table', $prefixeTable.'osm_places');
+  global $template, $conf;
+
 	// Save location, eg Place
-	$list_of_places = array();
 	$available_places = array();
 	$place_options = array();
 	$query = '
@@ -76,11 +77,10 @@ function osm_loc_end_element_set_global()
 	// JS for the template
 	while ($row = pwg_db_fetch_assoc($result))
 	{
-	$list_of_places[$row['id']] = array($row['name'], $row['latitude'], $row['longitude']);
 		$available_places[$row['id']] =  $row['name'];
 		$place_options[] = '<option value="' . $row['id'] . '">' . $row['name'] . '</options>';
 	}
-	$jsplaces = "\nvar arr_places = ". json_encode($list_of_places) .";\n";
+	$jsplaces = "\nvar arr_places = ". json_encode(get_list_of_places()) .";\n";
 
 	$batch_global_height = isset($conf['osm_conf']['batch']['global_height']) ? $conf['osm_conf']['batch']['global_height'] : '200';
 	$template->append('element_set_global_plugins_actions',

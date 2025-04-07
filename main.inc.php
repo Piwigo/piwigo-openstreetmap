@@ -13,9 +13,11 @@ Has Settings: webmaster
 if (!defined('PHPWG_ROOT_PATH')) die('Hacking attempt!');
 
 // Define the path to our plugin.
+global $conf, $prefixeTable;
+
 define('OSM_PATH', PHPWG_PLUGINS_PATH . basename(dirname(__FILE__)).'/');
 
-global $conf;
+define('osm_place_table', $prefixeTable.'osm_places');
 
 // Prepare configuration
 $conf['osm_conf'] = safe_unserialize($conf['osm_conf']);
