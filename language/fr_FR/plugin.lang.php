@@ -170,3 +170,6 @@ $lang['Show the map on all pages of the category : '] = 'Afficher la carte sur t
 $lang['This will show a map on all pages of a category, not just in the category\'s description'] = 'Cela affichera une carte sur toutes les pages d\'une catégorie, pas seulement dans la description de la catégorie.';
 $lang['Other places the map is displayed'] = 'Autres endroits où la carte est affichée';
 $lang['Check out <a href="http://leaflet-extras.github.io/leaflet-providers/preview/" target="_blank">this example</a> with half a hundred different layers to choose from.'] = 'Découvrez <a href="http://leaflet-extras.github.io/leaflet-providers/preview/" target="_blank">cet exemple</a> avec une demi-centaine de calques différents parmi lesquels choisir.';
+$lang['Add map to community batch manager :'] = 'Ajouter une carte au gestionnaire par lot de community :';
+$lang['If the community plugin is active you can choose to let users GeoTag their uploaded images'] = 'Si le plugin community est actif, vous pouvez choisir de permettre aux utilisateurs de géolocaliser leurs images ajoutées';
+  

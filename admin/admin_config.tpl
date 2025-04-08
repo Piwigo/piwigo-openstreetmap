@@ -262,10 +262,10 @@
     <legend class="section-title" onclick="toggle_accordion(this)"><i class="icon-plus"></i>{'Community'|@translate} {'MAP'|@translate}</legend>
     <ul id="community_manager_map">
       <li>
-        <label>Add map to community batch manager : </label>
+        <label>{'Add map to community batch manager :'|@translate} </label>
         <label><input type="radio" name="osm_community_bm" value="true" {if $community_bm.enabled}checked="checked"{/if}/> {'Yes'|@translate}</label>
         <label><input type="radio" name="osm_community_bm" value="false" {if not $community_bm.enabled}checked="checked"{/if}/> {'No'|@translate}</label>
-        <br/><small>If the community plugin is active you can choose to let users GeoTag their uploaded images</small>
+        <br/><small>{'If the community plugin is active you can choose to let users GeoTag their uploaded images'|@translate}</small>
       </li>
     </ul>
   </fieldset> 

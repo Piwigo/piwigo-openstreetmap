@@ -164,3 +164,5 @@ $lang['Show the map on all pages of the category : '] = 'Show the map on all pag
 $lang['This will show a map on all pages of a category, not just in the category\'s description'] = 'This will show a map on all pages of a category, not just in the category\'s description';
 $lang['Other places the map is displayed'] = 'Other places the map is displayed';
 $lang['Check out <a href="http://leaflet-extras.github.io/leaflet-providers/preview/" target="_blank">this example</a> with half a hundred different layers to choose from.'] = 'Check out <a href="http://leaflet-extras.github.io/leaflet-providers/preview/" target="_blank">this example</a> with half a hundred different layers to choose from.';
+$lang['Add map to community batch manager :'] = 'Add map to community batch manager :';
+$lang['If the community plugin is active you can choose to let users GeoTag their uploaded images'] = 'If the community plugin is active you can choose to let users GeoTag their uploaded images';
