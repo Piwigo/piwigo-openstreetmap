@@ -184,3 +184,5 @@ $lang['%d geotagged items in your gallery'] = '%d geotagged Elemente in Ihrer Ga
 $lang['Configuration if the active theme has a left pannel'] = 'Konfiguration, wenn das aktive Thema eine linke Seite hat';
 $lang['Configuration if the active theme has a right pannel'] = 'Konfiguration, wenn das aktive Thema ein rechtes Panel hat';
 $lang['Check out <a href="http://leaflet-extras.github.io/leaflet-providers/preview/" target="_blank">this example</a> with half a hundred different layers to choose from.'] = 'Sehen Sie sich <a href="http://leaflet-extras.github.io/leaflet-providers/preview/" target="_blank">dieses Beispiel</a> mit einem halben Hundert verschiedener Ebenen zur Auswahl an.';
+$lang['Add map to community batch manager :'] = 'Karte zum Community Batch Manager hinzufügen:';
+$lang['If the community plugin is active you can choose to let users GeoTag their uploaded images'] = 'Wenn das Community-Plugin aktiv ist, können Sie festlegen, dass Benutzer ihre hochgeladenen Bilder mit GeoTags versehen können.';
