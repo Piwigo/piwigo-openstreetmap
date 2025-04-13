@@ -169,3 +169,5 @@ $lang['Show the map on all pages of the category : '] = 'Sýndu kortið á öllu
 $lang['This plugin display geographical location in your gallery using <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a>.'] = 'Þessi viðbót sýnir landfræðilega staðsetningu í myndasafninu þínu með <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a>.';
 $lang['This will display a map where the category description is'] = 'Þetta mun birta kort þar sem flokkalýsingin er';
 $lang['This will show a map on all pages of a category, not just in the category\'s description'] = 'Þetta mun sýna kort á öllum síðum flokks, ekki bara í lýsingu flokksins';
+$lang['Add map to community batch manager :'] = 'Bættu korti við lotustjóra samfélagsins:';
+$lang['If the community plugin is active you can choose to let users GeoTag their uploaded images'] = 'Ef samfélagsviðbótin er virk geturðu valið að láta notendur GeoTagga upphlaðnar myndir';
