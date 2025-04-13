@@ -186,3 +186,5 @@ $lang['Show the map on all pages of the category : '] = 'Mostrar el mapa en toda
 $lang['This plugin display geographical location in your gallery using <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a>.'] = 'Este plugin muestra la ubicación geográfica en su galería mediante <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a>.';
 $lang['This will display a map where the category description is'] = 'Esto mostrará un mapa donde se encuentra la descripción de la categoría.';
 $lang['This will show a map on all pages of a category, not just in the category\'s description'] = 'Esto mostrará un mapa en todas las páginas de una categoría, no solo en la descripción de la categoría.';
+$lang['Add map to community batch manager :'] = 'Agregar el mapa al gestor de lotes de la comunidad:';
+$lang['If the community plugin is active you can choose to let users GeoTag their uploaded images'] = 'Si el plugin de comunidad está activo, puede permitir que los usuarios geoetiqueten las imágenes que carguen.';
