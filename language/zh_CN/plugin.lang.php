@@ -185,3 +185,5 @@ $lang['POSTCODE'] = '邮政编码';
 $lang['STATE'] = '省';
 $lang['SUBURB'] = '郊区';
 $lang['Check out <a href="http://leaflet-extras.github.io/leaflet-providers/preview/" target="_blank">this example</a> with half a hundred different layers to choose from.'] = '查看<a href="http://leaflet-extras.github.io/leaflet-providers/preview/" target="_blank">此示例</a>，其中有五十个不同的图层可供选择。';
+$lang['Add map to community batch manager :'] = '为社区批量管理工具添加地图功能';
+$lang['If the community plugin is active you can choose to let users GeoTag their uploaded images'] = '若社区插件已启用，可允许用户为上传的图片添加地理标签';
