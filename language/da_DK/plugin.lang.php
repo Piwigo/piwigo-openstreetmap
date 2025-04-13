@@ -184,3 +184,5 @@ $lang['Show the map on all pages of the category : '] = 'Vi kortet på alle side
 $lang['This plugin display geographical location in your gallery using <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a>.'] = 'Denne plugin viser geografiske placeringer i dit galleri ved hjælp af <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a>.';
 $lang['This will display a map where the category description is'] = 'Der vises et kort hvor albumbeskrivelsen befinder sig';
 $lang['This will show a map on all pages of a category, not just in the category\'s description'] = 'Viser et kort på alle et albums side, ikke kun i dets beskrivelse';
+$lang['Add map to community batch manager :'] = 'Tilføj kort til community-batchmanager:';
+$lang['If the community plugin is active you can choose to let users GeoTag their uploaded images'] = 'Hvis community-plugin\'en er aktiv, kan du gøre det muligt for brugerne at geotag\'e deres uploadede billeder';
