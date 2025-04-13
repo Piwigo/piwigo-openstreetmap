@@ -184,3 +184,5 @@ $lang['This plugin display geographical location in your gallery using <a href="
 $lang['This will display a map where the category description is'] = 'Zobrazí sa mapa s popisom kategórie';
 $lang['This will show a map on all pages of a category, not just in the category\'s description'] = 'Mapa sa zobrazí na všetkých stránkach kategórie, nielen v jej popise.';
 $lang['Check out <a href="http://leaflet-extras.github.io/leaflet-providers/preview/" target="_blank">this example</a> with half a hundred different layers to choose from.'] = 'Pozrite si <a href="http://leaflet-extras.github.io/leaflet-providers/preview/" target="_blank">tento príklad</a> s pol stovkou rôznych vrstiev na výber.';
+$lang['If the community plugin is active you can choose to let users GeoTag their uploaded images'] = 'Ak je plugin komunity aktívny, môžete používateľom umožniť, aby svoje nahrané obrázky označili geoznačkami.';
+$lang['Add map to community batch manager :'] = 'Pridanie mapy do správcu dávok komunity:';
