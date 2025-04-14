@@ -184,3 +184,5 @@ $lang['Show the map on all pages of the category : '] = 'Haritayı kategorinin t
 $lang['This plugin display geographical location in your gallery using <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a>.'] = 'Bu eklenti, <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a>\'i kullanarak galerinizdeki coğrafi konumu görüntüler.';
 $lang['This will display a map where the category description is'] = 'Bu, kategori açıklamasının olduğu bir harita görüntüleyecektir.';
 $lang['This will show a map on all pages of a category, not just in the category\'s description'] = 'Bu, yalnızca kategorinin açıklamasında değil, bir kategorinin tüm sayfalarında bir harita gösterecektir';
+$lang['If the community plugin is active you can choose to let users GeoTag their uploaded images'] = 'Topluluk eklentisi etkinse kullanıcıların yükledikleri resimleri GeoTag\'lemelerine izin verebilirsiniz';
+$lang['Add map to community batch manager :'] = 'Haritayı topluluk toplu yöneticisine ekle:';
