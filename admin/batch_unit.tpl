@@ -6,20 +6,16 @@
 
 <div class="half-line-info-box">
   <label>{'Latitude'|@translate}</label>
-  <input type="text" size="8" id="osmlat-{$element.ID}" name="osmlat-{$element.ID}" value="{$element.latitude}">
+  <input type="text" size="8" id="osmlat-{$element.ID}" class="latitude" name="osmlat-{$element.ID}" value="{$element.latitude}">
 </div>
 <div class="half-line-info-box">
   <label>{'Longitude'|@translate}</label>
-  <input type="text" size="9" id="osmlon-{$element.ID}" name="osmlon-{$element.ID}" value="{$element.longitude}">
+  <input type="text" size="9" id="osmlon-{$element.ID}" class="longitude" name="osmlon-{$element.ID}" value="{$element.longitude}">
 </div>
 
 <div class="full-line-box">
   <div class="osm-map-{$element.ID} map1" data-markerpos="{$element.latitude},{$element.longitude}" data-markertext="{$element.name}" data-formid="{$element.id}"></div>
 </div>
-
-<script>
-
-</script>
 
 
 {html_style}
@@ -32,6 +28,10 @@
 <script>
 {literal}
 $(document).ready(function () {
+
+pluginValues.push({ api_key: "latitude", selector: ".latitude" });
+pluginValues.push({ api_key: "longitude", selector: ".longitude" });
+
   $('fieldset.elementEdit').each(function () {
     const fieldset = $(this);
     const imageID = fieldset.data('image_id');
@@ -64,8 +64,6 @@ $(document).ready(function () {
           );
 
           // Add values to batch unit 
-          pluginValues.push({ api_key: "latitude", selector: latSelector });
-          pluginValues.push({ api_key: "longitude", selector: lonSelector });
 
           // Show unsaved badge
           showUnsavedLocalBadge(imageID);
