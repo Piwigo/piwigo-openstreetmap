@@ -349,7 +349,7 @@ $template->assign(
 
 $template->assign(
   array(
-    'COMMUNITY_CONF' => $pwg_loaded_plugins['community'] ? $pwg_loaded_plugins['community'] : false,
+    'COMMUNITY_CONF' => isset($pwg_loaded_plugins['community']) ? $pwg_loaded_plugins['community'] : false,
   )
 );
 
