@@ -151,116 +151,22 @@ function osm_element_set_global_action($action, $collection)
 	}
 }
 
-// Hook to perform the action on in single mode
-add_event_handler('loc_begin_element_set_unit', 'osm_loc_begin_element_set_unit');
-function osm_loc_begin_element_set_unit()
-{
-	global $page;
 
-	if (!isset($_POST['submit']))
-	      return;
 
-	$collection = explode(',', $_POST['element_ids']);
-	$query = "SELECT `id`, `latitude`, `longitude`
-			FROM ".IMAGES_TABLE."
-			WHERE id IN (".implode(',',$collection).")";
-
-	$datas = array();
-	$errors = array();
-	$form_errors = 0;
-
-	$result = pwg_query($query);
-	while ($row = pwg_db_fetch_assoc($result))
-	{
-		if (!isset($_POST['osmlat-'.$row['id']]))
-		{
-			$form_errors++;
-			continue;
-		}
-		$error = false;
-		$data = array(
-			'id' => $row['id'],
-			'latitude' => trim($_POST['osmlat-'.$row['id']]),
-			'longitude' => trim($_POST['osmlon-'.$row['id']])
-		);
-
-		if ( strlen($data['latitude'])>0 and strlen($data['longitude'])>0 )
-		{
-			if ( !is_numeric($data['latitude']) or !is_numeric($data['longitude'])
-				or (double)$data['latitude']>90 or (double)$data['latitude']<-90
-				or (double)$data['longitude']>180 or (double)$data['longitude']<-180 )
-				$error = true;
-		}
-		elseif ( strlen($data['latitude'])==0 and strlen($data['longitude'])==0 )
-		{
-			// nothing
-		}
-		else
-		{
-			$error = true;
-		}
-
-		if ($error)
-			$errors[] = $row['name'];
-		else
-			$datas[] = $data;
-	}
-
-	mass_updates(
-		IMAGES_TABLE,
-		array(
-			'primary' => array('id'),
-			'update' => array('latitude', 'longitude')
-		),
-		$datas
-	);
-
-	if (count($errors)>0)
-	{
-		$page['errors'][] = 'Invalid latitude or longitude value for files: '.implode(', ', $errors);
-	}
-	if ($form_errors)
-		$page['errors'][] = 'OpenStreetMap: Invalid form submission for '.$form_errors.' photos';
-}
-
-// Hoook for batch manager in single mode
+// Hoook to add tpl in batch manager in single mode
 add_event_handler('loc_end_element_set_unit', 'osm_loc_end_element_set_unit');
 function osm_loc_end_element_set_unit()
 {
-	global $template, $conf, $page, $is_category, $category_info;
-	$template->set_prefilter('batch_manager_unit', 'osm_prefilter_batch_manager_unit');
-}
+  global $template, $page;
 
-function osm_prefilter_batch_manager_unit($content)
-{
-	global $conf;
-
-	$needle = '</table>';
-	$pos = strpos($content, $needle);
 	$batch_unit_height = isset($conf['osm_conf']['batch']['unit_height']) ? $conf['osm_conf']['batch']['unit_height'] : '200';
-	if ($pos!==false)
-	{
-		$add = '<tr><td><strong>{\'OSM Geotag\'|@translate}</strong></td>
-		  <td>
-		    <label>{\'Latitude\'|@translate}
-		      <input type="text" size="8" name="osmlat-{$element.id}" value="{$element.latitude}">
-		    </label>
-		    <label>{\'Longitude\'|@translate}
-		      <input type="text" size="9" name="osmlon-{$element.id}" value="{$element.longitude}">
-		    </label>
+	
+  $template->assign(array(
+      'OSM_PATH' => OSM_PATH,
+      'batch_unit_height' => $batch_unit_height,
+  ));
 
-<style type="text/css"> .map1 { height: '. $batch_unit_height .'px !important; width:100% !important; margin: 5px; } </style>
-<script src="plugins/piwigo-openstreetmap/leaflet/qleaflet.jquery.js"></script>
-<div class="osm-map-{$element.id} map1" data-markerpos="{$element.latitude},{$element.longitude}" data-markertext="{$element.name}" data-formid="{$element.id}"></div>
-<script>
-  $(document).ready(function() {
-        $(".osm-map-{$element.id}").qleaflet();
-  });
-</script>
-
-		  </td>
-		</tr>';
-		$content = substr_replace($content, $add, $pos, 0);
-	}
-	return $content;
+  $template->set_filename('OSM_batch_unit', dirname(__FILE__).'/batch_unit.tpl');
+  
+  $template->append('PLUGINS_BATCH_MANAGER_UNIT_ELEMENT_SUBTEMPLATE',dirname(__FILE__).'/batch_unit.tpl');
 }

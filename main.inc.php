@@ -107,7 +107,6 @@ if (defined('IN_ADMIN')) {
 //if community active
 if (isset($pwg_loaded_plugins['community']))
 {
-
   include_once(OSM_PATH.'admin/admin_batchmanager.php');
 
   add_event_handler('community_loc_end_element_set_global', 'osm_loc_end_element_set_global');
@@ -115,6 +114,15 @@ if (isset($pwg_loaded_plugins['community']))
   add_event_handler('community_element_set_global_action', 'osm_element_set_global_action');
   
 }
+// file containing API function
+$ws_file = OSM_PATH . 'include/ws_functions.inc.php';
+add_event_handler('ws_add_methods', 'osm_ws_add_methods',
+    EVENT_HANDLER_PRIORITY_NEUTRAL, $ws_file);
+add_event_handler('ws_setInfo', 'osm_ws_setInfo',
+    EVENT_HANDLER_PRIORITY_NEUTRAL, $ws_file);
+add_event_handler('ws_invoke_allowed', 'osm_ws_images_setInfo',
+    EVENT_HANDLER_PRIORITY_NEUTRAL, $ws_file);
+
 
 function osm_blockmanager_apply($mb_arr)
 {
