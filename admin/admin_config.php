@@ -314,7 +314,7 @@ if (isset($_POST['submit']) && !empty($_POST['osm_height']))
             'pinpopupoffset' => $_POST['osm_pinpopupoffset'],
 	    ),
   'community_bm' => array(
-    'enabled' => get_boolean($_POST['osm_community_bm']),
+    'enabled' => isset($_POST['osm_community_bm']) ? get_boolean($_POST['osm_community_bm']) : '',
     ),
 	);
 
