@@ -184,3 +184,5 @@ $lang['Show the map on all pages of the category : '] = 'Visa karta på alla sid
 $lang['This plugin display geographical location in your gallery using <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a>.'] = 'Detta plugin visar geografisk plats i ditt galleri med <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a>.';
 $lang['This will display a map where the category description is'] = 'Detta kommer visa en karta där kategoribeskrivningen är';
 $lang['This will show a map on all pages of a category, not just in the category\'s description'] = 'Detta kommer visa en karta på alla sidor av en kategori, inte bara i kategoribeskrivningen';
+$lang['Add map to community batch manager :'] = 'Lägg till karta i community batch manager:';
+$lang['If the community plugin is active you can choose to let users GeoTag their uploaded images'] = 'Om community-pluginet är aktivt kan du välja att låta användare geotagga sina uppladdade bilder';
