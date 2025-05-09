@@ -184,3 +184,5 @@ $lang['Display map on category page'] = 'Kaart weergeven op categoriepagina';
 $lang['Display map on picture page'] = 'Kaart weergeven op fotopagina';
 $lang['Configuration if the active theme has a right pannel'] = 'Configuratie als het actieve thema een rechterpaneel heeft';
 $lang['Configuration if the active theme has a left pannel'] = 'Configuratie als het actieve thema een linkerpaneel heeft';
+$lang['Add map to community batch manager :'] = 'Voeg kaart toe aan community batch manager:';
+$lang['If the community plugin is active you can choose to let users GeoTag their uploaded images'] = 'Als de community plugin actief is, kan je ervoor kiezen om gebruikers hun geuploade afbeeldingen te Geo-taggen. ';
