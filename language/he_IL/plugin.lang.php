@@ -169,3 +169,5 @@ $lang['OWNPIN'] = 'סיכה מותאמת אישית (סגנון מותאם אי�
 $lang['Other places the map is displayed'] = 'מקומות אחרים בהם המפה מוצגת';
 $lang['PIN'] = 'בחר סיכה';
 $lang['PINOFFSET'] = 'היסק נקודת סיכה';
+$lang['Add map to community batch manager :'] = 'הוסף מפה למנהל האצווה של הקהילה:';
+$lang['If the community plugin is active you can choose to let users GeoTag their uploaded images'] = 'אם התוסף של הקהילה פעיל תוכל לבחור לאפשר למשתמשים לסמן עם GeoTab את תמונותיהם שהועלו';
