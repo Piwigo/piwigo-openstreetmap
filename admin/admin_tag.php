@@ -53,7 +53,7 @@ $sync_options = array(
 );
 
 // Check if tag_groups is present and active
-$query="SELECT COUNT(*) FROM ".PLUGINS_TABLE." WHERE `id`='tag_groups' AND `state`='active';";
+$query="SELECT COUNT(*) FROM ".PLUGINS_TABLE." WHERE `id`=$prefixeTable.'tag_groups' AND `state`='active';";
 list($tag_groups) = pwg_db_fetch_array( pwg_query($query) );
 if ($tag_groups != 1) {
         $page['warnings'][] = "To use this feature you need the <a href='http://piwigo.org/ext/extension_view.php?eid=781' target='_blank'>tag_groups plugin</a> to be activate";
