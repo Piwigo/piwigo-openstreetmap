@@ -241,8 +241,8 @@ function osm_get_items($page)
     {
         // MySQL did all the job
         //print_r($array);
-        $js_data[] = array((double)$array['latitude'],
-                   (double)$array['longitude'],
+        $js_data[] = array((float)$array['latitude'],
+                   (float)$array['longitude'],
                    $array['name'],
                    get_absolute_root_url() ."i.php?".$array['pathurl'],
                    get_absolute_root_url() ."picture.php?/".$array['imgurl'],
@@ -308,7 +308,10 @@ function osm_get_js($conf, $local_conf, $js_data)
     $center_arr = preg_split('/,/', $center);
     $center_lat = isset($center_arr) ? $center_arr[0] : 0;
     $center_lng = isset($center_arr) ? $center_arr[1] : 0;
-    $zoom = isset($conf['osm_conf']['left_menu']['zoom']) ? $conf['osm_conf']['left_menu']['zoom'] : 2;
+
+    $zoom = $_GET['zoom'] ?? ($local_conf['zoom']?? 2);
+    $center_lat = $_GET['center_lat'] ?? $center_lat;
+    $center_lng = $_GET['center_lng'] ?? $center_lng;
 
     /* If we have zoom and center coordinate, set it otherwise fallback default */
     if (isset($_GET['zoom'])) {
