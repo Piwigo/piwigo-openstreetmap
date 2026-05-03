@@ -167,6 +167,32 @@ SELECT id, name, latitude, longitude
 
 $jsplaces = "\nvar arr_places = ". json_encode(get_list_of_places()) .";\n";
 
+$nearby = array();
+$prev_coords = pwg_db_fetch_row(pwg_query(
+  'SELECT latitude, longitude
+  FROM '.IMAGES_TABLE.'
+  WHERE date_creation <= "'.$picture['date_creation'].'"
+    AND id != '.$picture['id'].'
+    AND latitude IS NOT NULL
+    AND longitude IS NOT NULL
+  LIMIT 1;'));
+if ($prev_coords) {
+  $nearby['prev_lat'] = $prev_coords[0];
+  $nearby['prev_lon'] = $prev_coords[1];
+}
+$next_coords = pwg_db_fetch_row(pwg_query(
+  'SELECT latitude, longitude
+  FROM '.IMAGES_TABLE.'
+  WHERE date_creation >= "'.$picture['date_creation'].'"
+    AND id != '.$picture['id'].'
+    AND latitude IS NOT NULL
+    AND longitude IS NOT NULL
+  LIMIT 1;'));
+if ($next_coords) {
+  $nearby['next_lat'] = $next_coords[0];
+  $nearby['next_lon'] = $next_coords[1];
+}
+
 $template->assign(array(
 	'PWG_TOKEN'		=> get_pwg_token(),
 	'F_ACTION'		=> $self_url,
@@ -178,6 +204,7 @@ $template->assign(array(
 	'LAT'			=> $lat,
 	'LON'			=> $lon,
 	'AVAILABLE_PLACES'	=> $available_places,
+	'NEARBY'		=> $nearby ? json_encode($nearby) : null,
 	'LIST_PLACES'		=> $jsplaces,
 ));
 
