@@ -148,7 +148,7 @@ if ( $tag_groups == 1 and isset($_POST['osm_tag_submit']) )
 					)
 			);
 			$context = stream_context_create($opts);
-			if (false !== ($json = @file_get_contents($osm_url, flase, $context))) {
+			if (false !== ($json = @file_get_contents($osm_url, false, $context))) {
 				// all good
 				//return $json;
 			} else {
