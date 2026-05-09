@@ -167,30 +167,25 @@ SELECT id, name, latitude, longitude
 
 $jsplaces = "\nvar arr_places = ". json_encode(get_list_of_places()) .";\n";
 
+// Find coordinates of the previous and next photos.
 $nearby = array();
-$prev_coords = pwg_db_fetch_row(pwg_query(
-  'SELECT latitude, longitude
-  FROM '.IMAGES_TABLE.'
-  WHERE date_creation <= "'.$picture['date_creation'].'"
-    AND id != '.$picture['id'].'
-    AND latitude IS NOT NULL
-    AND longitude IS NOT NULL
-  LIMIT 1;'));
-if ($prev_coords) {
-  $nearby['prev_lat'] = $prev_coords[0];
-  $nearby['prev_lon'] = $prev_coords[1];
-}
-$next_coords = pwg_db_fetch_row(pwg_query(
-  'SELECT latitude, longitude
-  FROM '.IMAGES_TABLE.'
-  WHERE date_creation >= "'.$picture['date_creation'].'"
-    AND id != '.$picture['id'].'
-    AND latitude IS NOT NULL
-    AND longitude IS NOT NULL
-  LIMIT 1;'));
-if ($next_coords) {
-  $nearby['next_lat'] = $next_coords[0];
-  $nearby['next_lon'] = $next_coords[1];
+foreach (array('prev' => '<=', 'next' => '>=') as $dir => $op)
+{
+  $nearby_coords = pwg_db_fetch_row(pwg_query(
+    'SELECT id, name, latitude, longitude FROM '.IMAGES_TABLE.'
+    WHERE date_creation '.$op.' "'.$picture['date_creation'].'"
+      AND id != '.$picture['id'].'
+      AND latitude IS NOT NULL AND longitude IS NOT NULL
+    LIMIT 1;'));
+  if ($nearby_coords)
+  {
+    $nearby[$dir] = array(
+      'lat' => $nearby_coords[2],
+      'lon' => $nearby_coords[3],
+      'popup' => l10n('OSM_NEARBY_'.strtoupper($dir)),
+      'icon' => $dir === 'prev' ? 'pin-icon-start.png' : 'pin-icon-end.png',
+    );
+  }
 }
 
 $template->assign(array(
