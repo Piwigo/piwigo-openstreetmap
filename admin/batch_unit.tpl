@@ -1,7 +1,7 @@
 {combine_script id='qleaflet' load='header' path="{$OSM_PATH}/leaflet/qleaflet.jquery.js"}
 
 <div class="full-line-box">
-  <strong>{'OSM Geotag'|@translate}</strong>
+  <strong>{'OSM_GEOTAG'|@translate}</strong>
 </div>
 
 <div class="half-line-info-box">
@@ -19,10 +19,10 @@
 
 
 {html_style}
-.map1 { 
+.map1 {
   height: {$batch_unit_height}px !important;
-  width:100% !important; margin: 5px; 
-} 
+  width:100% !important; margin: 5px;
+}
 {/html_style}
 
 <script>
@@ -42,7 +42,7 @@ pluginValues.push({ api_key: "longitude", selector: ".longitude" });
     // Init the map
     $(mapSelector).qleaflet();
 
-    // Get exisitng values 
+    // Get exisitng values
     let prevLat = $(latSelector).val();
     let prevLon = $(lonSelector).val();
 
@@ -63,7 +63,7 @@ pluginValues.push({ api_key: "longitude", selector: ".longitude" });
             !(entry.selector === latSelector || entry.selector === lonSelector)
           );
 
-          // Add values to batch unit 
+          // Add values to batch unit
 
           // Show unsaved badge
           showUnsavedLocalBadge(imageID);

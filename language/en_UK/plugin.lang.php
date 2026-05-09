@@ -151,6 +151,10 @@ $lang['LANGUAGE_HELP'] = 'Fetch the result in a specific language, mostly for th
 $lang['AUTO_CENTER'] = 'Auto center';
 $lang['AUTO_CENTER_HELP'] = 'The map will be automatically centered and zoomed to contain all information.';
 $lang['DISPLAY_GPX_FILE'] = 'Select a GPX file to display on all category description maps';
+$lang['OSM_GEOTAGGED'] = 'OSM Geotagged';
+$lang['OSM_NOT_GEOTAGGED'] = 'OSM Not geotagged';
+$lang['OSM_GPX_TRACKS'] = 'OSM GPX tracks';
+$lang['OSM_GEOTAG'] = 'OSM GeoTag';
 
 $lang['This plugin display geographical location in your gallery using <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a>.'] = 'This plugin display geographical location in your gallery using <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a>.';
 $lang['Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" target="_blanck">plugin documentation</a> for additional information. Create an <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/issues" target="_blanck">issue</a> for support, or feedback, or feature request.'] = 'Refer to the <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/wiki" target="_blanck">plugin documentation</a> for additional information. Create an <a href="https://github.com/xbgmsharp/piwigo-openstreetmap/issues" target="_blanck">issue</a> for support, or feedback, or feature request.';
