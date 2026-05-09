@@ -34,9 +34,10 @@ include_once( OSM_PATH .'/include/functions.php');
 add_event_handler('get_batch_manager_prefilters', 'osm_get_batch_manager_prefilters');
 function osm_get_batch_manager_prefilters($prefilters)
 {
-	$prefilters[] = array('ID' => 'osm0', 'NAME' => l10n('OSM Geotagged'));
-	$prefilters[] = array('ID' => 'osm1', 'NAME' => l10n('OSM Not geotagged'));
-	$prefilters[] = array('ID' => 'osm2', 'NAME' => l10n('OSM GPX tracks'));
+  load_language('plugin.lang', OSM_PATH);
+	$prefilters[] = array('ID' => 'osm0', 'NAME' => l10n('OSM_GEOTAGGED'));
+	$prefilters[] = array('ID' => 'osm1', 'NAME' => l10n('OSM_NOT_GEOTAGGED'));
+	$prefilters[] = array('ID' => 'osm2', 'NAME' => l10n('OSM_GPX_TRACKS'));
 	return $prefilters;
 }
 
@@ -97,8 +98,8 @@ function osm_loc_end_element_set_global()
   
   $template->append('element_set_global_plugins_actions',
 		array(
-      'ID' => 'openstreetmap', 
-      'NAME'=>l10n('OSM GeoTag'), 
+      'ID' => 'openstreetmap',
+      'NAME'=>l10n('OSM_GEOTAG'),
       'CONTENT' => $template->parse('OSM_batch_global', true)
     )
   );
@@ -108,8 +109,8 @@ function osm_loc_end_element_set_global()
     //Used in community
     $template->append('community_element_set_global_plugins_actions',
       array(
-        'ID' => 'openstreetmap', 
-        'NAME'=>l10n('OSM GeoTag'), 
+        'ID' => 'openstreetmap',
+        'NAME'=>l10n('OSM_GEOTAG'),
         'CONTENT' => $template->parse('OSM_batch_global', true)
       )
     );
