@@ -171,19 +171,23 @@ $jsplaces = "\nvar arr_places = ". json_encode(get_list_of_places()) .";\n";
 $nearby = array();
 foreach (array('prev' => '<=', 'next' => '>=') as $dir => $op)
 {
-  $nearby_coords = pwg_db_fetch_row(pwg_query(
-    'SELECT id, name, latitude, longitude FROM '.IMAGES_TABLE.'
+  $nearby_image = pwg_db_fetch_assoc(pwg_query(
+    'SELECT latitude, longitude, id, name, path, width FROM '.IMAGES_TABLE.'
     WHERE date_creation '.$op.' "'.$picture['date_creation'].'"
       AND id != '.$picture['id'].'
       AND latitude IS NOT NULL AND longitude IS NOT NULL
     LIMIT 1;'));
-  if ($nearby_coords)
+  if ($nearby_image)
   {
+    $thumb = DerivativeImage::get_one(IMG_SQUARE, $nearby_image);
+    $image_url = $thumb->get_url();
+    $admin_url = get_root_url().'admin.php?page=photo-'.$nearby_image['id'];
     $nearby[$dir] = array(
-      'lat' => $nearby_coords[2],
-      'lon' => $nearby_coords[3],
-      'popup' => l10n('OSM_NEARBY_'.strtoupper($dir)),
+      'lat' => $nearby_image['latitude'],
+      'lon' => $nearby_image['longitude'],
+      'popup' => l10n('OSM_NEARBY_'.strtoupper($dir))."<br><a href='$admin_url'><img src='$image_url'></a>",
       'icon' => $dir === 'prev' ? 'pin-icon-start.png' : 'pin-icon-end.png',
+      'width' => $thumb->get_size(),
     );
   }
 }
@@ -199,7 +203,7 @@ $template->assign(array(
 	'LAT'			=> $lat,
 	'LON'			=> $lon,
 	'AVAILABLE_PLACES'	=> $available_places,
-	'NEARBY'		=> $nearby ? json_encode($nearby) : null,
+	'NEARBY'		=> $nearby ?? null,
 	'LIST_PLACES'		=> $jsplaces,
 ));
 
