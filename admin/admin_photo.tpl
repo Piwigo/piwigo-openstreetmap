@@ -76,6 +76,8 @@
 	</p>
 </form>
 
+<div id="osm-nearby-coords" data-nearby='{$NEARBY|json_encode|htmlspecialchars}'></div>
+
 {literal}
 <script type="text/javascript">
 
@@ -96,6 +98,23 @@
 	}
 
 	map.on('click', onMapClick);
+
+  const nearbyCoords = document.getElementById('osm-nearby-coords');
+  if (nearbyCoords && nearbyCoords.dataset.nearby) {
+    const nearby = JSON.parse(nearbyCoords.dataset.nearby);
+    for (const n in nearby) {
+      const iconOptions = {
+        iconUrl: '{/literal}{$OSM_PATH}{literal}leaflet/images/'+nearby[n].icon,
+        iconSize: [33, 50],
+        shadowSize: [50, 50],
+        iconAnchor: [16, 45],
+        shadowAnchor: [16, 47]
+      };
+      const nearbyMarker = L.marker(L.latLng(nearby[n].lat, nearby[n].lon), {icon:L.icon(iconOptions)});
+      nearbyMarker.addTo(map);
+      nearbyMarker.bindPopup(nearby[n].popup, {minWidth: nearby[n].width});
+    }
+  }
 
 	/* Disable search require AppKey from mapquest */
 	/* BEGIN leaflet-search */
