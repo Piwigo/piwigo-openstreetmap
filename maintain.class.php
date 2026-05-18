@@ -145,28 +145,7 @@ CREATE TABLE IF NOT EXISTS `'.$this->table.'` (
       pwg_query('ALTER TABLE `'.$this->table.'` CHANGE `longitude` `longitude` double(9,6) NOT NULL;');
     }
 
-    if (conf_get_param('osm_add_osmmap.php', true))
-    {
-      $c = <<<EOF
-<?php
-define('PHPWG_ROOT_PATH','./');
-if (isset(\$_GET['v']) and \$_GET['v'] == 1)
-  include_once( PHPWG_ROOT_PATH. 'plugins/piwigo-openstreetmap/osmmap.php');
-else if (isset(\$_GET['v']) and \$_GET['v'] == 2)
-  include_once( PHPWG_ROOT_PATH. 'plugins/piwigo-openstreetmap/osmmap2.php');
-else if (isset(\$_GET['v']) and \$_GET['v'] == 3)
-  include_once( PHPWG_ROOT_PATH. 'plugins/piwigo-openstreetmap/osmmap3.php');
-else if (isset(\$_GET['v']) and \$_GET['v'] == 4)
-  include_once( PHPWG_ROOT_PATH. 'plugins/piwigo-openstreetmap/osmmap4.php');
-else
-  include_once( PHPWG_ROOT_PATH. 'plugins/piwigo-openstreetmap/osmmap3.php');
-EOF;
-      if (!file_put_contents(PHPWG_ROOT_PATH.'osmmap.php', $c)) {
-        $_error_reporting = error_reporting();
-        error_reporting($_error_reporting);
-        throw new SmartyException("unable to write file " .PHPWG_ROOT_PATH. "osmmap.php");
-      }
-    }
+    $this->ensure_osmmap_shim($errors);
   }
 
   /**
@@ -177,6 +156,9 @@ EOF;
    */
   function activate($plugin_version, &$errors=array())
   {
+    // recreate the shim if missing (lost on image upgrade when the
+    // gallery root is not on a persistent volume)
+    $this->ensure_osmmap_shim($errors);
   }
 
   /**
@@ -219,6 +201,42 @@ EOF;
     if (conf_get_param('osm_remove_osmmap.php', true))
     {
       @unlink(PHPWG_ROOT_PATH.'osmmap.php');
+    }
+  }
+
+  /**
+   * Write the dispatch shim at the gallery root.
+   *
+   * Called from install() and activate(). The shim is always
+   * overwritten. Set the 'osm_add_osmmap.php' config param to false
+   * to skip.
+   */
+  private function ensure_osmmap_shim(&$errors=array())
+  {
+    if (!conf_get_param('osm_add_osmmap.php', true))
+    {
+      return;
+    }
+
+    $shim_path = PHPWG_ROOT_PATH.'osmmap.php';
+    $c = <<<EOF
+<?php
+define('PHPWG_ROOT_PATH','./');
+if (isset(\$_GET['v']) and \$_GET['v'] == 1)
+  include_once( PHPWG_ROOT_PATH. 'plugins/piwigo-openstreetmap/osmmap.php');
+else if (isset(\$_GET['v']) and \$_GET['v'] == 2)
+  include_once( PHPWG_ROOT_PATH. 'plugins/piwigo-openstreetmap/osmmap2.php');
+else if (isset(\$_GET['v']) and \$_GET['v'] == 3)
+  include_once( PHPWG_ROOT_PATH. 'plugins/piwigo-openstreetmap/osmmap3.php');
+else if (isset(\$_GET['v']) and \$_GET['v'] == 4)
+  include_once( PHPWG_ROOT_PATH. 'plugins/piwigo-openstreetmap/osmmap4.php');
+else
+  include_once( PHPWG_ROOT_PATH. 'plugins/piwigo-openstreetmap/osmmap3.php');
+EOF;
+
+    if (file_put_contents($shim_path, $c) === false)
+    {
+      $errors[] = 'unable to write '.$shim_path.' (check permissions)';
     }
   }
 }
