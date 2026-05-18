@@ -31,6 +31,27 @@ Go to a photo with Geo tag sync and see a map appear on the photo page.
 
 Please refer to the [wiki](https://github.com/xbgmsharp/piwigo-openstreetmap/wiki) for additional information.
 
+Docker
+-----
+
+The plugin writes a dispatch file (`osmmap.php`) at the gallery root on
+install and on every reactivation.
+
+If your container image keeps the gallery root inside the image rather
+than on a persistent volume, the file is lost on each image upgrade.
+Deactivate and reactivate the plugin to restore it, or bind mount a
+host file over its location:
+
+        # docker-compose.yml
+        volumes:
+          - /host/path/osmmap.php:/path/to/gallery/osmmap.php
+
+with `osmmap.php` on the host:
+
+        <?php
+        define('PHPWG_ROOT_PATH', './');
+        require __DIR__.'/plugins/piwigo-openstreetmap/osmmap.php';
+
 Support
 -----
 
