@@ -26,6 +26,18 @@
 if ( !defined('PHPWG_ROOT_PATH') )
   define('PHPWG_ROOT_PATH','../../');
 
+// Normalize PATH_INFO: anything after the first "&" becomes a GET
+// param. The plugin emits links like ".../osmmap.php/SLUG&v=2" where
+// "v=2" is part of PATH_INFO; without this, permalink lookup of SLUG
+// fails because it includes the trailing "&v=2".
+if (isset($_SERVER['PATH_INFO']) and ($amp = strpos($_SERVER['PATH_INFO'], '&')) !== false)
+{
+  $extras = substr($_SERVER['PATH_INFO'], $amp + 1);
+  $_SERVER['PATH_INFO'] = substr($_SERVER['PATH_INFO'], 0, $amp);
+  parse_str($extras, $extra_get);
+  $_GET = array_merge($extra_get, $_GET);
+}
+
 include_once( PHPWG_ROOT_PATH.'include/common.inc.php' );
 include_once( PHPWG_ROOT_PATH.'admin/include/functions.php' );
 include_once( dirname(__FILE__) .'/include/functions.php');
